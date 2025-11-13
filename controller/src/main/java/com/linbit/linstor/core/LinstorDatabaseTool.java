@@ -107,7 +107,7 @@ public class LinstorDatabaseTool
             {
                 DbExportImportHelper dbExportImporter = injector.getInstance(DbExportImportHelper.class);
                 ErrorReporter errorLog = injector.getInstance(ErrorReporter.class);
-                dbExportImporter.export(dbExportPath);
+                dbExportImporter.export(Paths.get(dbExportPath));
                 errorLog.logInfo("Export finished");
             });
 

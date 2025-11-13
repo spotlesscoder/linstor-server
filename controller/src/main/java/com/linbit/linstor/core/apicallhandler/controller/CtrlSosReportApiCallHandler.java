@@ -43,7 +43,6 @@ import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.repository.NodeRepository;
 import com.linbit.linstor.core.repository.ResourceDefinitionRepository;
 import com.linbit.linstor.dbdrivers.DatabaseException;
-import com.linbit.linstor.dbdrivers.DbEngine;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.netcom.Peer;
 import com.linbit.linstor.netcom.PeerNotConnectedException;
@@ -121,12 +120,12 @@ public class CtrlSosReportApiCallHandler
     private final CtrlStorPoolListApiCallHandler ctrlStorPoolListApiCallHandler;
     private final CtrlVlmListApiCallHandler ctrlVlmListApiCallHandler;
     private final CtrlBackupQueueInternalCallHandler ctrlBackupQueueInternalCallHandler;
+    private final CtrlExportDbApiCallHandler ctrlExportDbApiCallHandler;
     private final Provider<SpaceTrackingService> spaceTrackingServiceProvider;
     private final CtrlStltSerializer stltComSerializer;
     private final ErrorReporter errorReporter;
     private final ExtCmdFactory extCmdFactory;
     private final CtrlConfig ctrlCfg;
-    private final DbEngine db;
 
     @Inject
     public CtrlSosReportApiCallHandler(
@@ -141,11 +140,11 @@ public class CtrlSosReportApiCallHandler
         CtrlStorPoolListApiCallHandler ctrlStorPoolListApiCallHandlerRef,
         CtrlVlmListApiCallHandler ctrlVlmListApiCallHandlerRef,
         CtrlBackupQueueInternalCallHandler ctrlBackupQueueInternalCallHandlerRef,
+        CtrlExportDbApiCallHandler ctrlExportDbApiCallHandlerRef,
         Provider<SpaceTrackingService> spaceTrackingServiceProviderRef,
         CtrlStltSerializer clientComSerializerRef,
         ExtCmdFactory extCmdFactoryRef,
-        CtrlConfig ctrlCfgRef,
-        DbEngine dbRef
+        CtrlConfig ctrlCfgRef
     )
     {
         errorReporter = errorReporterRef;
@@ -158,11 +157,11 @@ public class CtrlSosReportApiCallHandler
         ctrlStorPoolListApiCallHandler = ctrlStorPoolListApiCallHandlerRef;
         ctrlVlmListApiCallHandler = ctrlVlmListApiCallHandlerRef;
         ctrlBackupQueueInternalCallHandler = ctrlBackupQueueInternalCallHandlerRef;
+        ctrlExportDbApiCallHandler = ctrlExportDbApiCallHandlerRef;
         spaceTrackingServiceProvider = spaceTrackingServiceProviderRef;
         stltComSerializer = clientComSerializerRef;
         extCmdFactory = extCmdFactoryRef;
         ctrlCfg = ctrlCfgRef;
-        db = dbRef;
 
         objectMapper = new ObjectMapper();
     }
@@ -222,6 +221,7 @@ public class CtrlSosReportApiCallHandler
                 // report name
                 ignore -> ignore.thenMany(Flux.<String>empty())
             ).concatWith(gatherControllerJsonInfo(tmpDir, sosReportName)
+            ).concatWith(dbDump(tmpDir, sosReportName)
             ).concatWith(
                 scopeRunner.fluxInTransactionalScope(
                     "Finishing SOS report",
@@ -239,6 +239,23 @@ public class CtrlSosReportApiCallHandler
             ret = Flux.error(exc);
         }
         return ret;
+    }
+
+    private Flux<String> dbDump(Path tmpDirRef, String sosReportNameRef)
+    {
+        Path ctrlSosDir = getCtrlSosDir(tmpDirRef, sosReportNameRef);
+        return ctrlExportDbApiCallHandler.exportDatabase(ctrlSosDir.resolve("dbexport.json"))
+            .onErrorResume(exc ->
+            {
+                String reportName = errorReporter.reportError(exc);
+                append(
+                    ctrlSosDir.resolve("dbexport.json.failed"),
+                    ("ErrorReport-" + reportName).getBytes(),
+                    System.currentTimeMillis()
+                );
+                return Flux.empty();
+            })
+            .thenMany(Flux.empty());
     }
 
     /**
@@ -845,70 +862,68 @@ public class CtrlSosReportApiCallHandler
         long nowMillis = System.currentTimeMillis();
         LocalDateTime now = TimeUtils.millisToDate(nowMillis);
 
-        String nodeName = "_" + LinStor.CONTROLLER_MODULE;
-        Path sosDir = tmpDir.resolve(sosReportName + "/" + nodeName);
+        Path sosCtrlDir = getCtrlSosDir(tmpDir, sosReportName);
         String infoContent = LinStor.linstorInfo() + "\n\nuname -a:           " + LinStor.getUname("-a");
-        append(sosDir.resolve("linstorInfo"), infoContent.getBytes(), nowMillis);
+        append(sosCtrlDir.resolve("linstorInfo"), infoContent.getBytes(), nowMillis);
         String timeContent = "Local Time: " + TimeUtils.DTF_NO_SPACE.format(now) + "\nUTC Time:   " +
             TimeUtils.DTF_NO_SPACE
             .format(ZonedDateTime.of(now, ZoneOffset.UTC));
-        append(sosDir.resolve("timeInfo"), timeContent.getBytes(), nowMillis);
-        getDbDump(sosDir);
+        append(sosCtrlDir.resolve("timeInfo"), timeContent.getBytes(), nowMillis);
 
         String tomlPath = ctrlCfg.getConfigDir() + LinstorConfig.LINSTOR_CTRL_CONFIG;
         CommandHelper[] commands = new CommandHelper[]
         {
             new CommandHelper(
-                sosDir.resolve(LinstorConfig.LINSTOR_CTRL_CONFIG),
+                sosCtrlDir.resolve(LinstorConfig.LINSTOR_CTRL_CONFIG),
                 new String[]
                 {
-                    "cp", "-p", tomlPath, sosDir.toString()
+                    "cp", "-p", tomlPath, sosCtrlDir.toString()
                 }
             ),
             new CommandHelper(
-                sosDir.resolve("journalctl"),
+                sosCtrlDir.resolve("journalctl"),
                 new String[]
                 {
                     "journalctl", "-u", "linstor-controller", "--since", TimeUtils.JOURNALCTL_DF.format(since)
                 }
             ),
             new CommandHelper(
-                sosDir.resolve("journalctl-kernel-log"),
+                sosCtrlDir.resolve("journalctl-kernel-log"),
                 new String[]
                     {
                         "journalctl", "--dmesg", "-b", "all", "--since", TimeUtils.JOURNALCTL_DF.format(since)
                     }
                 ),
             new CommandHelper(
-                sosDir.resolve("ip-a"),
+                sosCtrlDir.resolve("ip-a"),
                 new String[]
                 {
                     "ip", "a"
                 }
             ),
             new CommandHelper(
-                sosDir.resolve("log-syslog"),
+                sosCtrlDir.resolve("log-syslog"),
                 new String[]
                 {
-                    "cp", "-p", "/var/log/syslog", sosDir + "/log-syslog"
+                    "cp", "-p", "/var/log/syslog", sosCtrlDir + "/log-syslog"
                 }
             ),
             new CommandHelper(
-                sosDir.resolve("log-kern.log"),
+                sosCtrlDir.resolve("log-kern.log"),
                 new String[]
                 {
-                    "cp", "-p", "/var/log/kern.log", sosDir + "/log-kern.log"
+                    "cp", "-p", "/var/log/kern.log", sosCtrlDir + "/log-kern.log"
                 }
             ),
             new CommandHelper(
-                sosDir.resolve("log-messages"),
+                sosCtrlDir.resolve("log-messages"),
                 new String[]
                 {
-                    "cp", "-p", "/var/log/messages", sosDir + "/log-messages"
+                    "cp", "-p", "/var/log/messages", sosCtrlDir + "/log-messages"
                 }
             ),
             new CommandHelper(
-                sosDir.resolve("release"),
+                sosCtrlDir.resolve("release"),
                 new String[]
                 {
                     "cat", "/etc/redhat-release", "/etc/lsb-release", "/etc/os-release"
@@ -926,7 +941,7 @@ public class CtrlSosReportApiCallHandler
                 byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes();
                 try
                 {
-                    Path fileNameIoExc = sosDir.resolve(cmd.file.getFileName() + "io_exc");
+                    Path fileNameIoExc = sosCtrlDir.resolve(cmd.file.getFileName() + "io_exc");
                     Files.write(fileNameIoExc, exceptionData);
                 }
                 catch (IOException exc1)
@@ -941,12 +956,12 @@ public class CtrlSosReportApiCallHandler
         Set<SosReportType> errorReports = collector.getFiles();
         if (!errorReports.isEmpty())
         {
-            makeDir(sosDir.resolve("logs/"));
+            makeDir(sosCtrlDir.resolve("logs/"));
         }
 
         for (SosReportType err : errorReports)
         {
-            Path erroReportPath = sosDir.resolve("logs/" + Paths.get(err.getFileName()).getFileName());
+            Path erroReportPath = sosCtrlDir.resolve("logs/" + Paths.get(err.getFileName()).getFileName());
             makeFileFromCmdNoFailed(
                 addExtension(erroReportPath, ".out"),
                 nowMillis,
@@ -955,6 +970,11 @@ public class CtrlSosReportApiCallHandler
                 erroReportPath.toString()
             );
         }
+    }
+
+    private Path getCtrlSosDir(Path tmpDir, String sosReportName)
+    {
+        return tmpDir.resolve(sosReportName).resolve("_" + LinStor.CONTROLLER_MODULE);
     }
 
     private void makeDir(Path dirPath) throws IOException
@@ -1120,27 +1140,6 @@ public class CtrlSosReportApiCallHandler
             errorReporter.reportError(exc);
         }
 
-    }
-
-    /**
-     * Writes a database dump to $dirPath/dbDump
-     */
-    private void getDbDump(Path dirPath) throws IOException
-    {
-        try
-        {
-            Path dbDump = dirPath.resolve("dbDump");
-            Files.write(dbDump, db.getDbDump().getBytes());
-        }
-        catch (DatabaseException exc)
-        {
-            String reportName = errorReporter.reportError(exc);
-            append(
-                dirPath.resolve("dbDump.failed"),
-                ("ErrorReport-" + reportName).getBytes(),
-                System.currentTimeMillis()
-            );
-        }
     }
 
     /**

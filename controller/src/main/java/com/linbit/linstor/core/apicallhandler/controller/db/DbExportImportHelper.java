@@ -2,6 +2,7 @@ package com.linbit.linstor.core.apicallhandler.controller.db;
 
 import com.linbit.ImplementationError;
 import com.linbit.linstor.InitializationException;
+import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.LinStorScope;
@@ -31,6 +32,7 @@ import javax.inject.Singleton;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +43,7 @@ import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.google.inject.Key;
 
 @Singleton
 public class DbExportImportHelper
@@ -97,12 +100,16 @@ public class DbExportImportHelper
         ctrlCfg = ctrlCfgRef;
     }
 
-    public void export(String fileNameRef)
+    public void export(Path targetFileRef)
     {
         List<DbExportPojoData.Table> tables = new ArrayList<>();
 
-        TransactionMgr txMgr = txMgrGenerator.get().startTransaction();
-        TransactionMgrUtil.seedTransactionMgr(linstorScope, txMgr);
+        @Nullable TransactionMgr transMgr = null;
+        if (!linstorScope.isSeeded(Key.get(TransactionMgr.class)))
+        {
+            transMgr = txMgrGenerator.get().startTransaction();
+            TransactionMgrUtil.seedTransactionMgr(linstorScope, transMgr);
+        }
 
         String dbConnectionUrl = ctrlCfg.getDbConnectionUrl();
         String exportedBy;
@@ -187,20 +194,36 @@ public class DbExportImportHelper
                 exc
             );
         }
+        finally
+        {
+            if (transMgr != null)
+            {
+                /*
+                 * if transMgr was null, we did not start it which means that we are running as a part of a different
+                 * scope. This other scope could have already made some changes that should be persisted eventually.
+                 * That means that we must not rollback here.
+                 *
+                 * On the other hand, if we did start it (i.e. != null) we should not have done any changes to it, so
+                 * rollback just to be sure
+                 */
+                transMgr.rollback();
+            }
+        }
 
         ObjectMapper om = new ObjectMapper();
         try
         {
-            om.writeValue(new File(fileNameRef), pojo);
-            errorReporter.logTrace("written db export to: %s", fileNameRef);
-
+            // TODO: we might want to externalize this om.writeValue to allow locks to be given up
+            // a bit earlier.
+            om.writeValue(targetFileRef.toFile(), pojo);
+            errorReporter.logTrace("written db export to: %s", targetFileRef);
         }
         catch (IOException exc)
         {
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
                     ApiConsts.FAIL_INVLD_DB_EXPORT_FILE,
-                    "Failed to write database backup. File: " + fileNameRef
+                    "Failed to write database backup. File: " + targetFileRef
                 ),
                 exc
             );
