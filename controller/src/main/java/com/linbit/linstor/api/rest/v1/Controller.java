@@ -10,6 +10,7 @@ import com.linbit.linstor.api.rest.v1.serializer.JsonGenTypes;
 import com.linbit.linstor.api.rest.v1.utils.ApiCallRcRestUtils;
 import com.linbit.linstor.core.LinStor;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlApiCallHandler;
+import com.linbit.linstor.core.apicallhandler.controller.CtrlExportDbApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlPropsInfoApiCallHandler;
 import com.linbit.linstor.core.apis.ControllerConfigApi;
 import com.linbit.linstor.core.cfg.CtrlConfig;
@@ -51,6 +52,7 @@ public class Controller
     private final ObjectMapper objectMapper;
     private final RequestHelper requestHelper;
     private final CtrlApiCallHandler ctrlApiCallHandler;
+    private final CtrlExportDbApiCallHandler ctrlExportDbApiCallHandler;
     private final CtrlConfig ctrlCfg;
     private final CtrlPropsInfoApiCallHandler ctrlPropsInfoApiCallHandler;
 
@@ -61,6 +63,7 @@ public class Controller
         ErrorReporter errorReporterRef,
         RequestHelper requestHelperRef,
         CtrlApiCallHandler ctrlApiCallHandlerRef,
+        CtrlExportDbApiCallHandler ctrlExportDbApiCallHandlerRef,
         CtrlConfig ctrlCfgRef,
         CtrlPropsInfoApiCallHandler ctrlPropsInfoApiCallHandlerRef
     )
@@ -68,6 +71,7 @@ public class Controller
         errorReporter = errorReporterRef;
         requestHelper = requestHelperRef;
         ctrlApiCallHandler = ctrlApiCallHandlerRef;
+        ctrlExportDbApiCallHandler = ctrlExportDbApiCallHandlerRef;
         ctrlCfg = ctrlCfgRef;
         ctrlPropsInfoApiCallHandler = ctrlPropsInfoApiCallHandlerRef;
 
@@ -379,6 +383,7 @@ public class Controller
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("backup/db")
+    @Deprecated(since = "v1.34.0")
     public Response backupDB(
         @Context Request request,
         String jsonData
@@ -410,5 +415,51 @@ public class Controller
             ApiCallRc apiCallRc = ctrlApiCallHandler.backupDb(backupPath);
             return ApiCallRcRestUtils.toResponse(apiCallRc, Response.Status.CREATED);
         }, true);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("database/export")
+    public void databaseExport(
+        @Context Request request,
+        @Suspended final AsyncResponse asyncResponse,
+        String jsonData
+    )
+    {
+        Flux<ApiCallRc> flux = Flux.empty();
+        try
+        {
+            JsonGenTypes.DatabaseBackupRequest req = objectMapper
+                .readValue(jsonData, JsonGenTypes.DatabaseBackupRequest.class);
+
+            @Nullable String backupPath = req.backup_name;
+
+            if (backupPath == null)
+            {
+                backupPath = DB_BACKUP_BASE_DIR + "linstordb-backup-" + TimeUtils.DTF_NO_SPACE.format(
+                    LocalDateTime.now()
+                ) + ".json";
+            }
+            else
+            {
+                backupPath = DB_BACKUP_BASE_DIR + backupPath;
+            }
+
+            if (!backupPath.endsWith(".json"))
+            {
+                backupPath += ".json";
+            }
+            flux = ctrlExportDbApiCallHandler.exportDatabase(backupPath);
+        }
+        catch (IOException ioExc)
+        {
+            ApiCallRcRestUtils.handleJsonParseException(ioExc, asyncResponse);
+        }
+        requestHelper.doFlux(
+            InternalApiConsts.API_MOD_CONFIG,
+            request,
+            asyncResponse,
+            ApiCallRcRestUtils.mapToMonoResponse(flux, Response.Status.CREATED)
+        );
     }
 }

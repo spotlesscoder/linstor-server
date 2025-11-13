@@ -1422,6 +1422,7 @@ public class CtrlApiCallHandler
         return status;
     }
 
+    @Deprecated(since = "v1.34.0")
     public ApiCallRc backupDb(String backupPath)
     {
         ApiCallRcImpl apiCallRc = new ApiCallRcImpl();

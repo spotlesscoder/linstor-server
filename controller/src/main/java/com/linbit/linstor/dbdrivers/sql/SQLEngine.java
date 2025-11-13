@@ -98,6 +98,7 @@ public class SQLEngine implements DbEngine
     }
 
     @Override
+    @Deprecated(since = "v1.34.0")
     public ApiCallRc backupDb(String backupPath) throws DatabaseException
     {
         ApiCallRcImpl apiCallRc = new ApiCallRcImpl();

@@ -2,6 +2,14 @@
 
 All notable changes to Linstor OPENAPI(REST) will be documented in this file.
 
+## [unreleased]
+
+### Added
+  - Added /v1/controller/database/export
+
+### Deprecated
+  - Deprecated /v1/controller/backup/db in favor of /v1/controller/database/export.
+
 ## [1.27.0]
 
 ### Added

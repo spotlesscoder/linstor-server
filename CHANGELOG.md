@@ -8,9 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Add
+### Added
 
 - Toggle-disk can now be retried or aborted.
+- Added export-db API
+
+### Changed
+
+- SOS report now uses export-db instead of non-JSON database dump
 
 ### Changed
 

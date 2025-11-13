@@ -20,6 +20,7 @@ import com.linbit.linstor.dbdrivers.GeneratedDatabaseTables.Nodes;
 import com.linbit.linstor.dbdrivers.interfaces.updater.CollectionDatabaseDriver;
 import com.linbit.linstor.dbdrivers.interfaces.updater.MapDatabaseDriver;
 import com.linbit.linstor.dbdrivers.interfaces.updater.SingleColumnDatabaseDriver;
+import com.linbit.linstor.dbdrivers.k8s.crd.K8sCrdEngine;
 import com.linbit.linstor.dbdrivers.sql.SQLEngine;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.stateflags.Flags;
@@ -355,6 +356,7 @@ public interface DbEngine
 
     String getDbDump() throws DatabaseException;
 
+    @Deprecated(since = "v1.34.0")
     ApiCallRc backupDb(String backupPath) throws DatabaseException;
 
     List<RawParameters> export(@Nullable DatabaseTable tableRef) throws DatabaseException;

@@ -76,6 +76,7 @@ public class K8sCrdEngine implements DbEngine
     }
 
     @Override
+    @Deprecated(since = "v1.34.0")
     public ApiCallRc backupDb(String backupPath) throws DatabaseException
     {
         return ApiCallRcImpl.singleApiCallRc(
