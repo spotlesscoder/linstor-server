@@ -100,7 +100,25 @@ public class DbExportImportHelper
         ctrlCfg = ctrlCfgRef;
     }
 
-    public void export(Path targetFileRef)
+    /**
+     * Highly advised that reconfiguration.writelock is held before calling this method. <br/>
+     * <br/>
+     * Calls {@link #exportDb()} and writes the resulting JSON into the given <code>targetFileRef</code>
+     *
+     * @param targetFileRef The file that the resulting {@link DbExportPojoData} will be written into.
+     */
+    public void exportTo(Path targetFileRef)
+    {
+        writeTo(exportDb(), targetFileRef);
+    }
+
+    /**
+     * Highly advised that reconfiguration.writelock is held before calling this method
+     *
+     * @return a {@link DbExportPojoData} which contains the structure as well as all data of the
+     * database dump.
+     */
+    public DbExportPojoData exportDb()
     {
         List<DbExportPojoData.Table> tables = new ArrayList<>();
 
@@ -210,12 +228,20 @@ public class DbExportImportHelper
             }
         }
 
+        return pojo;
+    }
+
+    /**
+     * Writes the given {@link DbExportPojoData} into the given <code>targetFileRef</code>
+     * @param pojoRef The actual database dump
+     * @param targetFileRef The file the database dump should be written into.
+     */
+    public void writeTo(DbExportPojoData pojoRef, Path targetFileRef)
+    {
         ObjectMapper om = new ObjectMapper();
         try
         {
-            // TODO: we might want to externalize this om.writeValue to allow locks to be given up
-            // a bit earlier.
-            om.writeValue(targetFileRef.toFile(), pojo);
+            om.writeValue(targetFileRef.toFile(), pojoRef);
             errorReporter.logTrace("written db export to: %s", targetFileRef);
         }
         catch (IOException exc)
