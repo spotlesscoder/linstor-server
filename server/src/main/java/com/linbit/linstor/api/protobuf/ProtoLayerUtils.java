@@ -305,42 +305,22 @@ public class ProtoLayerUtils
 
     public static String layerType2layerString(LayerType layerType)
     {
-        String str;
-        switch (layerType)
+        return switch (layerType)
         {
-            case DRBD:
-                str = "DRBD";
-                break;
-            case LUKS:
-                str = "LUKS";
-                break;
-            case STORAGE:
-                str = "STORAGE";
-                break;
-            case NVME:
-                str = "NVME";
-                break;
-            case WRITECACHE:
-                str = "WRITECACHE";
-                break;
-            case CACHE:
-                str = "CACHE";
-                break;
-            case BCACHE:
-                str = "BCACHE";
-                break;
-            case UNKNOWN_LAYER: // fall-through
-            case UNRECOGNIZED: // fall-through
-            default:
-                throw new ApiRcException(
-                    ApiCallRcImpl.simpleEntry(
-                        ApiConsts.FAIL_INVLD_LAYER_KIND,
-                        "Given layer type '" + layerType + "' is invalid"
-                    )
-                );
-        }
-
-        return str;
+            case DRBD -> "DRBD";
+            case LUKS -> "LUKS";
+            case STORAGE -> "STORAGE";
+            case NVME -> "NVME";
+            case WRITECACHE -> "WRITECACHE";
+            case CACHE -> "CACHE";
+            case BCACHE -> "BCACHE";
+            case UNKNOWN_LAYER, UNRECOGNIZED -> throw new ApiRcException(
+                ApiCallRcImpl.simpleEntry(
+                    ApiConsts.FAIL_INVLD_LAYER_KIND,
+                    "Given layer type '" + layerType + "' is invalid"
+                )
+            );
+        };
     }
 
     public static List<Pair<String, RscDfnLayerDataApi>> extractRscDfnLayerData(RscDfn rscDfnRef)

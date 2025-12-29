@@ -132,15 +132,6 @@ Checkstyle: https://checkstyle.sourceforge.net, https://github.com/checkstyle/ch
         </module>
 
         <module name="DescendantToken">
-            <property name="tokens" value="LITERAL_SWITCH"/>
-            <property name="limitedTokens" value="LITERAL_DEFAULT"/>
-            <property name="minimumNumber" value="1"/>
-            <property name="maximumNumber" value="1"/>
-            <property name="severity" value="error"/>
-            <property name="id" value="checkstyle:switchdefaultcount"/>
-        </module>
-
-        <module name="DescendantToken">
             <property name="tokens" value="FOR_INIT"/>
             <property name="limitedTokens" value="EXPR"/>
             <property name="minimumNumber" value="1"/>
