@@ -10,7 +10,7 @@ spec:
       description: vmshed version to use
     build_helpers_version:
       type: string
-      default: 4f89dfb823bfdeb6fd648d8375f21fb35af96377
+      default: b2edbb8af25e877317844f5974db3a6b349a4d8b
       description: build-helpers version or tag to use
     vmshed_torun:
       type: string
@@ -30,7 +30,7 @@ spec:
       description: How often to repeat each run
     distributions:
       type: string
-      default: ubuntu-focal,ubuntu-jammy,ubuntu-noble,rhel7.0,rhel8.0,rhel9.0,rhel10.0,debian-bookworm
+      default: ubuntu-focal,ubuntu-jammy,ubuntu-noble,rhel8.0,rhel9.0,rhel10.0,debian-trixie
       description: "which distributions to build for"
     ci_e2e_timeout:
       type: string
@@ -129,9 +129,6 @@ workflow:
     - curl -X DELETE -u $LINBIT_REGISTRY_USER:$LINBIT_REGISTRY_PASSWORD $LINBIT_REGISTRY_URL/repository/ci-yum/rhel8/x86_64/linstor-controller-$LINSTOR_VERSION-1.noarch.rpm
     - curl -X DELETE -u $LINBIT_REGISTRY_USER:$LINBIT_REGISTRY_PASSWORD $LINBIT_REGISTRY_URL/repository/ci-yum/rhel8/x86_64/linstor-common-$LINSTOR_VERSION-1.noarch.rpm
     - curl -X DELETE -u $LINBIT_REGISTRY_USER:$LINBIT_REGISTRY_PASSWORD $LINBIT_REGISTRY_URL/repository/ci-yum/rhel8/x86_64/linstor-satellite-$LINSTOR_VERSION-1.noarch.rpm
-    - curl -X DELETE -u $LINBIT_REGISTRY_USER:$LINBIT_REGISTRY_PASSWORD $LINBIT_REGISTRY_URL/repository/ci-yum/rhel7/x86_64/linstor-controller-$LINSTOR_VERSION-1.noarch.rpm
-    - curl -X DELETE -u $LINBIT_REGISTRY_USER:$LINBIT_REGISTRY_PASSWORD $LINBIT_REGISTRY_URL/repository/ci-yum/rhel7/x86_64/linstor-common-$LINSTOR_VERSION-1.noarch.rpm
-    - curl -X DELETE -u $LINBIT_REGISTRY_USER:$LINBIT_REGISTRY_PASSWORD $LINBIT_REGISTRY_URL/repository/ci-yum/rhel7/x86_64/linstor-satellite-$LINSTOR_VERSION-1.noarch.rpm
     - lbbuildctl build linstor-server --arch amd64 --ci -v "$LINSTOR_VERSION"
       -e LINBIT_REGISTRY_USER=$LINBIT_REGISTRY_USER
       -e LINBIT_REGISTRY_PASSWORD=$LINBIT_REGISTRY_PASSWORD

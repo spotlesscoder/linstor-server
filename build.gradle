@@ -52,7 +52,7 @@ subprojects {
     apply plugin: 'checkstyle'
 
     compileJava {
-        options.release = 11
+        options.release = 21
     }
 
     repositories {
@@ -401,6 +401,9 @@ sourceSets {
 }
 
 test {
+    jvmArgs("--add-opens", "java.base/java.lang=ALL-UNNAMED",
+            "--add-opens", "java.base/java.util=ALL-UNNAMED",
+            "--add-opens", "java.base/java.io=ALL-UNNAMED",)
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
