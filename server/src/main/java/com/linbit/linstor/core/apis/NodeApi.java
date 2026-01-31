@@ -13,6 +13,10 @@ public interface NodeApi
     String getType();
     UUID getUuid();
     ApiConsts.ConnectionStatus connectionStatus();
+    @Nullable
+    ApiConsts.Platform getPlatform();
+    @Nullable
+    String getOsVariant();
     long getReconnectAttemptCount();
     Map<String, String> getProps();
     long getFlags();

@@ -6165,6 +6165,19 @@ components:
           type: integer
           format: int64
           description: milliseconds since unix epoch in UTC
+        platform:
+          type: string
+          example: LINUX
+          description: |
+            Enum describing the satellite's platform (Linux/Windows)
+          enum:
+            - LINUX
+            - WINDOWS
+        os_variant:
+          type: string
+          example: Ubuntu 18.04.2 LTS
+          description: |
+            String describing the satellite's OS variant (Linux distri, Windows version)
     NodeCreateEbs:
       type: object
       required:

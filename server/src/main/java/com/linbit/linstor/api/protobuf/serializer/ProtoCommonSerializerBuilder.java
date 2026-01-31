@@ -5,6 +5,7 @@ import com.linbit.linstor.LinstorParsingUtils;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
+import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.interfaces.RscDfnLayerDataApi;
 import com.linbit.linstor.api.interfaces.RscLayerDataApi;
 import com.linbit.linstor.api.interfaces.VlmDfnLayerDataApi;
@@ -315,6 +316,8 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
         long expectedFullSyncIdRef,
         int[] stltVersionRef,
         String uname,
+        @Nullable ApiConsts.Platform platform,
+        @Nullable String osVariant,
         Collection<ExtToolsInfo> extToolsList,
         ApiCallRc responses,
         String configDir,
@@ -366,6 +369,8 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                     )
                 )
                 .setNodeUname(uname)
+                .setPlatform(platform == ApiConsts.Platform.WINDOWS ? MsgIntAuthResponse.Platform.WINDOWS : MsgIntAuthResponse.Platform.LINUX)
+                .setOsVariant(osVariant != null ? osVariant : "Unknown")
                 .addAllProperties(serializeDynamicProperties(whitelistProps))
                 .build()
                 .writeDelimitedTo(baos);

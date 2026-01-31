@@ -17,13 +17,17 @@ import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.netcom.Peer;
 import com.linbit.linstor.proto.javainternal.c2s.MsgIntAuthOuterClass.MsgIntAuth;
 import com.linbit.linstor.utils.SetUtils;
+import com.linbit.Platform;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 import java.util.UUID;
 
 @ProtobufApiCall(
@@ -76,6 +80,8 @@ public class CtrlAuth implements ApiCall
         String nodeUname = LinStor.getHostName();
 
         AuthenticationResult authResult;
+        @Nullable ApiConsts.Platform platform = detectPlatform();
+        @Nullable String osVariant = detectOsVariant();
         try
         {
             // TODO: implement authentication
@@ -117,6 +123,8 @@ public class CtrlAuth implements ApiCall
                     updateMonitor.getNextFullSyncId(),
                     LinStor.VERSION_INFO_PROVIDER.getSemanticVersion(),
                     nodeUname,
+                    platform,
+                    osVariant,
                     authResult.getExternalToolsInfoList(),
                     authResult.getApiCallRc(),
                     stltConfig.getConfigDir(),
@@ -150,5 +158,45 @@ public class CtrlAuth implements ApiCall
             ),
             InternalApiConsts.API_AUTH_RESPONSE
         );
+    }
+
+    private ApiConsts.Platform detectPlatform()
+    {
+        return Platform.isWindows() ? ApiConsts.Platform.WINDOWS : ApiConsts.Platform.LINUX;
+    }
+
+    private String detectOsVariant()
+    {
+        String s = "Unknown";
+
+        if (Platform.isWindows())
+        {
+            Properties sysProps = System.getProperties();
+            s = sysProps.getProperty("os.name", "Unknown");
+        }
+        else
+        {
+            try (BufferedReader br = new BufferedReader(new FileReader("/etc/os-release")))
+            {
+                String line;
+                while ((line = br.readLine()) != null)
+                {
+                    if (line.startsWith("PRETTY_NAME="))
+                    {
+                        int first = line.indexOf('"');
+                        int last = line.lastIndexOf('"');
+                        if (first > 0 && last > 0 && last > first)
+                        {
+                            s = line.substring(first + 1, last);
+                        }
+                    }
+                }
+            }
+            catch (IOException exp)     /* no such file, ... */
+            {
+                s = "Unknown (cannot open /etc/os-release)";
+            }
+        }
+        return s;
     }
 }

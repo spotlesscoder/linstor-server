@@ -3,6 +3,7 @@ package com.linbit.linstor.api.interfaces.serializer;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
+import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.pojo.FileInfoPojo;
 import com.linbit.linstor.api.pojo.FilePojo;
 import com.linbit.linstor.api.pojo.RequestFilePojo;
@@ -44,6 +45,8 @@ public interface CommonSerializer
             long expectedFullSyncId,
             int[] stltVersion,
             String nodeUname,
+            @Nullable ApiConsts.Platform platform,
+            @Nullable String osVariant,
             Collection<ExtToolsInfo> layerInfoListRef,
             ApiCallRc responses,
             String configDir,

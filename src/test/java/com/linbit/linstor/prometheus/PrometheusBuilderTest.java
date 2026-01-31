@@ -56,6 +56,8 @@ public class PrometheusBuilderTest
                 Collections.emptyList(),
                 Collections.emptyMap(),
                 ApiConsts.ConnectionStatus.ONLINE,
+                null, // platform
+                null, // osVariant
                 null,
                 null,
                 Collections.emptyList(),

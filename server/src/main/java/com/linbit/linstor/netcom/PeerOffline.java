@@ -204,6 +204,28 @@ public class PeerOffline implements Peer
     }
 
     @Override
+    public @Nullable ApiConsts.Platform getPlatform()
+    {
+        return null;
+    }
+
+    @Override
+    public void setPlatform(@Nullable ApiConsts.Platform platform)
+    {
+    }
+
+    @Override
+    public @Nullable String getOsVariant()
+    {
+        return null;
+    }
+
+    @Override
+    public void setOsVariant(@Nullable String osVariant)
+    {
+    }
+
+    @Override
     public boolean isConnected(boolean ensureAuthenticated)
     {
         return false;

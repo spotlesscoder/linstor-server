@@ -153,6 +153,8 @@ public class Json
         nd.unsupported_layers = nodeApi.getUnsupportedLayersWithReasons();
         nd.unsupported_providers = nodeApi.getUnsupportedProvidersWithReasons();
         nd.eviction_timestamp = nodeApi.getEvictionTimestamp();
+        nd.platform = nodeApi.getPlatform() != null ? nodeApi.getPlatform().name() : null;
+        nd.os_variant = nodeApi.getOsVariant();
         return nd;
     }
 

@@ -67,6 +67,8 @@ public class ApplyNode implements ApiCall
             nodeMsg.getPropsMap(),
             // we just assume that we are connected to the other satellite / controller
             ApiConsts.ConnectionStatus.ONLINE,
+            null,    /* platform only reported from satellite to controller */
+            null,    /* Same for osVariant */
             fullSyncId,
             updateId,
             null,

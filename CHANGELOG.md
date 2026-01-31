@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Toggle-disk can now be retried or aborted.
 - Added export-db API
+- Satellites report platform and OS variant and Controller exposes that on the REST API.
 
 ### Changed
 

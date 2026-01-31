@@ -83,6 +83,8 @@ public class CtrlAuthResponseApiCallHandler
         ApiCallRcImpl apiCallResponse,
         @Nullable Long expectedFullSyncId,
         @Nullable String nodeUname,
+        @Nullable ApiConsts.Platform platform,
+        @Nullable String osVariant,
         @Nullable Integer linstorVersionMajor,
         @Nullable Integer linstorVersionMinor,
         @Nullable Integer linstorVersionPatch,
@@ -101,6 +103,8 @@ public class CtrlAuthResponseApiCallHandler
                 apiCallResponse,
                 expectedFullSyncId,
                 nodeUname,
+                platform,
+                osVariant,
                 linstorVersionMajor,
                 linstorVersionMinor,
                 linstorVersionPatch,
@@ -166,6 +170,8 @@ public class CtrlAuthResponseApiCallHandler
         ApiCallRcImpl apiCallResponse,
         @Nullable Long expectedFullSyncId,
         @Nullable String nodeUname,
+        @Nullable ApiConsts.Platform platform,
+        @Nullable String osVariant,
         @Nullable Integer linstorVersionMajor,
         @Nullable Integer linstorVersionMinor,
         @Nullable Integer linstorVersionPatch,
@@ -208,6 +214,8 @@ public class CtrlAuthResponseApiCallHandler
                 peer.setConnectionStatus(ApiConsts.ConnectionStatus.CONNECTED);
                 peer.getExtToolsManager().updateExternalToolsInfo(externalToolsInfoList);
                 peer.setDynamicProperties(dynamicPropListRef);
+                peer.setPlatform(platform);
+                peer.setOsVariant(osVariant);
 
                 com.linbit.linstor.core.cfg.StltConfig stltCfg = new com.linbit.linstor.core.cfg.StltConfig();
                 stltCfg.setConfigDir(stltConfig.getConfigDir());
@@ -368,5 +376,4 @@ public class CtrlAuthResponseApiCallHandler
             }
         }
     }
-
 }

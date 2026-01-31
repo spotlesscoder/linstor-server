@@ -1,9 +1,11 @@
 package com.linbit.linstor.api.protobuf.internal;
 
 import com.linbit.linstor.InternalApiConsts;
+import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiCallReactive;
+import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.prop.Property;
 import com.linbit.linstor.api.protobuf.ProtoDeserializationUtils;
 import com.linbit.linstor.api.protobuf.ProtobufApiCall;
@@ -80,12 +82,18 @@ public class IntAuthResponse implements ApiCallReactive
         final Integer linstorVersionPatch;
         final List<ExtToolsInfo> externalToolsInfoList;
         final String nodeUname;
+        final @Nullable ApiConsts.Platform platform;
+        final @Nullable String osVariant;
         final StltConfig stltConfig;
         final List<Property> dynamicPropList;
         if (success)
         {
             expectedFullSyncId = msgAuthResponse.getExpectedFullSyncId();
             nodeUname = msgAuthResponse.getNodeUname();
+            platform = msgAuthResponse.getPlatform() == MsgIntAuthResponse.Platform.WINDOWS ? ApiConsts.Platform.WINDOWS : ApiConsts.Platform.LINUX;
+            String tmp = msgAuthResponse.getOsVariant();
+            osVariant = !tmp.equals("") ? tmp : "Unknown";
+
             linstorVersionMajor = msgAuthResponse.getLinstorVersionMajor();
             linstorVersionMinor = msgAuthResponse.getLinstorVersionMinor();
             linstorVersionPatch = msgAuthResponse.getLinstorVersionPatch();
@@ -100,6 +108,8 @@ public class IntAuthResponse implements ApiCallReactive
         {
             expectedFullSyncId = null;
             nodeUname = null;
+            platform = null;
+            osVariant = null;
             linstorVersionMajor = null;
             linstorVersionMinor = null;
             linstorVersionPatch = null;
@@ -113,6 +123,8 @@ public class IntAuthResponse implements ApiCallReactive
             apiCallResponse,
             expectedFullSyncId,
             nodeUname,
+            platform,
+            osVariant,
             linstorVersionMajor,
             linstorVersionMinor,
             linstorVersionPatch,

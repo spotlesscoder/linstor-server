@@ -12,6 +12,12 @@ import "common/StltConfig.proto";
 // Internal response for an attempt of authentication from the controller
 message MsgIntAuthResponse
 {
+    enum Platform
+    {
+        LINUX = 0;
+        WINDOWS = 1;
+    }
+
     bool    success = 1;
 
     // at least one response will be added 
@@ -36,4 +42,7 @@ message MsgIntAuthResponse
     common.StltConfig stltConfig = 11;
 
     repeated common.Property properties = 12;
+
+    Platform platform = 13;
+    string os_variant = 14;
 }

@@ -79,6 +79,14 @@ public class JsonGenTypes
          * milliseconds since unix epoch in UTC
          */
         public @Nullable Long eviction_timestamp;
+        /**
+         * Enum describing the satellite's platform (Linux/Windows)
+         */
+        public @Nullable String platform;
+        /**
+         * String describing the satellite's OS variant (Linux distri, Windows version)
+         */
+        public @Nullable String os_variant;
     }
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)

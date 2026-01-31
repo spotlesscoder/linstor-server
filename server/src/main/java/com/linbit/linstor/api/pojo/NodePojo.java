@@ -17,6 +17,8 @@ public class NodePojo implements NodeApi, Comparable<NodePojo>
     private final String nodeName;
     private final String nodeType;
     private final ApiConsts.ConnectionStatus connectionStatus;
+    private final @Nullable ApiConsts.Platform platform;
+    private final @Nullable String osVariant;
     private final long nodeFlags;
     private final List<NetInterfaceApi> nodeNetInterfaces;
     private final @Nullable NetInterfaceApi nodeActiveStltConn;
@@ -41,6 +43,8 @@ public class NodePojo implements NodeApi, Comparable<NodePojo>
         final List<NodeConnPojo> nodeConnsRef,
         final Map<String, String> nodePropsRef,
         final ApiConsts.ConnectionStatus connectionStatusRef,
+        final @Nullable ApiConsts.Platform platformRef,
+        final @Nullable String osVariantRef,
         final @Nullable Long fullSyncIdRef,
         final @Nullable Long updateIdRef,
         final @Nullable List<String> deviceLayerKindNamesRef,
@@ -60,6 +64,8 @@ public class NodePojo implements NodeApi, Comparable<NodePojo>
         nodeConns = nodeConnsRef;
         nodeProps = nodePropsRef;
         connectionStatus = connectionStatusRef;
+        platform = platformRef;
+        osVariant = osVariantRef;
         fullSyncId = fullSyncIdRef;
         updateId = updateIdRef;
         deviceLayerKindNames = deviceLayerKindNamesRef;
@@ -97,6 +103,18 @@ public class NodePojo implements NodeApi, Comparable<NodePojo>
     public ApiConsts.ConnectionStatus connectionStatus()
     {
         return connectionStatus;
+    }
+
+    @Override
+    public @Nullable ApiConsts.Platform getPlatform()
+    {
+        return platform;
+    }
+
+    @Override
+    public @Nullable String getOsVariant()
+    {
+        return osVariant;
     }
 
     @Override

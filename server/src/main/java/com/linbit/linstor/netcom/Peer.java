@@ -205,6 +205,16 @@ public interface Peer
 
     void setConnectionStatus(ApiConsts.ConnectionStatus status);
 
+    @Nullable
+    ApiConsts.Platform getPlatform();
+
+    void setPlatform(@Nullable ApiConsts.Platform platform);
+
+    @Nullable
+    String getOsVariant();
+
+    void setOsVariant(@Nullable String osVariant);
+
     /**
      * Returns false if no connection is established yet.
      * Returns false if connection is established but not authenticated and {@code ensureAuthenticated} is true.

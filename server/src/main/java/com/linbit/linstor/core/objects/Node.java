@@ -871,15 +871,21 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
         Peer tmpPeer = getPeer(accCtx);
         ExtToolsManager extToolsManager;
         ConnectionStatus connectionStatus;
+        @Nullable ApiConsts.Platform platform;
+        @Nullable String osVariant;
         if (tmpPeer != null)
         {
             extToolsManager = tmpPeer.getExtToolsManager();
             connectionStatus = tmpPeer.getConnectionStatus();
+            platform = tmpPeer.getPlatform();
+            osVariant = tmpPeer.getOsVariant();
         }
         else
         {
             extToolsManager = new ExtToolsManager(); // no known supported tools
             connectionStatus = ApiConsts.ConnectionStatus.UNKNOWN;
+            platform = null;
+            osVariant = null;
         }
 
         return new NodePojo(
@@ -892,6 +898,8 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
             nodeConns,
             getProps(accCtx).cloneMap(),
             connectionStatus,
+            platform,
+            osVariant,
             fullSyncId,
             updateId,
             extToolsManager.getSupportedLayers().stream()

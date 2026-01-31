@@ -122,6 +122,8 @@ public class TcpConnectorPeer implements Peer
 
     protected volatile boolean connected = false;
     protected ApiConsts.ConnectionStatus connectionStatus = ApiConsts.ConnectionStatus.OFFLINE;
+    protected @Nullable ApiConsts.Platform platform;
+    protected @Nullable String osVariant;
     protected boolean authenticated = false;
     protected boolean fullSyncApplied = false;
     protected boolean fullSyncFailed = false;
@@ -664,6 +666,30 @@ public class TcpConnectorPeer implements Peer
             );
         }
         connectionStatus = status;
+    }
+
+    @Override
+    public @Nullable ApiConsts.Platform getPlatform()
+    {
+        return platform;
+    }
+
+    @Override
+    public void setPlatform(@Nullable ApiConsts.Platform platformRef)
+    {
+        platform = platformRef;
+    }
+
+    @Override
+    public @Nullable String getOsVariant()
+    {
+        return osVariant;
+    }
+
+    @Override
+    public void setOsVariant(@Nullable String osVariantRef)
+    {
+        osVariant = osVariantRef;
     }
 
     @Override
