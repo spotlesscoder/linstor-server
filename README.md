@@ -129,6 +129,10 @@ Refer to the development documentation for details.
 
 [![LINSTOR Development](https://img.shields.io/badge/LINSTOR-DEVELOPMENT-brightgreen)](https://github.com/LINBIT/linstor-server/blob/master/docs/development.md )
 
+### How-To Guides
+
+For step-by-step guides on common development tasks, see the [How-To documentation](https://github.com/LINBIT/linstor-server/blob/master/docs/how-to.md).
+
 ## Foundation Membership
 [![](https://github.com/LINBIT/linstor-server/blob/master/docs/sodaecop.png)](https://github.com/sodafoundation)
 
