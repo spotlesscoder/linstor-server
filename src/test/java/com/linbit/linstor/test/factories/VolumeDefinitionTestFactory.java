@@ -7,8 +7,8 @@ import com.linbit.NumberAlloc;
 import com.linbit.ValueInUseException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.drbd.md.MdException;
-import com.linbit.linstor.LinStorException;
 import com.linbit.linstor.LinStorDataAlreadyExistsException;
+import com.linbit.linstor.LinStorException;
 import com.linbit.linstor.core.identifier.VolumeNumber;
 import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.objects.VolumeDefinition;
@@ -181,42 +181,49 @@ public class VolumeDefinitionTestFactory
             flags = dfltFlags;
         }
 
-        public void setAccCtx(AccessContext accCtxRef)
+        public VolumeDefinitionBuilder setAccCtx(AccessContext accCtxRef)
         {
             accCtx = accCtxRef;
+            return this;
         }
 
-        public void setRscName(String rscNameRef)
+        public VolumeDefinitionBuilder setRscName(String rscNameRef)
         {
             rscName = rscNameRef;
+            return this;
         }
 
-        public void setVlmNr(int vlmNrRef)
+        public VolumeDefinitionBuilder setVlmNr(int vlmNrRef)
         {
             vlmNr = vlmNrRef;
+            return this;
         }
 
-        public void setVlmNrToNext()
+        public VolumeDefinitionBuilder setVlmNrToNext()
             throws DatabaseException, AccessDeniedException, LinStorDataAlreadyExistsException,
             ValueOutOfRangeException, ValueInUseException, ExhaustedPoolException, InvalidNameException,
             LinStorException
         {
             vlmNr = getNextVlmNr(rscDfnFact.get(rscName, true));
+            return this;
         }
 
-        public void setMinorNr(Integer minorNrRef)
+        public VolumeDefinitionBuilder setMinorNr(Integer minorNrRef)
         {
             minorNr = minorNrRef;
+            return this;
         }
 
-        public void setSize(Long sizeRef)
+        public VolumeDefinitionBuilder setSize(Long sizeRef)
         {
             size = sizeRef;
+            return this;
         }
 
-        public void setFlags(Flags[] flagsRef)
+        public VolumeDefinitionBuilder setFlags(Flags[] flagsRef)
         {
             flags = flagsRef;
+            return this;
         }
 
         public VolumeDefinition build()
