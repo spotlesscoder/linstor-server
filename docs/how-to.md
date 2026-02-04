@@ -17,7 +17,7 @@ The `@Migration` annotation requires:
 
 **For extending existing tables**, use `MigrationUtils` directly.
 
-> ❗ **Important:** Always use `MigrationUtils.replaceTypesByDialect()` to ensure SQL type compatibility across different database backends (H2, MariaDB, PostgreSQL).
+> ❗ **IMPORTANT:** Always use `MigrationUtils.replaceTypesByDialect()` to ensure SQL type compatibility across different database backends (H2, MariaDB, PostgreSQL).
 
 ```java
 @Migration(
@@ -131,7 +131,7 @@ public class Migration_06_v1_18_2_AddScheduleTable extends BaseK8sCrdMigration
 
 **For data transformation** (populating new columns or modifying existing data), see `Migration_03_v1_17_0_ChangeKeysFromBase32ToSha256.java` for a complete example, or refer to the template in `Migration_Template.java`.
 
-> 📝 **Note:** Migration classes (both SQL and K8s CRD) are automatically discovered and applied by LINSTOR at startup. No manual registration is required.
+> 📝 **NOTE:** Migration classes (both SQL and K8s CRD) are automatically discovered and applied by LINSTOR at startup. No manual registration is required.
 
 ### Step 4: Create the Model Class
 
@@ -177,7 +177,7 @@ public final class MyEntityDbDriver
 }
 ```
 
-> 📝 **Note:** Unlike migration classes, database drivers and model instances are **not** automatically discovered.
+> 📝 **NOTE:** Unlike migration classes, database drivers and model instances are **not** automatically discovered.
 They need to be manually linked and registered in the appropriate module/factory classes.
 
 ### Summary of Files to Create/Modify
@@ -193,4 +193,4 @@ They need to be manually linked and registered in the appropriate module/factory
 
 ---
 
-> ⚠️ Disclaimer: This page was generated using AI, reviewed and edited by developers.
+> ⚠️  DISCLAIMER: This page was generated using AI, reviewed and edited by developers.
