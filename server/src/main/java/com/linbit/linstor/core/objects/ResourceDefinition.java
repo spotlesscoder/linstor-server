@@ -259,7 +259,7 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
      * or <code>null</code> if this resource-definition does not have any resources.
      *
      * If the resource definition's layer stack lists any special layers, the result is
-     * BlockSizeConsts.DFLT_SPECIAL_IO_SIZE. Otherwise, the result is the smallest minimum I/O size currently
+     * BlockSizeConsts.DFLT_SPECIAL_PHY_IO_SIZE. Otherwise, the result is the smallest minimum I/O size currently
      * set on any of the volume definitions of this resource definition.
      *
      * @param accCtx AccessContext for accessing resource definition, volume definition and layer information
@@ -279,7 +279,7 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
         {
             if (LayerKindUtils.hasSpecialLayers(this, accCtx))
             {
-                ret = BlockSizeConsts.DFLT_SPECIAL_IO_SIZE;
+                ret = BlockSizeConsts.DFLT_SPECIAL_PHY_IO_SIZE;
             }
             else
             {
@@ -287,8 +287,8 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
                 @Nullable Long dfltVlmDfnMinIoSize;
                 if (autoMinIoSizeRef)
                 {
-                    floorMinIoSize = BlockSizeConsts.MAX_IO_SIZE;
-                    dfltVlmDfnMinIoSize = BlockSizeConsts.DFLT_IO_SIZE;
+                    floorMinIoSize = BlockSizeConsts.MAX_PHY_IO_SIZE;
+                    dfltVlmDfnMinIoSize = BlockSizeConsts.DFLT_PHY_IO_SIZE;
                 }
                 else
                 {
@@ -307,7 +307,7 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
                 }
                 if (floorMinIoSize != null)
                 {
-                    ret = MathUtils.bounds(BlockSizeConsts.MIN_IO_SIZE, floorMinIoSize, BlockSizeConsts.MAX_IO_SIZE);
+                    ret = MathUtils.bounds(BlockSizeConsts.MIN_PHY_IO_SIZE, floorMinIoSize, BlockSizeConsts.MAX_PHY_IO_SIZE);
                 }
                 else
                 {

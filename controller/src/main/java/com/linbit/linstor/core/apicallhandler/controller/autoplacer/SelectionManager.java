@@ -106,7 +106,7 @@ public class SelectionManager
         }
         else
         {
-            minIoSize = MathUtils.bounds(BlockSizeConsts.MIN_IO_SIZE, minIoSizePrm, BlockSizeConsts.MAX_IO_SIZE);
+            minIoSize = MathUtils.bounds(BlockSizeConsts.MIN_PHY_IO_SIZE, minIoSizePrm, BlockSizeConsts.MAX_PHY_IO_SIZE);
         }
 
         final Map<DeviceProviderKind, List<Version>> initDeployedProviderKindsToDrbdVersionsRef;
@@ -797,7 +797,7 @@ public class SelectionManager
          */
         long getMinIoSize(AccessContext accCtx)
         {
-            long minIoSize = BlockSizeConsts.DFLT_IO_SIZE;
+            long minIoSize = BlockSizeConsts.DFLT_PHY_IO_SIZE;
             try
             {
                 for (StorPoolWithScore spEntry : selectedStorPoolWithScoreSet)

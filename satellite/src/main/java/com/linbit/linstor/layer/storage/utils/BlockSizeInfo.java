@@ -3,9 +3,12 @@ package com.linbit.linstor.layer.storage.utils;
 import com.linbit.utils.MathUtils;
 import com.linbit.utils.SymbolicLinkResolver;
 
-import static com.linbit.linstor.layer.storage.BlockSizeConsts.DFLT_IO_SIZE;
-import static com.linbit.linstor.layer.storage.BlockSizeConsts.MAX_IO_SIZE;
-import static com.linbit.linstor.layer.storage.BlockSizeConsts.MIN_IO_SIZE;
+import static com.linbit.linstor.layer.storage.BlockSizeConsts.DFLT_OPT_IO_SIZE;
+import static com.linbit.linstor.layer.storage.BlockSizeConsts.DFLT_PHY_IO_SIZE;
+import static com.linbit.linstor.layer.storage.BlockSizeConsts.MAX_OPT_IO_SIZE;
+import static com.linbit.linstor.layer.storage.BlockSizeConsts.MAX_PHY_IO_SIZE;
+import static com.linbit.linstor.layer.storage.BlockSizeConsts.MIN_OPT_IO_SIZE;
+import static com.linbit.linstor.layer.storage.BlockSizeConsts.MIN_PHY_IO_SIZE;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,46 +16,72 @@ import java.nio.file.Path;
 
 public class BlockSizeInfo
 {
+    private static final int DFLT_BUF_SIZE_FOR_NUMBERS = 32;
+    private static final String QUEUE_PHY_BLK_SIZE = "queue/physical_block_size";
+    private static final String QUEUE_OPT_IO_SIZE = "queue/optimal_io_size";
+
     /**
      * Determines the blocksize, aka minimum I/O size, for the specified backing storage path.
      *
-     * See getBlockSize(Path).
+     * See {@link #getPhysicalBlockSize(Path)}.
      *
      * @param storageObjPath Backing storage path
      * @return Block size, aka minimum I/O size, where 512L &lt;= blocksize &lt;= 4096L
      */
-    public static long getBlockSize(final String storageObjPath)
+    public static long getPhysicalBlockSize(final String storageObjPath)
     {
         final Path storageObj = Path.of(storageObjPath);
-        return getBlockSize(storageObj);
+        return getPhysicalBlockSize(storageObj);
     }
 
     /**
-     * Determines the block size, aka minimum I/O size, for the specified backing storage path.
+     * <p>Determines the block size, aka minimum I/O size, for the specified backing storage path.</p>
      *
-     * If the specified path is a symbolic link, then an attempt is made to resolve symbolic links
+     * <p>If the specified path is a symbolic link, then an attempt is made to resolve symbolic links
      * until the actual block device special file is found. The file name of this file is them used
      * to find the <code>/sys/block/.../queue/physical_block_size</code> file in the Linux kernel pseudo-filesystem.
      * We deliberately do <b>not</b> use <code>minimum_io_size</code> since (by documentation, see
      * https://raw.githubusercontent.com/torvalds/linux/refs/heads/master/Documentation/ABI/stable/sysfs-block
-     * for more information) that is the "preferred minimum I/O size".
+     * for more information) that is the "preferred minimum I/O size".</p>
      *
-     * A default block size of IO_SIZE_DFLT is returned in case of a failure to determine a valid block size.
+     * <p>A default block size of IO_SIZE_DFLT is returned in case of a failure to determine a valid block size.</p>
      *
-     * @param storageObj Backing storage Path
+     * @param storageObjRef Backing storage Path
      * @return Block size, aka minimum I/O size, where MIN_IO_SIZE &lt;= blocksize &lt;= MAX_IO_SIZE
      */
-    public static long getBlockSize(final Path storageObj)
+    public static long getPhysicalBlockSize(final Path storageObjRef)
     {
-        long blockSize = DFLT_IO_SIZE;
+        return getSize(storageObjRef, QUEUE_PHY_BLK_SIZE, DFLT_PHY_IO_SIZE, MIN_PHY_IO_SIZE, MAX_PHY_IO_SIZE);
+    }
+
+    /**
+     * Returns <code>/sys/block/.../queue/optimal_io_size</code> of the given device.
+     *
+     * @param storageObjRef
+     * @return
+     */
+    public static long getOptimalIoSize(final Path storageObjRef)
+    {
+        return getSize(storageObjRef, QUEUE_OPT_IO_SIZE, DFLT_OPT_IO_SIZE, MIN_OPT_IO_SIZE, MAX_OPT_IO_SIZE);
+    }
+
+    private static long getSize(
+        final Path storageObjRef,
+        final String queueIdRef,
+        final long dfltValRef,
+        final long minValRef,
+        final long maxValRef
+    )
+    {
+        long ret = dfltValRef;
         try
         {
-            final Path blockDevice = SymbolicLinkResolver.resolveSymLink(storageObj);
+            final Path blockDevice = SymbolicLinkResolver.resolveSymLink(storageObjRef);
             final Path infoSourceName = blockDevice.getFileName();
-            final Path infoSource = Path.of("/sys/block", infoSourceName.toString(), "queue/physical_block_size");
+            final Path infoSource = Path.of("/sys/block", infoSourceName.toString(), queueIdRef);
 
-            final byte[] data = new byte[32];
-            try (final FileInputStream fileIn = new FileInputStream(infoSource.toString()))
+            final byte[] data = new byte[DFLT_BUF_SIZE_FOR_NUMBERS];
+            try (FileInputStream fileIn = new FileInputStream(infoSource.toString()))
             {
                 final int readCount = fileIn.read(data);
                 if (readCount > 0)
@@ -61,8 +90,8 @@ public class BlockSizeInfo
                     numberStr = numberStr.trim();
                     try
                     {
-                        final long minIoSize = Long.parseLong(numberStr);
-                        blockSize = MathUtils.bounds(MIN_IO_SIZE, minIoSize, MAX_IO_SIZE);
+                        final long unboundedSize = Long.parseLong(numberStr);
+                        ret = MathUtils.bounds(minValRef, unboundedSize, maxValRef);
                     }
                     catch (NumberFormatException ignored)
                     {
@@ -73,6 +102,6 @@ public class BlockSizeInfo
         catch (IOException ignored)
         {
         }
-        return blockSize;
+        return ret;
     }
 }

@@ -193,14 +193,14 @@ public class StorPool extends AbsCoreObj<StorPool>
             StorageConstants.BLK_DEV_MIN_IO_SIZE,
             StorageConstants.NAMESPACE_INTERNAL
         );
-        long poolBlockSize = BlockSizeConsts.DFLT_IO_SIZE;
+        long poolBlockSize = BlockSizeConsts.DFLT_PHY_IO_SIZE;
         try
         {
             final long value = Long.parseLong(poolBlockSizeStr);
             poolBlockSize = MathUtils.bounds(
-                BlockSizeConsts.MIN_IO_SIZE,
+                BlockSizeConsts.MIN_PHY_IO_SIZE,
                 value,
-                BlockSizeConsts.MAX_IO_SIZE
+                BlockSizeConsts.MAX_PHY_IO_SIZE
             );
         }
         catch (NumberFormatException ignored)

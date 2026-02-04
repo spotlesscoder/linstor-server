@@ -549,7 +549,7 @@ class CtrlRscAutoTieBreakerHelper implements CtrlRscAutoHelper.AutoHelper
             NO_SORTED_SPS,
             false, // not that it matters for tiebreaker selection
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         return storPool -> {

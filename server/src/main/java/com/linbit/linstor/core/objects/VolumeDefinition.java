@@ -287,9 +287,9 @@ public class VolumeDefinition extends AbsCoreObj<VolumeDefinition> implements Pr
     {
         final Props localProps = getProps(accCtx);
         final long safeMinIoSize = MathUtils.bounds(
-            BlockSizeConsts.MIN_IO_SIZE,
+            BlockSizeConsts.MIN_PHY_IO_SIZE,
             minIoSize,
-            BlockSizeConsts.MAX_IO_SIZE
+            BlockSizeConsts.MAX_PHY_IO_SIZE
         );
         try
         {

@@ -580,16 +580,16 @@ public class CtrlRscCrtApiHelper
                     InternalApiConsts.KEY_DRBD_BLOCK_SIZE,
                     ApiConsts.NAMESPC_DRBD_DISK_OPTIONS
                 );
-                long vlmBlockSize = BlockSizeConsts.DFLT_IO_SIZE;
+                long vlmBlockSize = BlockSizeConsts.DFLT_PHY_IO_SIZE;
                 if (vlmBlockSizeStr != null)
                 {
                     try
                     {
                         final long value = Long.parseLong(vlmBlockSizeStr);
                         vlmBlockSize = MathUtils.bounds(
-                            BlockSizeConsts.MIN_IO_SIZE,
+                            BlockSizeConsts.MIN_PHY_IO_SIZE,
                             value,
-                            BlockSizeConsts.MAX_IO_SIZE
+                            BlockSizeConsts.MAX_PHY_IO_SIZE
                         );
                     }
                     catch (NumberFormatException ignored)
@@ -602,7 +602,7 @@ public class CtrlRscCrtApiHelper
                 }
 
                 long poolBlockSize = hasSpecialLayers ?
-                    BlockSizeConsts.DFLT_SPECIAL_IO_SIZE : BlockSizeConsts.DFLT_IO_SIZE;
+                    BlockSizeConsts.DFLT_SPECIAL_PHY_IO_SIZE : BlockSizeConsts.DFLT_PHY_IO_SIZE;
 
                 if (!hasSpecialLayers)
                 {
@@ -630,9 +630,9 @@ public class CtrlRscCrtApiHelper
                             {
                                 final long value = Long.parseLong(poolBlockSizeStr);
                                 poolBlockSize = MathUtils.bounds(
-                                    BlockSizeConsts.MIN_IO_SIZE,
+                                    BlockSizeConsts.MIN_PHY_IO_SIZE,
                                     value,
-                                    BlockSizeConsts.MAX_IO_SIZE
+                                    BlockSizeConsts.MAX_PHY_IO_SIZE
                                 );
                             }
                             catch (NumberFormatException ignored)

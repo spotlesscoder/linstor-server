@@ -2081,7 +2081,6 @@ public abstract class AbsStorageProvider<
     )
         throws IOException, AccessDeniedException
     {
-        final StorPoolName storPoolObjName = storPoolObj.getName();
         if (storDevicePath != null)
         {
             errorReporter.logDebug("updateMinIoSize: Have storDevicePath \"%s\"", storDevicePath);
@@ -2094,39 +2093,46 @@ public abstract class AbsStorageProvider<
                 "updateMinIoSize: Block device path is \"%s\"",
                 blockDevicePath.toString()
             );
-            final long minIoSize = BlockSizeInfo.getBlockSize(blockDevicePath);
 
-            boolean updateValue = true;
+            updatePropIfNeeded(
+                propsChange,
+                storPoolObj,
+                StorageConstants.NAMESPACE_INTERNAL + '/' + StorageConstants.BLK_DEV_MIN_IO_SIZE,
+                Long.toString(BlockSizeInfo.getPhysicalBlockSize(blockDevicePath))
+            );
+            updatePropIfNeeded(
+                propsChange,
+                storPoolObj,
+                StorageConstants.NAMESPACE_INTERNAL + '/' + StorageConstants.BLK_DEV_OPT_IO_SIZE,
+                Long.toString(BlockSizeInfo.getOptimalIoSize(blockDevicePath))
+            );
 
-            final String propKey = StorageConstants.NAMESPACE_INTERNAL + '/' +
-                StorageConstants.BLK_DEV_MIN_IO_SIZE;
-            final Props storPoolProps = storPoolObj.getProps(storDriverAccCtx);
-            final @Nullable String currentPropValue = storPoolProps.getProp(propKey);
-            if (currentPropValue != null)
-            {
-                try
-                {
-                    final long currentPropMinIoSize = Long.parseLong(currentPropValue);
-                    updateValue = currentPropMinIoSize != minIoSize;
-                }
-                catch (NumberFormatException ignored)
-                {
-                }
-            }
-
-            if (updateValue)
-            {
-                final String propValue = Long.toString(minIoSize);
-                errorReporter.logDebug(
-                    "Storage pool \"%s\": Set property \"%s\" = \"%s\"",
-                    storPoolObjName.displayValue, propKey, propValue
-                );
-                propsChange.changeStorPoolProp(storPoolObj, propKey, propValue);
-            }
         }
         else
         {
             errorReporter.logDebug("updateMinIoSize: storDevicePath is a null pointer", storDevicePath);
+        }
+    }
+
+    private void updatePropIfNeeded(
+        LocalPropsChangePojo propsChangeRef,
+        StorPool storPoolObjRef,
+        String propKeyRef,
+        String propValueRef
+    )
+        throws AccessDeniedException
+    {
+        final Props storPoolProps = storPoolObjRef.getProps(storDriverAccCtx);
+        final @Nullable String currentPropValue = storPoolProps.getProp(propKeyRef);
+        if (currentPropValue == null || !currentPropValue.equals(propValueRef))
+        {
+            errorReporter.logDebug(
+                "Storage pool \"%s\": Set property \"%s\" = \"%s\"",
+                storPoolObjRef.getName().displayValue,
+                propKeyRef,
+                propValueRef
+            );
+            propsChangeRef.changeStorPoolProp(storPoolObjRef, propKeyRef, propValueRef);
         }
     }
 

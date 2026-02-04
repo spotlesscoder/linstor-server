@@ -103,7 +103,7 @@ public class CtrlQuerySizeInfoHelper
             0,
             null,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         long maxVlmSize = getMaxVlmSize(selectedStorPoolSet, thinFreeCapacitiesRef);

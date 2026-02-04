@@ -11,6 +11,8 @@ public class StorageConstants
     public static final String NAMESPACE_NVME = ApiConsts.NAMESPC_STORAGE_DRIVER + "/NVME";
     public static final String NAMESPACE_INTERNAL = NAMESPACE_STOR_DRIVER + "/internal/";
 
+    public static final String BLK_DEV_OPT_IO_SIZE      = "optIoSize";
+
     public static final String BLK_DEV_MIN_IO_SIZE      = "minIoSize";
     public static final String BLK_DEV_MIN_IO_SIZE_AUTO = "minIoSizeAuto";
     public static final String BLK_DEV_MAX_BIO_SIZE     = "maxBioSize";

@@ -275,7 +275,7 @@ public class IntFullSyncResponse implements ApiCallReactive
                                 vlmNr.value
                             );
 
-                            long minIoSize = BlockSizeConsts.DFLT_IO_SIZE;
+                            long minIoSize = BlockSizeConsts.DFLT_PHY_IO_SIZE;
 
                             final Iterator<Resource> rscIter = rscDfn.iterateResource(apiCtx);
                             while (rscIter.hasNext())
@@ -292,8 +292,8 @@ public class IntFullSyncResponse implements ApiCallReactive
                                         final long storPoolMinIoSize = getMinIoSizeForStorPool(dataStorPool);
                                         final long vlmMinIoSize = Math.max(
                                             hasSpecialLayers ?
-                                                BlockSizeConsts.DFLT_SPECIAL_IO_SIZE :
-                                                BlockSizeConsts.DFLT_IO_SIZE,
+                                                BlockSizeConsts.DFLT_SPECIAL_PHY_IO_SIZE :
+                                                BlockSizeConsts.DFLT_PHY_IO_SIZE,
                                             storPoolMinIoSize
                                         );
                                         if (vlmMinIoSize > minIoSize)
@@ -304,7 +304,7 @@ public class IntFullSyncResponse implements ApiCallReactive
                                 }
                             }
                             minIoSize = MathUtils.bounds(
-                                BlockSizeConsts.MIN_IO_SIZE, minIoSize, BlockSizeConsts.MAX_IO_SIZE
+                                BlockSizeConsts.MIN_PHY_IO_SIZE, minIoSize, BlockSizeConsts.MAX_PHY_IO_SIZE
                             );
                             errorReporter.logDebug(
                                 "updateVolumeMinIoSize: Peer \"%s\", Resource \"%s\", Volume %d: minIoSize = %d",
@@ -466,7 +466,7 @@ public class IntFullSyncResponse implements ApiCallReactive
 
     private long getMinIoSizeForStorPool(final StorPool storPoolObj) throws AccessDeniedException
     {
-        long minIoSize = BlockSizeConsts.DFLT_IO_SIZE;
+        long minIoSize = BlockSizeConsts.DFLT_PHY_IO_SIZE;
         final Props props = storPoolObj.getProps(apiCtx);
         final String minIoSizeStr = props.getProp(
             StorageConstants.BLK_DEV_MIN_IO_SIZE,

@@ -121,7 +121,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
@@ -154,7 +154,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
@@ -191,7 +191,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
@@ -218,7 +218,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
@@ -249,7 +249,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
@@ -283,7 +283,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
 
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
@@ -326,7 +326,7 @@ public class SelectionManagerTest extends GenericDbBase
             storPoolWithScores,
             false,
             true,
-            BlockSizeConsts.DFLT_IO_SIZE
+            BlockSizeConsts.DFLT_PHY_IO_SIZE
         );
         Set<Autoplacer.StorPoolWithScore> actual = selectionManager.findSelection();
         Assert.assertEquals(0, actual.size());
