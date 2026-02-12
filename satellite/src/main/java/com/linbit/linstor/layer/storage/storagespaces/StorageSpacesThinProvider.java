@@ -17,9 +17,6 @@ public class StorageSpacesThinProvider extends StorageSpacesProvider
         /* Those are in bytes. */
         /* One thin volume uses that much bytes at least: */
     private final Long MINIMAL_THIN_SIZE_ON_DISK = 256L*1024L*1024L;
-        /* One thin volume (the usable partition) can be that much bytes
-           maximum: 4EiB - 17MiB (for the partition overhead): */
-    private final Long MAXIMAL_THIN_SIZE = 1024L*1024L*1024L*1024L*1024L*1024L*4L - 17L*1024L*1024L;
 
     @Inject
     public StorageSpacesThinProvider(AbsStorageProviderInit superInitRef)
@@ -39,10 +36,11 @@ public class StorageSpacesThinProvider extends StorageSpacesProvider
     {
         SpaceInfo info = super.getSpaceInfo(storPoolRef);
 
-        if (info.freeCapacity*1024 >= MINIMAL_THIN_SIZE_ON_DISK)
-        {
-            info.freeCapacity = MAXIMAL_THIN_SIZE / 1024;
-        }
+        /* We have a minimum extent size of 256MiB, so
+         * it is very likely that thin disks take as
+         * much data as thick disks.
+         */
+
         return info;
     }
 

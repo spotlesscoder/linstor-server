@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed incorrect default LUKS2 header size calculation
 - Fixed potential ConcurrentModificationException when serializing properties
 - Parse errors during ctrl -> stlt authentication now result in "AUTHENTICATION_ERROR" instead of "OFFLINE" (regression introduced in 1.32.0-rc.1)
+- Fixed free space reporting of thin storage spaces (Windows) pool
 
 ## [1.33.1] - 2025-12-22
 
