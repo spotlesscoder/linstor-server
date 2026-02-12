@@ -178,6 +178,7 @@ public class CtrlAuthentication<CTRL_DB_TYPE extends ControllerDatabase>
 
                 final String searchFilter = ctrlCfg.getLdapSearchFilter().replaceAll("\\{user}", idName.displayValue);
 
+                @SuppressWarnings("BanJNDI")
                 NamingEnumeration result = ctx.search(ctrlCfg.getLdapSearchFilter(), searchFilter, searchControls);
 
                 if (!result.hasMore())

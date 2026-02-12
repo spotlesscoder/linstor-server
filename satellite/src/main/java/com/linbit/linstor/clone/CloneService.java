@@ -599,8 +599,6 @@ public class CloneService implements SystemService
                     srcZPoolName,
                     srcIdentifier, // usually snapshot name
                     dstZPoolName,
-                    dstIdentifier,
-                    dstZPoolName,
                     dstIdentifier)
             };
     }

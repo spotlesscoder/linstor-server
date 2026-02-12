@@ -158,7 +158,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
         final AccessContext            peerAccCtx,
         final SSLContext               sslCtxRef,
         @Nullable final InetSocketAddress       peerAddress,
-        final Node                     node
+        @Nullable final Node                     node
     )
     {
         super(errorReporter, commonSerializer, peerHostAddr, peerId, sslConnectorService, connKey, peerAccCtx, node,

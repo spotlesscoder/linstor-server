@@ -112,12 +112,12 @@ public final class SatelliteNetComInitializer
             else
             if (type.equalsIgnoreCase(NET_COM_CONF_TYPE_SSL))
             {
-                final String sslProtocol = stltCfg.getNetSecureSslProtocol();
-                final String serverCertificate = stltCfg.getNetSecureServerCertificate();
-                final String keystorePassword = stltCfg.getNetSecureKeystorePassword();
-                final String keyPassword = stltCfg.getNetSecureKeyPassword();
-                final String truststore = stltCfg.getNetSecureTrustedCertificates();
-                final String truststorePassword = stltCfg.getNetSecureTruststorePassword();
+                final @Nullable String sslProtocol = stltCfg.getNetSecureSslProtocol();
+                final @Nullable String serverCertificate = stltCfg.getNetSecureServerCertificate();
+                final @Nullable String keystorePassword = stltCfg.getNetSecureKeystorePassword();
+                final @Nullable String keyPassword = stltCfg.getNetSecureKeyPassword();
+                final @Nullable String truststore = stltCfg.getNetSecureTrustedCertificates();
+                final @Nullable String truststorePassword = stltCfg.getNetSecureTruststorePassword();
 
                 if (sslProtocol == null || serverCertificate == null ||
                     keystorePassword == null || keyPassword == null ||

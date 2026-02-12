@@ -205,7 +205,7 @@ public class PrometheusBuilder
         int state = RSC_STATE_UNKNOWN;
         if (resState != null && resState.isInUse() != null)
         {
-            state = resState.isInUse() == Boolean.TRUE ? RSC_STATE_IN_USE : RSC_STATE_UN_USED;
+            state = Boolean.TRUE.equals(resState.isInUse()) ? RSC_STATE_IN_USE : RSC_STATE_UN_USED;
         }
         return state;
     }

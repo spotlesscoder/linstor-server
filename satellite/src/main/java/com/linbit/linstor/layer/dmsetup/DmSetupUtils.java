@@ -17,6 +17,7 @@ import com.linbit.utils.ExceptionThrowingConsumer;
 import com.linbit.utils.StringUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -517,7 +518,8 @@ public class DmSetupUtils
                 sectorStr
             }, message),
             "'dmsetup message' returned unexpected exit code",
-            "Failed to send message '" + message + "' to device " + device + " (sector: " + sectorStr + ")"
+            "Failed to send message '" + Arrays.toString(message) + "' to device " + device +
+                " (sector: " + sectorStr + ")"
         );
     }
 

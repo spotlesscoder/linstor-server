@@ -28,6 +28,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -118,21 +119,14 @@ public class SslTcpConnectorService extends TcpConnectorService
         );
         if (DEBUG_INIT)
         {
-            final String debugSslProtocol = (sslProtocol != null ? "\"" + sslProtocol + "\"" : "null");
-            final String debugKeyStoreFile = (keyStoreFile != null ? "\"" + keyStoreFile + "\"" : "null");
-            final String debugKeyStorePassword = (keyStorePasswd != null ? "\"" + keyStorePasswd + "\"" : "null");
-            final String debugKeyPassword = (keyPasswd != null ? "\"" + keyPasswd + "\"" : "null");
-            final String debugTrustStoreFile = (trustStoreFile != null ? "\"" + trustStoreFile + "\"" : "null");
-            final String debugTrustStorePassword = (trustStorePasswd != null ? "\"" + trustStorePasswd + "\"" : "null");
-
             debugLog(
                 "Constructor: " +
-                "sslProtocol=" + debugSslProtocol +
-                ", keyStoreFile=" + debugKeyStoreFile +
-                ", keyStorePassword=" + debugKeyStorePassword +
-                ", keyPassword=" + debugKeyPassword +
-                ", trustStoreFile=" + debugTrustStoreFile +
-                ", trustStorePassword=" + debugTrustStorePassword
+                "sslProtocol=" + sslProtocol +
+                ", keyStoreFile=" + keyStoreFile +
+                ", keyStorePassword=" + Arrays.toString(keyStorePasswd) +
+                ", keyPassword=" + Arrays.toString(keyPasswd) +
+                ", trustStoreFile=" + trustStoreFile +
+                ", trustStorePassword=" + Arrays.toString(trustStorePasswd)
             );
         }
         taskCompletionMap = new TreeMap<>();
@@ -225,28 +219,27 @@ public class SslTcpConnectorService extends TcpConnectorService
         final String peerId,
         final SelectionKey connKey,
         final boolean outgoing,
-        final Node node
+        final @Nullable Node node
     )
     {
         if (DEBUG_CONNECTION)
         {
-            String nodeName = null;
+            @Nullable String nodeName = null;
             if (node != null)
             {
                 nodeName = node.getName().displayValue;
             }
             debugLog(
                 "createTcpConnectorPeer: New " + (outgoing ? "outbound" : "inbound") + " connection, " +
-                "peerId=" + (peerId != null ? "\"" + peerId + "\"" : "null") +
+                "peerId=" + peerId +
                 (nodeName != null ? ", node name=\"" + nodeName + "\"" : "")
             );
         }
-        InetSocketAddress address = null;
+        @Nullable InetSocketAddress address = null;
         if (outgoing)
         {
             @SuppressWarnings("resource")
             SocketChannel channel = (SocketChannel) connKey.channel();
-            @SuppressWarnings("resource")
             Socket socket = channel.socket();
             String host = socket.getInetAddress().getHostAddress();
             int port = socket.getPort();
@@ -313,7 +306,7 @@ public class SslTcpConnectorService extends TcpConnectorService
         {
             debugLog("onSelectorWakeup called");
         }
-        for (SslTcpConnectorPeer connPeer = nextTaskCompletionEntry();
+        for (@Nullable SslTcpConnectorPeer connPeer = nextTaskCompletionEntry();
              connPeer != null;
              connPeer = nextTaskCompletionEntry())
         {
@@ -321,8 +314,7 @@ public class SslTcpConnectorService extends TcpConnectorService
             {
                 final String peerId = connPeer.getId();
                 debugLog(
-                    "onSelectorWakeup: Calling sslTasksCompleted, peerId=" +
-                    (peerId != null ? "\"" + peerId + "\"" : "null")
+                    "onSelectorWakeup: Calling sslTasksCompleted, peerId=" + peerId
                 );
             }
             connPeer.sslTasksCompleted();
@@ -341,16 +333,13 @@ public class SslTcpConnectorService extends TcpConnectorService
     protected void onConnectionClosed(final SelectionKey currentKey)
     {
         final Peer connPeer = (Peer) currentKey.attachment();
-        if (connPeer instanceof SslTcpConnectorPeer)
+        if (connPeer instanceof SslTcpConnectorPeer sslPeer)
         {
-            final SslTcpConnectorPeer sslPeer = (SslTcpConnectorPeer) connPeer;
             if (DEBUG_CONNECTION)
             {
                 final String peerId = connPeer.getId();
                 debugLog(
-                    "onConnectionClosed: Connection closed, peerId=" +
-                    (peerId != null ? "\"" + peerId + "\"" : "null") +
-                    ", calling cancelSslTasks"
+                    "onConnectionClosed: Connection closed, peerId=" + peerId + ", calling cancelSslTasks"
                 );
             }
             sslPeer.cancelSslTasks();

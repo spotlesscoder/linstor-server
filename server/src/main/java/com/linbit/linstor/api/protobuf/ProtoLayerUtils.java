@@ -758,7 +758,7 @@ public class ProtoLayerUtils
     private static BCacheVlmPojo extractBCacheVlm(BCacheVlm protoVlm, long fullSyncId, long updateId)
     {
         UUID uuid = null;
-        if (protoVlm.getDeviceUuid() != null && !protoVlm.getDeviceUuid().isEmpty())
+        if (!protoVlm.getDeviceUuid().isEmpty())
         {
             uuid = UUID.fromString(protoVlm.getDeviceUuid());
         }

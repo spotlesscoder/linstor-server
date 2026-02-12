@@ -571,7 +571,7 @@ public class ZfsProvider
             }
             else
             {
-                originZfsInfo.clones.remove(zfsInfoRef);
+                originZfsInfo.clones.remove(zfsInfoRef.originStr);
             }
 
             if (originZfsInfo.markedForDeletion && canDelete(originZfsInfo))

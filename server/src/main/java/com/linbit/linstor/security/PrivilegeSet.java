@@ -3,10 +3,10 @@ package com.linbit.linstor.security;
 import com.linbit.ImplementationError;
 import com.linbit.linstor.annotation.Nullable;
 
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Set of privileges
@@ -287,7 +287,7 @@ public final class PrivilegeSet implements Cloneable
 
     static Set<Privilege> privMaskToPrivSet(long privMask)
     {
-        Set<Privilege> privSet = new TreeSet<>();
+        Set<Privilege> privSet = new LinkedHashSet<>();
         for (Privilege priv : Privilege.PRIVILEGE_LIST)
         {
             if ((privMask & priv.id) == priv.id)

@@ -146,22 +146,19 @@ public class ResourceStateEventHandler implements EventHandler
             );
             Map<VolumeNumber, Map<Integer/* nodeId */, Boolean/* connected */>> peersConnected = new HashMap<>();
             Map<Integer, PeerState> protoPeersConnected = eventRscState.getPeersConnectedMap();
-            if (protoPeersConnected != null)
+            try
             {
-                try
+                for (Map.Entry<Integer, PeerState> entry : protoPeersConnected.entrySet())
                 {
-                    for (Map.Entry<Integer, PeerState> entry : protoPeersConnected.entrySet())
-                    {
-                        peersConnected.put(
-                            new VolumeNumber(entry.getKey()),
-                            new HashMap<>(entry.getValue().getPeerNodeIdMap())
-                        );
-                    }
+                    peersConnected.put(
+                        new VolumeNumber(entry.getKey()),
+                        new HashMap<>(entry.getValue().getPeerNodeIdMap())
+                    );
                 }
-                catch (ValueOutOfRangeException exc)
-                {
-                    throw new ImplementationError(exc);
-                }
+            }
+            catch (ValueOutOfRangeException exc)
+            {
+                throw new ImplementationError(exc);
             }
             satelliteStateHelper.onSatelliteState(
                 eventIdentifier.getNodeName(),

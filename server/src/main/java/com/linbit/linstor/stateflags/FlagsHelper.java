@@ -43,7 +43,7 @@ public class FlagsHelper
 
         for (String sFlag : listFlags)
         {
-            value |= E.valueOf(enumClass, sFlag).getFlagValue();
+            value |= Enum.valueOf(enumClass, sFlag).getFlagValue();
         }
 
         return value;

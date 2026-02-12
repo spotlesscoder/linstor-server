@@ -822,8 +822,7 @@ public class CtrlScheduledBackupsApiCallHandler
         }
         sb.append(" to remote '")
             .append(remoteNameRef)
-            .append("'.")
-            .toString();
+            .append("'.");
         return sb.toString();
     }
 
