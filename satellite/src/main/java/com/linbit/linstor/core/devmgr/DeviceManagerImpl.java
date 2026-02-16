@@ -7,7 +7,6 @@ import com.linbit.SystemService;
 import com.linbit.SystemServiceStartException;
 import com.linbit.drbd.DrbdVersion;
 import com.linbit.extproc.ExtCmd.ExtCmdConditionNotFullfilledException;
-import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.extproc.ExtCmdFactoryStlt;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.annotation.DeviceManagerContext;
@@ -28,6 +27,7 @@ import com.linbit.linstor.core.StltUpdateTracker;
 import com.linbit.linstor.core.StltUpdateTrackerImpl;
 import com.linbit.linstor.core.StltUpdateTrackerImpl.UpdateBundle;
 import com.linbit.linstor.core.StltUpdateTrackerImpl.UpdateNotification;
+import com.linbit.linstor.core.SystemdUtils;
 import com.linbit.linstor.core.UpdateMonitor;
 import com.linbit.linstor.core.apicallhandler.StltApiCallHandlerUtils;
 import com.linbit.linstor.core.apicallhandler.StltNodeApiCallHandler;
@@ -177,9 +177,6 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
     private final StltSecurityObjects stltSecObj;
 
     private boolean firstTimeDevMgrRun = true;
-    private final ExtCmdFactory extCmdFactory;
-
-
 
     private static final ServiceName DEV_MGR_NAME;
     static
@@ -265,7 +262,6 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
         ResourceStateEvent resourceStateEventRef,
         DeviceHandler deviceHandlerRef,
         DrbdVersion drbdVersionRef,
-        ExtCmdFactory extCmdFactoryRef,
         BackupShippingMgr backupServiceMgrRef,
         StltExternalFileHandler extFileHandlerRef
     )
@@ -294,7 +290,6 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
         updateMonitor = updateMonitorRef;
         resourceStateEvent = resourceStateEventRef;
         drbdVersion = drbdVersionRef;
-        extCmdFactory = extCmdFactoryRef;
         backupServiceMgr = backupServiceMgrRef;
         extFileHandler = extFileHandlerRef;
 
@@ -777,18 +772,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
                         // only execute this after the very first fullsync, skip when satellite simply reconnects
                         firstTimeDevMgrRun = false;
 
-                        String notifySocket = System.getenv("NOTIFY_SOCKET");
-                        if (notifySocket != null && !notifySocket.trim().isEmpty())
-                        {
-                            extCmdFactory.create().exec("systemd-notify", "READY=1");
-                        }
-                        else
-                        {
-                            errLog.logWarning(
-                                "Not calling 'systemd-notify' as NOTIFY_SOCKET is %s",
-                                notifySocket == null ? "null" : "empty"
-                            );
-                        }
+                        SystemdUtils.notifyReady(errLog);
 
                         apiCallHandlerUtils.updateStorPoolMinIoSizes(controllerPeerConnector, interComSerializer);
                     }

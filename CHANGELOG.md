@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed free space reporting of thin storage spaces (Windows) pool
 - Fixed race condition where after a reconnect storage pools might not show correct capacities and freespaces.
 - Fixed race condition in updateController() that leads to uncompleted ChangedController answers (client timeout)
+- Systemd-notify: Use SDNotify library instead of calling "systemd-notify" 
 
 ## [1.33.1] - 2025-12-22
 

@@ -8,6 +8,7 @@ import com.linbit.SystemServiceStartException;
 import com.linbit.drbd.md.MetaDataModule;
 import com.linbit.linstor.ControllerDatabase;
 import com.linbit.linstor.ControllerLinstorModule;
+import com.linbit.linstor.InitializationException;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.LinStorModule;
 import com.linbit.linstor.annotation.SystemContext;
@@ -85,7 +86,6 @@ import com.linbit.utils.InjectorLoader;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -365,18 +365,7 @@ public final class Controller
 
             whitelistProps.overrideDrbdProperties();
 
-            String notifySocket = System.getenv("NOTIFY_SOCKET");
-            if (notifySocket != null && !notifySocket.trim().isEmpty())
-            {
-                Runtime.getRuntime().exec("systemd-notify READY=1");
-            }
-            else
-            {
-                errorReporter.logWarning(
-                    "Not calling 'systemd-notify' as NOTIFY_SOCKET is %s",
-                    notifySocket == null ? "null" : "empty"
-                );
-            }
+            SystemdUtils.notifyReady(errorReporter);
 
             errorReporter.logInfo("Controller initialized");
         }
@@ -388,7 +377,7 @@ public final class Controller
                 accessExc
             );
         }
-        catch (SystemServiceStartException | IOException exc)
+        catch (SystemServiceStartException | InitializationException exc)
         {
             errorReporter.reportError(Level.ERROR, exc);
             reconfigurationLock.writeLock().unlock();
