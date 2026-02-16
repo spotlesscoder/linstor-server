@@ -46,6 +46,12 @@ def javaHome = providers.gradleProperty("javaHome")
 
 group 'com.linbit'
 
+allprojects {
+    plugins.withType(JavaPlugin) {
+        sourceCompatibility = 21
+    }
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'

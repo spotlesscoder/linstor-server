@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Minimum java version is now java-21, please upgrade if you want to continue building/running Linstor.
+- Minimum java version is now java-21, please upgrade if you want to continue building/running LINSTOR.
 
 ### Removed
 
