@@ -116,10 +116,6 @@ public class CtrlVlmListApiCallHandler
 
     /**
      *
-     * @param nodesFilter
-     * @param storPoolsFilter
-     * @param resourceFilter
-     * @param propFilters
      * @param vlmAllocatedAnswers if null an cached result will be returned
      * @return Filtered ResourceList result
      */

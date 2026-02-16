@@ -119,8 +119,6 @@ public class RawParameters
      * Reads the specified column either as String or as byte[] (depending on the column's SQL type), gives the content
      * to Jackson to read and the <code>typeRef</code> dependent result is optionally converted.
      *
-     * @param <T>
-     * @param col
      * @param typeRef
      *     Make sure to either use proper generic types when creating a new {@link TypeReference} or Java can surely
      *     figure the generic type out on its own, without having to default to <code>Object</code> (aka using
@@ -149,9 +147,7 @@ public class RawParameters
      *     Optional argument to transform the result into a different type. Could be useful to wrap Jackson's internal
      *     List or Map into a specific implementation
      *
-     * @return
      *
-     * @throws DatabaseException
      */
     public @Nullable <T> T getFromJson(Column col, TypeReference<T> typeRef, @Nullable UnaryOperator<T> convertFunc)
         throws DatabaseException

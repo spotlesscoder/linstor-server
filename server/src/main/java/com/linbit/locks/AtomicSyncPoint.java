@@ -3,6 +3,8 @@ package com.linbit.locks;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * An atomic counter-based implementation of a synchronization point.
+ *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
 public class AtomicSyncPoint implements SyncPoint

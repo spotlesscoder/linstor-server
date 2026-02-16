@@ -509,7 +509,6 @@ public class BitmapPool implements NumberPool
      * @param offset Start offset for the search for unallocated numbers
      * @return An unallocated number within the specified allocation range,
      *         preferably greater than or equal to offset
-     * @throws dsaext.numberpool.NumberPool.ExhaustedPoolException
      */
     @Override
     public int findUnallocatedFromOffset(final int rangeStart, final int rangeEnd, final int offset)
@@ -563,7 +562,6 @@ public class BitmapPool implements NumberPool
      * @param offset Start offset for the search for unallocated numbers
      * @return An unallocated number within the specified allocation range,
      *         preferably greater than or equal to offset
-     * @throws dsaext.numberpool.NumberPool.ExhaustedPoolException
      */
     @Override
     public int autoAllocateFromOffset(final int rangeStart, final int rangeEnd, final int offset)

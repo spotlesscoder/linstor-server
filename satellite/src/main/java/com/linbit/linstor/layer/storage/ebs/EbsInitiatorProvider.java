@@ -399,10 +399,11 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
     }
 
     /**
+     * Finds the newly attached device path after an EBS volume connect.
+     *
      * @return either the "/dev/..." path or null if no new devices were created.
      *
-     * @throws StorageException if more than 1 new devices were created.
-     * @throws TooManyDevicesException
+     * @throws TooManyDevicesException if more than 1 new devices were created.
      */
     private @Nullable String findAttachedDevice(
         List<LsBlkEntry> lsblkPreConnectRef,

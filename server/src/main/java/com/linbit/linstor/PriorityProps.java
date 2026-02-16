@@ -54,7 +54,6 @@ public class PriorityProps
     /**
      * First Props is queried first in case of getProp(String, String)
      *
-     * @param props
      */
     public PriorityProps(ReadOnlyProps... props)
     {
@@ -93,7 +92,6 @@ public class PriorityProps
      * @param key Property key
      * @param namespace namespace the property is in.
      * @return A Pair containing the property value and the container it is contained.
-     * @throws InvalidKeyException
      */
     public Pair<String, ReadOnlyProps> getPropAndContainer(String key, @Nullable String namespace)
         throws InvalidKeyException
@@ -140,7 +138,6 @@ public class PriorityProps
      * @param defaultValue Default value if property not found.
      * @return A Pair containing the property value and the container it is contained, if not found and the default
      *         value is returned, the container is null.
-     * @throws InvalidKeyException
      */
     public Pair<String, ReadOnlyProps> getPropAndContainer(String key, String namespace, String defaultValue)
         throws InvalidKeyException
@@ -213,7 +210,8 @@ public class PriorityProps
     }
 
     /**
-     * @param namespcDrbdHandlerOptionsRef
+     * Checks whether any of the given property containers has the given namespace.
+     *
      * @return true if any of the given {@link PropsContainer} has the given namespace, i.e. at least
      * one key/value within the given namespace
      */

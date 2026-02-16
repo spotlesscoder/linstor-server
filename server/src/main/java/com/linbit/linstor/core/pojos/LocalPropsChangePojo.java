@@ -60,7 +60,6 @@ public class LocalPropsChangePojo
     /**
      * Copies the entries from the parameter into this.
      *
-     * @param pojo
      */
     public void putAll(@Nullable LocalPropsChangePojo pojo)
     {

@@ -891,8 +891,6 @@ public class CtrlRscCrtApiHelper
 
     /**
      * Get currently online node ids.
-     * @param rscDfn
-     * @param accCtx
      * @return A Map with resource to nodeid mapping
      */
     public static Map<Resource, Integer> getOnlineNodeIds(ResourceDefinition rscDfn, AccessContext accCtx)

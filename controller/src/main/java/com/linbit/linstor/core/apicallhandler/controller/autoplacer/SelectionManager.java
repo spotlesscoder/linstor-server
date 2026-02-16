@@ -421,7 +421,6 @@ public class SelectionManager
      * x-replicas-on-different group is only partially filled
      * That means a call with "--x-replicas-on-different 2 site --place-count 3" should only allow 2 groups, never 3.
      *
-     * @return
      */
     private boolean isValid()
     {

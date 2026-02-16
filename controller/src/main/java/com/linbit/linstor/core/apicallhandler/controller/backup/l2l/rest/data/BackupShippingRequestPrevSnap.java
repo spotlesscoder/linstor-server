@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * * whether a shipping to this cluster is allowed
  * * whether we need to make an inc or full backup
  * * and if it is inc, which snap to use as the base snap
- * This request is expected to be answered with {@BackupShippingResponsePrevSnap}
+ * This request is expected to be answered with {@link BackupShippingResponsePrevSnap}
  */
 public class BackupShippingRequestPrevSnap
 {

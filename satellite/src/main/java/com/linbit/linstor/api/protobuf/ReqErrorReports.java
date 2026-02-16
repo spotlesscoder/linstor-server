@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 
 /**
+ * Protobuf API call handler for requesting error reports.
  *
  * @author rpeinthor
  */

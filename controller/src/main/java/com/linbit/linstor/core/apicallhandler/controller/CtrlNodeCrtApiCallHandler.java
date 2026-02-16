@@ -131,11 +131,6 @@ public class CtrlNodeCrtApiCallHandler
      *  <li>{@link ApiConsts#CREATED} when the node was created successfully </li>
      * </ul>
      *
-     * @param nodeNameStr
-     * @param nodeTypeStr
-     * @param netIfs
-     * @param propsMap
-     * @return
      */
     public Flux<ApiCallRc> createNode(
         String nodeNameStr,

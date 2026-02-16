@@ -125,8 +125,6 @@ public class NvmeLayer implements DeviceLayer
      *     If diskless, rscData is an NVMe Initiator and a Target otherwise.
      *     Depending on its {@link Flags} the operation executed on the Initiator/Target is either
      *     connect/configure or disconnect/delete.
-     * @param snapshotList
-     *     Collection<Snapshot> to be processed, passed on to {@link DeviceHandler}
      * @param apiCallRc
      *     ApiCallRcImpl responses, passed on to {@link DeviceHandler}
      */

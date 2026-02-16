@@ -19,9 +19,7 @@ public class NodeIdAlloc
      * This method is the same as calling {@link #getFreeNodeId(int[], NodeId, NodeId)}
      * with {@link NodeId.NODE_ID_MIN} and {@link NodeId.NODE_ID_MAX} as range limitation.
      *
-     * @param occupiedIds
      * @return An unoccupied {@link NodeId}
-     * @throws ExhaustedPoolException
      */
     public static NodeId getFreeNodeId(int[] occupied) throws ExhaustedPoolException
     {

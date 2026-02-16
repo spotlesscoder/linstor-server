@@ -73,7 +73,6 @@ public class LinStorException extends Exception implements ErrorContextSupplier
      * Adds the given array of throwables to the Exception's list of suppressed throwable.
      * This method includes all necessary null-checks
      *
-     * @param suppressedExceptions
      *
      * @return itself
      */

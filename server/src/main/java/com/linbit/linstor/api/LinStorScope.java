@@ -1,8 +1,7 @@
 /*
  * Based on https://github.com/google/guice/wiki/CustomScopes
  *
- * @author Jesse Wilson
- * @author Fedor Karpelevitch
+ * Authors: Jesse Wilson, Fedor Karpelevitch
  */
 
 package com.linbit.linstor.api;

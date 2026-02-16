@@ -183,9 +183,6 @@ public class CacheLayer implements DeviceLayer
      * </ul>
      *
      * This method will block until all dirty blocks are written to the origin (backing) device.
-     * @throws IOException
-     * @throws ChildProcessTimeoutException
-     * @throws AccessDeniedException
      */
     @Override
     public void suspendIo(AbsRscLayerObject<Resource> rscDataRef, boolean ignoredAsRootLayerRef)

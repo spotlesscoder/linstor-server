@@ -170,8 +170,6 @@ public class PingTask implements Task
      *  <li>The value is a different peer than its key: the node got reconnected</li>
      *  <li>The value is <code>null</code> for the given key, the node is already deleted</li>
      * </ul>
-     * @param peersRef
-     * @return
      */
     private HashMap<Peer, @Nullable Peer> getCurrentPeers(List<Peer> peersRef)
     {

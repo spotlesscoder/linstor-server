@@ -9,7 +9,6 @@ import java.util.Map;
  *
  * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  *
- * @param <T>
  */
 public class LayerDataStorage<T extends LayerObject>
 {

@@ -13,7 +13,7 @@ public interface TransactionObject
      * (e.g. the caches are not empty), an
      * {@link ImplementationError} is thrown.
      *
-     * @param transMgr A wrapper for the database connection to be used for persistence
+     * @param transMgrRef A wrapper for the database connection to be used for persistence
      */
     void setConnection(@Nullable TransactionMgr transMgrRef) throws ImplementationError;
 
@@ -25,13 +25,11 @@ public interface TransactionObject
     /**
      * Returns true if there are any uncommited changes in this object
      * and a transaction manager is set.
-     * @return
      */
     boolean isDirtyWithoutTransMgr();
 
     /**
      * Returns true if there are any uncommited changes in this object
-     * @return
      */
     boolean isDirty();
 

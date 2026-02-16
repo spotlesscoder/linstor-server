@@ -40,6 +40,8 @@ public class CtrlExportDbApiCallHandler
     }
 
     /**
+     * Exports the database to the given path string.
+     *
      * @see #exportDatabase(Path)
      */
     public Flux<ApiCallRc> exportDatabase(String targetPathStr)

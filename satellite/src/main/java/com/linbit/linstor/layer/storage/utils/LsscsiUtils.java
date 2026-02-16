@@ -71,11 +71,7 @@ public class LsscsiUtils
      *
      * for every host of the given set
      *
-     * @param extCmdFactory
-     * @param errReporter
-     * @param hostLunMap
      *
-     * @throws StorageException
      */
     public static void rescan(ExtCmdFactory extCmdFactory, ErrorReporter errReporter, Set<String> hostSet)
         throws StorageException

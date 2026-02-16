@@ -175,8 +175,6 @@ public class CtrlApiCallHandler
      *            required (can be empty) - overrides the given property key-value pairs
      * @param deletePropKeys
      *            required (can be empty) - deletes the given property keys
-     * @param deleteNamespaces
-     * @return
      */
     public Flux<ApiCallRc> modifyNode(
         @Nullable UUID nodeUuid,
@@ -214,8 +212,6 @@ public class CtrlApiCallHandler
 
     /**
      * Creates new resource definition
-     * @param rscGrpNameRef
-     * @param shortRef
      */
     public ApiCallRc createResourceDefinition(
         String resourceName,
@@ -291,8 +287,6 @@ public class CtrlApiCallHandler
      *            required (can be empty) - overrides the given property key-value pairs
      * @param deletePropKeys
      *            required (can be empty) - deletes the given property keys
-     * @param layerStackStrList
-     * @param newRscPeerSlotsRef
      */
     public Flux<ApiCallRc> modifyRscDfn(
         @Nullable UUID rscDfnUuid,

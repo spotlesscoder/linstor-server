@@ -84,7 +84,6 @@ public class StorPoolFilter
      * <li>online</li>
      * </ul>
      *
-     * @return
      */
     public ArrayList<StorPool> listAvailableStorPools(boolean diskful)
     {
@@ -137,16 +136,8 @@ public class StorPoolFilter
      * <li>storage pool's provider kind must be contained in the filtered provider kind list</li>
      * </ul>
      *
-     * @param selectFilter
-     * @param availableStorPoolsRef
-     * @param rscDfnRef
-     * @param disklessTypeRef
-     * @param freeCapacitiesRef
-     * @param rscDfn
      *
-     * @return
      *
-     * @throws AccessDeniedException
      */
     public ArrayList<StorPool> filter(
         AutoSelectFilterApi selectFilter,
@@ -722,10 +713,7 @@ public class StorPoolFilter
      * This method extracts only the key-value pairs and returns them as a map. All other simple keys will
      * be ignored.
      *
-     * @param propsList
-     * @param rscDfnRef
      *
-     * @return
      */
     private Map<String, String> extractFixedSameProperties(
         List<String> propsList,

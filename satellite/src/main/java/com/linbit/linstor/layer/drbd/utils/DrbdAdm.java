@@ -78,7 +78,6 @@ public class DrbdAdm
     /**
      * Adjusts a resource
      *
-     * @throws AccessDeniedException
      */
     public void adjust(
         DrbdRscData<Resource> drbdRscData,
@@ -170,8 +169,6 @@ public class DrbdAdm
 
     /**
      * Shuts down (unconfigures) a DRBD resource
-     * @param drbdRscData
-     * @throws StorageException
      */
     public void down(DrbdRscData<Resource> drbdRscData) throws ExtCmdFailedException, StorageException
     {
@@ -181,9 +178,6 @@ public class DrbdAdm
     /**
      * Shuts down (unconfigures) a DRBD resource. Waits for the "destroy resource" event if
      * <code>waitForDestroyEventRef</code> is true
-     * @param drbdRscData
-     * @param waitForDestroyEventRef
-     * @throws StorageException
      */
     public void down(DrbdRscData<Resource> drbdRscData, boolean waitForDestroyEventRef)
         throws ExtCmdFailedException, StorageException
@@ -332,7 +326,6 @@ public class DrbdAdm
     /**
      * Connects a resource to its peer resuorces on other hosts
      *
-     * @throws AccessDeniedException
      */
     public void connect(DrbdRscData<Resource> drbdRscData, boolean discard) throws ExtCmdFailedException,
         AccessDeniedException
@@ -351,8 +344,6 @@ public class DrbdAdm
     /**
      * Attaches a volume to its disk
      *
-     * @throws ExtCmdFailedException
-     * @throws AccessDeniedException
      */
     public void attach(DrbdVlmData<Resource> drbdVlmData) throws ExtCmdFailedException, AccessDeniedException
     {
@@ -533,8 +524,6 @@ public class DrbdAdm
     /**
      * For debug purposes
      *
-     * @param vlmDataRef
-     * @throws ExtCmdFailedException
      */
     public void showGi(DrbdVlmData<Resource> vlmDataRef) throws ExtCmdFailedException
     {

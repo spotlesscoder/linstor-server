@@ -180,9 +180,6 @@ public class LuksLayerSizeCalculator extends AbsLayerSizeCalculator<LuksVlmData<
      *  </li>
      *  <li>Round up headerSize to alignment (1 MiB or device's optimal_io_size)</li>
      * </ol>
-     * @param vlmDataRef
-     * @return
-     * @throws AccessDeniedException
      */
     private long calcLuks2HeaderSize(VlmProviderObject<?> vlmDataRef) throws AccessDeniedException
     {
@@ -250,10 +247,6 @@ public class LuksLayerSizeCalculator extends AbsLayerSizeCalculator<LuksVlmData<
      * the cryptsetup --align-payload argument into account.</p>
      * <p>Currently this method does NOT take <code>/sys/block/&lt;dev>/alignment_offset</code> into account.</p>
      *
-     * @param vlmDataRef
-     * @param userOptions
-     * @return
-     * @throws AccessDeniedException
      */
     private long getAlignment(VlmProviderObject<?> vlmDataRef, List<String> userOptions) throws AccessDeniedException
     {

@@ -696,7 +696,7 @@ public class CtrlRscLayerDataMerger extends AbsLayerRscDataMerger<Resource>
      *  </li>
      *  <li>Solution:<br/>
      *      When the controller is throwing away the old layer data it has to remember the old LayerRscId and call
-     *      {@link #replacedLayerRscId(Integer, int)} with those two IDs. This replacement is remembered for a given
+     *      {@link #replacedLayerRscId(int, Integer)} with those two IDs. This replacement is remembered for a given
      *      time and when a satellite response is referring to an old ID, we can use this method her to detect this
      *      scenario and conclude that it is safe to ignore this update for now since there should also be a second
      *      "updateSatellite" in flight that will be responded using the correct layer data.
@@ -707,8 +707,6 @@ public class CtrlRscLayerDataMerger extends AbsLayerRscDataMerger<Resource>
      * that would imply that the satellite is allowed to change the structure of the layer-data including the IDs which
      * is (currently) strictly controlled by the controller.
      *
-     * @param rscLayerObjectRef
-     * @param rscDataPojoRef
      * @return Iff we are aware that we just threw away some old RscLayerData but a satellite might still refer to that.
      */
     @Override

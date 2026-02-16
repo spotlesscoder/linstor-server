@@ -56,17 +56,13 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
         throws StorageException, AccessDeniedException, DatabaseException;
 
     /**
+     * Processes the given resource layer data.
+     *
      * @param rscLayerData The current layer's data. This is an explicit parameter in case we
      *     want to (in far future) allow multiple occurrences of the same layer in a given layerStack
      *     (could be useful in case of RAID)
      * @param apiCallRc Responses to the ApiCall
      *
-     * @throws StorageException
-     * @throws ResourceException
-     * @throws VolumeException
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws AbortLayerProcessingException
      */
     void processResource(AbsRscLayerObject<Resource> rscLayerData, ApiCallRcImpl apiCallRc)
         throws StorageException, ResourceException, VolumeException, AccessDeniedException, DatabaseException,
@@ -83,12 +79,6 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
      *     (could be useful in case of RAID)
      * @param apiCallRc Responses to the ApiCall
      *
-     * @throws StorageException
-     * @throws ResourceException
-     * @throws VolumeException
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws AbortLayerProcessingException
      */
     default boolean processSnapshot(AbsRscLayerObject<Snapshot> snapLayerData, ApiCallRcImpl apiCallRc)
         throws StorageException, ResourceException, VolumeException, AccessDeniedException,
@@ -106,6 +96,8 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
     boolean resourceFinished(AbsRscLayerObject<Resource> layerDataRef) throws AccessDeniedException;
 
     /**
+     * Returns whether this layer supports suspend IO.
+     *
      * @return true if this layer supports suspend, false otherwise
      */
     boolean isSuspendIoSupported();
@@ -113,11 +105,8 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
     /**
      * The layer is expected to update the given rscData's {@link AbsRscLayerObject#setIsSuspended(boolean)} state so
      * that the {@link SuspendManager} can properly check if a {@link #suspendIo(AbsRscLayerObject, boolean)} or
-     * {@link #resumeIo(AbsRscLayerObject)} call is needed
+     * {@link #resumeIo(AbsRscLayerObject, boolean)} call is needed
      *
-     * @throws StorageException
-     * @throws DatabaseException
-     * @throws ExtCmdFailedException
      */
     void updateSuspendState(AbsRscLayerObject<Resource> rscDataRef)
         throws StorageException, DatabaseException, ExtCmdFailedException;
@@ -139,7 +128,6 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
      * Returns whether or not checking for 'lsblk ... -o DISC-GRAN' makes sense for this RscData.
      * For example it does not make sense for DRBD diskless
      *
-     * @throws AccessDeniedException
      */
     default boolean isDiscGranFeasible(AbsRscLayerObject<Resource> rscLayerObjectRef) throws AccessDeniedException
     {
@@ -149,12 +137,7 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
     /**
      * Most layers will no-op. Current exceptions is {@link StorageLayer}
      *
-     * @param storPoolInfoRef
-     * @param update
      *
-     * @throws DatabaseException
-     * @throws AccessDeniedException
-     * @throws StorageException
      */
     default @Nullable LocalPropsChangePojo checkStorPool(StorPoolInfo storPoolInfoRef, boolean update)
         throws StorageException, AccessDeniedException, DatabaseException
@@ -167,10 +150,7 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
      * This method should only be implemented by layers managing storage.
      * Which currently is only {@link StorageLayer}
      *
-     * @param storPoolInfoRef
      *
-     * @throws StorageException
-     * @throws AccessDeniedException
      */
     default SpaceInfo getStoragePoolSpaceInfo(StorPoolInfo storPoolInfoRef)
         throws AccessDeniedException, StorageException
@@ -249,13 +229,10 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
     }
 
     /**
-     * @param vlm
+     * Opens a device for cloning operations.
+     *
      * @param targetRscNameRef If non-null, <code>vlm</code> is the source volume. If <code>targetRscNameRef</code> is
      *     null, <code>vlm</code> is the target volume.
-     *
-     * @throws StorageException
-     * @throws DatabaseException
-     * @throws AccessDeniedException
      */
     default void openDeviceForClone(VlmProviderObject<?> vlm, @Nullable String targetRscNameRef)
         throws StorageException, AccessDeniedException, DatabaseException
@@ -271,10 +248,6 @@ public interface DeviceLayer extends Comparable<DeviceLayer>
 
     /**
      * Default post clone processing.
-     * @param vlmSrc
-     * @param vlmTgt
-     * @param clonedPath
-     * @throws StorageException
      */
     default void processAfterClone(VlmProviderObject<?> vlmSrc, VlmProviderObject<?> vlmTgt, String clonedPath)
         throws StorageException

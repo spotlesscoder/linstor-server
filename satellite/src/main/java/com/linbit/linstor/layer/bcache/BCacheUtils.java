@@ -111,8 +111,6 @@ public class BCacheUtils
     }
 
     /**
-     * @param bcacheUuid
-     * @param relativePath
      *
      * @return Path.get("/sys/fs/bcache/" + bcacheUuid + "/" + relativePath)
      */
@@ -122,8 +120,6 @@ public class BCacheUtils
     }
 
     /**
-     * @param bcacheIdentifier
-     * @param relativePath
      *
      * @return Path.get("/sys/block/" + bcacheIdentifier + "/bcache/" + relativePath)
      */
@@ -168,12 +164,10 @@ public class BCacheUtils
     }
 
     /**
-     * @param extCmdFactoryRef
-     * @param devicePath
+     * Returns the cache set UUID from the bcache super block of the given device.
      *
      * @return Returns the 'cset.uuid' from 'bcache-super-show $devicePath' or null
      *
-     * @throws StorageException
      */
     public static @Nullable UUID getCSetUuidFromSuperBlock(ExtCmdFactory extCmdFactoryRef, String devicePath)
         throws StorageException
@@ -182,12 +176,10 @@ public class BCacheUtils
     }
 
     /**
-     * @param extCmdFactoryRef
-     * @param devicePath
+     * Returns the backing device UUID from the bcache super block of the given device.
      *
      * @return Returns the 'dev.uuid' from 'bcache-super-show $devicePath' or null
      *
-     * @throws StorageException
      */
     public static @Nullable UUID getBackingId(ExtCmdFactory extCmdFactoryRef, String devicePath) throws StorageException
     {
@@ -284,12 +276,8 @@ public class BCacheUtils
      *
      * and returns the "bcache*" part or null if not found
      *
-     * @param extCmdFactory
-     * @param backingUuidRef
      *
-     * @return
      *
-     * @throws StorageException
      */
     public static @Nullable String getIdentifierByBackingUuid(ExtCmdFactory extCmdFactory, UUID backingUuidRef)
         throws StorageException

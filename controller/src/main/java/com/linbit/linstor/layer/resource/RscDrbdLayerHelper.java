@@ -1076,9 +1076,7 @@ public class RscDrbdLayerHelper extends
      *  <li><code>1: </code> if this method is called right before a new resource is created</li>
      * </ul></p>
      *
-     * @param peerSlots
-     * @param reservedPeerSlotCount if omitted {@value #DFLT_RESERVERD_PEER_SLOT_COUNT} is used.
-     * @param rscDfn
+     * @param reservedPeerSlotCountRef if omitted {@value #DFLT_RESERVERD_PEER_SLOT_COUNT} is used.
      */
     private void checkPeerSlotCount(
         short peerSlots,
@@ -1125,7 +1123,6 @@ public class RscDrbdLayerHelper extends
     /**
      * Checks all existing DrbdRscData if their local peerSlot is at least 1 larger than the number of diskful
      * resources in order to add yet another diskful peer
-     * @param drbdRscDfnDataRef
      */
     private void checkIfPeersHaveEnoughPeerSlots(DrbdRscDfnData<Resource> drbdRscDfnDataRef)
     {

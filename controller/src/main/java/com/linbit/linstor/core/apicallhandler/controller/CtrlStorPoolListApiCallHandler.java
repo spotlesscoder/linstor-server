@@ -145,7 +145,6 @@ public class CtrlStorPoolListApiCallHandler
      *
      * Currently, SED passwords will be masked until the master-passphrase is entered.
      *
-     * @param props
      */
     private void patchStorPoolProps(Map<String, String> props)
     {

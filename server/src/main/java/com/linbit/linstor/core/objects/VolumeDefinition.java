@@ -59,6 +59,8 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 /**
+ * Represents a volume definition within a resource definition.
+ *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
 public class VolumeDefinition extends AbsCoreObj<VolumeDefinition> implements ProtectedObject

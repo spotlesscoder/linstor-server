@@ -13,18 +13,14 @@ public interface ScheduleDatabaseDriver
     /**
      * Creates or updates the given Schedule object into the database.
      *
-     * @param schedule
      *
-     * @throws DatabaseException
      */
     void create(Schedule schedule) throws DatabaseException;
 
     /**
      * Removes the given Schedule object from the database
      *
-     * @param schedule
      *
-     * @throws DatabaseException
      */
     void delete(Schedule schedule) throws DatabaseException;
 

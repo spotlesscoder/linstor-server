@@ -15,8 +15,6 @@ public class CriticalError extends Error
 
     /**
      * This will call System.exit(), so make sure no locks are currently held while using this call.
-     * @param errorReporter
-     * @param message
      */
     public static void die(ErrorReporter errorReporter, CriticalError critErr)
     {
@@ -26,8 +24,6 @@ public class CriticalError extends Error
 
     /**
      * Alias for creating a critical error and unwind stack to allow unlock any lockguards
-     * @param message
-     * @throws CriticalError
      */
     public static void dieSoon(String message) throws CriticalError
     {

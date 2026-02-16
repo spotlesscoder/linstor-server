@@ -392,7 +392,6 @@ public class DrbdVersion
     /**
      * Waits (blocks) until {@link #hasDrbd9()} returns true
      *
-     * @throws InterruptedException
      */
     public void waitUntilDrbd9IsAvailable() throws InterruptedException
     {

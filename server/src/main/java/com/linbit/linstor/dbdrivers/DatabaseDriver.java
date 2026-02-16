@@ -5,6 +5,8 @@ import com.linbit.linstor.InitializationException;
 import com.linbit.linstor.core.objects.ResourceDefinition;
 
 /**
+ * Interface for database drivers that load security objects and core objects.
+ *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
 public interface DatabaseDriver
@@ -21,9 +23,7 @@ public interface DatabaseDriver
      * {@link com.linbit.linstor.core.objects.StorPoolDefinition}s from
      * the database.
      *
-     * @param transMgr
      *
-     * @throws DatabaseException
      */
     void loadCoreObjects() throws DatabaseException;
 }

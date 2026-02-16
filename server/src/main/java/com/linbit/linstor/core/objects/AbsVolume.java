@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 /**
+ * Abstract base class for volumes belonging to a resource.
  *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */

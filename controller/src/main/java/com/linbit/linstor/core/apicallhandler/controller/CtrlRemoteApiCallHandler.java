@@ -1024,9 +1024,7 @@ public class CtrlRemoteApiCallHandler
      * </ul>
      * </list>
      *
-     * @param remoteNameStrRef
      *
-     * @return
      */
     public Flux<ApiCallRc> delete(String remoteNameStrRef)
     {

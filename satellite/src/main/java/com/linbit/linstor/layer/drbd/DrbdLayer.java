@@ -530,10 +530,6 @@ public class DrbdLayer implements DeviceLayer
      * the resource specific .res file
      * {@link Resource#delete(AccessContext)} is also called on the given resource
      *
-     * @param drbdRscData
-     * @throws StorageException
-     * @throws DatabaseException
-     * @throws AccessDeniedException
      */
     private void deleteDrbd(DrbdRscData<Resource> drbdRscData, ApiCallRcImpl apiCallRc) throws
         StorageException, AccessDeniedException, DatabaseException
@@ -2061,10 +2057,6 @@ public class DrbdLayer implements DeviceLayer
      * Therefore we have to make sure the metadata gets moved to the end.
      * DRBD keeps a .lkbd file in /var/lib/drbd that stores the last known metadata path/offset, we have to clone this
      * file to the new resource and afterward call drbdmeta check-resize (which will move the metadata to the end).
-     * @param vlmSrc
-     * @param vlmTgt
-     * @param clonedPath
-     * @throws StorageException
      */
     @Override
     public void processAfterClone(VlmProviderObject<?> vlmSrc, VlmProviderObject<?> vlmTgt, String clonedPath)

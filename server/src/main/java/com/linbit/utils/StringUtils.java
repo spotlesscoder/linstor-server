@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.StringJoiner;
 
 /**
+ * Utility methods for string manipulation.
  *
  * @author rpeinthor
  */
@@ -44,8 +45,6 @@ public class StringUtils
 
     /**
      * Shorthand version to join a collection, separater is ",".
-     * @param col
-     * @return
      */
     public static String join(Collection<?> col)
     {
@@ -56,9 +55,6 @@ public class StringUtils
      * Convenience method delegating the call to {@link #join(String, Object...)} in a
      * typesafe way
      *
-     * @param delimiter
-     * @param array
-     * @return
      */
     public static String join(String delimiter, String... array)
     {

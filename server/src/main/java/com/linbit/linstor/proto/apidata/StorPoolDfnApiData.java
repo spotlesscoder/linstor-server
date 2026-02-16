@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * Protobuf-backed implementation of the storage pool definition API data.
  *
  * @author rpeinthor
  */

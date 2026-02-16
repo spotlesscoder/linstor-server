@@ -22,7 +22,6 @@ public interface ResourceDatabaseDriver extends AbsResourceDatabaseDriver<Resour
      * @param resource
      *  The data to be stored (including the primary key)
      *
-     * @throws DatabaseException
      */
     void create(AbsResource<Resource> resource) throws DatabaseException;
 
@@ -32,7 +31,6 @@ public interface ResourceDatabaseDriver extends AbsResourceDatabaseDriver<Resour
      * @param resource
      *  The data identifying the row to delete
      *
-     * @throws DatabaseException
      */
     void delete(AbsResource<Resource> resource) throws DatabaseException;
 

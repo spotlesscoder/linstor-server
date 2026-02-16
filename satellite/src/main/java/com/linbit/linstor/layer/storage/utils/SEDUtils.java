@@ -124,8 +124,6 @@ public class SEDUtils
 
     /**
      * Returns the resolved final path of the device.
-     * @param errorReporter
-     * @param devicePath
      * @return realpath result for devicePath, if an IOException happens we return the original path
      */
     public static String realpath(
@@ -312,8 +310,6 @@ public class SEDUtils
 
     /**
      * Returns a map of SED device names as keys and encrypted passwords as values.
-     * @param sedProps
-     * @return
      */
     public static Map<String, String> drivePasswordMap(Map<String, String> sedProps)
     {

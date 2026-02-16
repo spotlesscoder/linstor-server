@@ -57,8 +57,6 @@ public class BlockSizeInfo
     /**
      * Returns <code>/sys/block/.../queue/optimal_io_size</code> of the given device.
      *
-     * @param storageObjRef
-     * @return
      */
     public static long getOptimalIoSize(final Path storageObjRef)
     {

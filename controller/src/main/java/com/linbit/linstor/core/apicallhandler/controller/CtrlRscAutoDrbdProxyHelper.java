@@ -182,11 +182,8 @@ public class CtrlRscAutoDrbdProxyHelper implements AutoHelper
     /**
      * This method only returns true if the given node has support for drbd proyx
      *
-     * @param nodeRef
      *
-     * @return
      *
-     * @throws AccessDeniedException
      */
     private boolean isProxySupported(Node node) throws AccessDeniedException
     {

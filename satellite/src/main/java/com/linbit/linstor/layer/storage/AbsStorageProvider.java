@@ -1055,18 +1055,12 @@ public abstract class AbsStorageProvider<
     /**
      * Only call this directly if you're sure that's what you need!
      *
-     * @param snapVlm
-     * @param apiCallRc
      * @param s3orLinRemoteName
      *     - This has to be the name of either an S3Remote or a LinstorRemote. It is only allowed to be null if a normal
      *     snap create is happening.
      * @param service
      *     - This is only allowed to be null if a normal snap create is happening.
-     * @param isTarget
      *
-     * @throws StorageException
-     * @throws AccessDeniedException
-     * @throws DatabaseException
      */
     private void takeSnapshotsImpl(
         LAYER_SNAP_DATA snapVlm,
@@ -1622,9 +1616,6 @@ public abstract class AbsStorageProvider<
      * Default implementation performs a 'blockdev --getsize64 $devicePath'.
      * This method can be overridden by thin-providers to do different calculations
      *
-     * @param vlmData
-     * @return
-     * @throws StorageException
      */
     protected long getAllocatedSize(LAYER_DATA vlmData) throws StorageException
     {
@@ -1872,8 +1863,6 @@ public abstract class AbsStorageProvider<
      * Has an extra devicePath parameter, as sometimes the clone path is used to wait.
      * @param vlmData vlmData to get the storage pool and waitTimeAfterCreate from
      * @param devicePath device path to watch for.
-     * @throws AccessDeniedException
-     * @throws StorageException
      */
     protected void waitUntilDeviceCreated(LAYER_DATA vlmData, String devicePath)
         throws AccessDeniedException, StorageException

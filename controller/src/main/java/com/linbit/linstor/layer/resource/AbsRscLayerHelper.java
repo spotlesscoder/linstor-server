@@ -172,11 +172,6 @@ public abstract class AbsRscLayerHelper<
      * If the object does not exist a new object is created and added to the parent object's list of children,
      * unless the parent object is null of course.
      *
-     * @param layerList
-     * @param layerStackRef
-     * @throws LinStorException
-     * @throws InvalidKeyException
-     * @throws InvalidNameException
      */
     @SuppressWarnings("unchecked")
     @SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
@@ -304,7 +299,7 @@ public abstract class AbsRscLayerHelper<
     }
 
     /**
-     * Calling this method will call {@link #addIgnoreReasonImpl(AbsRscLayerObject, String)} of the
+     * Calling this method will call {@link #addIgnoreReasonImpl(AbsRscLayerObject, LayerIgnoreReason)} of the
      * layerHelper class matching the rscDataRef's DeviceLayerKind AND upwards until the parent is null.
      *
      * If a layerHelper has set the new ignoreReason, its children are also iterated (recursively)
@@ -571,12 +566,6 @@ public abstract class AbsRscLayerHelper<
     /**
      * By default, this returns null, meaning that the layer above should be asked
      *
-     * @param vlmRef
-     * @param childRef
-     * @return
-     * @throws AccessDeniedException
-     * @throws InvalidKeyException
-     * @throws InvalidNameException
      */
     @SuppressWarnings("unused") // exceptions needed by implementations
     public @Nullable StorPool getStorPool(Volume vlmRef, AbsRscLayerObject<Resource> rscDataRef)

@@ -10,6 +10,8 @@ import com.linbit.linstor.storage.interfaces.categories.LayerObject;
 import com.linbit.utils.StringUtils;
 
 /**
+ * Represents a resource definition layer object in the storage layer stack.
+ *
  * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  */
 public interface RscDfnLayerObject extends LayerObject, Comparable<RscDfnLayerObject>

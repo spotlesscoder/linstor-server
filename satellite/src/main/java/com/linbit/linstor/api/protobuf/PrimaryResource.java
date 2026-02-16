@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * Protobuf API call handler for primary resource notification.
  *
  * @author rpeinthor
  */

@@ -64,10 +64,7 @@ public class DrbdResourceFileUtils
     /**
      * Writes a new resfile if the content really changed.
      *
-     * @param drbdRscData
      * @return True if a new res file was written otherwise false.
-     * @throws AccessDeniedException
-     * @throws StorageException
      */
     public boolean regenerateResFile(DrbdRscData<Resource> drbdRscData)
         throws AccessDeniedException, StorageException

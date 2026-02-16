@@ -48,23 +48,19 @@ public interface DeviceProvider
         throws AccessDeniedException, DatabaseException, StorageException;
 
     /**
+     * Returns space information for the given storage pool.
+     *
      * @return an instance of {@link SpaceInfo} containing the total capacity as well as the currently free space
      * of the given storage pool
      *
-     * @throws StorageException
-     * @throws AccessDeniedException
      */
     SpaceInfo getSpaceInfo(StorPoolInfo roStorPoolRef) throws AccessDeniedException, StorageException;
 
     /**
      * Checks if the given {@link StorPool} has a valid configuration for all involved {@link DeviceLayer}s.
      *
-     * @param config
      *
-     * @return
      *
-     * @throws StorageException
-     * @throws AccessDeniedException
      */
     LocalPropsChangePojo checkConfig(StorPoolInfo storPool) throws StorageException, AccessDeniedException;
 
@@ -79,10 +75,6 @@ public interface DeviceProvider
     /**
      * Used to determine properties of the storage pool, i.e. if the storage pool is ontop of a pmem device
      *
-     * @param storPoolRef
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws StorageException
      */
     @Nullable
     LocalPropsChangePojo update(StorPool storPoolRef)

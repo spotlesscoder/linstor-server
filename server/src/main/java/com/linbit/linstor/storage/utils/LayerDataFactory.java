@@ -664,15 +664,7 @@ public class LayerDataFactory
     }
 
     /**
-     *
-     * @param vlm
-     * @param rscData
-     * @param storPool
-     * @param ebsVlmId can be null for target (will be filled after creation on special satellite)
-     *
-     * @return
-     *
-     * @throws DatabaseException
+     * Creates EBS volume layer data.
      */
     public <RSC extends AbsResource<RSC>, VLM extends AbsVolume<RSC>> EbsData<RSC> createEbsData(
         VLM vlm,

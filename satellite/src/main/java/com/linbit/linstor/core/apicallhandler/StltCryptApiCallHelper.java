@@ -190,7 +190,6 @@ public class StltCryptApiCallHelper
      * Although this method does not decrypt anything (decryption is done in the EBS Providers), we sill want to include
      * the EBS resources in the next deviceManager run
      *
-     * @throws AccessDeniedException
      */
     private Collection<? extends ResourceName> getAllEBSResources() throws AccessDeniedException
     {

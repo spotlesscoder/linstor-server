@@ -301,7 +301,6 @@ public abstract class BaseK8sCrdMigration extends AbsMigration
      * words, only entries that can bidirectionally be mapped are included in the returned map
      * </p>
      *
-     * @return
      */
     protected HashMap<DatabaseTable, DatabaseTable> getDbTableRemapping()
     {

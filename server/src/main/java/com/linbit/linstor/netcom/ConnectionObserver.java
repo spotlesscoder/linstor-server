@@ -13,15 +13,12 @@ public interface ConnectionObserver
      * Called when an outbound connection is established
      *
      * @param connPeer The connected peer
-     * @throws IOException
      */
     void outboundConnectionEstablished(Peer connPeer) throws IOException;
 
     /**
      * Called when an outbound connection is establishing but not yet finished
      *
-     * @param peerRef
-     * @throws IOException
      */
     void outboundConnectionEstablishing(Peer peerRef) throws IOException;
 

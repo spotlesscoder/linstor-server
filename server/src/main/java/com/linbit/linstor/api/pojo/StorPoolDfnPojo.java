@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * Plain old Java object for storage pool definition API data.
  *
  * @author rpeinthor
  */

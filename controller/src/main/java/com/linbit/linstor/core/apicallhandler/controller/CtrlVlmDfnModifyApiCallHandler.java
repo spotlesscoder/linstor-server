@@ -730,7 +730,6 @@ public class CtrlVlmDfnModifyApiCallHandler implements CtrlSatelliteConnectionLi
     /**
      * Throws an ApiRcException if the given vlmDfn's rscDfn has the "DrbdOption/ExactSize" property set to true
      *
-     * @param vlmDfnRef
      */
     private void ensureExactSizeIsUnset(VolumeDefinition vlmDfnRef)
     {

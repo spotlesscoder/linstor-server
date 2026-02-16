@@ -562,9 +562,7 @@ public abstract class AbsBackupShippingService implements SystemService
      * Throws an {@link ImplementationError} if <code>this.remoteType</code> does not equals to the parameter's
      * <code>remote.getType()</code>
      *
-     * @param remote
      *
-     * @throws ImplementationError
      */
     private void ensureRemoteType(AbsRemote remote) throws ImplementationError
     {
@@ -712,9 +710,7 @@ public abstract class AbsBackupShippingService implements SystemService
      * In cases where the shipping finished faster (success irrelevant) than the ctrl can finish the take-snapshot
      * flux-chain (and consequently set SUCCESSFUL), this ensures that the ctrl doesn't get confused
      *
-     * @param snap
      *
-     * @return
      */
     private boolean waitForSnapCreateFinished(Snapshot snap)
     {

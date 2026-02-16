@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * Handles satellite requests to become primary for a resource.
  *
  * @author rpeinthor
  */

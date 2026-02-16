@@ -25,11 +25,11 @@ public interface VolumeApi
     List<PairNonNull<String, VlmLayerDataApi>> getVlmLayerData();
 
     // the following methods should be removed, but will stay for a while for client-compatibility
-    @Deprecated
     /** returns the name of the storage pool of the vlmLayerObject with "" as resource name suffix */
-    String getStorPoolName();
     @Deprecated
+    String getStorPoolName();
     /** returns the DeviceProviderKind of the storage pool of the vlmLayerObject with "" as resource name suffix */
+    @Deprecated
     DeviceProviderKind getStorPoolDeviceProviderKind();
 
     default Optional<StorPoolApi> getStorageStorPool()

@@ -29,14 +29,12 @@ public class Commands
          * If skip returns true, the failed executed external command
          * is completely ignored. No exception is thrown.
          *
-         * @param outData
          */
         boolean skip(OutputData outData);
 
         /**
          * If retry returns true the command will be executed again.
          *
-         * @param outputData
          */
         boolean retry(OutputData outputData);
     }
@@ -133,14 +131,7 @@ public class Commands
     /**
      * Uses the varArgs collection to do looped execution of the given command and concat all output into a single
      * OutputData object. This only works well if the output doesn't have any header or footer data.
-     * @param extCmd
-     * @param command
-     * @param varArgs
-     * @param failMsgExitCode
-     * @param failMsgExc
-     * @param allowExitCodes
      * @return Combined OutputData object of each execution.
-     * @throws StorageException
      */
     public static OutputData genericExecutorLimiter(
         ExtCmd extCmd,

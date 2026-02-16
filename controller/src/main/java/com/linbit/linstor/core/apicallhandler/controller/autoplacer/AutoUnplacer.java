@@ -443,9 +443,6 @@ public class AutoUnplacer
      * just "site"). {@link #getViolationsCountXReplicasOnDifferentMap(HashMap, ReadOnlyProps)} checks for settings
      * with open values (i.e. "site" without "=B")
      *
-     * @param replicasOnDifferentRef
-     * @param nodePropsRef
-     * @return
      */
     private int getViolationsCountReplicasOnDifferentWithValueList(
         @Nullable List<String> replicasOnDifferentRef,
@@ -465,9 +462,6 @@ public class AutoUnplacer
      * just "site"). {@link #getViolationsCountReplicasOnSameList(List, ReadOnlyProps, ReadOnlyProps)} checks for
      * settings with open values (i.e. "site" without "=B")
      *
-     * @param replicasOnDifferentRef
-     * @param nodePropsRef
-     * @return
      */
     private int getViolationsCountReplicasOnSameWithValueList(
         @Nullable List<String> replicasOnSameRef,

@@ -414,10 +414,7 @@ public class CtrlSnapshotRollbackApiCallHandler implements CtrlSatelliteConnecti
     /**
      * Start transactional scope for {@link #resetVlmDfnsInTransaction(ResourceDefinition, SnapshotDefinition)}
      *
-     * @param targetRscDfn
-     * @param srcSnapDfn
      *
-     * @return
      */
     private Flux<ApiCallRc> resetVlmDfns(ResourceDefinition targetRscDfn, SnapshotDefinition srcSnapDfn)
     {
@@ -436,14 +433,8 @@ public class CtrlSnapshotRollbackApiCallHandler implements CtrlSatelliteConnecti
      * This includes deleting vlmDfns that were created after that snapshot, and recreating vlmDfns that had since been
      * deleted, as well as ensuring the sizes and properties of all vlmDfns are those from the snapshot.
      *
-     * @param targetRscDfn
-     * @param srcSnapDfn
      *
-     * @return
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws ImplementationError
      */
     private Flux<ApiCallRc> resetVlmDfnsInTransaction(ResourceDefinition targetRscDfn, SnapshotDefinition srcSnapDfn)
         throws AccessDeniedException, DatabaseException, ImplementationError
@@ -585,9 +576,6 @@ public class CtrlSnapshotRollbackApiCallHandler implements CtrlSatelliteConnecti
      *      If true, we already tried to restore to {@code snapDfn} but some nodes failed to restore. In this case we
      *      will delete all successfully restored resources and perform a restore snapshot to SAFTEY_SNAP on all
      *      participating nodes.
-     * @return
-     * @throws AccessDeniedException
-     * @throws DatabaseException
      */
     private Flux<ApiCallRc> rollbackToSafetySnapInTransaction(SnapshotDefinition snapDfn, boolean restoreStarted)
         throws AccessDeniedException, DatabaseException

@@ -127,9 +127,6 @@ public class LsBlkUtils
     /**
      * Check if blkid can access the device.
      *
-     * @param extCmd
-     * @return
-     * @throws StorageException
      */
     public static String blkid(ExtCmd extCmd, String device)
         throws StorageException

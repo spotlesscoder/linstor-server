@@ -14,20 +14,19 @@ import java.util.Map;
 public class K8sCrdUtils
 {
     /**
+     * Returns a checked volume map for the given layer resource, ensuring consistency with the database.
+     *
      * @param <T> Layer specific Volume-type (LayerDrbdVolumesSpec, LayerBcacheVolumesSpec, ...)
      * @param <RSC> Subtype of AbsResource (currently only Resource or Snapshot)
      * @param accCtx AccessContext to use
      * @param absRsc Given resource or snapshot (used to determine expected volume entries
      * @param cachedMap The map that is queried of the layerResourceId
-     * @param layerResourceId
      *
      * @return a not null map. If the cacheMap returns a null, an additional check is performed
      * if there are volume-definitions or snapshot-definitions. If there are an exception is thrown as we are missing
      * entries from the database.
      * Otherwise an empty map is returned so the caller can safely iterate over the map in any case
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
      */
     public static <T, RSC extends AbsResource<RSC>> Map<Integer, T> getCheckedVlmMap(
         AccessContext accCtx,

@@ -317,8 +317,6 @@ public class CtrlBackupShippingSentInternalCallHandler
     }
 
     /**
-     * @param snapDfn
-     * @param successRef
      * @param remoteNameRef
      *     - name of either an S3Remote or LinstorRemote
      *
@@ -350,10 +348,8 @@ public class CtrlBackupShippingSentInternalCallHandler
     }
 
     /**
-     * @param snapDfn
-     * @param remoteNameRef
+     * @param remoteNameStr
      *     - name of either an S3Remote or LinstorRemote
-     * @param successRef
      *
      * @return Pair&lt;Flux, S3Remote/StltRemote&gt;
      */

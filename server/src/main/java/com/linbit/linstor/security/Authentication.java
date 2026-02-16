@@ -98,7 +98,7 @@ public final class Authentication
      * {@code storedSalt} and {@code storedHash} arrays will be cleared
      * (all bytes in the array will be set to zero).
      *
-     * @param dgstAlgo The digest algorithm used for hashing
+     * @param keyDrv The key derivation algorithm used for hashing
      * @param password The plaintext password to check
      * @param storedSalt The salt used for hashing
      * @param storedHash The stored hash to compare the password with

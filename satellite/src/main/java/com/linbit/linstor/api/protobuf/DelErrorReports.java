@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.util.Date;
 
 /**
+ * Protobuf API call handler for deleting error reports.
  *
  * @author rpeinthor
  */

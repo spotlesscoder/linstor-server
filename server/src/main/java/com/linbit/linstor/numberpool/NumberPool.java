@@ -108,7 +108,6 @@ public interface NumberPool
      * @param offset Start offset for the search for unallocated numbers
      * @return An unallocated number within the specified allocation range,
      *         preferably greater than or equal to offset
-     * @throws dsaext.numberpool.NumberPool.ExhaustedPoolException
      */
     int findUnallocatedFromOffset(int rangeStart, int rangeEnd, int offset)
         throws ExhaustedPoolException;
@@ -136,7 +135,6 @@ public interface NumberPool
      * @param offset Start offset for the search for unallocated numbers
      * @return An unallocated number within the specified allocation range,
      *         preferably greater than or equal to offset
-     * @throws dsaext.numberpool.NumberPool.ExhaustedPoolException
      */
     int autoAllocateFromOffset(int rangeStart, int rangeEnd, int offset)
         throws ExhaustedPoolException;

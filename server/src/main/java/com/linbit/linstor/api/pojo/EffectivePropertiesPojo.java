@@ -60,9 +60,7 @@ public class EffectivePropertiesPojo
      * Once we declare the current client version to be "old enough" to drop support, we can also delete this compat
      * method and simply use <code>objType.name()</code> instead
      *
-     * @param linstorObjRef
      *
-     * @return
      */
     @Deprecated
     private static String compatLinstorObjToString(LinStorObject linstorObjRef)

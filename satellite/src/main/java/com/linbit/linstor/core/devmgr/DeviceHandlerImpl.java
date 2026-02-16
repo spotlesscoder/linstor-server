@@ -590,12 +590,6 @@ public class DeviceHandlerImpl implements DeviceHandler
      * resource is indeed in deleting state. This method can return <code>null</code> if all layer resource data should
      * be ignored.
      *
-     * @param <RSC>
-     * @param rscData
-     *
-     * @return
-     *
-     * @throws AccessDeniedException
      */
     private <RSC extends AbsResource<RSC>> @Nullable AbsRscLayerObject<RSC> getFirstRscDataToExecuteForDataPath(
         AbsRscLayerObject<RSC> rscData

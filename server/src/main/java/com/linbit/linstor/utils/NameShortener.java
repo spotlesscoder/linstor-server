@@ -268,10 +268,7 @@ public class NameShortener
      * Example: fullName="resourceTooLong", maxLen=5, delimiter="_", digitCount=1
      * Results: baseName="res".
      *
-     * @param fullName
-     * @param digitCount
      *
-     * @return
      */
     private String getBaseName(String fullName)
     {
@@ -307,10 +304,7 @@ public class NameShortener
      * Returns the NumberPool for the Pair of <baseName, digitCount> with lazy initialization.
      * The baseName is calculated from the given parameters.
      *
-     * @param fullName
-     * @param digitCount
      *
-     * @return
      */
     private @Nullable NumberPool getNumberPool(String baseName, boolean createFlag)
     {
@@ -332,10 +326,7 @@ public class NameShortener
      * Deallocates the reserved number of the shortened name (if any)
      * and forgets about the given name so that it can be chosen again later.
      *
-     * @param rscDfn
-     * @param rscSuffix
      *
-     * @throws AccessDeniedException
      */
     public void remove(ResourceDefinition rscDfn, String rscSuffix) throws AccessDeniedException
     {

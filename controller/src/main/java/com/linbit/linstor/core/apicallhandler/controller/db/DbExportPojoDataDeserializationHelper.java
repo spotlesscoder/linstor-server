@@ -43,7 +43,6 @@ public class DbExportPojoDataDeserializationHelper
      * Initializes the two deserializers as well as search for the correct GenCrd* class, specified by the string
      * parameter
      *
-     * @param errorReporterRef
      */
     @SuppressWarnings("unchecked")
     public DbExportPojoDataDeserializationHelper(ErrorReporter errorReporterRef, String genCrdVersionRef)

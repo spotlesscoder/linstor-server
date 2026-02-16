@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
+ * Represents a resource layer object in the storage layer stack.
+ *
  * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  */
 public interface AbsRscLayerObject<RSC extends AbsResource<RSC>>
@@ -58,7 +60,9 @@ public interface AbsRscLayerObject<RSC extends AbsResource<RSC>>
     void setIsSuspended(boolean suspend) throws DatabaseException;
 
     /**
-     * @return true / false is the resource is suspended or not, or null if the status is unknown.
+     * Returns the suspend status of this resource layer object.
+     *
+     * @return true / false if the resource is suspended or not, or null if the status is unknown.
      */
     @Nullable Boolean isSuspended();
 

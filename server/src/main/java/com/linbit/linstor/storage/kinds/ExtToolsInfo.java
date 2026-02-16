@@ -20,7 +20,7 @@ public class ExtToolsInfo
         boolean isSupportedRef,
         @Nullable Integer versionMajorRef,
         @Nullable Integer versionMinorRef,
-        /**
+        /*
          * versionPatch might be null even if the ExtTool is supported (versionMajor and versionMinor have to be not
          * null if the ExtTool is supported)
          */

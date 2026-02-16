@@ -121,9 +121,6 @@ public class CtrlSnapshotDeleteApiCallHandler implements CtrlSatelliteConnection
      * deletes a snapshot
      * this should be called directly by the REST-class and therefore needs its own exception handling
      *
-     * @param rscName
-     * @param snapshotName
-     * @param nodeNamesStrListRef
      *
      * @return deletion-flux
      */
@@ -160,9 +157,6 @@ public class CtrlSnapshotDeleteApiCallHandler implements CtrlSatelliteConnection
      * deletes a snapshot
      * this should be called only internally and therefore leaves the exception handling to its callers
      *
-     * @param rscName
-     * @param snapshotName
-     * @param nodeNamesStrListRef
      *
      * @return deletion-flux or error-flux in case of exception
      */

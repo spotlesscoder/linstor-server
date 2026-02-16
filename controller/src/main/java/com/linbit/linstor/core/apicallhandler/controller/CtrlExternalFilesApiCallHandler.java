@@ -122,8 +122,6 @@ public class CtrlExternalFilesApiCallHandler
     /**
      * Checks if the given file-path is whitelisted in the stltConfig of the given node
      *
-     * @param fileName
-     * @param nodeName
      *
      * @return {@code true} if the file can be written<br/>
      * {@code false} if it can't be written, the node doesn't exist, the nodeName or fileName is invalid, or there is an

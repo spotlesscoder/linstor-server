@@ -182,7 +182,6 @@ public interface ResourceObserver
      * and is no longer known to the DRBD kernel module
      *  @param resource Representation of the DRBD resource that owned the volume
      *     before it disappeared
-     * @param connection
      * @param volume DrbdVolume instance tracking the DRBD volume's state. This instance
      *     is no longer known to the DRBD tracking logic when the method is called. The main
      *     purpose of passing it to this method is to inform the observer about the volume's

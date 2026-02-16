@@ -10,7 +10,6 @@ public class StorageUtils
     /**
      * Parse a decimal that may use ',' or '.' as decimal separator but does not contain any grouping separators.
      *
-     * @throws NumberFormatException
      */
     public static BigDecimal parseDecimal(String raw) throws NumberFormatException
     {
@@ -21,7 +20,6 @@ public class StorageUtils
      * Parse a decimal that may use ',' or '.' as decimal separator but does not contain any grouping separators.
      * Returns the integer part.
      *
-     * @throws NumberFormatException
      */
     public static long parseDecimalAsLong(String raw) throws NumberFormatException
     {
@@ -33,7 +31,6 @@ public class StorageUtils
      * Parse a decimal that may use ',' or '.' as decimal separator but does not contain any grouping separators.
      * Returns the integer part.
      *
-     * @throws NumberFormatException
      */
     public static int parseDecimalAsInt(String raw) throws NumberFormatException
     {

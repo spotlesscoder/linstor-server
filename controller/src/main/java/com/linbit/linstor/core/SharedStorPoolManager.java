@@ -219,9 +219,7 @@ public class SharedStorPoolManager
      *
      * If no locks are given, this method looks up all currently active locks of the given node.
      *
-     * @param storPools
      *
-     * @return
      *
      * @return A Map of {@link Node}s that were waiting for the now acquired lock(s), and are now ready to be
      *         sent to the satellite for processing. The value of each entry is the Set of granted locks.

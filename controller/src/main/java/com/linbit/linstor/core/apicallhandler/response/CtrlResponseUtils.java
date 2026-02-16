@@ -44,7 +44,7 @@ public class CtrlResponseUtils
     }
 
     /**
-     * Like {@link #combineResponses(Flux, ResourceName, String)} but with a String for resource
+     * Like {@link #combineResponses(ErrorReporter, Flux, ResourceName, String)} but with a String for resource
      * name so that also non-ResourceName-compliant strings can be concatenated
      */
     public static Flux<ApiCallRc> combineResponses(
@@ -58,8 +58,8 @@ public class CtrlResponseUtils
     }
 
     /**
-     * Like {@link #combineResponses(Flux, ResourceName, String)}, but the success message is chosen based on whether
-     * the node is in the given collection.
+     * Like {@link #combineResponses(ErrorReporter, Flux, ResourceName, String)}, but the success message is chosen
+     * based on whether the node is in the given collection.
      */
     public static Flux<ApiCallRc> combineResponses(
         ErrorReporter logger,
@@ -75,8 +75,8 @@ public class CtrlResponseUtils
     }
 
     /**
-     * Like {@link #combineResponses(Flux, ResourceName, Collection, String, String)} but with a String for resource
-     * name so that also non-ResourceName-compliant strings can be concatenated
+     * Like {@link #combineResponses(ErrorReporter, Flux, ResourceName, Collection, String, String)} but with a
+     * String for resource name so that also non-ResourceName-compliant strings can be concatenated
      */
     public static Flux<ApiCallRc> combineResponses(
         ErrorReporter logger,
@@ -191,7 +191,7 @@ public class CtrlResponseUtils
     }
 
     /**
-     * See {@link #combineResponses(Flux, ResourceName, String)}.
+     * See {@link #combineResponses(ErrorReporter, Flux, ResourceName, String)}.
      */
     public static class DelayedApiRcException extends RuntimeException
     {

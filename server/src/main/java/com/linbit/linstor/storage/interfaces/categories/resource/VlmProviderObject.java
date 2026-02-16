@@ -21,11 +21,13 @@ import com.linbit.utils.ExceptionThrowingSupplier;
 import java.util.List;
 
 /**
- * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
+ * Provides volume-level storage layer information for a resource.
  *
  * Main difference between this interface and {@link VlmLayerObject} is that
  * this interface does not have {@link VlmLayerObject#getDataDevice()} and
- * {@link LayerObject#getChildren()} methods
+ * {@link LayerObject#getChildren()} methods.
+ *
+ * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  */
 public interface VlmProviderObject<RSC extends AbsResource<RSC>> extends LayerObject, Comparable<VlmProviderObject<RSC>>
 {

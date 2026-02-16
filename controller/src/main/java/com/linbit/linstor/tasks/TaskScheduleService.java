@@ -62,10 +62,7 @@ public class TaskScheduleService implements SystemService, Runnable
          * If scheduleAt is 12, rescheduleInRelative is 10 and current timestamp is 41, the returned value would be 42
          * as it is the next higher number that is X * rescheduledInRelative later than scheduleAt.
          *
-         * @param scheduledAt
-         * @param rescheduleInRelative
          *
-         * @return
          */
         default long getNextFutureReschedule(long scheduledAt, long rescheduleInRelative)
         {
@@ -386,8 +383,6 @@ public class TaskScheduleService implements SystemService, Runnable
      * Even with newDelay = 0 the task is rescheduled in the internal map, which means that the TaskScheduler's internal
      * thread will be notified to execute the task (if necessary)
      *
-     * @param task
-     * @param newDelay
      */
     public void rescheduleAt(Task task, long newDelay)
     {

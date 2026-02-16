@@ -126,11 +126,7 @@ class SQLSingleColumnDriver<DATA, INPUT_TYPE, DB_TYPE> implements SingleColumnDa
     /**
      * This method performs the necessary stmt.set* method-calls
      *
-     * @param stmt
-     * @param startIdx
-     * @param element
      * @return the index of the next column which was not yet set.
-     * @throws SQLException
      */
     protected int fillSetter(PreparedStatement stmt, int startIdx, DB_TYPE element)
         throws SQLException

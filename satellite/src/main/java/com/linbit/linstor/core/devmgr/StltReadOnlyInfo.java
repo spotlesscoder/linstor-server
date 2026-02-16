@@ -323,6 +323,8 @@ public class StltReadOnlyInfo
         }
 
         /**
+         * Returns the snapshot name if available.
+         *
          * @return The {@link SnapshotName} if this instance was initialized using a {@link SnapshotVolume}. Otherwise
          * this method returns null.
          */
@@ -331,6 +333,8 @@ public class StltReadOnlyInfo
         }
 
         /**
+         * Returns the volume key if available.
+         *
          * @return the {@link com.linbit.linstor.core.objects.Volume.Key} if this instance was initialized with
          * a {@link Volume}. If it was initialized with a {@link SnapshotVolume}, this method returns null. In that
          * case, use {@link #getSnapVolumeKey()} instead.
@@ -341,6 +345,8 @@ public class StltReadOnlyInfo
         }
 
         /**
+         * Returns the snapshot volume key if available.
+         *
          * @return the {@link com.linbit.linstor.core.objects.SnapshotVolume.Key} if this instance was initialized with
          * a {@link SnapshotVolume}. If it was initialized with a {@link Volume}, this method returns null. In that
          * case, use {@link #getVolumeKey()} instead.

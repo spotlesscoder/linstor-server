@@ -263,7 +263,11 @@ public class TcpConnectorPeer implements Peer
         return node;
     }
 
-    /** @see TcpConnectorPeer#clientMode */
+    /**
+     * Returns whether this peer is in client mode.
+     *
+     * @see TcpConnectorPeer#clientMode
+     */
     protected boolean isClientMode()
     {
         return clientMode;

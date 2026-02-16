@@ -32,9 +32,7 @@ public class RemoteName extends GenericName
      * This method should only be used for StltRemotes, as those should also be thrown away after the backup is shipped
      * (successfully or not)
      *
-     * @param remoteNameRef
      *
-     * @return
      */
     public static RemoteName createInternal(String remoteNameRef)
     {

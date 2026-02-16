@@ -147,10 +147,6 @@ public class CtrlRscCrtApiCallHandler
     /**
      * @param rscApiList
      *     Resources to create; at least one; all must belong to the same resource definition
-     * @param diskfulByRef
-     * @param snapNamesToCopyRef
-     * @param copyAllSnapsRef
-     * @param layerStackStrListRef
      */
     private Flux<ApiCallRc> createResourceInTransaction(
         List<ResourceWithPayloadApi> rscApiList,

@@ -42,8 +42,6 @@ public class LinstorParsingUtils
      * Returns the given String as a {@link NodeName} if possible. If the String is not a valid
      * {@link NodeName} an exception is thrown.
      *
-     * @param nodeNameStr
-     * @return
      */
     public static NodeName asNodeName(String nodeNameStr)
     {
@@ -112,8 +110,6 @@ public class LinstorParsingUtils
      * Returns the given String as a {@link NetInterfaceName} if possible. If the String is not a valid
      * {@link NetInterfaceName} an exception is thrown.
      *
-     * @param netIfNameStr
-     * @return
      */
     public static NetInterfaceName asNetInterfaceName(String netIfNameStr)
     {
@@ -136,8 +132,6 @@ public class LinstorParsingUtils
      * Returns the given String as a {@link LsIpAddress} if possible. If the String is not a valid
      * {@link LsIpAddress} an exception is thrown.
      *
-     * @param ipAddrStr
-     * @return
      */
     public static LsIpAddress asLsIpAddress(String ipAddrStr)
     {
@@ -164,7 +158,6 @@ public class LinstorParsingUtils
      * Returns the given String as a {@link LsIpAddress} if possible. If the String is not a valid
      * {@link LsIpAddress} an exception is thrown.
      *
-     * @return
      */
     public static TcpPortNumber asTcpPortNumber(int port)
     {
@@ -187,8 +180,6 @@ public class LinstorParsingUtils
      * Returns the given String as a {@link ResourceName} if possible. If the String is not a valid
      * {@link ResourceName} an exception is thrown.
      *
-     * @param rscNameStr
-     * @return
      */
     public static ResourceName asRscName(String rscNameStr)
     {
@@ -211,8 +202,6 @@ public class LinstorParsingUtils
      * Returns the given int as a {@link VolumeNumber} if possible. If the int is not a valid
      * {@link VolumeNumber} an exception is thrown.
      *
-     * @param vlmNr
-     * @return
      */
     public static VolumeNumber asVlmNr(int vlmNr)
     {
@@ -236,8 +225,6 @@ public class LinstorParsingUtils
      * Returns the given String as a {@link StorPoolName} if possible. If the String is not a valid
      * {@link StorPoolName} an exception is thrown.
      *
-     * @param storPoolNameStr
-     * @return
      */
     public static StorPoolName asStorPoolName(String storPoolNameStr)
     {

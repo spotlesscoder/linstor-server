@@ -325,12 +325,7 @@ public class ScheduleBackupService implements SystemService
      * Add a rscDfn to be scheduled for automated backup shipping.
      * Only call this method if there are no recent automated backups of the given rscDfn-schedule-remote combination
      *
-     * @param rscDfn
-     * @param schedule
-     * @param remote
-     * @param accCtx
      *
-     * @throws AccessDeniedException
      */
     public void addNewTask(
         @Nullable ResourceDefinition rscDfn,
@@ -352,13 +347,7 @@ public class ScheduleBackupService implements SystemService
      * DO NOT set lastStartTime to a negative number - if this seems necessary for any reason, use addNewTask(...)
      * instead
      *
-     * @param rscDfn
-     * @param schedule
-     * @param remote
-     * @param lastStartTime
-     * @param accCtx
      *
-     * @throws AccessDeniedException
      */
     public void addTaskAgain(
         @Nullable ResourceDefinition rscDfn,
@@ -538,9 +527,7 @@ public class ScheduleBackupService implements SystemService
     /**
      * Unconditionally reschedules all tasks that use the given schedule.
      *
-     * @param scheduleRef
      *
-     * @throws AccessDeniedException
      */
     public void modifyTasks(Schedule scheduleRef, AccessContext accCtx) throws AccessDeniedException
     {
@@ -844,11 +831,7 @@ public class ScheduleBackupService implements SystemService
      *     can be null if scheduleName is set
      * @param scheduleName
      *     can be null if remoteName is set
-     * @param accCtx
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws InvalidKeyException
      */
     private void removeAllRelatedProps(@Nullable String remoteName, @Nullable String scheduleName, AccessContext accCtx)
         throws AccessDeniedException, InvalidKeyException, DatabaseException

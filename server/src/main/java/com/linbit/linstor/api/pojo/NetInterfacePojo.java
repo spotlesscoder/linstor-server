@@ -6,6 +6,7 @@ import com.linbit.linstor.core.apis.NetInterfaceApi;
 import java.util.UUID;
 
 /**
+ * Plain old Java object for network interface API data.
  *
  * @author rpeinthor
  */

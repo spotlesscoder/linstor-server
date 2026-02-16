@@ -658,6 +658,8 @@ public class CtrlBackupApiCallHandler
     }
 
     /**
+     * Lists backups from the S3 remote, categorized into recognized and unrecognized entries.
+     *
      * @return
      * <code>Pair.objA</code>: Map of s3Key -> backupApi <br />
      * <code>Pair.objB</code>: Set of s3Keys that either were not created by linstor or cannot be recognized as such

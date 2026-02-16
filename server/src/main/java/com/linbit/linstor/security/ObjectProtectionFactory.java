@@ -11,8 +11,6 @@ import com.linbit.linstor.transaction.manager.TransactionMgr;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import java.sql.SQLException;
-
 public class ObjectProtectionFactory
 {
     private final ObjProtMap objProtMap;
@@ -43,12 +41,6 @@ public class ObjectProtectionFactory
      * The {@code accCtx} parameter is only used when no ObjectProtection was found in the
      * database and the {@code createIfNotExists} parameter is set to true
      *
-     * @param accCtx
-     * @param transMgr
-     * @param objPath
-     * @param createIfNotExists
-     * @return
-     * @throws SQLException
      */
     public ObjectProtection getInstance(
         AccessContext accCtx,

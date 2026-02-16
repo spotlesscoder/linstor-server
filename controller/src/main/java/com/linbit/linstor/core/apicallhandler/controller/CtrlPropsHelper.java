@@ -502,14 +502,14 @@ public class CtrlPropsHelper
     }
 
     /**
+     * Fills the target property container with values from source properties after whitelist validation.
      *
      * @param apiCallRc For success/error messages
      * @param linstorObj What type of linstor obj the props should be checked(whitelist)
      * @param sourceProps Props to set
      * @param targetProps Current property container
      * @param failAccDeniedRc mask code of denied rc
-     * @param propsChangedListenersRef
-     * @param ignoredKeys keys to ignore for whitelistcheck
+     * @param ignoredKeysRef keys to ignore for whitelistcheck
      *
      * @return true if properties were changed, otherwise false (e.g. setting the same value)
      */
@@ -700,18 +700,9 @@ public class CtrlPropsHelper
     /**
      * Remove a key from the property container
      *
-     * @param apiCallRc
-     * @param linstorObj
-     * @param props
-     * @param deletePropKeys
-     * @param deleteNamespaces
-     * @param propsChangedListenersRef
      *
      * @return true if a key was removed, otherwise false (e.g. key didn't exists at all)
      *
-     * @throws AccessDeniedException
-     * @throws InvalidKeyException
-     * @throws DatabaseException
      */
     public boolean remove(
         ApiCallRcImpl apiCallRc,
@@ -821,6 +812,8 @@ public class CtrlPropsHelper
     }
 
     /**
+     * Copies properties from source to destination with optional retain and override behavior.
+     *
      * @param sourceProp
      *     source Props
      * @param destinationProps

@@ -15,15 +15,9 @@ public class CommandExec
      * Executes the given command and stores the stdOut and stdErr in the given files. If the always created error-file
      * is empty after the command finishes, it is deleted again.
      *
-     * @param commandRef
-     * @param outFileRef
-     * @param errFileRef
-     * @param timepstampRef
      *
      * @return Whether the error file exists or not after this method
      *
-     * @throws IOException
-     * @throws InterruptedException
      */
     public static boolean executeCmd(
         final String[] commandRef,

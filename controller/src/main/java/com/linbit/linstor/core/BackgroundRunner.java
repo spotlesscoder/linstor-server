@@ -333,7 +333,6 @@ public class BackgroundRunner
     /**
      * Assumes that runQueuesByNode lock is taken
      *
-     * @param takeLocksIfPossible
      */
     private boolean canRun(RunConfig<?> runCfgRef, Collection<NodeName> lockedNodes, boolean takeLocksIfPossible)
     {

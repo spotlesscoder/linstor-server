@@ -88,9 +88,7 @@ public class CreateMultiSnapRequest
     /**
      * This method (re-) initializes the description as well as
      *
-     * @param accCtx
      *
-     * @throws AccessDeniedException
      */
     public void updateDescriptionAndJoinedRscNames(@Nullable AccessContext accCtx) throws AccessDeniedException
     {

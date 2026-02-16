@@ -189,7 +189,6 @@ public class CtrlBackupCreateApiCallHandler
      * <li>Sets all flags and props needed for the stlt to start the shipping</li>
      * </ul>
      *
-     * @param runInBackgroundRef
      */
     BackupSnapshotObj backupSnapshot(
         String rscNameRef,
@@ -969,8 +968,8 @@ public class CtrlBackupCreateApiCallHandler
      *
      * @param rscDfn
      *     the resource definition for which previous backups should be found.
-     * @param remoteName
-     *     The remote name, used to memorise previous snapshots.
+     * @param remote
+     *     The remote, used to memorise previous snapshots.
      * @param allowIncremental
      *     If false, this will always return null, indicating a full backup should be created.
      *

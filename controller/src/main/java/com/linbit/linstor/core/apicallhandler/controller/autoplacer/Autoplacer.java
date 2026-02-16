@@ -53,9 +53,8 @@ public class Autoplacer
     }
 
     /**
-     * @param selectFilter
-     * @param rscDfnRef
-     * @param rscSize
+     * Selects storage pools for automatic resource placement.
+     *
      * @return Null if no selection could be made of a non-empty Set of selected StorPools
      */
     public @Nullable Set<StorPool> autoPlace(

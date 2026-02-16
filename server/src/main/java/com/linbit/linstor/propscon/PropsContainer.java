@@ -370,11 +370,10 @@ public class PropsContainer extends AbsTransactionObject implements Props
     }
 
     /**
-     * Removes the given {@param namespace} and all its properties.
+     * Removes the given {@code namespace} and all its properties.
      *
      * @param namespace Acts as a prefix for all keys of the map
      * @return True if any property has been modified by this method, false otherwise
-     * @throws DatabaseException
      */
     @Override
     public boolean removeNamespace(String namespace) throws DatabaseException

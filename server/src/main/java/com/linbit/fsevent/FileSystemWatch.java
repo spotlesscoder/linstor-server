@@ -267,7 +267,6 @@ public class FileSystemWatch implements Runnable, SystemService
     }
 
     /**
-     * @throws IOException
      *
      */
     void cancelAllWatchKeys() throws IOException

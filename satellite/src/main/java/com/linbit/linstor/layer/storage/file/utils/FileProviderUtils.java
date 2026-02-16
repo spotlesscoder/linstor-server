@@ -18,6 +18,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 /**
+ * Utility methods for file-based storage provider operations.
+ *
  * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  */
 public class FileProviderUtils

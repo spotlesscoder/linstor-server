@@ -107,24 +107,32 @@ public interface ApiCallRc extends List<ApiCallRc.RcEntry>
         Map<String, String> getObjRefs();
 
         /**
+         * Returns the reply message.
+         *
          * @return Reply message
          */
         @Nullable
         String getMessage();
 
         /**
+         * Returns the cause information.
+         *
          * @return Cause information
          */
         @Nullable
         String getCause();
 
         /**
+         * Returns the correction hint.
+         *
          * @return Correction hint
          */
         @Nullable
         String getCorrection();
 
         /**
+         * Returns the details information.
+         *
          * @return Details information
          */
         @Nullable
@@ -136,6 +144,8 @@ public interface ApiCallRc extends List<ApiCallRc.RcEntry>
         boolean appendObjectDescrptionToDetails();
 
         /**
+         * Returns the date the ApiCallRc was created.
+         *
          * @return Date the apicallrc was created
          */
         ZonedDateTime getDateTime();

@@ -356,7 +356,6 @@ public class NvmeUtils
      * @param accCtx
      *     AccessContext needed to access properties and Target resource
      *
-     * @throws StorageException
      */
     public void connect(NvmeRscData<Resource> nvmeRscData, AccessContext accCtx) throws StorageException
     {
@@ -453,10 +452,9 @@ public class NvmeUtils
     /**
      * Disconnects the NVMe Initiator from the Target, given the subsystem name
      *
-     * @param rscData
+     * @param nvmeRsc
      *     NvmeRscData object containing all needed information for this method
      *
-     * @throws StorageException
      */
     public void disconnect(NvmeRscData<Resource> nvmeRsc) throws StorageException
     {
@@ -538,7 +536,6 @@ public class NvmeUtils
      *
      * @return boolean true if the subsystem directory exists and false otherwise
      *
-     * @throws AccessDeniedException
      */
     public boolean isTargetConfigured(NvmeRscData<Resource> nvmeRscData) throws AccessDeniedException
     {
@@ -713,7 +710,6 @@ public class NvmeUtils
      * @param nvmeVlmData
      *     nvmeVlm object containing information for path to the new namespace
      *
-     * @throws DatabaseException
      */
     public void createNamespace(NvmeVlmData<Resource> nvmeVlmData, String subsystemDirectory)
         throws IOException, DatabaseException
@@ -738,9 +734,7 @@ public class NvmeUtils
      *
      * @param nvmeVlmData
      *     nvmeVlm object containing information for path to the new namespace
-     * @param subsystemDirectory
      *
-     * @throws DatabaseException
      */
     public void deleteNamespace(NvmeVlmData<Resource> nvmeVlmData, String subsystemDirectory)
         throws IOException, ChildProcessTimeoutException, StorageException, DatabaseException
@@ -770,8 +764,6 @@ public class NvmeUtils
      * @param subsystemName
      *     String containing NVMe subsystem name
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
      */
     public void createSpdkNamespace(NvmeVlmData<Resource> nvmeVlmData, String subsystemName)
         throws IOException, StorageException, ChildProcessTimeoutException, AccessDeniedException, DatabaseException
@@ -807,10 +799,7 @@ public class NvmeUtils
      *
      * @param nvmeVlmData
      *     nvmeVlm object containing information for path to the new namespace
-     * @param subsystemName
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
      */
     public void deleteSpdkNamespace(NvmeVlmData<Resource> nvmeVlmData, String subsystemName)
         throws IOException, ChildProcessTimeoutException, StorageException, AccessDeniedException, DatabaseException
@@ -832,7 +821,7 @@ public class NvmeUtils
     }
 
     /**
-     * Returns NVMe subsystem prefix depending on {@param NvmeRscData}
+     * Returns NVMe subsystem prefix depending on {@code NvmeRscData}
      *
      * @param nvmeRscData NvmeRscData, Resource object containing the needed flag for this method
      *
@@ -846,7 +835,7 @@ public class NvmeUtils
     /* helper methods */
 
     /**
-     * Executes the given command immediately or waits for its completion, depending on {@param isWaiting}
+     * Executes the given command immediately or waits for its completion, depending on {@code isWaiting}
      *
      * @param isWaiting boolean true if the external commands should be waited for in loop
      * @param command String... command being executed
@@ -881,7 +870,7 @@ public class NvmeUtils
     /**
      * Executes the nvme-discover command and reads the names of available subsystems from the output
      *
-     * @param nvmeRscData NvmeRscData, object containing needed NVMe subsystem prefix
+     * @param subsystemName NVMe subsystem name to discover
      * @param transportType String, only RDMA featured at the moment
      * @param ipAddr String, can be IPv4 or IPv6
      * @param port String, default: 4420

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
+ * Protobuf-backed implementation of the network interface API data.
  *
  * @author rpeinthor
  */

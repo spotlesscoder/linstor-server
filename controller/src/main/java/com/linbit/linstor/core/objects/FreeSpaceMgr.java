@@ -4,7 +4,6 @@ import com.linbit.ImplementationError;
 import com.linbit.linstor.core.identifier.SharedStorPoolName;
 import com.linbit.linstor.dbdrivers.DatabaseException;
 import com.linbit.linstor.security.AccessContext;
-import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject;
 import com.linbit.linstor.transaction.BaseTransactionObject;
 import com.linbit.linstor.transaction.TransactionObjectFactory;
@@ -64,10 +63,9 @@ public class FreeSpaceMgr extends BaseTransactionObject implements FreeSpaceTrac
      * This method should be called when a storage-volume was just created but not yet deployed
      * on the {@link Satellite}.
      *
-     * Pending storage-volumes only change the outcome of {@link #getFreeSpaceCurrentEstimation()}
-     * but not of {@link #getFreeSpaceLastUpdated()}.
+     * Pending storage-volumes only change the outcome of {@link #getPendingAllocatedSum(AccessContext)}
+     * but not of {@link #getFreeCapacityLastUpdated(AccessContext)}.
      *
-     * @param vlm
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -109,13 +107,10 @@ public class FreeSpaceMgr extends BaseTransactionObject implements FreeSpaceTrac
     /**
      * The given volume is removed from the pending list, and the freespace is updated.
      *
-     * This method changes the outcome of both {@link #getFreeSpaceCurrentEstimation()} and
-     * {@link #getFreeSpaceLastUpdated()}.
+     * This method changes the outcome of both {@link #getPendingAllocatedSum(AccessContext)} and
+     * {@link #getFreeCapacityLastUpdated(AccessContext)}.
      * To be more precise, a call of this method followed atomically by a call of
-     * {@link #getFreeSpaceLastUpdated()} returns <code>freeSpaceRef</code>
-     *  @param vlm
-     * @param freeCapacityRef
-     * @param totalCapacityRef
+     * {@link #getFreeCapacityLastUpdated(AccessContext)} returns <code>freeSpaceRef</code>
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -142,7 +137,6 @@ public class FreeSpaceMgr extends BaseTransactionObject implements FreeSpaceTrac
     }
 
     /**
-     * @param accCtx
      * @return the last received free space size (or {@link Optional#empty()} if not initialized yet).
      * This value will not include the changes of pending adds or removes.
      *
@@ -160,11 +154,9 @@ public class FreeSpaceMgr extends BaseTransactionObject implements FreeSpaceTrac
     }
 
     /**
-     * @param accCtx
      * @return the currently estimated free space size (or {@link Optional#empty()} if not initialized yet).
      * This value includes the changes of pending adds or removes.
      *
-     * @throws AccessDeniedException
      */
     @Override
     public long getPendingAllocatedSum(AccessContext accCtx)

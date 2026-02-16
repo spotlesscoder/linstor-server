@@ -24,10 +24,6 @@ public class ResponseUtils
      * {@link ApiCallRcImpl}.
      * Cause, details and correction messages are left empty.
      * @param accCtx,
-     * @param errorMsg
-     * @param retCode
-     * @param errorReporter
-     * @param peer
      */
     public static void reportStatic(
         @Nullable Throwable throwableRef,
@@ -62,16 +58,6 @@ public class ResponseUtils
      * {@link ApiCallRcImpl}.
      * This method also calls
      *
-     * @param errorMsg
-     * @param causeMsg
-     * @param detailsMsg
-     * @param correctionMsg
-     * @param retCode
-     * @param objRefsRef
-     * @param apiCallRcRef
-     * @param skipErrorReport
-     * @param accCtx
-     * @param peer
      */
     public static void reportStatic(
         @Nullable Throwable throwableRef,
@@ -125,13 +111,6 @@ public class ResponseUtils
      * with the "current" object and operation masks</li>
      *  <li>The details message is not extended with the object description</li>
      * </ul>
-     *  @param msg
-     * @param cause
-     * @param details
-     * @param correction
-     * @param retCode
-     * @param objRefsRef
-     * @param errorId
      * @param skipErrorReport Do not create an error-report
      */
     public static void addAnswerStatic(

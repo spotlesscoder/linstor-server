@@ -688,10 +688,7 @@ public class MigrationUtils
      * Also make sure to quote ALL constant strings, otherwise this method could not reference columns!
      * example: concat("\"prefix\"", "NODE_NAME", "\"suffix\"");
      *
-     * @param dbProductRef
-     * @param concatParams
      *
-     * @return
      */
     public static String concat(DbProduct dbProductRef, String... concatParams)
     {

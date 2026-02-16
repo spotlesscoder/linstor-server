@@ -15,7 +15,6 @@ public class ParseUtils
      * Parse a decimal that may use ',' or '.' as decimal separator but does not contain any grouping separators.
      * Returns the integer part.
      *
-     * @throws NumberFormatException
      */
     public static long parseDecimalAsLong(String raw)
     {
@@ -26,7 +25,6 @@ public class ParseUtils
     /**
      * Parse a decimal that may use ',' or '.' as decimal separator but does not contain any grouping separators.
      *
-     * @throws NumberFormatException
      */
     public static BigDecimal parseDecimal(String raw)
     {

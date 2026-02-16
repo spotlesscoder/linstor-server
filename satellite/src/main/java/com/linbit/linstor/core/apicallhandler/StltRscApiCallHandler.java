@@ -155,7 +155,6 @@ class StltRscApiCallHandler
      * Basically we now just mark the update as received and applied to prevent the
      * {@link DeviceManager} from waiting for the update.
      *
-     * @param rscNameStr
      */
     public void applyDeletedRsc(String rscNameStr)
     {
@@ -643,7 +642,6 @@ class StltRscApiCallHandler
      * Gets the remote {@link Node} and merges the nodes properties and network interfaces based on the content of
      * <code>otherRscRawRef</code>
      *
-     * @param otherRscRawRef
      * @return The fully merged remote {@link Node}
      */
     private Node getMergedRemoteNode(OtherRscPojo otherRscRawRef)

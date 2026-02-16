@@ -16,9 +16,6 @@ public class VolumeUtils
      * If {@code partial} is false, this method only returns true if all backing devices are
      * thinly backed.
      *
-     * @param vlmObj
-     * @param partial
-     * @return
      */
     public static boolean isVolumeThinlyBacked(VlmProviderObject<?> vlmObj, boolean partial)
     {
@@ -55,9 +52,7 @@ public class VolumeUtils
     /**
      * Check if the volume is provided on ZFS.
      *
-     * @param vlmObj
      * @param partial if true just any of the storage devices needs to be zfs, otherwise all.
-     * @return
      */
     public static boolean isVolumeZfs(VlmProviderObject<?> vlmObj, boolean partial)
     {

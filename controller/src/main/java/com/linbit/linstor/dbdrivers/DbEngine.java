@@ -83,13 +83,6 @@ public interface DbEngine
          * <br/>
          * See {@link DataLoader}'s javadoc for details regarding the generic types
          *
-         * @param raw
-         * @param parents
-         * @throws InvalidNameException
-         * @throws InvalidIpAddressException
-         * @throws ValueOutOfRangeException
-         * @throws DatabaseException
-         * @throws MdException
          */
         @Nullable
         Pair<DATA, INIT_MAPS> loadImpl(
@@ -200,8 +193,10 @@ public interface DbEngine
      *
      * @param <DATA>
      *     The Linstor-object, i.e. {@link Node}, {@link Resource}, {@link ResourceDefinition}, ...
-     * @param <LIST_TYPE>
-     *     The type of the elements of the {@link Collection}.
+     * @param <KEY>
+     *     The key type of the Map.
+     * @param <VALUE>
+     *     The value type of the Map.
      * @param setters
      *     This map contains accessors for all columns of the given {@link Table}.<br/>
      *     The {@link ExceptionThrowingFunction} receives the DATA object, and has to return a
@@ -237,8 +232,6 @@ public interface DbEngine
      * @param dataToString
      *     Converts the DATA to a String (only for logging)
      *
-     * @throws DatabaseException
-     * @throws AccessDeniedException
      */
     <DATA> void create(
         Map<Column, ExceptionThrowingFunction<DATA, Object, AccessDeniedException>> setters,
@@ -261,13 +254,11 @@ public interface DbEngine
      *     that gets a {@link Node} which returns a long value from {@link StateFlags#getFlagsBits}
      * @param dataRef
      *     The actual data which should be upserted
-     * @param table
+     * @param tableRef
      *     The {@link Table} in which the given <code>dataRef</code> should be upserted.
      * @param dataToString
      *     Converts the DATA to a String (only for logging)
      *
-     * @throws DatabaseException
-     * @throws AccessDeniedException
      */
     <DATA> void upsert(
         Map<Column, ExceptionThrowingFunction<DATA, Object, AccessDeniedException>> settersRef,
@@ -296,8 +287,6 @@ public interface DbEngine
      * @param dataToString
      *     Converts the DATA to a String (only for logging)
      *
-     * @throws DatabaseException
-     * @throws AccessDeniedException
      */
     <DATA> void delete(
         Map<Column, ExceptionThrowingFunction<DATA, Object, AccessDeniedException>> setters,
@@ -313,7 +302,6 @@ public interface DbEngine
      * @param table
      *     The {@link Table} from which should be truncated / cleared.
      *
-     * @throws DatabaseException
      */
     void truncate(DatabaseTable table) throws DatabaseException;
 
@@ -339,12 +327,6 @@ public interface DbEngine
      *     The data-structure containing all loaded parent objects
      * @param dataLoaderRef
      *     The implementation of restoring the DATA object from the raw input and the parent objects
-     * @throws DatabaseException
-     * @throws AccessDeniedException
-     * @throws InvalidNameException
-     * @throws InvalidIpAddressException
-     * @throws ValueOutOfRangeException
-     * @throws MdException
      */
     <DATA extends Comparable<? super DATA>, INIT_MAPS, LOAD_ALL> Map<DATA, INIT_MAPS> loadAll(
         DatabaseTable table,
@@ -366,9 +348,7 @@ public interface DbEngine
      * {@link DatabaseTable} instances and can therefore also truncate tables that existed in previous versions but no
      * longer exist in the current {@link GeneratedDatabaseTables} class.
      *
-     * @param orderedTablesListRef
      *
-     * @throws DatabaseException
      */
     void truncateAllData(List<DbExportPojoData.Table> orderedTablesListRef) throws DatabaseException;
 

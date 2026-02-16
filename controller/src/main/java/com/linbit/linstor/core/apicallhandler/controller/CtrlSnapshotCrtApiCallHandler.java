@@ -451,9 +451,7 @@ public class CtrlSnapshotCrtApiCallHandler
      * After Snapshots with their SnapshotDefinition were created, this method now sends the update
      * to the corresponding satellites and also takes care of resuming-io in the end.
      *
-     * @param snapshotDfn
      *
-     * @return
      */
     @SuppressWarnings("unchecked")
     public <E extends Throwable> Flux<ApiCallRc> postCreateSnapshotSuppressingErrorClasses(

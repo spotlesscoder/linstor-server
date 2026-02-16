@@ -460,7 +460,6 @@ public class MathUtils
      *
      * @param nr Input number to factorize
      * @param primeFactors Map of calculated base / exponent entries
-     * @param valueSelector Selector that decides whether a number is greater or smaller than another number
      */
     private static void baseFactorize(
         final long nr,
@@ -512,7 +511,6 @@ public class MathUtils
      *
      * @param nr Input number to factorize
      * @param primeFactors Map of calculated base / exponent entries
-     * @param valueSelector Selector that decides whether a number is greater or smaller than another number
      */
     private static void extendedSimpleFactorize(
         final long nr,

@@ -203,10 +203,6 @@ public class SpecialSatelliteProcessManager
      *  to also shut down (gracefully if possible).
      * </p>
      *
-     * @param node
-     * @return
-     * @throws IOException
-     * @throws PortAlreadyInUseException
      */
     public void startLocalSatelliteProcess(String nodeNameStr, Integer port, Node.Type nodeType)
         throws IOException, PortAlreadyInUseException

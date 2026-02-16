@@ -1212,9 +1212,6 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
 
     /**
      * Generates a hex dump of the content of a ByteBuffer, with the specified length, from the zero position
-     * @param logMsg
-     * @param buffer
-     * @param length
      */
     private void debugLogBufferContent(
         final String        logMsg,

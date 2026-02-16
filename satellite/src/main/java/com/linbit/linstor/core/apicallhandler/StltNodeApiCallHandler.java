@@ -100,7 +100,6 @@ public class StltNodeApiCallHandler
      * Basically we now just mark the update as received and applied to prevent the
      * {@link DeviceManager} from waiting for that update.
      *
-     * @param nodeNameStr
      */
     public void applyDeletedNode(String nodeNameStr)
     {

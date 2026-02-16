@@ -172,7 +172,6 @@ public class CtrlRscDeleteApiCallHandler implements CtrlSatelliteConnectionListe
      * <p>
      * The {@link Resource} is only deleted once the corresponding satellite confirmed
      * that it has undeployed (deleted) the {@link Resource}
-     * @param keepTiebreakerRef
      */
     public Flux<ApiCallRc> deleteResource(String nodeNameStr, String rscNameStr, boolean keepTiebreakerRef)
     {

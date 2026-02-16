@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * Plain old Java object for resource definition API data.
  *
  * @author rpeinthor
  */

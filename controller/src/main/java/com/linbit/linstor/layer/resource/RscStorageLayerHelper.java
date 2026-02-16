@@ -392,15 +392,9 @@ public class RscStorageLayerHelper extends
      * in the given availabilityZone and has either the "connectedInitiator" property not set or set to the optional
      * nodeName parameter.
      *
-     * @param accCtx
-     * @param remoteMap
-     * @param rscDfn
-     * @param availabilityZone
-     * @param nodeName
      *
      * @return A target resource if one exists
      *
-     * @throws AccessDeniedException
      */
     public static @Nullable Resource findTargetEbsResource(
         AccessContext accCtx,

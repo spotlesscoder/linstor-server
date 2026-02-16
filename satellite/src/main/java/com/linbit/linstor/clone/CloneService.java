@@ -606,8 +606,6 @@ public class CloneService implements SystemService
     /**
      * Returns all clones belonging to the same resource/volume
      *
-     * @param cloneInfo
-     * @return
      */
     private Set<CloneInfo> volumeClones(final CloneInfo cloneInfo)
     {

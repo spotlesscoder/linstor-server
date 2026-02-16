@@ -9,6 +9,8 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.utils.ShellUtils;
 
 /**
+ * Holds information about LVM logical volumes obtained from the lvs command.
+ *
  * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  */
 public class LvsInfo extends VolumeInfo

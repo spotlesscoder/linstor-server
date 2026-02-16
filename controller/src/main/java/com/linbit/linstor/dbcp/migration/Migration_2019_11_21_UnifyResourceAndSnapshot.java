@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
     version = "2019.11.21.01.01",
     description = "Unifies resources and snapshots"
 )
-/**
+/*
  * Fixes the resource definition external name entries
  */
 public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigration
@@ -260,9 +260,6 @@ public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigrat
      * Databases should usually allow dropping a primary key, even if foreign keys refer to it.
      * However, at least H2 does not support that.
      *
-     * @param dbConRef
-     * @param dbProductRef
-     * @throws SQLException
      */
     private void dropAllRelatedForeignKeys(Connection dbCon, DbProduct dbProduct) throws SQLException
     {
@@ -595,10 +592,6 @@ public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigrat
     /**
      * Adds the SNAPSHOT_NAME VARCHAR(48) column to the given table
      *
-     * @param dbCon
-     * @param dbProduct
-     * @param table
-     * @throws SQLException
      */
     private void addSnapNameColumn(Connection dbCon, DbProduct dbProduct, String table, String afterColumn)
         throws SQLException
@@ -621,12 +614,6 @@ public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigrat
      * Drops and (re) creates the primary key for the given table and the given primary key name using the vararg
      * argument
      *
-     * @param dbCon
-     * @param dbProduct
-     * @param table
-     * @param pkName
-     * @param pkClms
-     * @throws SQLException
      */
     private void recreatePrimaryKey(
         Connection dbCon,
@@ -651,13 +638,6 @@ public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigrat
      * Drops and (re) creates the foreign key for the given localTable and the given foreign key name.
      * This method assumes that the used columns are the same in the localTable as well as in the remoteTable
      *
-     * @param dbCon
-     * @param dbProduct
-     * @param localTable
-     * @param fkName
-     * @param remoteTable
-     * @param fkClms
-     * @throws SQLException
      */
     private void recreateForeignKey(
         Connection dbCon,

@@ -759,8 +759,6 @@ class CtrlRscAutoTieBreakerHelper implements CtrlRscAutoHelper.AutoHelper
      * Sets the tiebreaker flag in a transaction and commits the transaction.
      * Does NOT update satellites
      *
-     * @param tiebreaker
-     * @return
      */
     public Flux<ApiCallRc> setTiebreakerFlag(Resource tiebreaker)
     {

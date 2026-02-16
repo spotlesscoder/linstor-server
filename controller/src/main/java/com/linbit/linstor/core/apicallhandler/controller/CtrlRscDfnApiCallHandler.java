@@ -1174,9 +1174,6 @@ public class CtrlRscDfnApiCallHandler
 
     /**
      * Override resource layer data, that has to be the same as in the original resource.
-     * @param origRsc
-     * @param newPayload
-     * @throws AccessDeniedException
      */
     private void overrideRscLayerData(Resource origRsc, LayerPayload newPayload) throws AccessDeniedException
     {
@@ -1277,7 +1274,6 @@ public class CtrlRscDfnApiCallHandler
     /**
      * Check if the resource has skip disk set or if has DRBD all are upToDate.
      * @param rsc resource to check.
-     * @throws AccessDeniedException
      */
     private void failIfWrongRscState(Resource rsc) throws AccessDeniedException
     {

@@ -37,10 +37,7 @@ public class WipeHandler
      *
      * That means, this method calls "{@code wipefs devicePath}" and cleans drbd super block (last 4k of the device)
      *
-     * @param devicePath
      *
-     * @throws StorageException
-     * @throws IOException
      */
     public void quickWipe(String devicePath) throws StorageException
     {

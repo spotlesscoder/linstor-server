@@ -320,8 +320,6 @@ public class SnapshotRollbackManager
          *
          * In any cases, the entry will be deleted from the waitingForNodes set.
          *
-         * @param nodeNameRef
-         * @param successRef
          *
          * @return True if after calling this method the waitingForNodes set is empty
          */

@@ -60,6 +60,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * Represents a resource definition in the LINSTOR cluster.
  *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
@@ -263,7 +264,6 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
      * set on any of the volume definitions of this resource definition.
      *
      * @param accCtx AccessContext for accessing resource definition, volume definition and layer information
-     * @param autoMinIoSizeRef
      * @return Floor value minimum-io-size of all volume definitions, or <code>null</code> if no resources exist
      * @throws AccessDeniedException If access to required information is denied
      */
@@ -590,7 +590,6 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
      * Returns a map of <ResourceNameSuffix, RscDfnLayerObject> where the RscDfnLayerObject has
      * the same DeviceLayerKind as the given argument
      *
-     * @throws AccessDeniedException
      */
     @SuppressWarnings("unchecked")
     public <T extends RscDfnLayerObject> Map<String, T> getLayerData(
@@ -771,7 +770,6 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
      * @param accCtx
      *     AccessContext for checks
      * @return The first found mounted/primary resource, if none is mounted returns empty optional.
-     * @throws AccessDeniedException
      */
     public Optional<Resource> anyResourceInUse(AccessContext accCtx)
         throws AccessDeniedException

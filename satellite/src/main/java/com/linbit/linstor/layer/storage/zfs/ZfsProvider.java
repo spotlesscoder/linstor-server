@@ -216,7 +216,7 @@ public class ZfsProvider
     {
         StorageRscData<Snapshot> snapData = snapVlmDataRef.getRscLayerObject();
         @Nullable String rscNameFormatSuffix;
-        /**
+        /*
          * If we need the snapLvId for creating a snapshot, the snapshot must not contain the rscNameFormatSuffix.
          * Otherwise the "snapshotExists" method might return false if a "_deleted_rsc_00000_1@snap" does not exist, but
          * "rsc_00000@snap" already exists.
@@ -475,9 +475,6 @@ public class ZfsProvider
      * <p>A ZFS volume cannot be deleted if it still has ZFS snapshots</p>
      * <p>A ZFS snapshot cannot be deleted if it still has ZFS clones</p>
      *
-     * @param zfsInfoRef
-     * @param zfsTypeRef
-     * @return
      */
     private boolean canDelete(ZfsInfo zfsInfoRef)
     {

@@ -208,9 +208,6 @@ public class ResourceGroup extends AbsCoreObj<ResourceGroup> implements Protecte
      * a possible {@link NullPointerException} (in case the {@link VolumeGroup} does not exist) this method
      * returns an empty {@link ReadOnlyPropsImpl} instance.
      *
-     * @param accCtx
-     * @param vlmNrRef
-     * @throws AccessDeniedException
      */
     public ReadOnlyProps getVolumeGroupProps(AccessContext accCtx, VolumeNumber vlmNrRef) throws AccessDeniedException
     {

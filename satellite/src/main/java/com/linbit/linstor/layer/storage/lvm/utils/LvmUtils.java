@@ -36,6 +36,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Utility methods for LVM storage operations.
+ *
  * @author Gabor Hernadi &lt;gabor.hernadi@linbit.com&gt;
  */
 public class LvmUtils

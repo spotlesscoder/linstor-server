@@ -108,8 +108,6 @@ public interface Peer
      * Wraps the parameter into a {@link Message} which is created by {@link #createMessage()} and
      * calls {@link #sendMessage(Message)}.
      *
-     * @param data
-     * @return
      */
     boolean sendMessage(byte[] data);
 
@@ -118,10 +116,7 @@ public interface Peer
      * calls {@link #sendMessage(Message)}.
      * Additionally logs which Peer is the target and apiCall it uses
      *
-     * @param data
-     * @param apiCall
      *
-     * @return
      */
     default boolean sendMessage(byte[] data, String apiCall)
     {
@@ -286,20 +281,17 @@ public interface Peer
 
     /**
      * Called when the connection is established
-     * @throws SSLException
      */
     void connectionEstablished() throws SSLException;
 
     /**
      * Waits until someone calls the {@link Peer#connectionEstablished()} method
-     * @throws InterruptedException
      */
     void waitUntilConnectionEstablished() throws InterruptedException;
 
     /**
      * Returns the {@link TcpConnector} handling this peer
      *
-     * @return
      */
     TcpConnector getConnector();
 
@@ -321,7 +313,6 @@ public interface Peer
      * Returns a timestamp in milliseconds when the last ping message was sent
      * (e.g. {@link Peer#sendPing()} was called)
      *
-     * @return
      */
     long getLastPingSent();
 
@@ -329,7 +320,6 @@ public interface Peer
      * Returns a timestamp in milliseconds when the last ping message was received
      * (e.g. {@link Peer#pongReceived()} was called)
      *
-     * @return
      */
     long getLastPongReceived();
 
@@ -350,7 +340,6 @@ public interface Peer
      * Whenever a FullSync or a LinStor object gets serialized, the FullSync timestamp
      * and / or the serializer-ID might change. Use this lock for (possibly) concurrent
      * modification for those.
-     * @return
      */
     ReadWriteLock getSerializerLock();
 
@@ -359,7 +348,6 @@ public interface Peer
      *
      * It is advised to grab the write lock of {@link #getSerializerLock()} prior this call
      *
-     * @param timestamp
      */
     void setFullSyncId(long timestamp);
 
@@ -368,7 +356,6 @@ public interface Peer
      *
      * It is advised to grab the read lock of {@link #getSerializerLock()} prior this call
      *
-     * @return
      */
     long getFullSyncId();
 
@@ -378,11 +365,12 @@ public interface Peer
      *
      * It is advised to grab the read lock of {@link #getSerializerLock()} prior this call.
      *
-     * @return
      */
     long getNextSerializerId();
 
     /**
+     * Signals that the satellite failed to apply the full sync, using a default connection status.
+     *
      * @see #fullSyncFailed(com.linbit.linstor.api.ApiConsts.ConnectionStatus)
      */
     default void fullSyncFailed()
@@ -403,8 +391,6 @@ public interface Peer
 
     /**
      * Returns true if the method {@link #fullSyncFailed()} was already called, false otherwise.
-     *
-     * @return
      */
     boolean hasFullSyncFailed();
 
@@ -417,21 +403,18 @@ public interface Peer
     /**
      * Returns true if the method {@link #fullSyncApplied()} was already called, false otherwise.
      *
-     * @return
      */
     boolean isFullSyncApplied();
 
     /**
      * Returns true if the peer has a complete Message object ready to be processed.
      *
-     * @return
      */
     boolean hasNextMsgIn();
 
     /**
      * Returns a complete {@link Message} object for further processing. May return null
      * if {@link #hasNextMsgIn()} returns false or throw an {@link ImplementationError}.
-     * @return
      */
     Message nextCurrentMsgIn();
 

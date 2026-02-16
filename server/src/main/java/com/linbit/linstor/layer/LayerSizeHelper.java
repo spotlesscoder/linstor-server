@@ -40,12 +40,6 @@ public class LayerSizeHelper
     /**
      * Updates the allocation and/or usable sizes of all vlmData, starting with the parameter and everything below it.
      *
-     * @param <RSC>
-     * @param accCtxRef
-     * @param vlmDataRef
-     *
-     * @throws AccessDeniedException
-     * @throws InvalidSizeException
      */
     public <RSC extends AbsResource<RSC>, VLM_TYPE extends VlmProviderObject<RSC>> void calculateSize(
         AccessContext accCtxRef,
@@ -88,17 +82,8 @@ public class LayerSizeHelper
     /**
      * Updates the allocation and/or usable sizes of all vlmData, starting with the parameter and everything below it.
      *
-     * @param <RSC>
-     * @param accCtxRef
-     * @param vlmDataRef
-     * @param rscSuffixRef
-     *
-     * @return
-     *
      * @return The allocation size of the STORAGE layer with the specified {@code rscSuffixRef}
      *
-     * @throws AccessDeniedException
-     * @throws InvalidSizeException
      */
     public <RSC extends AbsResource<RSC>> long calculateSize(
         AccessContext accCtxRef,
@@ -173,16 +158,6 @@ public class LayerSizeHelper
      * Calls {@link #calculateSize(AccessContext, VlmProviderObject)} and returns the usableSize of the given volume /
      * rscLayerSuffix
      *
-     * @param <RSC>
-     * @param accCtxRef
-     * @param layerDataRef
-     * @param vlmDfnRef
-     * @param rscLayerSuffixRef
-     *
-     * @return
-     *
-     * @throws AccessDeniedException
-     * @throws InvalidSizeException
      */
     private <RSC extends AbsResource<RSC>> long calcSize(
         AccessContext accCtxRef,

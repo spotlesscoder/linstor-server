@@ -79,9 +79,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
      *
      * @param accCtx The object creator's access context
      * @param driver The DatabaseDriver. Can be null for temporary objects
-     * @param transObjFactoryRef
-     * @param transMgrProvider
-     * @throws DatabaseException
      */
     ObjectProtection(
         AccessContext accCtx,
@@ -304,9 +301,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * Deletes this object protection. In order to do this, the given access context
      * needs {@link AccessType#CONTROL}.
-     * @param accCtx
-     * @throws AccessDeniedException
-     * @throws DatabaseException
      */
     public void delete(AccessContext accCtx) throws AccessDeniedException, DatabaseException
     {
@@ -325,9 +319,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for Resources
      *
-     * @param nodeName
-     * @param resDefName
-     * @return
      */
     public static String buildPath(NodeName nodeName, ResourceName resDefName)
     {
@@ -339,8 +330,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for ResourceDefinitions
      *
-     * @param resDfnName
-     * @return
      */
     public static String buildPath(ResourceName resDfnName)
     {
@@ -361,8 +350,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for ResourceGroups
      *
-     * @param resGrpName
-     * @return
      */
     public static String buildPath(ResourceGroupName rscGrpName)
     {
@@ -372,8 +359,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for Controller
      *
-     * @param subPath
-     * @return
      */
     public static String buildPathController(String subPath)
     {
@@ -383,8 +368,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for satellite
      *
-     * @param subPath
-     * @return
      */
     public static String buildPathSatellite(String subPath)
     {
@@ -394,8 +377,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for Nodes
      *
-     * @param nodeName
-     * @return
      */
     public static String buildPath(NodeName nodeName)
     {
@@ -405,8 +386,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for StorPoolDefinitions
      *
-     * @param storPoolName
-     * @return
      */
     public static String buildPath(StorPoolName storPoolName)
     {
@@ -416,8 +395,6 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for KeyValueStores
      *
-     * @param kvsName
-     * @return
      */
     public static String buildPath(KeyValueStoreName kvsName)
     {
@@ -427,9 +404,7 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for External files
      *
-     * @param nameRef
      *
-     * @return
      */
     public static String buildPath(ExternalFileName nameRef)
     {
@@ -439,9 +414,7 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for Remotes
      *
-     * @param remoteName
      *
-     * @return
      */
     public static String buildPath(RemoteName remoteName)
     {
@@ -451,9 +424,7 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
     /**
      * ObjProt-Path for Schedules
      *
-     * @param scheduleName
      *
-     * @return
      */
     public static String buildPath(ScheduleName scheduleName)
     {

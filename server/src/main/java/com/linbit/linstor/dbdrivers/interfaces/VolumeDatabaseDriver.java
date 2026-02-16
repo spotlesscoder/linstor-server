@@ -17,7 +17,6 @@ public interface VolumeDatabaseDriver
      * @param volume
      *  The data to be stored (including the primary key)
      *
-     * @throws DatabaseException
      */
     void create(Volume volume) throws DatabaseException;
 
@@ -27,7 +26,6 @@ public interface VolumeDatabaseDriver
      * @param volume
      *  The data identifying the row to delete
      *
-     * @throws DatabaseException
      */
     void delete(Volume volume) throws DatabaseException;
 

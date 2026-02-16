@@ -13,18 +13,14 @@ public interface LinstorRemoteDatabaseDriver
     /**
      * Creates or updates the given LinstorRemote object into the database.
      *
-     * @param remote
      *
-     * @throws DatabaseException
      */
     void create(LinstorRemote remote) throws DatabaseException;
 
     /**
      * Removes the given LinstorRemote object from the database
      *
-     * @param remote
      *
-     * @throws DatabaseException
      */
     void delete(LinstorRemote remote) throws DatabaseException;
 

@@ -471,9 +471,7 @@ public class BackupInfoManager
     /**
      * checks if the given remote is currently used for any backup (create or restore)
      *
-     * @param remote
      *
-     * @return
      */
     public boolean hasRemoteInProgressBackups(RemoteName remote)
     {
@@ -487,8 +485,6 @@ public class BackupInfoManager
     /**
      * add the given snapDfn to mark that the given remote is currently used for this backup
      *
-     * @param remote
-     * @param snapDfn
      */
     private void addSnapToInProgressBackups(RemoteName remote, SnapshotDefinition snapDfn)
     {
@@ -502,9 +498,7 @@ public class BackupInfoManager
      * removes the given snapDfns from the inProgressBackups map, and returns a set of all remoteNames that now have no
      * in-progress backups (aka need to be checked if they need to be deleted)
      *
-     * @param snapDfnsToCleanup
      *
-     * @return
      */
     private Set<RemoteName> removeInProgressBackups(Set<SnapshotDefinition> snapDfnsToCleanup)
     {

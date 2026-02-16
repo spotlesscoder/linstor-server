@@ -17,10 +17,6 @@ public interface ControllerPeerConnector
     /**
      * Sets the controller peer object used later for replies to the controller.
      *
-     * @param ctrlUuidRef
-     * @param controllerPeerRef
-     * @param nodeUuid
-     * @param nodeName
      */
     void setControllerPeer(
         @Nullable UUID ctrlUuidRef,

@@ -18,7 +18,6 @@ public class VolumeNumberAlloc
      *  This method is the same as calling {@link #getFreeVolumeNumber(int[], VolumeNumber, VolumeNumber)}
      *  with {@link VolumeNumber#VOLUME_NR_MIN} and {@link VolumeNumber#VOLUME_NR_MAX} as range limitation.
      *
-     * @param occupied
      * @return An unoccupied {@link VolumeNumber}
      * @throws ExhaustedPoolException If all volume numbers within the specified range are occupied
      */

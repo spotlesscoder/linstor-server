@@ -271,8 +271,6 @@ public class WhitelistProps
 
     /**
      * Returns which drbd options need quoting.
-     * @param lsObj
-     * @param key
      * @return true if value should be quoted, otherwise false.
      */
     public boolean needsQuoting(LinStorObject lsObj, String key)
@@ -329,7 +327,8 @@ public class WhitelistProps
 
     /**
      * Converts the value to its canonical form.
-     * The property should already have been validated with {@link #isAllowed(LinStorObject, String, String, boolean)}.
+     * The property should already have been validated with
+     * {@link #isAllowed(LinStorObject, List, String, String, boolean)}.
      */
     public String normalize(LinStorObject lsObj, String key, String value)
     {

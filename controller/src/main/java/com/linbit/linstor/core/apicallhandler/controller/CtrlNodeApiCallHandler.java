@@ -999,12 +999,7 @@ public class CtrlNodeApiCallHandler
      * Checks for sanity of the currently set properties. There are checks that throw Exceptions if they are not passed,
      * other checks only generate a warning message for the user.
      *
-     * @param apiCallRcsRef
-     * @param deleteNamespacesRef
-     * @param overridePropsRef
      *
-     * @throws InvalidNameException
-     * @throws AccessDeniedException
      */
     private Flux<ApiCallRc> checkProperties(
         ApiCallRcImpl apiCallRcsRef,

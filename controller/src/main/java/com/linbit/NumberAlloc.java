@@ -11,7 +11,6 @@ public class NumberAlloc
      * Finds the index in the occupied where all numbers at equal or
      * greater indexes have a value equal to or greater than firstNumber
      *
-     * @param occupied
      * @param firstNumber The least number allowed at any index equal to or
      *     greater than the requested index
      * @return Index in occupied where all numbers at equal or greater indexes

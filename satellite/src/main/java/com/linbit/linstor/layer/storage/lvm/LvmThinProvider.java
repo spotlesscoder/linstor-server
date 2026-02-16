@@ -457,9 +457,6 @@ public class LvmThinProvider extends LvmProvider
 
     /**
      * Create a thin snapshot instead of supers thick snapshot
-     * @param lvmVlmData
-     * @param cloneRscName
-     * @throws StorageException
      */
     @Override
     protected void createSnapshotForCloneImpl(

@@ -18,6 +18,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
+ * Protobuf-backed implementation of the resource API data.
  *
  * @author rpeinthor
  */

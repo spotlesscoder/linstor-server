@@ -22,12 +22,8 @@ public class SdparmUtils
      *
      * Note the blanks instead of delimiter like ":"
      *
-     * @param extCmdFactory
-     * @param devPath
      *
-     * @return
      *
-     * @throws StorageException
      */
     public static String getMac(ExtCmdFactory extCmdFactory, String devPath) throws StorageException
     {

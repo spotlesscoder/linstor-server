@@ -121,6 +121,8 @@ import java.util.stream.Collectors;
 
 
 /**
+ * Loads all persistent objects from the database into the in-memory data structures.
+ *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
 @Singleton
@@ -750,7 +752,7 @@ public class DatabaseLoader implements DatabaseDriver
             }
         );
 
-        /**
+        /*
          * This needs to be done AFTER we have already loaded all layerRscData (for both, Resources and Snapshots).
          * Otherwise, if only the layerRscData for Resources are loaded, loading the layerVlmData for Snapshots would
          * not find their corresponding layerRscData

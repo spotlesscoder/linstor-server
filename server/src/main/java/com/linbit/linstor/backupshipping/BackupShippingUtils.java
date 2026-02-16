@@ -375,13 +375,8 @@ public class BackupShippingUtils
      * This method gets the src-remote from which a backup-target will receive the shipment.
      * This will return the name of either an S3Remote or a StltRemote
      *
-     * @param snapDfn
-     * @param accCtx
      *
-     * @return
      *
-     * @throws AccessDeniedException
-     * @throws InvalidKeyException
      */
     public static String getBackupSrcRemote(SnapshotDefinition snapDfn, AccessContext accCtx)
         throws InvalidKeyException, AccessDeniedException
@@ -397,15 +392,10 @@ public class BackupShippingUtils
      * This method gets the dst-remote to which a backup-source will send the shipment.
      * This will return the name of either an S3Remote or a StltRemote
      *
-     * @param snapDfn
      * @param remoteName
      *     - this has to be the name of an S3Remote or a LinstorRemote
-     * @param accCtx
      *
-     * @return
      *
-     * @throws AccessDeniedException
-     * @throws InvalidKeyException
      */
     public static String getBackupDstRemote(SnapshotDefinition snapDfn, String remoteName, AccessContext accCtx)
         throws InvalidKeyException, AccessDeniedException
@@ -426,12 +416,8 @@ public class BackupShippingUtils
      *     - nullable, if given, BACKUP_SOURCE namespace is checked, else BACKUP_TARGET
      * @param status
      *     - the status to check for
-     * @param accCtx
      *
-     * @return
      *
-     * @throws AccessDeniedException
-     * @throws InvalidKeyException
      */
     public static boolean hasShippingStatus(
         SnapshotDefinition snapDfn,

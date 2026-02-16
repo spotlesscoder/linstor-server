@@ -534,10 +534,7 @@ public class CtrlRscAutoPlaceApiCallHandler
      * mean that we have no other resources deployed. This, by definition, makes the
      * <code>--diskless-on-remaining</code> useless, and thus this method will throw an {@link ApiRcException}.
      *
-     * @param layerStackListRef
-     * @param rscNameStrRef
      *
-     * @return
      */
     private long calculateInitialDisklessFlags(List<DeviceLayerKind> layerStackListRef, String rscNameStrRef)
     {

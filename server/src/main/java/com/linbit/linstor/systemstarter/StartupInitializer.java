@@ -16,6 +16,8 @@ public interface StartupInitializer
         SystemServiceStartException;
 
     /**
+     * Shuts down this initializer.
+     *
      * @param jvmShutdownRef <code>True</code> iff this shutdown was initiated by the shutdown hook or another
      *      source that should end in the end of the JVM relatively soon.
      */

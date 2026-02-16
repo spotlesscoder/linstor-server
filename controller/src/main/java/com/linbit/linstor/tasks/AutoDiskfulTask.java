@@ -142,7 +142,6 @@ public class AutoDiskfulTask implements TaskScheduleService.Task
      * If the property is set, a new autoDiskfull entry is created or the existing updated.
      * If the property is not set, the existing entry will be deleted.
      *
-     * @param rsc
      */
     public void update(Resource rsc)
     {
@@ -505,10 +504,6 @@ public class AutoDiskfulTask implements TaskScheduleService.Task
      * </li>
      * </ul>
      *
-     * @param rscRef
-     * @return
-     * @throws InvalidKeyException
-     * @throws AccessDeniedException
      */
     private @Nullable Resource getExcessRsc(Resource rscRef) throws InvalidKeyException, AccessDeniedException
     {

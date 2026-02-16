@@ -83,7 +83,6 @@ public abstract class AbsLayerSizeCalculator<VLM_TYPE extends VlmProviderObject<
      * Returns the next {@link AbsLayerSizeCalculator} depending on the {@link DeviceLayerKind} of the given
      * {@code vlmData}.
      *
-     * @param vlmData
      */
     public AbsLayerSizeCalculator<VlmProviderObject<?>> getLayerSizeCalculator(VlmProviderObject<?> vlmData)
     {
@@ -95,11 +94,7 @@ public abstract class AbsLayerSizeCalculator<VLM_TYPE extends VlmProviderObject<
      * The implementation is expected to update its own allocated size.
      * The implementation is expected to call an update*Size method for the next layer
      *
-     * @param vlmDataRef
      *
-     * @throws DatabaseException
-     * @throws AccessDeniedException
-     * @throws InvalidSizeException
      */
     public final void updateAllocatedSizeFromUsableSize(VlmProviderObject<?> vlmDataRef)
         throws AccessDeniedException, DatabaseException, InvalidSizeException
@@ -132,11 +127,7 @@ public abstract class AbsLayerSizeCalculator<VLM_TYPE extends VlmProviderObject<
      * The implementation might lower its allocated size if the layer below provides less usable size.
      * The implementation is expected to call an update*Size method for the next layer
      *
-     * @param vlmDataRef
      *
-     * @throws DatabaseException
-     * @throws AccessDeniedException
-     * @throws InvalidSizeException
      */
     public final void updateUsableSizeFromAllocatedSize(VlmProviderObject<?> vlmDataRef)
         throws AccessDeniedException, DatabaseException, InvalidSizeException
@@ -177,11 +168,8 @@ public abstract class AbsLayerSizeCalculator<VLM_TYPE extends VlmProviderObject<
      * <li>Satellite</li>
      * </ul>
      *
-     * @param vlmRef
      *
-     * @return
      *
-     * @throws AccessDeniedException
      */
     protected PriorityProps getPrioProps(AbsVolume<?> vlmRef) throws AccessDeniedException
     {
@@ -215,11 +203,7 @@ public abstract class AbsLayerSizeCalculator<VLM_TYPE extends VlmProviderObject<
      * The implementation is expected to update its own allocated size.
      * The implementation is expected to call an update*Size method for the next layer
      *
-     * @param vlmData
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws InvalidSizeException
      */
     protected abstract void updateAllocatedSizeFromUsableSizeImpl(VLM_TYPE vlmData)
         throws AccessDeniedException, DatabaseException, InvalidSizeException;
@@ -230,11 +214,7 @@ public abstract class AbsLayerSizeCalculator<VLM_TYPE extends VlmProviderObject<
      * The implementation might lower its allocated size if the layer below provides less usable size.
      * The implementation is expected to call an update*Size method for the next layer
      *
-     * @param vlmData
      *
-     * @throws AccessDeniedException
-     * @throws DatabaseException
-     * @throws InvalidSizeException
      */
     protected abstract void updateUsableSizeFromAllocatedSizeImpl(VLM_TYPE vlmData)
         throws AccessDeniedException, DatabaseException, InvalidSizeException;

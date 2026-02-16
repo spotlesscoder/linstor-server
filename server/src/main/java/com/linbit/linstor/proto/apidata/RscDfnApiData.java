@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * Protobuf-backed implementation of the resource definition API data.
  *
  * @author rpeinthor
  */

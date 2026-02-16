@@ -89,15 +89,11 @@ public class BackupNodeFinder
      * shipping and therefore it is still undetermined which node (or node-group) needs to start the shipping. This
      * means that the snap needs to be added to the prevNodeUndecidedQueue instead of the actual node queues
      *
-     * @param rscDfn
      * @param currentSnapDfnRef The current snapshot definition. If non-null only nodes are considered that already
      *        have a snapshot of this given snapshot definitions. If this parameter is null, this check is skipped.
-     * @param prevSnapDfnRef
-     * @param requiredExtToolsRef
      *
      * @return List&lt;Node&gt;
      *
-     * @throws AccessDeniedException
      */
     public Set<Node> findUsableNodes(
         ResourceDefinition rscDfn,

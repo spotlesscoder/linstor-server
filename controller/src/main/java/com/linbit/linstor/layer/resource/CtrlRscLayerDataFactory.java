@@ -109,8 +109,6 @@ public class CtrlRscLayerDataFactory
      * A LUKS layer is created if at least one {@link VolumeDefinition}
      * has the {@link VolumeDefinition.Flags#ENCRYPTED} flag set.
      *
-     * @param accCtxRef
-     * @return
      */
     public List<DeviceLayerKind> createDefaultStack(AccessContext accCtxRef, Resource rscRef)
     {

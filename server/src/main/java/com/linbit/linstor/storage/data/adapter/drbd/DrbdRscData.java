@@ -574,12 +574,9 @@ public class DrbdRscData<RSC extends AbsResource<RSC>>
      * <li>Satellite props (from parameter)</li>
      * </ul>
      *
-     * @param apiCtxRef
-     * @param stltProps
      *
      * @return true if "DrbdOptions/SkipDisk" is "True" (ignoring case). False otherwise
      *
-     * @throws AccessDeniedException
      */
     public boolean isSkipDiskEnabled(AccessContext apiCtxRef, ReadOnlyProps stltProps) throws AccessDeniedException
     {

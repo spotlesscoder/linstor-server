@@ -36,7 +36,6 @@ public interface ErrorReporter
     /**
      * Returns the current log level;
      *
-     * @return
      */
     @Nullable Level getCurrentLogLevel();
 
@@ -92,7 +91,6 @@ public interface ErrorReporter
      * This method calls {@link ErrorReporter#reportError(Level, Throwable)} with
      * {@link Level#ERROR} as default logLevel.
      *
-     * @param errorInfo
      *
      * @return the logName of the generated report; may be null if no report was created
      */
@@ -115,8 +113,6 @@ public interface ErrorReporter
      * by whatever component of the program is trying to use the respective ErrorReporter
      * implementation.
      *
-     * @param logLevel
-     * @param errorInfo
      *
      * @return the logName of the generated report; may be null if no report was created
      */
@@ -128,10 +124,6 @@ public interface ErrorReporter
      * Calls {@link ErrorReporter#reportError(Level, Throwable, AccessContext, Peer, String)}
      * with {@link Level#ERROR} as default logLevel.
      *
-     * @param errorInfo
-     * @param accCtx
-     * @param client
-     * @param contextInfo
      *
      * @return the logName of the generated report; may be null if no report was created
      */
@@ -147,10 +139,6 @@ public interface ErrorReporter
      * Reports any kind of error, especially ones that are not expected during normal operation, with
      * the specified logLevel.
      *
-     * @param errorInfo
-     * @param accCtx
-     * @param client
-     * @param contextInfo
      *
      * @return the logName of the generated report; may be null if no report was created
      */
@@ -169,10 +157,6 @@ public interface ErrorReporter
      * E.g., a StorageException caused by running out of space, an exhausted numbers pool, a user-specified
      * value being out of range, etc.
      *
-     * @param errorInfo
-     * @param accCtx
-     * @param client
-     * @param contextInfo
      *
      * @return the logName of the generated report; may be null if no report was created
      */

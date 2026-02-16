@@ -31,7 +31,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +60,7 @@ public class StltSosReportApiCallHandler
      * Collects a list of local reports, stores them in the linstor.d/sos/<sos-report-name> directory and replies the
      * controller the list of files with their sizes, but without their content. The files with content have to be
      * requested separately.
-     * The list of collected Reports can be found in {@link #listSosReport(Date)}
+     * The list of collected Reports can be found in {@link #listSosReport(Path, LocalDateTime)}
      */
     public Pair<List<FileInfoPojo>, String> handleSosReportRequestFileList(String sosReportName, LocalDateTime since)
     {
@@ -211,10 +210,6 @@ public class StltSosReportApiCallHandler
      * command finished.
      * The resulting file(s) are added to the list of FileInfoPojos.
      *
-     * @param sosReportDirRef
-     * @param reportRef
-     * @param fileListRef
-     * @param errorsRef
      */
     private void appendCommandType(
         final Path sosReportDirRef,
@@ -367,8 +362,6 @@ public class StltSosReportApiCallHandler
      * <tr><td>logs/*</td><td>All '*{mv.db,log}' from /var/log/linstor (unless overridden) </td></tr>
      * </table>
      *
-     * @param sosReportDir
-     * @param sinceRef
      */
     private Set<SosReportType> listSosReport(Path sosReportDir, LocalDateTime sinceRef)
     {
@@ -491,7 +484,6 @@ public class StltSosReportApiCallHandler
     /**
      * Basically performs a java-based <code>'rm -rf ..../linstor.d/$sosReportNameRef'</code>
      *
-     * @param sosReportNameRef
      */
     public void handleSosReportCleanup(String sosReportNameRef)
     {

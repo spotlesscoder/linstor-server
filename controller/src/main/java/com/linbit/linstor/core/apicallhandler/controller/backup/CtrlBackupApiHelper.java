@@ -197,11 +197,8 @@ public class CtrlBackupApiHelper
      * throws an exception if the remote is marked for deletion, since those remotes are not allowed to start new
      * shipments
      *
-     * @param remote
      *
-     * @return
      *
-     * @throws AccessDeniedException
      */
     void ensureShippingToRemoteAllowed(AbsRemote remote) throws AccessDeniedException
     {
@@ -417,10 +414,7 @@ public class CtrlBackupApiHelper
      * Unlike {@link CtrlApiDataLoader#loadSnapshotDfn(String, String, boolean)} this method does not expect rscDfn to
      * exist when trying to load snapDfn
      *
-     * @param rscName
-     * @param snapName
      *
-     * @return
      */
     @Nullable
     SnapshotDefinition loadSnapDfnIfExists(String rscName, String snapName)

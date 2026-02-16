@@ -11,7 +11,7 @@ import java.sql.Connection;
     version = "2019.09.09.01.01",
     description = "Fix resource definition external name entries"
 )
-/**
+/*
  * Fixes the resource definition external name entries
  */
 public class Migration_2019_09_09_ExtNameFix extends LinstorMigration

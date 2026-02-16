@@ -38,7 +38,6 @@ public abstract class AbsTransactionObject implements TransactionObject
      * This method can be overridden in case of hierarchical data-structures where
      * "this" represents just a sub-structure but the root of the data structure should
      * be added to the TransactionMgr. This is the case for example for our {@link PropsContainer}
-     * @return
      */
     protected TransactionObject getObjectToRegister()
     {
@@ -91,7 +90,6 @@ public abstract class AbsTransactionObject implements TransactionObject
     /**
      * Method which can be overridden for additional tasks after the transMgr was set
      *
-     * @param transMgrRef
      */
     protected void postSetConnection(@Nullable TransactionMgr transMgrRef)
     {

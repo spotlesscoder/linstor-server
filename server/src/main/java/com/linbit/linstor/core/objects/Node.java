@@ -71,6 +71,7 @@ import reactor.core.publisher.FluxSink;
 import static java.util.stream.Collectors.toList;
 
 /**
+ * Represents a node in the LINSTOR cluster.
  *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */

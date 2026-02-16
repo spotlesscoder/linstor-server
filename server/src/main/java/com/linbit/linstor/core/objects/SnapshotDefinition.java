@@ -399,7 +399,6 @@ public class SnapshotDefinition extends AbsCoreObj<SnapshotDefinition> implement
      * Returns a map of <ResourceNameSuffix, RscDfnLayerObject> where the RscDfnLayerObject has
      * the same DeviceLayerKind as the given argument
      *
-     * @throws AccessDeniedException
      */
     @SuppressWarnings("unchecked")
     public <T extends RscDfnLayerObject> Map<String, T> getLayerData(
@@ -533,7 +532,6 @@ public class SnapshotDefinition extends AbsCoreObj<SnapshotDefinition> implement
     /**
      * Get the average creation time of all snapshots of this snapDfn
      *
-     * @return
      */
     public @Nullable Date getCreationTime()
     {

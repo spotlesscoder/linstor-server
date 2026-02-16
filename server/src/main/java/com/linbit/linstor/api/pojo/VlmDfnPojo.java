@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * Plain old Java object for volume definition API data.
  *
  * @author rpeinthor
  */

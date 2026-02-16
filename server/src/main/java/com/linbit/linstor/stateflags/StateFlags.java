@@ -6,6 +6,8 @@ import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.transaction.TransactionObject;
 
 /**
+ * Manages a set of state flags with access control and persistence.
+ *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
 public interface StateFlags<T extends Flags> extends TransactionObject

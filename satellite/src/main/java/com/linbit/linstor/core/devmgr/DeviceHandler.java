@@ -102,10 +102,6 @@ public interface DeviceHandler
 
     /**
      * Recursively calls all child layers processAfterClone method that should make any post clone processing needed.
-     * @param vlmSrcDataRef
-     * @param vlmTgtDataRef
-     * @param clonedPath
-     * @throws StorageException
      */
     void processAfterClone(VlmProviderObject<?> vlmSrcDataRef, VlmProviderObject<?> vlmTgtDataRef, String clonedPath)
         throws StorageException;

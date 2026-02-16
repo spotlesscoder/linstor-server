@@ -38,9 +38,7 @@ public abstract class LinstorConfig
      * 3) environment variables
      * 4) default values
      *
-     * @param cmdLineArgs
      *
-     * @return
      */
     public LinstorConfig(@Nullable String[] cmdLineArgs)
     {

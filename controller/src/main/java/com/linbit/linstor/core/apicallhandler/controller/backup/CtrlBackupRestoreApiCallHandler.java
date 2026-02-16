@@ -661,9 +661,6 @@ public class CtrlBackupRestoreApiCallHandler
      * Create snaps and snapDfns based on the info from the meta-file<br/>
      * Also re-encrypt LUKS-vlm-keys if needed
      *
-     * @throws InvalidValueException
-     * @throws InvalidKeyException
-     * @throws MaxSizeException
      */
     private Snapshot createSnapshotByS3Meta(
         S3MetafileNameInfo metafileNameInfo,
@@ -971,13 +968,7 @@ public class CtrlBackupRestoreApiCallHandler
      * That G value needs to be stored on the SnapshotVolumeDefinition's property for future usage.
      * </p>
      *
-     * @param snapVlmRef
      *
-     * @throws AccessDeniedException
-     * @throws InvalidValueException
-     * @throws DatabaseException
-     * @throws InvalidKeyException
-     * @throws InvalidSizeException
      */
     private void recalculateCommonAllocationGranularityIfNeeded(SnapshotVolume snapVlmRef)
         throws AccessDeniedException, InvalidKeyException, DatabaseException, InvalidValueException,
@@ -1079,8 +1070,6 @@ public class CtrlBackupRestoreApiCallHandler
     /**
      * Creates the snapDfn based on the given metadata and sets all props and flags needed for the receive and restore
      *
-     * @throws InvalidValueException
-     * @throws InvalidKeyException
      */
     private SnapshotDefinition getSnapDfnForBackupRestore(
         BackupMetaDataPojo metadata,

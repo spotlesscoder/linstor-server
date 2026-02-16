@@ -68,10 +68,6 @@ public enum SecurityLevel
      * Sets the configured security level from the database.
      *
      * Runs upon initial startup and during reconfiguration
-     *
-     * @param secLvlValue
-     *
-     * @throws DatabaseException if a database error occurs
      */
     static void setLoadedSecLevel(String secLvlValue)
     {

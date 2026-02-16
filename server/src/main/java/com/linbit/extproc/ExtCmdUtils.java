@@ -37,15 +37,12 @@ public class ExtCmdUtils
 
     /**
      * Simple check that throws a exception returned by the given {@link ExceptionFactory}
-     * if the exit code is not equal to the {@code expectedRetCode}.
+     * if the exit code is not equal to the {@code expectedRetCodes}.
      *
      * @param output
      *            The {@link OutputData} which contains the exit code
-     * @param command
-     *            The <code>String[]</code> that was called (used in the
-     *            exception message)
      * @param expectedRetCodes
-     *            The expected return code - usually 0
+     *            The expected return codes - usually 0
      * @param excFactory
      *            The exception factory creating a new exception if the exitCode is unexpected
      * @param format

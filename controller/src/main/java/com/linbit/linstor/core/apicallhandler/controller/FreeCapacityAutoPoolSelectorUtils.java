@@ -89,12 +89,7 @@ public class FreeCapacityAutoPoolSelectorUtils
      * default to "MaxOversubscriptionRatio" if they do not exist. If "MaxOversubscriptionRatio" itself does not exist,
      * the {@link StorPool} class has rules for default values, which are then used for the above properties.
      *
-     * @param sysCtxRef
-     * @param thinFreeCapacities
-     * @param storPoolRef
-     * @param includeOversubscriptionRatioRef
      *
-     * @return
      */
     public static Optional<Long> getFreeCapacityCurrentEstimationPrivileged(
         AccessContext sysCtxRef,
@@ -177,11 +172,7 @@ public class FreeCapacityAutoPoolSelectorUtils
      * If thinFreeCapacitiesRef is not null, it's value will be returned for the given storPool (if it exists).
      * Otherwise the storPool's freeSpaceTracker is asked for the free space. If that is also not set, null is returned.
      *
-     * @param sysCtxRef
-     * @param thinFreeCapacitiesRef
-     * @param storPoolRef
      *
-     * @return
      */
     private static @Nullable Long getFreeSpacePrivileged(
         AccessContext sysCtxRef,

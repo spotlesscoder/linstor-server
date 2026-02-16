@@ -31,6 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * SQL-based persistence implementation for the security subsystem.
  *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */

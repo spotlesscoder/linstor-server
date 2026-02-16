@@ -83,6 +83,8 @@ public class CtrlSatelliteUpdateCaller
     }
 
     /**
+     * Sends node change notifications to the specified satellites.
+     *
      * @param uuid UUID of changed node
      * @param nodeName Name of changed node
      * @param nodesToContact Nodes to update

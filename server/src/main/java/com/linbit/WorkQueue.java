@@ -1,6 +1,8 @@
 package com.linbit;
 
 /**
+ * A queue for submitting work items for asynchronous execution.
+ *
  * @author Robert Altnoeder &lt;robert.altnoeder@linbit.com&gt;
  */
 public interface WorkQueue

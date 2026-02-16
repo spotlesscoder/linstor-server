@@ -110,10 +110,6 @@ public class CopySnapsHelper
      * Returns a pair of fluxes. ObjA will be the flux that starts the shipment while objB will be the flux
      * that gets completed once the shipment finishes.
      *
-     * @param rscNameRef
-     * @param dstNodeNameRef
-     * @param snapDfnRef
-     * @return
      */
     public Flux<ApiCallRc> getCopyFlux(
         SnapshotDefinition snapDfnRef,
@@ -310,13 +306,7 @@ public class CopySnapsHelper
     /**
      * This method returns a linstor remote that targets the local cluster. This needs to happen within a transaction.
      *
-     * @return
      *
-     * @throws InvalidKeyException
-     * @throws AccessDeniedException
-     * @throws InvalidNameException
-     * @throws LinStorDataAlreadyExistsException
-     * @throws DatabaseException
      */
     private LinstorRemote getOrCreateLocalRemote() throws DatabaseException
     {

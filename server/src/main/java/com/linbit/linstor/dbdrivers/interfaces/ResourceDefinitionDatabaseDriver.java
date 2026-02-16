@@ -21,7 +21,6 @@ public interface ResourceDefinitionDatabaseDriver
      * @param resourceDefinition
      *  The data to be stored (including the primary key)
      *
-     * @throws DatabaseException
      */
     void create(ResourceDefinition resourceDefinition) throws DatabaseException;
 
@@ -31,7 +30,6 @@ public interface ResourceDefinitionDatabaseDriver
      * @param resourceDefinition
      *  The data identifying the row to delete
      *
-     * @throws DatabaseException
      */
     void delete(ResourceDefinition resourceDefinition) throws DatabaseException;
 

@@ -2,7 +2,7 @@
 // Modified for inclusion in LINSTOR
 package com.linbit.utils;
 
-/**
+/*
  * Copyright (C) 2021 Robert ALTNOEDER
  *
  * Redistribution and use in source and binary forms,
@@ -28,7 +28,7 @@ package com.linbit.utils;
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Robert Altnoeder &lt;r.altnoeder@gmx.net&gt;
+ * Author: Robert Altnoeder <r.altnoeder@gmx.net>
  */
 import com.linbit.ImplementationError;
 import java.util.Arrays;

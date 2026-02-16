@@ -63,9 +63,7 @@ public class DaemonHandler
     /**
      * Starts the process and produces events splitting after {@link OutputProxy#DFLT_BUFFER_SIZE} bytes
      *
-     * @return
      *
-     * @throws IOException
      */
     public Process startUndelimited() throws IOException
     {

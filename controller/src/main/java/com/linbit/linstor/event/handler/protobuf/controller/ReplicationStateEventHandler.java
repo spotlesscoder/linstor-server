@@ -54,9 +54,6 @@ public class ReplicationStateEventHandler implements EventHandler
      * It is possible that the uname node name isn't yet known, as the first node gets an event containing a node
      * that has not authenticated/connected yet. We ignore such node events for now as they will be published
      * once connected.
-     * @param nodeRepo
-     * @param sysCtx
-     * @param peerName
      * @return The Linstor node name or null if not found in uname map.
      */
     static @Nullable NodeName getMappedName(NodeRepository nodeRepo, AccessContext sysCtx, String peerName)
