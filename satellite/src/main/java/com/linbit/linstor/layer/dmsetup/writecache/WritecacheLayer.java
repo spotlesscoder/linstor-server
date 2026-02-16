@@ -362,11 +362,8 @@ public class WritecacheLayer implements DeviceLayer
                             String value = null;
                             switch (entry.getKey())
                             {
-                                case ApiConsts.KEY_WRITECACHE_OPTION_ADDITIONAL:
-                                    key = entry.getValue();
-                                    // no value
-                                    break;
-                                case ApiConsts.KEY_WRITECACHE_OPTION_FUA:
+                                case ApiConsts.KEY_WRITECACHE_OPTION_ADDITIONAL -> { key = entry.getValue(); }
+                                case ApiConsts.KEY_WRITECACHE_OPTION_FUA -> {
                                     if (entry.getValue().equals(ApiConsts.VAL_WRITECACHE_FUA_ON))
                                     {
                                         key = "fua";
@@ -375,12 +372,11 @@ public class WritecacheLayer implements DeviceLayer
                                     {
                                         key = "nofua";
                                     }
-                                    // no value
-                                    break;
-                                default:
+                                }
+                                default -> {
                                     key = OPTS_LUT.get(entry.getKey());
                                     value = entry.getValue();
-                                    break;
+                                }
                             }
                             dmsetupOptsSb.append(key).append(" ");
                             if (value != null)

@@ -1,6 +1,5 @@
 package com.linbit.linstor.transaction;
 
-import com.linbit.ImplementationError;
 import com.linbit.linstor.dbdrivers.DatabaseDriverInfo;
 import com.linbit.linstor.transaction.manager.ControllerSQLTransactionMgrGenerator;
 import com.linbit.linstor.transaction.manager.TransactionMgrGenerator;
@@ -19,16 +18,12 @@ public class ControllerTransactionMgrModule extends AbstractModule
     @Override
     protected void configure()
     {
-        switch (dbType)
-        {
-            case SQL:
-                bind(TransactionMgrGenerator.class).to(ControllerSQLTransactionMgrGenerator.class);
-                break;
-            case K8S_CRD:
-                bind(TransactionMgrGenerator.class).to(ControllerK8sCrdTransactionMgrGenerator.class);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + dbType);
-        }
+        bind(TransactionMgrGenerator.class).to(
+            switch(dbType)
+            {
+                case SQL -> ControllerSQLTransactionMgrGenerator.class;
+                case K8S_CRD -> ControllerK8sCrdTransactionMgrGenerator.class;
+            }
+        );
     }
 }

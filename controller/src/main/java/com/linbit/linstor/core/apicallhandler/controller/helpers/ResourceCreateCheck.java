@@ -87,7 +87,8 @@ public class ResourceCreateCheck
             {
                 switch (resourceRole)
                 {
-                    case NVME_TARGET:
+                    case NVME_TARGET ->
+                    {
                         if (rdHasNvmeTarget && !rdHasDrbd)
                         {
                             throw new ApiRcException(
@@ -97,8 +98,9 @@ public class ResourceCreateCheck
                                 )
                             );
                         }
-                        break;
-                    case NVME_INITIATOR:
+                    }
+                    case NVME_INITIATOR ->
+                    {
                         if (!rdHasNvmeTarget)
                         {
                             throw new ApiRcException(
@@ -108,10 +110,11 @@ public class ResourceCreateCheck
                                 )
                             );
                         }
-                        break;
-                    default:
+                    }
+                    default ->
+                    {
                         // no further checks needed in this case
-                        break;
+                    }
                 }
             }
         }

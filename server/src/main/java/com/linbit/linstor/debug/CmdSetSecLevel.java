@@ -97,35 +97,36 @@ public class CmdSetSecLevel extends BaseDebugCmd
                     secLevelText = secLevelText.toUpperCase();
                     switch (secLevelText)
                     {
-                        case PRM_SECLVL_NO_SECURITY:
+                        case PRM_SECLVL_NO_SECURITY ->
+                        {
                             securityLevelSetter.setSecurityLevel(accCtx, SecurityLevel.NO_SECURITY);
                             debugOut.printf(LEVEL_SET_FORMAT, PRM_SECLVL_NO_SECURITY);
-                            break;
-                        case PRM_SECLVL_RBAC:
+                        }
+                        case PRM_SECLVL_RBAC ->
+                        {
                             securityLevelSetter.setSecurityLevel(accCtx, SecurityLevel.RBAC);
                             debugOut.printf(LEVEL_SET_FORMAT, PRM_SECLVL_RBAC);
-                            break;
-                        case PRM_SECLVL_MAC:
+                        }
+                        case PRM_SECLVL_MAC ->
+                        {
                             securityLevelSetter.setSecurityLevel(accCtx, SecurityLevel.MAC);
                             debugOut.printf(LEVEL_SET_FORMAT, PRM_SECLVL_MAC);
-                            break;
-                        default:
-                            printError(debugErr,
-                                "The specified security level is not valid.",
-                                String.format(
-                                    "The value '%s' specified for the parameter %s is not a valid security level name",
-                                    secLevelText, PRM_SECLVL_NAME
-                                ),
-                                String.format("Specify a valid security level.\n" +
-                                    "Valid security levels are:\n" +
-                                    "    %s\n" +
-                                    "    %s\n" +
-                                    "    %s\n",
-                                    PRM_SECLVL_NO_SECURITY, PRM_SECLVL_RBAC, PRM_SECLVL_MAC
-                                ),
-                                null
-                            );
-                            break;
+                        }
+                        default -> printError(debugErr,
+                            "The specified security level is not valid.",
+                            String.format(
+                                "The value '%s' specified for the parameter %s is not a valid security level name",
+                                secLevelText, PRM_SECLVL_NAME
+                            ),
+                            String.format("Specify a valid security level.\n" +
+                                "Valid security levels are:\n" +
+                                "    %s\n" +
+                                "    %s\n" +
+                                "    %s\n",
+                                PRM_SECLVL_NO_SECURITY, PRM_SECLVL_RBAC, PRM_SECLVL_MAC
+                            ),
+                            null
+                        );
                     }
                 }
                 catch (AccessDeniedException accExc)

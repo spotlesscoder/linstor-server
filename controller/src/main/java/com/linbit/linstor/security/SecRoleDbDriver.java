@@ -1,7 +1,6 @@
 package com.linbit.linstor.security;
 
 import com.linbit.ExhaustedPoolException;
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueInUseException;
@@ -53,22 +52,14 @@ public class SecRoleDbDriver extends AbsDatabaseDriver<Role, SecRoleInit, SecRol
         setColumnSetter(DOMAIN_NAME, ignored -> DFLT_DOMAIN_NAME);
         // by default new roles have 0 privileges
         setColumnSetter(ROLE_PRIVILEGES, ignored -> 0);
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                // by default new roles are always enabled
-                setColumnSetter(ROLE_ENABLED, ignored -> true);
+        // by default new roles are always enabled
+        setColumnSetter(ROLE_ENABLED, ignored -> true);
 
-                roleEnabledDriver = generateSingleColumnDriver(
-                    ROLE_ENABLED,
-                    this::getId,
-                    Function.identity()
-                );
-                break;
-            default:
-                throw new ImplementationError("Unexpected Db type: " + getDbType());
-        }
+        roleEnabledDriver = generateSingleColumnDriver(
+            ROLE_ENABLED,
+            this::getId,
+            Function.identity()
+        );
         domainDriver = generateSingleColumnDriver(
             DOMAIN_NAME,
             role -> role.name.displayValue,

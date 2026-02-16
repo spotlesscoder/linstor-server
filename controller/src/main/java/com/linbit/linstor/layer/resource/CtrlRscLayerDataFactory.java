@@ -582,33 +582,17 @@ public class CtrlRscLayerDataFactory
         DeviceLayerKind kind
     )
     {
-        AbsRscLayerHelper<RSC_LO, ?, ?, ?> layerHelper;
-        switch (kind)
+        AbsRscLayerHelper<RSC_LO, ?, ?, ?> layerHelper = switch (kind)
         {
-            case DRBD:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) drbdLayerHelper;
-                break;
-            case LUKS:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) luksLayerHelper;
-                break;
-            case NVME:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) nvmeLayerHelper;
-                break;
-            case WRITECACHE:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) writecacheLayerHelper;
-                break;
-            case CACHE:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) cacheLayerHelper;
-                break;
-            case BCACHE:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) bcacheLayerHelper;
-                break;
-            case STORAGE:
-                layerHelper = (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) storageLayerHelper;
-                break;
-            default:
-                throw new ImplementationError("Unknown device layer kind '" + kind + "'");
-        }
+            case DRBD -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) drbdLayerHelper;
+            case LUKS -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) luksLayerHelper;
+            case NVME -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) nvmeLayerHelper;
+            case WRITECACHE -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) writecacheLayerHelper;
+            case CACHE -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) cacheLayerHelper;
+            case BCACHE -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) bcacheLayerHelper;
+            case STORAGE -> (AbsRscLayerHelper<RSC_LO, ?, ?, ?>) storageLayerHelper;
+            default -> throw new ImplementationError("Unknown device layer kind '" + kind + "'");
+        };
         return layerHelper;
     }
 

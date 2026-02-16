@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -289,22 +288,14 @@ public final class ResourceGroupDbDriver
         final @Nullable Boolean disklessOnRemaining;
         final @Nullable Short peerSlots;
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                replicaCount = raw.get(REPLICA_COUNT);
+        replicaCount = raw.get(REPLICA_COUNT);
 
-                replicasOnSame = raw.getAsStringListNonNull(REPLICAS_ON_SAME);
-                replicasOnDifferentList = raw.getAsStringListNonNull(REPLICAS_ON_DIFFERENT);
-                xReplicasOnDifferentMap = raw.getAsStringIntegerMapNonNull(X_REPLICAS_ON_DIFFERENT);
+        replicasOnSame = raw.getAsStringListNonNull(REPLICAS_ON_SAME);
+        replicasOnDifferentList = raw.getAsStringListNonNull(REPLICAS_ON_DIFFERENT);
+        xReplicasOnDifferentMap = raw.getAsStringIntegerMapNonNull(X_REPLICAS_ON_DIFFERENT);
 
-                disklessOnRemaining = raw.get(DISKLESS_ON_REMAINING);
-                peerSlots = raw.get(PEER_SLOTS);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        disklessOnRemaining = raw.get(DISKLESS_ON_REMAINING);
+        peerSlots = raw.get(PEER_SLOTS);
 
         return new Pair<>(
             new ResourceGroup(

@@ -916,15 +916,17 @@ public class CtrlNodeApiCallHandler
             {
                 switch (stltConnEncryptionType)
                 {
-                    case PLAIN:
+                    case PLAIN ->
+                    {
                         encrType = EncryptionType.PLAIN;
                         newStltPort = ApiConsts.DFLT_STLT_PORT_PLAIN;
-                        break;
-                    case SSL:
+                    }
+                    case SSL ->
+                    {
                         encrType = EncryptionType.SSL;
                         newStltPort = ApiConsts.DFLT_STLT_PORT_SSL;
-                        break;
-                    default:
+                    }
+                    default ->
                         throw new ImplementationError("Unexpected encryption type: " + stltConnEncryptionType);
                 }
             }
@@ -933,15 +935,17 @@ public class CtrlNodeApiCallHandler
             {
                 switch (stltConnEncryptionType)
                 {
-                    case PLAIN:
+                    case PLAIN ->
+                    {
                         encrType = EncryptionType.PLAIN;
                         newStltPort = ApiConsts.DFLT_CTRL_PORT_PLAIN;
-                        break;
-                    case SSL:
+                    }
+                    case SSL ->
+                    {
                         encrType = EncryptionType.SSL;
                         newStltPort = ApiConsts.DFLT_CTRL_PORT_SSL;
-                        break;
-                    default:
+                    }
+                    default ->
                         throw new ImplementationError("Unexpected encryption type: " + stltConnEncryptionType);
                 }
             }

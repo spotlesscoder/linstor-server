@@ -129,27 +129,23 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
                     String curToken = prmDetailTokens.nextToken().trim();
                     switch (curToken)
                     {
-                        case PRM_SECURITY:
-                            catSecurity = true;
-                            break;
-                        case PRM_CONFIG:
-                            catConfig = true;
-                            break;
-                        case PRM_STOROBJ:
-                            catStorObj = true;
-                            break;
-                        case PRM_ALL:
+                        case PRM_SECURITY -> { catSecurity = true; }
+                        case PRM_CONFIG -> { catConfig = true; }
+                        case PRM_STOROBJ -> { catStorObj = true; }
+                        case PRM_ALL ->
+                        {
                             catSecurity = true;
                             catConfig   = true;
                             catStorObj  = true;
-                            break;
-                        default:
+                        }
+                        default ->
+                        {
                             if (detailsExc == null)
                             {
                                 detailsExc = new InvalidDetailsException();
                             }
                             detailsExc.addInvalid(curToken);
-                            break;
+                        }
                     }
                 }
                 if (detailsExc != null)

@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -71,23 +70,15 @@ public final class NetInterfaceDbDriver
         setColumnSetter(NODE_NET_NAME, netIf -> netIf.getName().value);
         setColumnSetter(NODE_NET_DSP_NAME, netIf -> netIf.getName().displayValue);
         setColumnSetter(INET_ADDRESS, netIf -> netIf.getAddress(dbCtxRef).getAddress());
-        switch (getDbType())
-        {
-            case SQL: // fallthrough
-            case K8S_CRD:
-                // TODO: change NetIf.STLT_CONN_PORT from SHORT to INTEGER with SQL migration
-                setColumnSetter(
-                    STLT_CONN_PORT,
-                    netIf ->
-                    {
-                        Integer nullable = TcpPortNumber.getValueNullable(netIf.getStltConnPort(dbCtxRef));
-                        return nullable != null ? nullable.shortValue() : null;
-                    }
-                );
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        // TODO: change NetIf.STLT_CONN_PORT from SHORT to INTEGER with SQL migration
+        setColumnSetter(
+            STLT_CONN_PORT,
+            netIf ->
+            {
+                Integer nullable = TcpPortNumber.getValueNullable(netIf.getStltConnPort(dbCtxRef));
+                return nullable != null ? nullable.shortValue() : null;
+            }
+        );
         setColumnSetter(STLT_CONN_ENCR_TYPE, netIf ->
         {
             EncryptionType type = netIf.getStltConnEncryptionType(dbCtxRef);
@@ -143,39 +134,32 @@ public final class NetInterfaceDbDriver
     {
         final TcpPortNumber port;
 
-        switch (getDbType())
+        Object portObj = raw.get(STLT_CONN_PORT);
+        if (portObj != null)
         {
-            case SQL: // fall-through
-            case K8S_CRD:
-                Object portObj = raw.get(STLT_CONN_PORT);
-                if (portObj != null)
-                {
-                    int portInt;
-                    if (portObj instanceof Integer)
-                    {
-                        portInt = ((Integer) portObj);
-                    }
-                    else
-                    if (portObj instanceof Short)
-                    {
-                        portInt = ((Short) portObj).intValue();
-                    }
-                    else
-                    {
-                        throw new LinStorDBRuntimeException(
-                            "Unexpected type for " + STLT_CONN_PORT.getName() + ": " + portObj.getClass()
-                        );
-                    }
-                    port = new TcpPortNumber(portInt);
-                }
-                else
-                {
-                    port = null;
-                }
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
+            int portInt;
+            if (portObj instanceof Integer portInteger)
+            {
+                portInt = portInteger;
+            }
+            else
+            if (portObj instanceof Short portShort)
+            {
+                portInt = portShort.intValue();
+            }
+            else
+            {
+                throw new LinStorDBRuntimeException(
+                    "Unexpected type for " + STLT_CONN_PORT.getName() + ": " + portObj.getClass()
+                );
+            }
+            port = new TcpPortNumber(portInt);
         }
+        else
+        {
+            port = null;
+        }
+
 
         return new Pair<>(
             new NetInterface(

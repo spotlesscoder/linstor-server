@@ -341,16 +341,7 @@ public abstract class AbsLayerRscDataDbDriver<
          * In this case we return null to skip all entries of the given database table, but build an internal
          * cache of the database-rows (indexed by rscLayerId)
          */
-        int lri;
-        switch (getDbType())
-        {
-            case SQL:
-            case K8S_CRD:
-                lri = rawRef.get(layerRscIdColumn);
-                break;
-            default:
-                throw new ImplementationError("Unknown db type: " + getDbType());
-        }
+        int lri = rawRef.get(layerRscIdColumn);
 
         rscDataRawCache.put(lri, rawRef);
 

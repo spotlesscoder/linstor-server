@@ -113,17 +113,9 @@ public class LayerResourceIdDbDriver extends AbsDatabaseDriver<AbsRscLayerObject
         final @Nullable Integer parentId;
         final boolean suspended;
 
-        switch (getDbType())
-        {
-            case SQL:
-            case K8S_CRD:
-                rli = raw.get(LAYER_RESOURCE_ID);
-                parentId = raw.get(LAYER_RESOURCE_PARENT_ID);
-                suspended = raw.get(LAYER_RESOURCE_SUSPENDED);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        rli = raw.get(LAYER_RESOURCE_ID);
+        parentId = raw.get(LAYER_RESOURCE_PARENT_ID);
+        suspended = raw.get(LAYER_RESOURCE_SUSPENDED);
 
         AbsRscLayerObject<?> ret = new ResourceLayerIdLoadingPojo(
             rli,

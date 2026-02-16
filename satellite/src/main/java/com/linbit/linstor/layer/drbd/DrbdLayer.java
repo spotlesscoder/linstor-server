@@ -1508,36 +1508,18 @@ public class DrbdLayer implements DeviceLayer
                                         DrbdConnection.State connState = drbdConn.getState();
                                         switch (connState)
                                         {
-                                            case STANDALONE:
-                                                // fall-through
-                                            case DISCONNECTING:
-                                                // fall-through
-                                            case UNCONNECTED:
-                                                // fall-through
-                                            case TIMEOUT:
-                                                // fall-through
-                                            case BROKEN_PIPE:
-                                                // fall-through
-                                            case NETWORK_FAILURE:
-                                                // fall-through
-                                            case PROTOCOL_ERROR:
-                                                // fall-through
-                                            case TEAR_DOWN:
-                                                // fall-through
-                                            case UNKNOWN:
-                                                // fall-through
+                                            case STANDALONE, DISCONNECTING, UNCONNECTED,
+                                                TIMEOUT, BROKEN_PIPE, NETWORK_FAILURE,
+                                                PROTOCOL_ERROR, TEAR_DOWN, UNKNOWN ->
                                                 drbdRscData.setAdjustRequired(true);
-                                                break;
-                                            case CONNECTING:
-                                                break;
-                                            case CONNECTED:
-                                                break;
-                                            default:
-                                                throw new ImplementationError(
-                                                    "Missing switch case for enumeration value '" +
-                                                    connState.name() + "'",
-                                                    null
-                                                );
+                                            case CONNECTING, CONNECTED -> {
+                                                // no action needed
+                                            }
+                                            default -> throw new ImplementationError(
+                                                "Missing switch case for enumeration value '" +
+                                                connState.name() + "'",
+                                                null
+                                            );
                                         }
                                     }
                                     else

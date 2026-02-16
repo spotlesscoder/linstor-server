@@ -1046,38 +1046,34 @@ public class TcpConnectorPeer implements Peer
         ReadState state = ReadState.UNFINISHED;
         switch (currentReadPhase)
         {
-            case HEADER:
+            case HEADER ->
+            {
+                ByteBuffer headerBuffer = msgIn.getHeaderBuffer();
+                int readCount = inChannel.read(headerBuffer);
+                if (readCount > -1)
                 {
-                    ByteBuffer headerBuffer = msgIn.getHeaderBuffer();
-                    int readCount = inChannel.read(headerBuffer);
-                    if (readCount > -1)
+                    if (!headerBuffer.hasRemaining())
                     {
-                        if (!headerBuffer.hasRemaining())
-                        {
-                            // All header data has been received
-                            // Prepare reading the message
-                            initDataByteBuffer(headerBuffer);
-                            state = readData(inChannel, state);
-                        }
-                    }
-                    else
-                    {
-                        // Peer has closed the stream
-                        state = ReadState.END_OF_STREAM;
+                        // All header data has been received
+                        // Prepare reading the message
+                        initDataByteBuffer(headerBuffer);
+                        state = readData(inChannel, state);
                     }
                 }
-                break;
-            case DATA:
-                state = readData(inChannel, state);
-                break;
-            default:
-                throw new ImplementationError(
-                    String.format(
-                        "Missing case label for enum member '%s'",
-                        currentReadPhase.name()
-                    ),
-                    null
-                );
+                else
+                {
+                    // Peer has closed the stream
+                    state = ReadState.END_OF_STREAM;
+                }
+            }
+            case DATA -> { state = readData(inChannel, state); }
+            default -> throw new ImplementationError(
+                String.format(
+                    "Missing case label for enum member '%s'",
+                    currentReadPhase.name()
+                ),
+                null
+            );
         }
         if (state == ReadState.FINISHED)
         {
@@ -1128,28 +1124,24 @@ public class TcpConnectorPeer implements Peer
         WriteState state = WriteState.UNFINISHED;
         switch (currentWritePhase)
         {
-            case HEADER:
+            case HEADER ->
+            {
+                ByteBuffer headerBuffer = msgOut.getHeaderBuffer();
+                outChannel.write(headerBuffer);
+                if (!headerBuffer.hasRemaining())
                 {
-                    ByteBuffer headerBuffer = msgOut.getHeaderBuffer();
-                    outChannel.write(headerBuffer);
-                    if (!headerBuffer.hasRemaining())
-                    {
-                        currentWritePhase = currentWritePhase.getNextPhase();
-                        state = writeData(outChannel, state);
-                    }
+                    currentWritePhase = currentWritePhase.getNextPhase();
+                    state = writeData(outChannel, state);
                 }
-                break;
-            case DATA:
-                state = writeData(outChannel, state);
-                break;
-            default:
-                throw new ImplementationError(
-                    String.format(
-                        "Missing case label for enum member '%s'",
-                        currentWritePhase.name()
-                    ),
-                    null
-                );
+            }
+            case DATA -> { state = writeData(outChannel, state); }
+            default -> throw new ImplementationError(
+                String.format(
+                    "Missing case label for enum member '%s'",
+                    currentWritePhase.name()
+                ),
+                null
+            );
         }
         if (state == WriteState.FINISHED)
         {

@@ -143,43 +143,37 @@ public class CmdDisplayConnections extends BaseDebugCmd
                     String curToken = prmDetailTokens.nextToken().trim();
                     switch (curToken)
                     {
-                        case PRM_DETAIL_ID:
-                            detailId = true;
-                            break;
-                        case PRM_DETAIL_STATS:
-                            detailStats = true;
-                            break;
-                        case PRM_DETAIL_CONN:
-                            detailConn = true;
-                            break;
-                        case PRM_DETAIL_CTXT:
-                            detailContext = true;
-                            break;
-                        case PRM_DETAIL_PRIVS:
-                            detailPrivs = true;
-                            break;
-                        case PRM_DETAIL_PENDING:
+                        case PRM_DETAIL_ID -> { detailId = true; }
+                        case PRM_DETAIL_STATS -> { detailStats = true; }
+                        case PRM_DETAIL_CONN -> { detailConn = true; }
+                        case PRM_DETAIL_CTXT -> { detailContext = true; }
+                        case PRM_DETAIL_PRIVS -> { detailPrivs = true; }
+                        case PRM_DETAIL_PENDING ->
+                        {
                             detailPending = true;
                             detailId = true;
-                            break;
-                        case PRM_DETAIL_FULL:
+                        }
+                        case PRM_DETAIL_FULL ->
+                        {
                             detailId = true;
                             detailStats = true;
                             detailConn = true;
                             detailContext = true;
                             detailPending = true;
                             detailPrivs = true;
-                            break;
-                        case PRM_DETAIL_DFLT:
-                            // fall-through
-                            break;
-                        default:
+                        }
+                        case PRM_DETAIL_DFLT ->
+                        {
+                            // no-op
+                        }
+                        default ->
+                        {
                             if (detailsExc == null)
                             {
                                 detailsExc = new InvalidDetailsException();
                             }
                             detailsExc.addInvalid(curToken);
-                            break;
+                        }
                     }
                 }
                 if (detailsExc != null)

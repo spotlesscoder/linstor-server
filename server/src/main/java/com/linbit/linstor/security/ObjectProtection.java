@@ -197,19 +197,19 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
         SecurityLevel globalSecLevel = SecurityLevel.get();
         switch (globalSecLevel)
         {
-            case NO_SECURITY:
-                break;
-            case RBAC:
-                // fall-through
-            case MAC:
+            case NO_SECURITY ->
+            {
+                // no-op
+            }
+            case RBAC, MAC ->
+            {
                 PrivilegeSet privs = context.getEffectivePrivs();
                 privs.requirePrivileges(Privilege.PRIV_SYS_ALL);
-                break;
-            default:
-                throw new ImplementationError(
-                    "Missing case label for enum constant " + globalSecLevel.name(),
-                    null
-                );
+            }
+            default -> throw new ImplementationError(
+                "Missing case label for enum constant " + globalSecLevel.name(),
+                null
+            );
         }
         objectType.set(newSecType);
     }

@@ -507,36 +507,45 @@ public class Json
         resourceLayer.type = getLayerTypeString(rscLayerDataApi.getLayerKind());
         switch (rscLayerDataApi.getLayerKind())
         {
-            case DRBD:
+            case DRBD ->
+            {
                 DrbdRscPojo drbdRscPojo = (DrbdRscPojo) rscLayerDataApi;
                 resourceLayer.drbd = pojoToDrbdResource(drbdRscPojo);
-                break;
-            case STORAGE:
+            }
+            case STORAGE ->
+            {
                 StorageRscPojo storageRscPojo = (StorageRscPojo) rscLayerDataApi;
                 resourceLayer.storage = pojoToStorageResource(storageRscPojo);
-                break;
-            case LUKS:
+            }
+            case LUKS ->
+            {
                 LuksRscPojo luksRscPojo = (LuksRscPojo) rscLayerDataApi;
                 resourceLayer.luks = pojoToLUKSResource(luksRscPojo);
-                break;
-            case NVME:
+            }
+            case NVME ->
+            {
                 NvmeRscPojo nvmeRscPojo = (NvmeRscPojo) rscLayerDataApi;
                 resourceLayer.nvme = pojoToNVMEResource(nvmeRscPojo);
-                break;
-            case WRITECACHE:
+            }
+            case WRITECACHE ->
+            {
                 WritecacheRscPojo writecacheRscPojo = (WritecacheRscPojo) rscLayerDataApi;
                 resourceLayer.writecache = pojoToWritecacheResource(writecacheRscPojo);
-                break;
-            case CACHE:
+            }
+            case CACHE ->
+            {
                 CacheRscPojo cacheRscPojo = (CacheRscPojo) rscLayerDataApi;
                 resourceLayer.cache = pojoToCacheResource(cacheRscPojo);
-                break;
-            case BCACHE:
+            }
+            case BCACHE ->
+            {
                 BCacheRscPojo bcacheRscPojo = (BCacheRscPojo) rscLayerDataApi;
                 resourceLayer.bcache = pojoToBCacheResource(bcacheRscPojo);
-                break;
-            default:
-                break;
+            }
+            default ->
+            {
+                // no-op
+            }
         }
         return resourceLayer;
     }
@@ -854,35 +863,42 @@ public class Json
 
             switch (layerData.objB.getLayerKind())
             {
-                case DRBD:
+                case DRBD ->
+                {
                     DrbdRscPojo.DrbdVlmPojo drbdVlm = (DrbdRscPojo.DrbdVlmPojo) layerData.objB;
                     volumeLayerData.data = pojoToDrbdVolume(drbdVlm);
-                    break;
-                case STORAGE:
-                    volumeLayerData.data = apiToStorageVolume(layerData.objB);
-                    break;
-                case LUKS:
+                }
+                case STORAGE -> { volumeLayerData.data = apiToStorageVolume(layerData.objB); }
+                case LUKS ->
+                {
                     LuksRscPojo.LuksVlmPojo luksVlmPojo = (LuksRscPojo.LuksVlmPojo) layerData.objB;
                     volumeLayerData.data = pojoToLUKSVolume(luksVlmPojo);
-                    break;
-                case NVME:
+                }
+                case NVME ->
+                {
                     NvmeRscPojo.NvmeVlmPojo nvmeVlmPojo = (NvmeRscPojo.NvmeVlmPojo) layerData.objB;
                     volumeLayerData.data = pojoToNVMEVolume(nvmeVlmPojo);
-                    break;
-                case WRITECACHE:
-                    WritecacheRscPojo.WritecacheVlmPojo writecacheVlmPojo = (WritecacheRscPojo.WritecacheVlmPojo) layerData.objB;
+                }
+                case WRITECACHE ->
+                {
+                    WritecacheRscPojo.WritecacheVlmPojo writecacheVlmPojo =
+                        (WritecacheRscPojo.WritecacheVlmPojo) layerData.objB;
                     volumeLayerData.data = pojoToWritecacheVolume(writecacheVlmPojo);
-                    break;
-                case CACHE:
+                }
+                case CACHE ->
+                {
                     CacheRscPojo.CacheVlmPojo cacheVlmPojo = (CacheRscPojo.CacheVlmPojo) layerData.objB;
                     volumeLayerData.data = pojoToCacheVolume(cacheVlmPojo);
-                    break;
-                case BCACHE:
+                }
+                case BCACHE ->
+                {
                     BCacheRscPojo.BCacheVlmPojo bcacheVlmPojo = (BCacheRscPojo.BCacheVlmPojo) layerData.objB;
                     volumeLayerData.data = pojoToBCacheVolume(bcacheVlmPojo);
-                    break;
-                default:
-                    break;
+                }
+                default ->
+                {
+                    // no-op
+                }
             }
 
             volume.layer_data_list.add(volumeLayerData);

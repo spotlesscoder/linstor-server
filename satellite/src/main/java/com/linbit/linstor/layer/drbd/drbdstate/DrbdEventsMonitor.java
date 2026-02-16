@@ -118,20 +118,13 @@ public class DrbdEventsMonitor
         // Select action
         switch (action)
         {
-            case ACTION_EXISTS: // fall-through
-            case ACTION_CREATE:
-                create(props, objType);
-                break;
-            case ACTION_CHANGE:
-                change(props, objType);
-                break;
-            case ACTION_DESTROY:
-                destroy(props, objType);
-                break;
-            default:
+            case ACTION_EXISTS, ACTION_CREATE -> create(props, objType);
+            case ACTION_CHANGE -> change(props, objType);
+            case ACTION_DESTROY -> destroy(props, objType);
+            default -> {
                 // Other action type, such as a helper script call
                 // Those are not tracked
-                break;
+            }
         }
     }
 
@@ -139,19 +132,11 @@ public class DrbdEventsMonitor
     {
         switch (object)
         {
-            case OBJ_RESOURCE:
-                createResource(props);
-                break;
-            case OBJ_CONNECTION:
-                createConnection(props);
-                break;
-            case OBJ_VOLUME:
-                createVolume(props);
-                break;
-            case OBJ_PEER_VOLUME:
-                createPeerVolume(props);
-                break;
-            case OBJ_END_OF_INIT:
+            case OBJ_RESOURCE -> createResource(props);
+            case OBJ_CONNECTION -> createConnection(props);
+            case OBJ_VOLUME -> createVolume(props);
+            case OBJ_PEER_VOLUME -> createPeerVolume(props);
+            case OBJ_END_OF_INIT -> {
                 drbdStateAvailable();
                 if (!existsFinished)
                 {
@@ -161,11 +146,11 @@ public class DrbdEventsMonitor
                         executeAction(triple.objA, triple.objB, triple.objC);
                     }
                 }
-                break;
-            default:
+            }
+            default -> {
                 // Other object type, such as a connection path
                 // Those types are currently ignored
-                break;
+            }
         }
     }
 
@@ -196,22 +181,14 @@ public class DrbdEventsMonitor
     {
         switch (object)
         {
-            case OBJ_RESOURCE:
-                changeResource(props);
-                break;
-            case OBJ_CONNECTION:
-                changeConnection(props);
-                break;
-            case OBJ_VOLUME:
-                changeVolume(props);
-                break;
-            case OBJ_PEER_VOLUME:
-                changePeerVolume(props);
-                break;
-            default:
+            case OBJ_RESOURCE -> changeResource(props);
+            case OBJ_CONNECTION -> changeConnection(props);
+            case OBJ_VOLUME -> changeVolume(props);
+            case OBJ_PEER_VOLUME -> changePeerVolume(props);
+            default -> {
                 // Other object type, such as a connection path
                 // Those types are currently ignored
-                break;
+            }
         }
     }
 
@@ -219,22 +196,14 @@ public class DrbdEventsMonitor
     {
         switch (object)
         {
-            case OBJ_RESOURCE:
-                destroyResource(props);
-                break;
-            case OBJ_CONNECTION:
-                destroyConnection(props);
-                break;
-            case OBJ_VOLUME:
-                destroyVolume(props);
-                break;
-            case OBJ_PEER_VOLUME:
-                destroyPeerVolume(props);
-                break;
-            default:
+            case OBJ_RESOURCE -> destroyResource(props);
+            case OBJ_CONNECTION -> destroyConnection(props);
+            case OBJ_VOLUME -> destroyVolume(props);
+            case OBJ_PEER_VOLUME -> destroyPeerVolume(props);
+            default -> {
                 // Other object type, such as a connection path
                 // Those types are currently ignored
-                break;
+            }
         }
     }
 

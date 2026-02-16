@@ -23,108 +23,50 @@ public class DatabaseInfo
 
         public String displayName()
         {
-            String dspName;
-            switch (this)
+            return switch (this)
             {
-                case UNKNOWN:
-                    dspName = "unknown";
-                    break;
-                case H2:
-                    dspName = "H2";
-                    break;
-                case DERBY:
-                    dspName = "Apache Derby";
-                    break;
-                case DB2:
-                    dspName = "DB2/LUW";
-                    break;
-                case DB2_I:
-                    dspName = "DB2/System i";
-                    break;
-                case DB2_Z:
-                    dspName = "DB2/System z";
-                    break;
-                case POSTGRESQL:
-                    dspName = "PostgreSQL";
-                    break;
-                case ORACLE_RDBMS:
-                    dspName = "Oracle RDBMS";
-                    break;
-                case MSFT_SQLSERVER:
-                    dspName = "Microsoft SQLServer";
-                    break;
-                case MYSQL:
-                    dspName = "Oracle MySQL";
-                    break;
-                case MARIADB:
-                    dspName = "MariaDB";
-                    break;
-                case INFORMIX:
-                    dspName = "IBM Informix";
-                    break;
-                case ASE:
-                    dspName = "SAP Adaptive Server Enterprise (Sybase)";
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
-                        getClass().getCanonicalName()
-                    );
-            }
-            return dspName;
+                case UNKNOWN -> "unknown";
+                case H2 -> "H2";
+                case DERBY -> "Apache Derby";
+                case DB2 -> "DB2/LUW";
+                case DB2_I -> "DB2/System i";
+                case DB2_Z -> "DB2/System z";
+                case POSTGRESQL -> "PostgreSQL";
+                case ORACLE_RDBMS -> "Oracle RDBMS";
+                case MSFT_SQLSERVER -> "Microsoft SQLServer";
+                case MYSQL -> "Oracle MySQL";
+                case MARIADB -> "MariaDB";
+                case INFORMIX -> "IBM Informix";
+                case ASE -> "SAP Adaptive Server Enterprise (Sybase)";
+                default -> throw new ImplementationError(
+                    "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
+                    getClass().getCanonicalName()
+                );
+            };
         }
 
         public String dbType()
         {
-            String dspName;
-            switch (this)
+            return switch (this)
             {
-                case UNKNOWN:
-                    dspName = "unknown";
-                    break;
-                case H2:
-                    dspName = "h2";
-                    break;
-                case DERBY:
-                    dspName = "derby";
-                    break;
-                case DB2:
-                    dspName = "db2";
-                    break;
-                case DB2_I:
-                    dspName = "db2/i";
-                    break;
-                case DB2_Z:
-                    dspName = "db2/z";
-                    break;
-                case POSTGRESQL:
-                    dspName = "postgresql";
-                    break;
-                case ORACLE_RDBMS:
-                    dspName = "oracle";
-                    break;
-                case MSFT_SQLSERVER:
-                    dspName = "mssql";
-                    break;
-                case MYSQL:
-                    dspName = "mysql";
-                    break;
-                case MARIADB:
-                    dspName = "mariadb";
-                    break;
-                case INFORMIX:
-                    dspName = "informix";
-                    break;
-                case ASE:
-                    dspName = "sybase";
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
-                            getClass().getCanonicalName()
-                    );
-            }
-            return dspName;
+                case UNKNOWN -> "unknown";
+                case H2 -> "h2";
+                case DERBY -> "derby";
+                case DB2 -> "db2";
+                case DB2_I -> "db2/i";
+                case DB2_Z -> "db2/z";
+                case POSTGRESQL -> "postgresql";
+                case ORACLE_RDBMS -> "oracle";
+                case MSFT_SQLSERVER -> "mssql";
+                case MYSQL -> "mysql";
+                case MARIADB -> "mariadb";
+                case INFORMIX -> "informix";
+                case ASE -> "sybase";
+                default -> throw new ImplementationError(
+                    "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
+                        getClass().getCanonicalName()
+                );
+            };
         }
     }
 

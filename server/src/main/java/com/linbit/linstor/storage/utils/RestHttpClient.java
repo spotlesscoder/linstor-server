@@ -107,27 +107,15 @@ public class RestHttpClient implements RestClient
     public <T> RestResponse<T> execute(RestHttpRequest<T> request)
         throws IOException, StorageException
     {
-        HttpUriRequest req;
-        switch (request.op)
+        HttpUriRequest req = switch (request.op)
         {
-            case GET:
-                req = new HttpGet(request.restURL);
-                break;
-            case POST:
-                req = new HttpPost(request.restURL);
-                break;
-            case PUT:
-                req = new HttpPut(request.restURL);
-                break;
-            case PATCH:
-                req = new HttpPatch(request.restURL);
-                break;
-            case DELETE:
-                req = new HttpDelete(request.restURL);
-                break;
-            default:
-                throw new ImplementationError("Unknown Rest operation: " + request.op);
-        }
+            case GET -> new HttpGet(request.restURL);
+            case POST -> new HttpPost(request.restURL);
+            case PUT -> new HttpPut(request.restURL);
+            case PATCH -> new HttpPatch(request.restURL);
+            case DELETE -> new HttpDelete(request.restURL);
+            default -> throw new ImplementationError("Unknown Rest operation: " + request.op);
+        };
         // add data if possible and available
         if (req instanceof HttpEntityEnclosingRequest && request.payload != null && !request.payload.isEmpty())
         {

@@ -439,49 +439,46 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
             }
             switch (prop.getType())
             {
-                case BOOLEAN:
-                    builder.setPropType(PropertyType.BOOLEAN);
-                    break;
-                case BOOLEAN_TRUE_FALSE:
-                    builder.setPropType(PropertyType.BOOLEAN_TRUE_FALSE);
-                    break;
-                case STRING:
-                    builder.setPropType(PropertyType.STRING);
-                    break;
-                case LONG:
-                    builder.setPropType(PropertyType.LONG);
-                    break;
-                case NUMERIC_OR_SYMBOL:
+                case BOOLEAN -> builder.setPropType(PropertyType.BOOLEAN);
+                case BOOLEAN_TRUE_FALSE -> builder.setPropType(PropertyType.BOOLEAN_TRUE_FALSE);
+                case STRING -> builder.setPropType(PropertyType.STRING);
+                case LONG -> builder.setPropType(PropertyType.LONG);
+                case NUMERIC_OR_SYMBOL ->
+                {
                     builder.setPropType(PropertyType.NUMERIC_OR_SYMBOL);
                     NumericOrSymbolProperty numericSymbolProperty = (NumericOrSymbolProperty) prop;
                     builder.setMax(numericSymbolProperty.getMax());
                     builder.setMin(numericSymbolProperty.getMin());
                     builder.setRegex(numericSymbolProperty.getValue());
-                    break;
-                case RANGE: // numeric
+                }
+                case RANGE ->
+                {
+                    // numeric
                     builder.setPropType(PropertyType.NUMERIC);
                     RangeProperty rangeProperty = (RangeProperty) prop;
                     builder.setMax(rangeProperty.getMax());
                     builder.setMin(rangeProperty.getMin());
-                    break;
-                case RANGE_FLOAT:
+                }
+                case RANGE_FLOAT ->
+                {
                     builder.setPropType(PropertyType.RANGE_FLOAT);
                     RangeFloatProperty rangeFloatProperty = (RangeFloatProperty) prop;
                     builder.setMaxFloat(rangeFloatProperty.getMax());
                     builder.setMinFloat(rangeFloatProperty.getMin());
-                    break;
-                case REGEX:
+                }
+                case REGEX ->
+                {
                     builder.setPropType(PropertyType.REGEX);
                     RegexProperty regexProperty = (RegexProperty) prop;
                     builder.setRegex(regexProperty.getValue());
-                    break;
-                case SYMBOL:
+                }
+                case SYMBOL ->
+                {
                     builder.setPropType(PropertyType.SYMBOL);
                     RegexProperty symbolProperty = (RegexProperty) prop;
                     builder.setRegex(symbolProperty.getValue());
-                    break;
-                default:
-                    throw new ImplementationError("Unknown property type: " + prop.getType());
+                }
+                default -> throw new ImplementationError("Unknown property type: " + prop.getType());
             }
         }
         return protoProps;
@@ -1375,53 +1372,25 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
 
     protected static ProviderType asProviderType(DeviceProviderKind deviceProviderKindRef) throws ImplementationError
     {
-        ProviderType type;
-        switch (deviceProviderKindRef)
+        return switch (deviceProviderKindRef)
         {
-            case DISKLESS:
-                type = ProviderType.DISKLESS;
-                break;
-            case LVM:
-                type = ProviderType.LVM;
-                break;
-            case LVM_THIN:
-                type = ProviderType.LVM_THIN;
-                break;
-            case ZFS:
-                type = ProviderType.ZFS;
-                break;
-            case ZFS_THIN:
-                type = ProviderType.ZFS_THIN;
-                break;
-            case FILE:
-                type = ProviderType.FILE;
-                break;
-            case FILE_THIN:
-                type = ProviderType.FILE_THIN;
-                break;
-            case SPDK:
-                type = ProviderType.SPDK;
-                break;
-            case REMOTE_SPDK:
-                type = ProviderType.REMOTE_SPDK;
-                break;
-            case EBS_INIT:
-                type = ProviderType.EBS_INIT;
-                break;
-            case EBS_TARGET:
-                type = ProviderType.EBS_TARGET;
-                break;
-            case STORAGE_SPACES:
-                type = ProviderType.STORAGE_SPACES;
-                break;
-            case STORAGE_SPACES_THIN:
-                type = ProviderType.STORAGE_SPACES_THIN;
-                break;
-            case FAIL_BECAUSE_NOT_A_VLM_PROVIDER_BUT_A_VLM_LAYER:
-            default:
+            case DISKLESS -> ProviderType.DISKLESS;
+            case LVM -> ProviderType.LVM;
+            case LVM_THIN -> ProviderType.LVM_THIN;
+            case ZFS -> ProviderType.ZFS;
+            case ZFS_THIN -> ProviderType.ZFS_THIN;
+            case FILE -> ProviderType.FILE;
+            case FILE_THIN -> ProviderType.FILE_THIN;
+            case SPDK -> ProviderType.SPDK;
+            case REMOTE_SPDK -> ProviderType.REMOTE_SPDK;
+            case EBS_INIT -> ProviderType.EBS_INIT;
+            case EBS_TARGET -> ProviderType.EBS_TARGET;
+            case STORAGE_SPACES -> ProviderType.STORAGE_SPACES;
+            case STORAGE_SPACES_THIN -> ProviderType.STORAGE_SPACES_THIN;
+            case FAIL_BECAUSE_NOT_A_VLM_PROVIDER_BUT_A_VLM_LAYER ->
                 throw new ImplementationError("Unknown storage driver: " + deviceProviderKindRef);
-        }
-        return type;
+            default -> throw new ImplementationError("Unknown storage driver: " + deviceProviderKindRef);
+        };
     }
 
     public static StorPoolOuterClass.StorPool serializeStorPool(
@@ -1574,119 +1543,50 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
 
     private static LayerType asLayerType(final DeviceLayerKind kind)
     {
-        LayerType layerType; // WOHOOO checkstyle
-        switch (kind)
+        return switch (kind)
         {
-            case LUKS:
-                layerType = LayerType.LUKS;
-                break;
-            case DRBD:
-                layerType = LayerType.DRBD;
-                break;
-            case STORAGE:
-                layerType = LayerType.STORAGE;
-                break;
-            case NVME:
-                layerType = LayerType.NVME;
-                break;
-            case WRITECACHE:
-                layerType = LayerType.WRITECACHE;
-                break;
-            case CACHE:
-                layerType = LayerType.CACHE;
-                break;
-            case BCACHE:
-                layerType = LayerType.BCACHE;
-                break;
-            default: throw new RuntimeException("Not implemented.");
-        }
-        return layerType;
+            case LUKS -> LayerType.LUKS;
+            case DRBD -> LayerType.DRBD;
+            case STORAGE -> LayerType.STORAGE;
+            case NVME -> LayerType.NVME;
+            case WRITECACHE -> LayerType.WRITECACHE;
+            case CACHE -> LayerType.CACHE;
+            case BCACHE -> LayerType.BCACHE;
+            default -> throw new RuntimeException("Not implemented.");
+        };
     }
 
     private ExternalTools asExtTools(ExtTools toolRef)
     {
-        ExternalTools ret;
-        switch (toolRef)
+        return switch (toolRef)
         {
-            case CRYPT_SETUP:
-                ret = ExternalTools.CRYPT_SETUP;
-                break;
-            case DRBD9_KERNEL:
-                ret = ExternalTools.DRBD9;
-                break;
-            case DRBD9_UTILS:
-                ret = ExternalTools.DRBD_UTILS;
-                break;
-            case DRBD_PROXY:
-                ret = ExternalTools.DRBD_PROXY;
-                break;
-            case LVM:
-                ret = ExternalTools.LVM;
-                break;
-            case LVM_THIN:
-                ret = ExternalTools.LVM_THIN;
-                break;
-            case THIN_SEND_RECV:
-                ret = ExternalTools.THIN_SEND_RECV;
-                break;
-            case NVME:
-                ret = ExternalTools.NVME;
-                break;
-            case ZFS_KMOD:
-                ret = ExternalTools.ZFS_KMOD;
-                break;
-            case ZFS_UTILS:
-                ret = ExternalTools.ZFS_UTILS;
-                break;
-            case SPDK:
-                ret = ExternalTools.SPDK;
-                break;
-            case DM_WRITECACHE:
-                ret = ExternalTools.DM_WRITECACHE;
-                break;
-            case DM_CACHE:
-                ret = ExternalTools.DM_CACHE;
-                break;
-            case BCACHE_TOOLS:
-                ret = ExternalTools.BCACHE_TOOLS;
-                break;
-            case LOSETUP:
-                ret = ExternalTools.LOSETUP;
-                break;
-            case ZSTD:
-                ret = ExternalTools.ZSTD;
-                break;
-            case SOCAT:
-                ret = ExternalTools.SOCAT;
-                break;
-            case COREUTILS_LINUX:
-                ret = ExternalTools.COREUTILS_LINUX;
-                break;
-            case UDEVADM:
-                ret = ExternalTools.UDEVADM;
-                break;
-            case LSSCSI:
-                ret = ExternalTools.LSSCSI;
-                break;
-            case SAS_DEVICE:
-                ret = ExternalTools.SAS_DEVICE;
-                break;
-            case SAS_PHY:
-                ret = ExternalTools.SAS_PHY;
-                break;
-            case EBS_INIT:
-                ret = ExternalTools.EBS_INIT;
-                break;
-            case EBS_TARGET:
-                ret = ExternalTools.EBS_TARGET;
-                break;
-            case STORAGE_SPACES:
-                ret = ExternalTools.STORAGE_SPACES;
-                break;
-            default:
-                throw new RuntimeException("Not implemented.");
-        }
-        return ret;
+            case CRYPT_SETUP -> ExternalTools.CRYPT_SETUP;
+            case DRBD9_KERNEL -> ExternalTools.DRBD9;
+            case DRBD9_UTILS -> ExternalTools.DRBD_UTILS;
+            case DRBD_PROXY -> ExternalTools.DRBD_PROXY;
+            case LVM -> ExternalTools.LVM;
+            case LVM_THIN -> ExternalTools.LVM_THIN;
+            case THIN_SEND_RECV -> ExternalTools.THIN_SEND_RECV;
+            case NVME -> ExternalTools.NVME;
+            case ZFS_KMOD -> ExternalTools.ZFS_KMOD;
+            case ZFS_UTILS -> ExternalTools.ZFS_UTILS;
+            case SPDK -> ExternalTools.SPDK;
+            case DM_WRITECACHE -> ExternalTools.DM_WRITECACHE;
+            case DM_CACHE -> ExternalTools.DM_CACHE;
+            case BCACHE_TOOLS -> ExternalTools.BCACHE_TOOLS;
+            case LOSETUP -> ExternalTools.LOSETUP;
+            case ZSTD -> ExternalTools.ZSTD;
+            case SOCAT -> ExternalTools.SOCAT;
+            case COREUTILS_LINUX -> ExternalTools.COREUTILS_LINUX;
+            case UDEVADM -> ExternalTools.UDEVADM;
+            case LSSCSI -> ExternalTools.LSSCSI;
+            case SAS_DEVICE -> ExternalTools.SAS_DEVICE;
+            case SAS_PHY -> ExternalTools.SAS_PHY;
+            case EBS_INIT -> ExternalTools.EBS_INIT;
+            case EBS_TARGET -> ExternalTools.EBS_TARGET;
+            case STORAGE_SPACES -> ExternalTools.STORAGE_SPACES;
+            default -> throw new RuntimeException("Not implemented.");
+        };
     }
 
     public static class LayerObjectSerializer
@@ -1706,22 +1606,17 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                 {
                     switch (rscDfnLayerDataApi.getLayerKind())
                     {
-                        case DRBD:
-                            builder.setDrbd(
-                                buildDrbdRscDfnData((DrbdRscDfnPojo) rscDfnLayerDataApi)
-                            );
-                            break;
-                        case LUKS: // fall-through
-                        case STORAGE: // fall-through
-                        case NVME: // fall-through
-                        case WRITECACHE: // fall-through
-                        case CACHE: // fall-through
-                        case BCACHE:
+                        case DRBD -> builder.setDrbd(
+                            buildDrbdRscDfnData((DrbdRscDfnPojo) rscDfnLayerDataApi)
+                        );
+                        case LUKS, STORAGE, NVME, WRITECACHE, CACHE, BCACHE ->
+                        {
                             // no rsc-dfn related data
-                            break;
-                        default:
-                            break;
-
+                        }
+                        default ->
+                        {
+                            // no-op
+                        }
                     }
                 }
                 ret.add(builder.build());
@@ -1745,21 +1640,17 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                 {
                     switch (vlmDfnLayerDataApi.getLayerKind())
                     {
-                        case DRBD:
-                            builder.setDrbd(
-                                buildDrbdVlmDfnData((DrbdVlmDfnPojo) vlmDfnLayerDataApi)
-                            );
-                            break;
-                        case LUKS: // fall-through
-                        case STORAGE: // fall-through
-                        case NVME: // fall-through
-                        case WRITECACHE: // fall-through
-                        case CACHE: // fall-through
-                        case BCACHE:
+                        case DRBD -> builder.setDrbd(
+                            buildDrbdVlmDfnData((DrbdVlmDfnPojo) vlmDfnLayerDataApi)
+                        );
+                        case LUKS, STORAGE, NVME, WRITECACHE, CACHE, BCACHE ->
+                        {
                             // no vlm-dfn related data
-                            break;
-                        default:
-                            break;
+                        }
+                        default ->
+                        {
+                            // no-op
+                        }
                     }
                 }
                 ret.add(builder.build());
@@ -1795,29 +1686,18 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                 .addAllChildren(serializedChildren);
             switch (rscLayerPojo.getLayerKind())
             {
-                case DRBD:
-                    builder.setDrbd(buildDrbdRscData((DrbdRscPojo) rscLayerPojo));
-                    break;
-                case LUKS:
-                    builder.setLuks(buildLuksRscData((LuksRscPojo) rscLayerPojo));
-                    break;
-                case STORAGE:
+                case DRBD -> builder.setDrbd(buildDrbdRscData((DrbdRscPojo) rscLayerPojo));
+                case LUKS -> builder.setLuks(buildLuksRscData((LuksRscPojo) rscLayerPojo));
+                case STORAGE ->
                     builder.setStorage(buildStorageRscData((StorageRscPojo) rscLayerPojo, includeOptionalFieldsRef));
-                    break;
-                case NVME:
-                    builder.setNvme(buildNvmeRscData((NvmeRscPojo) rscLayerPojo));
-                    break;
-                case WRITECACHE:
-                    builder.setWritecache(buildWritecacheRscData((WritecacheRscPojo) rscLayerPojo));
-                    break;
-                case CACHE:
-                    builder.setCache(buildCacheRscData((CacheRscPojo) rscLayerPojo));
-                    break;
-                case BCACHE:
-                    builder.setBcache(buildBCacheRscData((BCacheRscPojo) rscLayerPojo));
-                    break;
-                default:
-                    break;
+                case NVME -> builder.setNvme(buildNvmeRscData((NvmeRscPojo) rscLayerPojo));
+                case WRITECACHE -> builder.setWritecache(buildWritecacheRscData((WritecacheRscPojo) rscLayerPojo));
+                case CACHE -> builder.setCache(buildCacheRscData((CacheRscPojo) rscLayerPojo));
+                case BCACHE -> builder.setBcache(buildBCacheRscData((BCacheRscPojo) rscLayerPojo));
+                default ->
+                {
+                    // no-op
+                }
             }
             builder.setLayerType(asLayerType(rscLayerPojo.getLayerKind()));
             builder.setSuspend(rscLayerPojo.getSuspend());
@@ -2051,22 +1931,12 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
 
             switch (vlmPojo.getProviderKind())
             {
-                case DISKLESS:
-                    builder.setDiskless(DisklessVlm.newBuilder().build());
-                    break;
-                case LVM:
-                    builder.setLvm(LvmVlm.newBuilder().build());
-                    break;
-                case LVM_THIN:
-                    builder.setLvmThin(LvmThinVlm.newBuilder().build());
-                    break;
-                case STORAGE_SPACES:
-                    builder.setStorageSpaces(StorageSpacesVlm.newBuilder().build());
-                    break;
-                case STORAGE_SPACES_THIN:
-                    builder.setStorageSpacesThin(StorageSpacesThinVlm.newBuilder().build());
-                    break;
-                case ZFS:
+                case DISKLESS -> builder.setDiskless(DisklessVlm.newBuilder().build());
+                case LVM -> builder.setLvm(LvmVlm.newBuilder().build());
+                case LVM_THIN -> builder.setLvmThin(LvmThinVlm.newBuilder().build());
+                case STORAGE_SPACES -> builder.setStorageSpaces(StorageSpacesVlm.newBuilder().build());
+                case STORAGE_SPACES_THIN -> builder.setStorageSpacesThin(StorageSpacesThinVlm.newBuilder().build());
+                case ZFS ->
                 {
                     StorageRscOuterClass.ZfsVlm.Builder protoZfsVlmBuilder = ZfsVlm.newBuilder();
                     if (vlmPojo.getExtentSize() != null)
@@ -2075,8 +1945,7 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                     }
                     builder.setZfs(protoZfsVlmBuilder.build());
                 }
-                    break;
-                case ZFS_THIN:
+                case ZFS_THIN ->
                 {
                     StorageRscOuterClass.ZfsThinVlm.Builder protoZfsVlmBuilder = ZfsThinVlm.newBuilder();
                     if (vlmPojo.getExtentSize() != null)
@@ -2085,26 +1954,18 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                     }
                     builder.setZfsThin(protoZfsVlmBuilder.build());
                 }
-                    break;
-                case FILE:
-                    builder.setFile(FileVlm.newBuilder().build());
-                    break;
-                case FILE_THIN:
-                    builder.setFileThin(FileThinVlm.newBuilder().build());
-                    break;
-                case SPDK:
-                    builder.setSpdk(SpdkVlm.newBuilder().build());
-                    break;
-                case REMOTE_SPDK:
-                    builder.setRemoteSpdk(RemoteSpdkVlm.newBuilder().build());
-                    break;
-                case EBS_INIT: // fall-through
-                case EBS_TARGET:
+                case FILE -> builder.setFile(FileVlm.newBuilder().build());
+                case FILE_THIN -> builder.setFileThin(FileThinVlm.newBuilder().build());
+                case SPDK -> builder.setSpdk(SpdkVlm.newBuilder().build());
+                case REMOTE_SPDK -> builder.setRemoteSpdk(RemoteSpdkVlm.newBuilder().build());
+                case EBS_INIT, EBS_TARGET ->
+                {
                     EbsVlm.Builder ebsVlmBuilder = EbsVlm.newBuilder();
                     builder.setEbs(ebsVlmBuilder.build());
-                    break;
-                case FAIL_BECAUSE_NOT_A_VLM_PROVIDER_BUT_A_VLM_LAYER:
-                default:
+                }
+                case FAIL_BECAUSE_NOT_A_VLM_PROVIDER_BUT_A_VLM_LAYER ->
+                    throw new ImplementationError("Unexpected provider kind: " + vlmPojo.getProviderKind());
+                default ->
                     throw new ImplementationError("Unexpected provider kind: " + vlmPojo.getProviderKind());
             }
             return builder.build();

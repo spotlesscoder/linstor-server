@@ -189,26 +189,20 @@ public class SelectionManager
     {
         HashMap<String, List<String>> valToNodeListMap = getValuesToNodesListMap(keyRef, alreadyDeployedOnNodesRef);
 
-        final @Nullable String ret;
-        switch (valToNodeListMap.size())
+        final @Nullable String ret = switch (valToNodeListMap.size())
         {
-            case 0:
-                ret = dfltIfNotUsed;
-                break;
-            case 1:
-                ret = valToNodeListMap.keySet().iterator().next();
-                break;
-            default:
-                throw new ApiRcException(
-                    ApiCallRcImpl.simpleEntry(
-                        ApiConsts.FAIL_UNDECIDABLE_AUTOPLACMENT,
-                        "The property in --replicas-on-same '" + keyRef + "' is already set " +
-                            "on already deployed nodes with different values. Autoplacer cannot decide " +
-                            "which value to continue with. Linstor found the following conflicting values: " +
-                            valToNodeListMap
-                    )
-                );
-        }
+            case 0 -> dfltIfNotUsed;
+            case 1 -> valToNodeListMap.keySet().iterator().next();
+            default -> throw new ApiRcException(
+                ApiCallRcImpl.simpleEntry(
+                    ApiConsts.FAIL_UNDECIDABLE_AUTOPLACMENT,
+                    "The property in --replicas-on-same '" + keyRef + "' is already set " +
+                        "on already deployed nodes with different values. Autoplacer cannot decide " +
+                        "which value to continue with. Linstor found the following conflicting values: " +
+                        valToNodeListMap
+                )
+            );
+        };
         return ret;
     }
 

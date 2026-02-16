@@ -528,15 +528,17 @@ public class LinstorConfigTool
         ControllerDatabase database = null;
         switch (dbType)
         {
-            case SQL:
+            case SQL ->
+            {
                 database = new DbConnectionPool(cfg, reporter);
                 initializer = new DbConnectionPoolInitializer(
                     reporter,
                     database,
                     cfg
                 );
-                break;
-            case K8S_CRD:
+            }
+            case K8S_CRD ->
+            {
                 Provider<ControllerK8sCrdDatabase> k8sCrdProvider = new Provider<>()
                 {
                     private final DbK8sCrd dbK8sCrd = new DbK8sCrd(
@@ -554,9 +556,8 @@ public class LinstorConfigTool
 
                 database = k8sCrdProvider.get();
                 initializer = new DbK8sCrdInitializer(reporter, database, cfg);
-                break;
-            default:
-                throw new ImplementationError(String.format("Unrecognized database type '%s'", dbType));
+            }
+            default -> throw new ImplementationError(String.format("Unrecognized database type '%s'", dbType));
         }
         return new PairNonNull<>(initializer, database);
     }

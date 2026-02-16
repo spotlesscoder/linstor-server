@@ -723,28 +723,24 @@ public class CtrlRscCrtApiHelper
                     layerDataHelper,
                     rscDfn
                 );
-                switch (existingLayerStacks.size())
+                layerStack = switch (existingLayerStacks.size())
                 {
-                    case 0: // ignore, will be filled later by CtrlLayerDataHelper#createDefaultLayerStack
-                        // but that method requires the resource to already exist.
-                        break;
-                    case 1:
-                        layerStack = existingLayerStacks.iterator().next();
-                        break;
-                    default:
-                        throw new ApiRcException(
-                            ApiCallRcImpl.simpleEntry(
-                                ApiConsts.FAIL_INVLD_LAYER_STACK,
-                                "Could not figure out what layer-list to default to."
+                    // 0 -> ignore, will be filled later by CtrlLayerDataHelper#createDefaultLayerStack
+                    // but that method requires the resource to already exist.
+                    case 0 -> new ArrayList<>();
+                    case 1 -> existingLayerStacks.iterator().next();
+                    default -> throw new ApiRcException(
+                        ApiCallRcImpl.simpleEntry(
+                            ApiConsts.FAIL_INVLD_LAYER_STACK,
+                            "Could not figure out what layer-list to default to."
+                        )
+                            .setDetails(
+                                "Layer lists of already existing resources: \n   " +
+                                    StringUtils.join(existingLayerStacks, "\n   ")
                             )
-                                .setDetails(
-                                    "Layer lists of already existing resources: \n   " +
-                                        StringUtils.join(existingLayerStacks, "\n   ")
-                                )
-                                .setCorrection("Please specify a layer-list")
-                        );
-
-                }
+                            .setCorrection("Please specify a layer-list")
+                    );
+                };
             }
         }
         else

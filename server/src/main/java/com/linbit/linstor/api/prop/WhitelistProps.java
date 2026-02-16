@@ -195,25 +195,23 @@ public class WhitelistProps
 
                     switch (propType.toLowerCase())
                     {
-                        case "boolean":
-                        case "boolean_true_false":
-                        case "string":
+                        case "boolean", "boolean_true_false", "string" ->
+                        {
                             // nothing to do
-                            break;
-                        case "handler":
-                            propBuilder.values(extractEnumValues(option, "handler"));
-                            break;
-                        case "numeric":
+                        }
+                        case "handler" -> propBuilder.values(extractEnumValues(option, "handler"));
+                        case "numeric" ->
+                        {
                             propBuilder.min(getText(option, "min"));
                             propBuilder.max(getText(option, "max"));
-                            break;
-                        case "numeric-or-symbol":
+                        }
+                        case "numeric-or-symbol" ->
+                        {
                             propBuilder.values(extractEnumValues(option, "symbol"));
                             propBuilder.min(getText(option, "min"));
                             propBuilder.max(getText(option, "max"));
-                            break;
-                        default:
-                            throw new RuntimeException("unknown type: " + propType);
+                        }
+                        default -> throw new RuntimeException("unknown type: " + propType);
                     }
 
                     Property prop = propBuilder.build();

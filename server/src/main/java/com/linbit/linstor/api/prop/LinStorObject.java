@@ -54,25 +54,13 @@ public enum LinStorObject
 
     public static @Nullable LinStorObject drbdProxyCompressionObject(String compressionType)
     {
-        LinStorObject linStorObject;
-        switch (compressionType)
+        return switch (compressionType)
         {
-            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_ZSTD:
-                linStorObject = LinStorObject.DRBD_PROXY_ZSTD;
-                break;
-            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_ZLIB:
-                linStorObject = LinStorObject.DRBD_PROXY_ZLIB;
-                break;
-            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_LZMA:
-                linStorObject = LinStorObject.DRBD_PROXY_LZMA;
-                break;
-            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_LZ4:
-                linStorObject = LinStorObject.DRBD_PROXY_LZ4;
-                break;
-            default:
-                linStorObject = null;
-                break;
-        }
-        return linStorObject;
+            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_ZSTD -> LinStorObject.DRBD_PROXY_ZSTD;
+            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_ZLIB -> LinStorObject.DRBD_PROXY_ZLIB;
+            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_LZMA -> LinStorObject.DRBD_PROXY_LZMA;
+            case ApiConsts.VAL_DRBD_PROXY_COMPRESSION_LZ4 -> LinStorObject.DRBD_PROXY_LZ4;
+            default -> null;
+        };
     }
 }

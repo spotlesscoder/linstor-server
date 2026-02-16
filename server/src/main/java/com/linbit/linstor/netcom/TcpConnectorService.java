@@ -535,16 +535,20 @@ public class TcpConnectorService implements Runnable, TcpConnector
                                 ReadState state = connPeer.read((SocketChannel) currentKey.channel());
                                 switch (state)
                                 {
-                                    case UNFINISHED:
-                                        break;
-                                    case FINISHED:
+                                    case UNFINISHED ->
+                                    {
+                                        // no-op
+                                    }
+                                    case FINISHED ->
+                                    {
                                         msgProcessor.processMessage(connPeer.nextCurrentMsgIn(), this, connPeer);
                                         if (connPeer.hasNextMsgIn())
                                         {
                                             peersWithFinishedMessages.add(connPeer);
                                         }
-                                        break;
-                                    case END_OF_STREAM:
+                                    }
+                                    case END_OF_STREAM ->
+                                    {
                                         final Node connNode = connPeer.getNode();
                                         if (connNode != null)
                                         {
@@ -555,15 +559,14 @@ public class TcpConnectorService implements Runnable, TcpConnector
                                             );
                                         }
                                         closeConnection(currentKey, connPeer.isClientMode());
-                                        break;
-                                    default:
-                                        throw new ImplementationError(
-                                            String.format(
-                                                "Missing case label for enum member '%s'",
-                                                state.name()
-                                            ),
-                                            null
-                                        );
+                                    }
+                                    default -> throw new ImplementationError(
+                                        String.format(
+                                            "Missing case label for enum member '%s'",
+                                            state.name()
+                                        ),
+                                        null
+                                    );
                                 }
                             }
                             catch (NotYetConnectedException connExc)

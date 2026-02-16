@@ -956,35 +956,38 @@ public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigrat
                     // layerdata will only have single children (no or always empty RESOURCE_NAME_SUFFIX)
                     switch (layerStr)
                     {
-                        case LAYER_KIND_DRBD:
+                        case LAYER_KIND_DRBD ->
+                        {
                             createLayerDrbdRscDfnEntry(insLDRD, rscName, snapName);
                             createLayerDrbdVlmDfnEntry(insLDVD, rscName, snapName, vlmNr);
                             parentId = createLayerDrbdRscEntry(
                                 insLRI, parentId, insLDR, nodeName, rscName, snapName, nodeId
                             );
                             createLayerDrbdVlmEntry(insLDV, parentId, vlmNr);
-                            break;
-                        case LAYER_KIND_LUKS:
+                        }
+                        case LAYER_KIND_LUKS ->
+                        {
                             // we did not save the password.
                             // we will create the luks layer data, but the snapshot will not be usable
                             parentId = createLayerRscIdEntry(
                                 insLRI, nodeName, rscName, snapName, LAYER_KIND_LUKS, parentId
                             );
                             createLayerLuksVlmEntry(insLLV, parentId, vlmNr); // no key :(
-                            break;
-                        case LAYER_KIND_NVME:
+                        }
+                        case LAYER_KIND_NVME ->
+                        {
                             parentId = createLayerRscIdEntry(
                                 insLRI, nodeName, rscName, snapName, LAYER_KIND_NVME, parentId
                             );
-                            break;
-                        case LAYER_KIND_STORAGE:
+                        }
+                        case LAYER_KIND_STORAGE ->
+                        {
                             parentId = createLayerRscIdEntry(
                                 insLRI, nodeName, rscName, snapName, LAYER_KIND_STORAGE, parentId
                             );
                             createLayerStorVlmEntry(insLSV, parentId, vlmNr, storPoolKind, nodeName, storPoolName);
-                            break;
-                        default:
-                            throw new ImplementationError("Unknown layer kind: " + layerStr);
+                        }
+                        default -> throw new ImplementationError("Unknown layer kind: " + layerStr);
                     }
                 }
             }

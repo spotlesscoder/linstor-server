@@ -165,7 +165,8 @@ public class CommonMessageProcessor implements MessageProcessor
             msgType = msg.getType();
             switch (msgType)
             {
-                case MessageTypes.DATA:
+                case MessageTypes.DATA ->
+                {
                     long peerSeq = peer.getNextIncomingMessageSeq();
 
                     // Since reactor 3.4.x, it doesn't busy loop anymore itself, but rather let that be done by
@@ -181,14 +182,14 @@ public class CommonMessageProcessor implements MessageProcessor
                     {
                         errorLog.logError("Unable to emit processMessage");
                     }
-                    break;
-                case MessageTypes.PING:
-                    peer.sendPong();
-                    break;
-                case MessageTypes.PONG:
+                }
+                case MessageTypes.PING -> peer.sendPong();
+                case MessageTypes.PONG ->
+                {
                     // pongReceived is called for every case, making this case a no-op.
-                    break;
-                default:
+                }
+                default ->
+                {
                     String peerAddress = null;
                     int port = 0;
                     InetSocketAddress peerSocketAddr = peer.peerAddress();
@@ -214,7 +215,7 @@ public class CommonMessageProcessor implements MessageProcessor
                             msgType, peer.getConnectorInstanceName()
                         );
                     }
-                    break;
+                }
             }
         }
         catch (IllegalMessageStateException exc)
@@ -296,23 +297,16 @@ public class CommonMessageProcessor implements MessageProcessor
 
             switch (msgType)
             {
-                case ONEWAY:
-                    // fall-through
-                case API_CALL:
+                case ONEWAY, API_CALL ->
+                {
                     flux = callApi(
                         connector, peer, header, msgDataIn, msgType == MsgType.API_CALL, peerSeq);
-                    break;
-                case ANSWER:
-                    handleAnswer(peer, header, msgDataIn, peerSeq);
-                    break;
-                case COMPLETE:
-                    handleComplete(peer, header, peerSeq);
-                    break;
-                default:
-                    errorLog.logError(
-                        "Message of unknown type " + msgType + " received"
-                    );
-                    break;
+                }
+                case ANSWER -> handleAnswer(peer, header, msgDataIn, peerSeq);
+                case COMPLETE -> handleComplete(peer, header, peerSeq);
+                default -> errorLog.logError(
+                    "Message of unknown type " + msgType + " received"
+                );
             }
         }
 

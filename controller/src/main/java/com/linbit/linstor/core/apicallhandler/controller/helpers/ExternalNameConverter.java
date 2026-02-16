@@ -27,27 +27,16 @@ public class ExternalNameConverter
 
         Mode advance()
         {
-            Mode next;
-            switch (this)
+            return switch (this)
             {
-                case PREFIX_UUID:
-                    next = COPY;
-                    break;
-                case COPY:
-                    next = TRANSLATE;
-                    break;
-                case TRANSLATE:
-                    next = FAIL;
-                    break;
-                case FAIL:
-                    next = FAIL;
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "Unhandled enumeration value " + this.name()
-                    );
-            }
-            return next;
+                case PREFIX_UUID -> COPY;
+                case COPY -> TRANSLATE;
+                case TRANSLATE -> FAIL;
+                case FAIL -> FAIL;
+                default -> throw new ImplementationError(
+                    "Unhandled enumeration value " + this.name()
+                );
+            };
         }
     }
 

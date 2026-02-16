@@ -93,20 +93,21 @@ public final class ResourceDbDriver extends
         setColumnSetter(SNAPSHOT_NAME, ignored -> DFLT_SNAP_NAME_FOR_RSC);
         switch (getDbType())
         {
-            case SQL:
+            case SQL ->
+            {
                 setColumnSetter(CREATE_TIMESTAMP, rsc -> rsc.getCreateTimestamp().isPresent() ?
                     new Timestamp(rsc.getCreateTimestamp().get().getTime()) : null);
                 createTimestampTypeMapper = createTime -> createTime != null ?
                     new Timestamp(createTime.getTime()) :
                     null;
-                break;
-            case K8S_CRD:
+            }
+            case K8S_CRD ->
+            {
                 setColumnSetter(CREATE_TIMESTAMP, rsc -> rsc.getCreateTimestamp().isPresent() ?
                     rsc.getCreateTimestamp().get().getTime() : null);
                 createTimestampTypeMapper = createTime -> createTime != null ? createTime.getTime() : null;
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
+            }
+            default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
 
         createTimestampDriver = generateSingleColumnDriver(
@@ -139,21 +140,11 @@ public final class ResourceDbDriver extends
         {
             NodeName nodeName = new NodeName(raw.get(NODE_NAME));
             ResourceName rscName = new ResourceName(raw.get(RESOURCE_NAME));
-            Long createTimestamp = null;
             Map<Resource.ResourceKey, ResourceConnection> rscConMap = new TreeMap<>();
             Map<VolumeNumber, Volume> vlmMap = new TreeMap<>();
 
-            final long flags;
-            switch (getDbType())
-            {
-                case SQL:
-                case K8S_CRD:
-                    flags = raw.get(RESOURCE_FLAGS);
-                    createTimestamp = raw.get(CREATE_TIMESTAMP);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            final long flags = raw.get(RESOURCE_FLAGS);
+            @Nullable Long createTimestamp = raw.get(CREATE_TIMESTAMP);
 
             ret = new Pair<>(
                 new Resource(

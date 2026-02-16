@@ -55,39 +55,32 @@ public class SecIdentityDbDriver extends AbsDatabaseDriver<SecIdentityDbObj, Voi
         setColumnSetter(IDENTITY_DSP_NAME, id -> id.getIdentity().name.displayValue);
 
 
-        switch (getDbType()) {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(PASS_HASH, SecIdentityDbObj::getPassHash);
-                setColumnSetter(PASS_SALT, SecIdentityDbObj::getPassSalt);
-                setColumnSetter(ID_ENABLED, SecIdentityDbObj::isEnabled);
-                setColumnSetter(ID_LOCKED, SecIdentityDbObj::isLocked);
+        setColumnSetter(PASS_HASH, SecIdentityDbObj::getPassHash);
+        setColumnSetter(PASS_SALT, SecIdentityDbObj::getPassSalt);
+        setColumnSetter(ID_ENABLED, SecIdentityDbObj::isEnabled);
+        setColumnSetter(ID_LOCKED, SecIdentityDbObj::isLocked);
 
-                passHashDriver = generateSingleColumnDriver(
-                    PASS_HASH,
-                    ignored -> MSG_DO_NOT_LOG,
-                    Function.identity()
-                );
-                passSaltDriver = generateSingleColumnDriver(
-                    PASS_SALT,
-                    ignored -> MSG_DO_NOT_LOG,
-                    Function.identity()
-                );
+        passHashDriver = generateSingleColumnDriver(
+            PASS_HASH,
+            ignored -> MSG_DO_NOT_LOG,
+            Function.identity()
+        );
+        passSaltDriver = generateSingleColumnDriver(
+            PASS_SALT,
+            ignored -> MSG_DO_NOT_LOG,
+            Function.identity()
+        );
 
-                idEnabledDriver = generateSingleColumnDriver(
-                    ID_ENABLED,
-                    this::getId,
-                    Function.identity()
-                );
-                idLockedDriver = generateSingleColumnDriver(
-                    ID_LOCKED,
-                    this::getId,
-                    Function.identity()
-                );
-                break;
-            default:
-                throw new ImplementationError("Unexpected Db type: " + getDbType());
-        }
+        idEnabledDriver = generateSingleColumnDriver(
+            ID_ENABLED,
+            this::getId,
+            Function.identity()
+        );
+        idLockedDriver = generateSingleColumnDriver(
+            ID_LOCKED,
+            this::getId,
+            Function.identity()
+        );
     }
     @Override
     public SingleColumnDatabaseDriver<SecIdentityDbObj, byte[]> getPassHashDriver()
@@ -126,17 +119,18 @@ public class SecIdentityDbDriver extends AbsDatabaseDriver<SecIdentityDbObj, Voi
 
         switch (getDbType())
         {
-            case SQL:
+            case SQL ->
+            {
                 // since the SqlEngine stores CHAR as String, we also need to load them as String
                 passHash = rawRef.<String, byte[], AccessDeniedException>build(PASS_HASH, str -> str.getBytes());
                 passSalt = rawRef.<String, byte[], AccessDeniedException>build(PASS_SALT, str -> str.getBytes());
-                break;
-            case K8S_CRD:
+            }
+            case K8S_CRD ->
+            {
                 passHash = rawRef.get(PASS_HASH);
                 passSalt = rawRef.get(PASS_SALT);
-                break;
-            default:
-                throw new ImplementationError("Unexpected Db type: " + getDbType());
+            }
+            default -> throw new ImplementationError("Unexpected Db type: " + getDbType());
         }
 
         return new Pair<>(

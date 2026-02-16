@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -175,19 +174,11 @@ public final class ScheduleDbDriver extends AbsProtectedDatabaseDriver<Schedule,
         final Integer keepLocal;
         final Integer keepRemote;
         final Integer maxRetries;
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                initFlags = raw.get(FLAGS);
-                onFailureLong = raw.get(ON_FAILURE);
-                keepLocal = raw.get(KEEP_LOCAL);
-                keepRemote = raw.get(KEEP_REMOTE);
-                maxRetries = raw.get(MAX_RETRIES);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        initFlags = raw.get(FLAGS);
+        onFailureLong = raw.get(ON_FAILURE);
+        keepLocal = raw.get(KEEP_LOCAL);
+        keepRemote = raw.get(KEEP_REMOTE);
+        maxRetries = raw.get(MAX_RETRIES);
         CronParser parser = new CronParser(CronDefinitionBuilder.instanceDefinitionFor(CronType.UNIX));
         return new Pair<>(
             new Schedule(

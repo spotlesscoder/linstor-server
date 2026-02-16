@@ -7,6 +7,7 @@ import com.linbit.ValueInUseException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.drbd.md.MdException;
 import com.linbit.linstor.LinStorDBRuntimeException;
+import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiConsts;
@@ -587,32 +588,23 @@ public class SQLEngine implements DbEngine
         {
             for (Column column : columns)
             {
-                Object data;
                 int colSqlType = column.getSqlType();
-                switch (colSqlType)
+                @Nullable Object data = switch (colSqlType)
                 {
-                    case Types.BLOB:
-                        data = resultSet.getBytes(column.getName());
-                        break;
-                    case Types.VARCHAR: // fall-through
-                    case Types.CLOB:
+                    case Types.BLOB -> resultSet.getBytes(column.getName());
+                    case Types.VARCHAR, Types.CLOB -> resultSet.getString(column.getName());
                         // includes TEXT type, but if TEXT is read with .getObject the
                         // returned type is in h2 case org.h2.jdbc.JdbcClob instead of String
-                        data = resultSet.getString(column.getName());
-                        break;
-                    case Types.SMALLINT:
+                    case Types.SMALLINT -> resultSet.getShort(column.getName());
                         // some jdbc drivers (like mariadb / postgresql) would return an Integer here, which cannot be
                         // casted later on to Short
-                        data = resultSet.getShort(column.getName());
-                        break;
-                    case Types.TIMESTAMP:
+                    case Types.TIMESTAMP ->
+                    {
                         Timestamp timestamp = resultSet.getTimestamp(column.getName());
-                        data = timestamp != null ? timestamp.getTime() : null;
-                        break;
-                    default:
-                        data = resultSet.getObject(column.getName());
-                        break;
-                }
+                        yield timestamp != null ? timestamp.getTime() : null;
+                    }
+                    default -> resultSet.getObject(column.getName());
+                };
                 if (resultSet.wasNull())
                 {
                     data = null;
@@ -780,12 +772,8 @@ public class SQLEngine implements DbEngine
             {
                 switch (sqlTypeRef)
                 {
-                    case Types.BLOB:
-                        stmtRef.setBytes(idxRef, (byte[]) objRef);
-                        break;
-                    default:
-                        stmtRef.setNull(idxRef, sqlTypeRef);
-                        break;
+                    case Types.BLOB -> stmtRef.setBytes(idxRef, (byte[]) objRef);
+                    default -> stmtRef.setNull(idxRef, sqlTypeRef);
                 }
             }
             else
@@ -805,13 +793,10 @@ public class SQLEngine implements DbEngine
             {
                 switch (sqlTypeRef)
                 {
-                    case Types.BLOB:
-                        stmtRef.setBytes(idxRef, (byte[]) objRef);
-                        break;
-                    case Types.CLOB:
-                        stmtRef.setString(idxRef, (String) objRef);
-                        break;
-                    case Types.TIMESTAMP:
+                    case Types.BLOB -> stmtRef.setBytes(idxRef, (byte[]) objRef);
+                    case Types.CLOB -> stmtRef.setString(idxRef, (String) objRef);
+                    case Types.TIMESTAMP ->
+                    {
                         Timestamp timestamp;
                         if (objRef instanceof Timestamp)
                         {
@@ -822,8 +807,9 @@ public class SQLEngine implements DbEngine
                             timestamp = new Timestamp((Long) objRef);
                         }
                         stmtRef.setTimestamp(idxRef, timestamp);
-                        break;
-                    case Types.DATE:
+                    }
+                    case Types.DATE ->
+                    {
                         long dateTimestamp;
                         if (objRef instanceof java.util.Date)
                         {
@@ -834,10 +820,8 @@ public class SQLEngine implements DbEngine
                             dateTimestamp = (Long) objRef;
                         }
                         stmtRef.setDate(idxRef, new java.sql.Date(dateTimestamp));
-                        break;
-                    default:
-                        stmtRef.setObject(idxRef, objRef, sqlTypeRef);
-                        break;
+                    }
+                    default -> stmtRef.setObject(idxRef, objRef, sqlTypeRef);
                 }
             }
             catch (Exception exc)

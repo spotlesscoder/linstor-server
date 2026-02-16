@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -99,15 +98,7 @@ public final class ResourceDefinitionDbDriver
         setColumnSetter(SNAPSHOT_NAME, ignored -> DFLT_SNAP_NAME_FOR_RSC);
         setColumnSetter(SNAPSHOT_DSP_NAME, ignored -> DFLT_SNAP_NAME_FOR_RSC);
         setColumnSetter(PARENT_UUID, ignored -> null);
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(RESOURCE_EXTERNAL_NAME, ResourceDefinition::getExternalName);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        setColumnSetter(RESOURCE_EXTERNAL_NAME, ResourceDefinition::getExternalName);
 
 
         flagsDriver = generateFlagDriver(RESOURCE_FLAGS, ResourceDefinition.Flags.class);
@@ -159,16 +150,8 @@ public final class ResourceDefinitionDbDriver
             final long flags;
             final byte[] extName;
 
-            switch (getDbType())
-            {
-                case SQL:// fall-through
-                case K8S_CRD:
-                    flags = raw.get(RESOURCE_FLAGS);
-                    extName = raw.get(RESOURCE_EXTERNAL_NAME);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            flags = raw.get(RESOURCE_FLAGS);
+            extName = raw.get(RESOURCE_EXTERNAL_NAME);
             ret = new Pair<>(
                 new ResourceDefinition(
                     raw.build(UUID, java.util.UUID::fromString),

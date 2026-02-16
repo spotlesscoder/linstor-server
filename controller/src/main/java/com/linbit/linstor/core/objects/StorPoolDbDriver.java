@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.linstor.LinstorParsingUtils;
@@ -78,15 +77,7 @@ public final class StorPoolDbDriver
         setColumnSetter(DRIVER_NAME, sp -> sp.getDeviceProviderKind().name());
         setColumnSetter(FREE_SPACE_MGR_NAME, sp -> sp.getFreeSpaceTracker().getName().value);
         setColumnSetter(FREE_SPACE_MGR_DSP_NAME, sp -> sp.getFreeSpaceTracker().getName().displayValue);
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(EXTERNAL_LOCKING, sp -> sp.isExternalLocking());
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        setColumnSetter(EXTERNAL_LOCKING, sp -> sp.isExternalLocking());
     }
 
     @Override
@@ -110,15 +101,7 @@ public final class StorPoolDbDriver
         );
         final boolean externalLocking;
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                externalLocking = raw.get(EXTERNAL_LOCKING);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        externalLocking = raw.get(EXTERNAL_LOCKING);
 
         final FreeSpaceMgr fsm = restore(sharedStorPoolName);
 

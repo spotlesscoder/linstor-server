@@ -113,33 +113,17 @@ public abstract class AbsLayerRscDataMerger<RSC extends AbsResource<RSC>>
         throws AccessDeniedException, DatabaseException, IllegalArgumentException,
             ExhaustedPoolException, ValueOutOfRangeException, ValueInUseException, InvalidNameException
     {
-        LayerRscDataMerger<RSC> rscMerger;
-        switch (rscLayerDataPojo.getLayerKind())
+        LayerRscDataMerger<RSC> rscMerger = switch (rscLayerDataPojo.getLayerKind())
         {
-            case DRBD:
-                rscMerger = this::mergeDrbdRscData;
-                break;
-            case LUKS:
-                rscMerger = this::mergeLuksRscData;
-                break;
-            case STORAGE:
-                rscMerger = this::mergeStorageRscData;
-                break;
-            case NVME:
-                rscMerger = this::mergeNvmeRscData;
-                break;
-            case WRITECACHE:
-                rscMerger = this::mergeWritecacheRscData;
-                break;
-            case CACHE:
-                rscMerger = this::mergeCacheRscData;
-                break;
-            case BCACHE:
-                rscMerger = this::mergeBCacheRscData;
-                break;
-            default:
-                throw new ImplementationError("Unexpected layer kind: " + rscLayerDataPojo.getLayerKind());
-        }
+            case DRBD -> this::mergeDrbdRscData;
+            case LUKS -> this::mergeLuksRscData;
+            case STORAGE -> this::mergeStorageRscData;
+            case NVME -> this::mergeNvmeRscData;
+            case WRITECACHE -> this::mergeWritecacheRscData;
+            case CACHE -> this::mergeCacheRscData;
+            case BCACHE -> this::mergeBCacheRscData;
+            default -> throw new ImplementationError("Unexpected layer kind: " + rscLayerDataPojo.getLayerKind());
+        };
         AbsRscLayerObject<RSC> rscLayerObject = rscMerger.mergeRscData(
             rsc,
             rscLayerDataPojo,
@@ -161,8 +145,10 @@ public abstract class AbsLayerRscDataMerger<RSC extends AbsResource<RSC>>
              * a similar if does exist in the DrbdLayer related code but not in others
              */
             MismatchIdMergeStrategy strategy = getMismatchRscLayerIdMergeStrategy(rscLayerObject, rscLayerDataPojo);
-            switch (strategy) {
-                case FORCE_MERGE:
+            switch (strategy)
+            {
+                case FORCE_MERGE ->
+                {
                     merge = true;
                     if (parent == null)
                     {
@@ -170,21 +156,18 @@ public abstract class AbsLayerRscDataMerger<RSC extends AbsResource<RSC>>
                         // rootRscData object, we also need to update the resource object accordingly.
                         rsc.setLayerData(apiCtx, rscLayerObject);
                     }
-                    break;
-                case SKIP_MERGE:
-                    merge = false;
-                    break;
-                default:
-                    throw new ImplementationError(
-                        String.format(
-                            "unimplemented strategy case: %s. Pojo ID: %d (%s), rscLayerObject ID: %d(%s)",
-                            strategy.name(),
-                            rscLayerDataPojo.getId(),
-                            rscLayerDataPojo.getLayerKind(),
-                            rscLayerObject.getRscLayerId(),
-                            rscLayerObject.getLayerKind()
-                        )
-                    );
+                }
+                case SKIP_MERGE -> { merge = false; }
+                default -> throw new ImplementationError(
+                    String.format(
+                        "unimplemented strategy case: %s. Pojo ID: %d (%s), rscLayerObject ID: %d(%s)",
+                        strategy.name(),
+                        rscLayerDataPojo.getId(),
+                        rscLayerDataPojo.getLayerKind(),
+                        rscLayerObject.getRscLayerId(),
+                        rscLayerObject.getLayerKind()
+                    )
+                );
             }
         }
         if (merge)
@@ -230,7 +213,8 @@ public abstract class AbsLayerRscDataMerger<RSC extends AbsResource<RSC>>
             MismatchIdMergeStrategy strategy = getMismatchRscLayerIdMergeStrategy(drbdRscData, rscDataPojo);
             switch (strategy)
             {
-                case FORCE_MERGE:
+                case FORCE_MERGE ->
+                {
                     /*
                      * if the IDs are not equal and we also did not replace this DrbdRscData recently, just pretend that
                      * this object was not found and let the implementation of this abstract class create a new
@@ -242,15 +226,12 @@ public abstract class AbsLayerRscDataMerger<RSC extends AbsResource<RSC>>
                     // NumberPool
                     drbdRscData.delete(apiCtx);
                     drbdRscData = null;
-                    break;
-                case SKIP_MERGE:
-                    merge = false;
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "unimplemented strategy case: " + strategy + ". Pojo ID: " + rscDataPojo.getId() +
-                            " drbdRscData ID: " + drbdRscData.getRscLayerId()
-                    );
+                }
+                case SKIP_MERGE -> { merge = false; }
+                default -> throw new ImplementationError(
+                    "unimplemented strategy case: " + strategy + ". Pojo ID: " + rscDataPojo.getId() +
+                        " drbdRscData ID: " + drbdRscData.getRscLayerId()
+                );
             }
         }
         if (merge)

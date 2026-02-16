@@ -21,16 +21,11 @@ public interface LinstorTriggerableEvent<T> extends LinstorEvent<T>
     {
         switch (eventStreamAction)
         {
-            case InternalApiConsts.EVENT_STREAM_VALUE:
+            case InternalApiConsts.EVENT_STREAM_VALUE ->
                 throw new ImplementationError("Calling EVENT_STREAM_VALUE without a value");
-            case InternalApiConsts.EVENT_STREAM_CLOSE_REMOVED:
-                closeStream(objectIdentifier);
-                break;
-            case InternalApiConsts.EVENT_STREAM_CLOSE_NO_CONNECTION:
-                closeStreamNoConnection(objectIdentifier);
-                break;
-            default:
-                throw new ImplementationError("Unknown event action '" + eventStreamAction + "'");
+            case InternalApiConsts.EVENT_STREAM_CLOSE_REMOVED -> closeStream(objectIdentifier);
+            case InternalApiConsts.EVENT_STREAM_CLOSE_NO_CONNECTION -> closeStreamNoConnection(objectIdentifier);
+            default -> throw new ImplementationError("Unknown event action '" + eventStreamAction + "'");
         }
     }
 
@@ -38,17 +33,10 @@ public interface LinstorTriggerableEvent<T> extends LinstorEvent<T>
     {
         switch (eventStreamAction)
         {
-            case InternalApiConsts.EVENT_STREAM_VALUE:
-                triggerEvent(objectIdentifier, value);
-                break;
-            case InternalApiConsts.EVENT_STREAM_CLOSE_REMOVED:
-                closeStream(objectIdentifier);
-                break;
-            case InternalApiConsts.EVENT_STREAM_CLOSE_NO_CONNECTION:
-                closeStreamNoConnection(objectIdentifier);
-                break;
-            default:
-                throw new ImplementationError("Unknown event action '" + eventStreamAction + "'");
+            case InternalApiConsts.EVENT_STREAM_VALUE -> triggerEvent(objectIdentifier, value);
+            case InternalApiConsts.EVENT_STREAM_CLOSE_REMOVED -> closeStream(objectIdentifier);
+            case InternalApiConsts.EVENT_STREAM_CLOSE_NO_CONNECTION -> closeStreamNoConnection(objectIdentifier);
+            default -> throw new ImplementationError("Unknown event action '" + eventStreamAction + "'");
         }
     }
 }

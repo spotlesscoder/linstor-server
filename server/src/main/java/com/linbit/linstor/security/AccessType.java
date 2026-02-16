@@ -85,63 +85,41 @@ public enum AccessType
     public static AccessType get(String name)
         throws InvalidNameException
     {
-        AccessType accType;
         String upperName = name.toUpperCase();
-        switch (upperName)
+        return switch (upperName)
         {
-            case "VIEW":
-                accType = VIEW;
-                break;
-            case "USE":
-                accType = USE;
-                break;
-            case "CHANGE":
-                accType = CHANGE;
-                break;
-            case "CONTROL":
-                accType = CONTROL;
-                break;
-            default:
-                throw new InvalidNameException(
-                    String.format(
-                        "The name '%s' requested in an AccessType lookup does not match any " +
-                        "known access type names",
-                        upperName
-                    ),
-                    name
-                );
-        }
-        return accType;
+            case "VIEW" -> VIEW;
+            case "USE" -> USE;
+            case "CHANGE" -> CHANGE;
+            case "CONTROL" -> CONTROL;
+            default -> throw new InvalidNameException(
+                String.format(
+                    "The name '%s' requested in an AccessType lookup does not match any " +
+                    "known access type names",
+                    upperName
+                ),
+                name
+            );
+        };
     }
 
     @SuppressWarnings("checkstyle:magicnumber")
     public static AccessType get(int flag)
     {
-        AccessType accType;
-        switch (flag)
+        return switch (flag)
         {
-            case 1:
-                accType = VIEW;
-                break;
-            case 3:
-                accType = USE;
-                break;
-            case 7:
-                accType = CHANGE;
-                break;
-            case 15:
-                accType = CONTROL;
-                break;
-            default:
-                throw new LinStorRuntimeException(
-                    String.format(
-                        "The value %d requested in an AccessType lookup does not match any " +
-                        "known access type values",
-                        flag
-                    )
-                );
-        }
-        return accType;
+            case 1 -> VIEW;
+            case 3 -> USE;
+            case 7 -> CHANGE;
+            case 15 -> CONTROL;
+            default -> throw new LinStorRuntimeException(
+                String.format(
+                    "The value %d requested in an AccessType lookup does not match any " +
+                    "known access type values",
+                    flag
+                )
+            );
+        };
     }
 
     /**

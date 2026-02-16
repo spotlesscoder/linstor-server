@@ -77,15 +77,12 @@ public final class NodeDbDriver extends AbsProtectedDatabaseDriver<Node, Node.In
         setColumnSetter(NODE_FLAGS, node -> node.getFlags().getFlagsBits(dbCtxRef));
         switch (getDbType())
         {
-            case SQL: // fall-through
+            case SQL ->
                 setColumnSetter(NODE_TYPE, node -> node.getNodeType(dbCtxRef).getFlagValue());
-                break;
-            case K8S_CRD:
+            case K8S_CRD ->
                 // TODO make a DB migration changing the NODE_TYPE from INTEGER to BIGINT
                 setColumnSetter(NODE_TYPE, node -> (int) node.getNodeType(dbCtxRef).getFlagValue());
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
+            default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
 
         flagsDriver = generateFlagDriver(NODE_FLAGS, Node.Flags.class);
@@ -130,16 +127,17 @@ public final class NodeDbDriver extends AbsProtectedDatabaseDriver<Node, Node.In
         final long flags;
         switch (getDbType())
         {
-            case SQL:
+            case SQL ->
+            {
                 nodeType = Node.Type.getByValue(raw.<Integer>get(NODE_TYPE).longValue());
                 flags = raw.get(NODE_FLAGS);
-                break;
-            case K8S_CRD:
+            }
+            case K8S_CRD ->
+            {
                 nodeType = Node.Type.getByValue(raw.<Integer>get(NODE_TYPE));
                 flags = raw.get(NODE_FLAGS);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
+            }
+            default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
 
         Node node = new Node(

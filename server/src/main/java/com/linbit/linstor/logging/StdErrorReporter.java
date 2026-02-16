@@ -128,29 +128,16 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
     @Override
     public boolean hasAtLeastLogLevel(Level levelRef)
     {
-        boolean hasRequiredLevel;
         org.slf4j.Logger crtLogger = mainLogger;
-        switch (levelRef)
+        return switch (levelRef)
         {
-            case DEBUG:
-                hasRequiredLevel = crtLogger.isDebugEnabled();
-                break;
-            case ERROR:
-                hasRequiredLevel = crtLogger.isErrorEnabled();
-                break;
-            case INFO:
-                hasRequiredLevel = crtLogger.isInfoEnabled();
-                break;
-            case TRACE:
-                hasRequiredLevel = crtLogger.isTraceEnabled();
-                break;
-            case WARN:
-                hasRequiredLevel = crtLogger.isWarnEnabled();
-                break;
-            default:
-                throw new ImplementationError("Unknown logging level: " + levelRef);
-        }
-        return hasRequiredLevel;
+            case DEBUG -> crtLogger.isDebugEnabled();
+            case ERROR -> crtLogger.isErrorEnabled();
+            case INFO -> crtLogger.isInfoEnabled();
+            case TRACE -> crtLogger.isTraceEnabled();
+            case WARN -> crtLogger.isWarnEnabled();
+            default -> throw new ImplementationError("Unknown logging level: " + levelRef);
+        };
     }
 
     @Override
@@ -349,22 +336,13 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
         final String logMsg = formatLogMsg(reportNrRef, errorInfoRef);
         switch (logLevelRef)
         {
-            case ERROR:
-                logError("%s", logMsg);
-                break;
-            case WARN:
-                logWarning("%s", logMsg);
-                break;
-            case INFO:
-                logInfo("%s", logMsg);
-                break;
-            case DEBUG:
-                logDebug("%s", logMsg);
-                break;
-            case TRACE:
-                logTrace("%s", logMsg);
-                break;
-            default:
+            case ERROR -> logError("%s", logMsg);
+            case WARN -> logWarning("%s", logMsg);
+            case INFO -> logInfo("%s", logMsg);
+            case DEBUG -> logDebug("%s", logMsg);
+            case TRACE -> logTrace("%s", logMsg);
+            default ->
+            {
                 logError("%s", logMsg);
                 reportError(
                     new IllegalArgumentException(
@@ -374,7 +352,7 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
                         )
                     )
                 );
-                break;
+            }
         }
     }
 

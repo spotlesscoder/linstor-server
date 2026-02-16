@@ -59,23 +59,23 @@ public final class PrivilegeSet implements Cloneable
         SecurityLevel globalSecLevel = SecurityLevel.get();
         switch (globalSecLevel)
         {
-            case NO_SECURITY:
-                break;
-            case RBAC:
-                // fall-through
-            case MAC:
+            case NO_SECURITY ->
+            {
+                // no-op
+            }
+            case RBAC, MAC ->
+            {
                 if (!hasPrivileges(privList))
                 {
                     throw new AccessDeniedException(
                         "Required privileges " + getPrivList(privMask) + " not present"
                     );
                 }
-                break;
-            default:
-                throw new ImplementationError(
-                    "Missing case label for enum constant " + globalSecLevel.name(),
-                    null
-                );
+            }
+            default -> throw new ImplementationError(
+                "Missing case label for enum constant " + globalSecLevel.name(),
+                null
+            );
         }
     }
 

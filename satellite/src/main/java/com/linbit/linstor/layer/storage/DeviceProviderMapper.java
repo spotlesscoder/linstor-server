@@ -101,54 +101,24 @@ public class DeviceProviderMapper
 
     public DeviceProvider getDeviceProviderByKind(DeviceProviderKind deviceProviderKind)
     {
-        DeviceProvider devProvider;
-        switch (deviceProviderKind)
+        return switch (deviceProviderKind)
         {
-            case LVM:
-                devProvider = lvmProvider;
-                break;
-            case LVM_THIN:
-                devProvider = lvmThinProvider;
-                break;
-            case ZFS:
-                devProvider = zfsProvider;
-                break;
-            case ZFS_THIN:
-                devProvider = zfsThinProvider;
-                break;
-            case DISKLESS:
-                devProvider = disklessProvider;
-                break;
-            case FILE:
-                devProvider = fileProvider;
-                break;
-            case FILE_THIN:
-                devProvider = fileThinProvider;
-                break;
-            case SPDK:
-                devProvider = spdkLocalProvider;
-                break;
-            case REMOTE_SPDK:
-                devProvider = spdkRemoteProvider;
-                break;
-            case EBS_INIT:
-                devProvider = ebsInitProvider;
-                break;
-            case EBS_TARGET:
-                devProvider = ebsTargetProvider;
-                break;
-            case STORAGE_SPACES:
-                devProvider = storageSpacesProvider;
-                break;
-            case STORAGE_SPACES_THIN:
-                devProvider = storageSpacesThinProvider;
-                break;
-            case FAIL_BECAUSE_NOT_A_VLM_PROVIDER_BUT_A_VLM_LAYER:
+            case LVM -> lvmProvider;
+            case LVM_THIN -> lvmThinProvider;
+            case ZFS -> zfsProvider;
+            case ZFS_THIN -> zfsThinProvider;
+            case DISKLESS -> disklessProvider;
+            case FILE -> fileProvider;
+            case FILE_THIN -> fileThinProvider;
+            case SPDK -> spdkLocalProvider;
+            case REMOTE_SPDK -> spdkRemoteProvider;
+            case EBS_INIT -> ebsInitProvider;
+            case EBS_TARGET -> ebsTargetProvider;
+            case STORAGE_SPACES -> storageSpacesProvider;
+            case STORAGE_SPACES_THIN -> storageSpacesThinProvider;
+            case FAIL_BECAUSE_NOT_A_VLM_PROVIDER_BUT_A_VLM_LAYER ->
                 throw new ImplementationError("A volume from a layer was asked for its provider type");
-            default:
-                throw new ImplementationError("Unknown storage provider found: " + deviceProviderKind);
-
-        }
-        return devProvider;
+            default -> throw new ImplementationError("Unknown storage provider found: " + deviceProviderKind);
+        };
     }
 }

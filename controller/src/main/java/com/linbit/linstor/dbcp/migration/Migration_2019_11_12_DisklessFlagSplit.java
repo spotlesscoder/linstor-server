@@ -61,16 +61,9 @@ public class Migration_2019_11_12_DisklessFlagSplit extends LinstorMigration
                     boolean needsUpdate = true;
                     switch (resultSet.getString(LAYER_RESOURCE_KIND))
                     {
-                        case KIND_DRBD:
-                            flags |= FLAG_DRBD_DISKLESS;
-                            break;
-                        case KIND_NVME:
-                            flags |= FLAG_NVME_INITIATOR;
-                            break;
-                        default:
-                            needsUpdate = false;
-                            // ignore
-                            break;
+                        case KIND_DRBD -> { flags |= FLAG_DRBD_DISKLESS; }
+                        case KIND_NVME -> { flags |= FLAG_NVME_INITIATOR; }
+                        default -> { needsUpdate = false; }
                     }
                     if (needsUpdate)
                     {

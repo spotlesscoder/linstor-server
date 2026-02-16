@@ -102,27 +102,17 @@ public class Migration_2021_04_29_FixDuplicatedRestoredLayerData extends Linstor
                     ArrayList<PreparedStatement> deleteStmts = new ArrayList<>();
                     switch (kind)
                     {
-                        case "CACHE":
-                            deleteStmts.add(deleteCacheVlms);
-                            break;
-                        case "DRBD":
+                        case "CACHE" -> deleteStmts.add(deleteCacheVlms);
+                        case "DRBD" ->
+                        {
                             deleteStmts.add(deleteDrbdVlms);
                             deleteStmts.add(deleteDrbdRscs);
-                            break;
-                        case "LUKS":
-                            deleteStmts.add(deleteLuksVlms);
-                            break;
-                        case "OPENFLEX":
-                            deleteStmts.add(deleteOpenflexVlms);
-                            break;
-                        case "STORAGE":
-                            deleteStmts.add(deleteStorageVlms);
-                            break;
-                        case "WRITECACHE":
-                            deleteStmts.add(deleteWriteCacheVlms);
-                            break;
-                        default:
-                            throw new ImplementationError("Unknown kind: " + kind);
+                        }
+                        case "LUKS" -> deleteStmts.add(deleteLuksVlms);
+                        case "OPENFLEX" -> deleteStmts.add(deleteOpenflexVlms);
+                        case "STORAGE" -> deleteStmts.add(deleteStorageVlms);
+                        case "WRITECACHE" -> deleteStmts.add(deleteWriteCacheVlms);
+                        default -> throw new ImplementationError("Unknown kind: " + kind);
                     }
                     deleteStmts.add(deleteLayerRscId);
                     for (PreparedStatement ps : deleteStmts)

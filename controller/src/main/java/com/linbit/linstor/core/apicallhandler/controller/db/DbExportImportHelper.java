@@ -130,25 +130,22 @@ public class DbExportImportHelper
         }
 
         String dbConnectionUrl = ctrlCfg.getDbConnectionUrl();
-        String exportedBy;
-        switch (currentDbEngine.getType())
+        String exportedBy = switch (currentDbEngine.getType())
         {
-            case K8S_CRD:
-                exportedBy = "k8s";
-                break;
-            case SQL:
+            case K8S_CRD -> "k8s";
+            case SQL ->
+            {
                 try
                 {
-                    exportedBy = "sql/" + DbConnectionPoolInitializer.getDbType(dbConnectionUrl);
+                    yield "sql/" + DbConnectionPoolInitializer.getDbType(dbConnectionUrl);
                 }
                 catch (InitializationException exc)
                 {
                     throw new ImplementationError(exc);
                 }
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + currentDbEngine.getType());
-        }
+            }
+        };
+
         DbExportPojoData pojo = new DbExportPojoData(
             LinStor.VERSION_INFO_PROVIDER.getVersion(),
             System.currentTimeMillis(),
@@ -296,17 +293,13 @@ public class DbExportImportHelper
             String dbConnectionUrl = ctrlCfg.getDbConnectionUrl();
             switch (currentDbEngine.getType())
             {
-                case K8S_CRD:
-                    dbK8s.preImportMigrateToVersion(dbConnectionUrl, exportPojoData.k8sVersion);
-                    break;
-                case SQL:
+                case K8S_CRD -> dbK8s.preImportMigrateToVersion(dbConnectionUrl, exportPojoData.k8sVersion);
+                case SQL ->
                     dbSql.preImportMigrateToVersion(
                         DbConnectionPoolInitializer.getDbType(dbConnectionUrl),
                         exportPojoData.sqlVersion
                     );
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + currentDbEngine.getType());
+                default -> throw new ImplementationError("Unknown database type: " + currentDbEngine.getType());
             }
 
             TransactionMgr txMgr = txMgrGenerator.get().startTransaction();

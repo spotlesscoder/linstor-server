@@ -42,7 +42,8 @@ public class ProcCryptoUtils
                     final String fieldValue = mtc.group(2);
                     switch (fieldName)
                     {
-                        case "name":
+                        case "name" ->
+                        {
                             if (name != null)
                             {
                                 if (driver == null)
@@ -76,19 +77,14 @@ public class ProcCryptoUtils
                             driver = null;
                             type = "";
                             priority = 0;
-                            break;
-                        case "driver":
-                            driver = fieldValue;
-                            break;
-                        case "type":
-                            type = fieldValue;
-                            break;
-                        case "priority":
-                            priority = Integer.parseInt(fieldValue);
-                            break;
-                        default:
+                        }
+                        case "driver" -> { driver = fieldValue; }
+                        case "type" -> { type = fieldValue; }
+                        case "priority" -> { priority = Integer.parseInt(fieldValue); }
+                        default ->
+                        {
                             // Unknown field, no-op
-                            break;
+                        }
                     }
                 }
             }

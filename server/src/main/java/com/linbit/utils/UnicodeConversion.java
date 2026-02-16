@@ -103,7 +103,7 @@ public class UnicodeConversion
             byte inByte = input[inIdx];
             switch (state)
             {
-                case FIRST_UNIT:
+                case FIRST_UNIT ->
                 {
                     if ((inByte & 0x80) != 0)
                     {
@@ -143,9 +143,8 @@ public class UnicodeConversion
                         converted[convIdx] = (char) inByte;
                         ++convIdx;
                     }
-                    break;
                 }
-                case CONT_UNIT:
+                case CONT_UNIT ->
                 {
                     if ((inByte & 0xC0) != 0x80)
                     {
@@ -194,15 +193,11 @@ public class UnicodeConversion
 
                         state = ConversionState.FIRST_UNIT;
                     }
-                    break;
                 }
-                default:
-                {
-                    throw new ImplementationError(
-                        UnicodeConversion.class.getSimpleName() +
-                        ": Logic error: The state engine entered an illegal state "
-                    );
-                }
+                default -> throw new ImplementationError(
+                    UnicodeConversion.class.getSimpleName() +
+                    ": Logic error: The state engine entered an illegal state "
+                );
             }
 
             ++inIdx;
@@ -274,7 +269,7 @@ public class UnicodeConversion
             char curChar = input[inIdx];
             switch (state)
             {
-                case FIRST_UNIT:
+                case FIRST_UNIT ->
                 {
                     final char ctrlSeq = (char) (curChar & 0xFA00);
                     if (ctrlSeq == 0xD800)
@@ -313,9 +308,8 @@ public class UnicodeConversion
                         converted[convIdx] = (byte) curChar;
                         ++convIdx;
                     }
-                    break;
                 }
-                case CONT_UNIT:
+                case CONT_UNIT ->
                 {
                     final char ctrlSeq = (char) (curChar & 0xFA00);
                     if (ctrlSeq == 0xDC00)
@@ -336,15 +330,11 @@ public class UnicodeConversion
                         throw new InvalidSequenceException();
                     }
                     state = ConversionState.FIRST_UNIT;
-                    break;
                 }
-                default:
-                {
-                    throw new ImplementationError(
-                        UnicodeConversion.class.getSimpleName() +
-                        ": Logic error: The state engine entered an illegal state "
-                    );
-                }
+                default -> throw new ImplementationError(
+                    UnicodeConversion.class.getSimpleName() +
+                    ": Logic error: The state engine entered an illegal state "
+                );
             }
             ++inIdx;
         }

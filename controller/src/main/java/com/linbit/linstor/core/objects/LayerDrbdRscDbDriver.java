@@ -1,7 +1,6 @@
 package com.linbit.linstor.core.objects;
 
 import com.linbit.ExhaustedPoolException;
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueInUseException;
@@ -195,16 +194,8 @@ public class LayerDrbdRscDbDriver
             throw new DatabaseException(absRscRef + " did not have tcpPorts stored!");
         }
 
-        switch (getDbType())
-        {
-            case SQL:
-            case K8S_CRD:
-                // bug: by accident we store the peerSlots as INTEGER instead of SMALLINT
-                peerSlots = rawRef.<Integer>get(LayerDrbdResources.PEER_SLOTS).shortValue();
-                break;
-            default:
-                throw new ImplementationError("Unknown db type: " + getDbType());
-        }
+        // bug: by accident we store the peerSlots as INTEGER instead of SMALLINT
+        peerSlots = rawRef.<Integer>get(LayerDrbdResources.PEER_SLOTS).shortValue();
 
         @Nullable SnapshotName snapName = currentDummyLoadingRLORef.getSnapName();
         boolean isSnap = snapName != null && !snapName.displayValue.equals(

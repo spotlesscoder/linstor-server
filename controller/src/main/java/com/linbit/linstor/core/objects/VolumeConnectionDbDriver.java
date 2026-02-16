@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -109,15 +108,7 @@ public final class VolumeConnectionDbDriver
             final ResourceName rscName = raw.build(RESOURCE_NAME, ResourceName::new);
             final VolumeNumber vlmNr;
 
-            switch (getDbType())
-            {
-                case SQL: // fall-through
-                case K8S_CRD:
-                    vlmNr = raw.build(VLM_NR, VolumeNumber::new);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            vlmNr = raw.build(VLM_NR, VolumeNumber::new);
 
             ret = new Pair<>(
                 VolumeConnection.createForDb(

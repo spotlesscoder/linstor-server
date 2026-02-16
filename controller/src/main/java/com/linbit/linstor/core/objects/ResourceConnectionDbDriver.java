@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -138,18 +137,10 @@ public final class ResourceConnectionDbDriver
             final @Nullable TcpPortNumber portSrc;
             final @Nullable TcpPortNumber portDst;
             final long flags;
-            switch (getDbType())
-            {
-                case SQL: // fall-through
-                case K8S_CRD:
-                    portSrc = raw.build(TCP_PORT_SRC, TcpPortNumber::new);
-                    portDst = raw.build(TCP_PORT_DST, TcpPortNumber::new);
+            portSrc = raw.build(TCP_PORT_SRC, TcpPortNumber::new);
+            portDst = raw.build(TCP_PORT_DST, TcpPortNumber::new);
 
-                    flags = raw.get(FLAGS);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            flags = raw.get(FLAGS);
 
             ret = new Pair<>(
                 ResourceConnection.createForDb(

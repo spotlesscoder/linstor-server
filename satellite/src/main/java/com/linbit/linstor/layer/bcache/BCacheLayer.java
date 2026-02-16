@@ -474,44 +474,42 @@ public class BCacheLayer implements DeviceLayer
         {
             switch (entry.getKey())
             {
-                case ApiConsts.KEY_BCACHE_BLOCKSIZE:
+                case ApiConsts.KEY_BCACHE_BLOCKSIZE -> {
                     options.add("--block");
                     options.add(entry.getValue());
-                    break;
-                case ApiConsts.KEY_BCACHE_BUCKETSIZE:
+                }
+                case ApiConsts.KEY_BCACHE_BUCKETSIZE -> {
                     options.add("--bucket");
                     options.add(entry.getValue());
-                    break;
-                case ApiConsts.KEY_BCACHE_DATA_OFFSET:
+                }
+                case ApiConsts.KEY_BCACHE_DATA_OFFSET -> {
                     options.add("--data-offset");
                     options.add(entry.getValue());
-                    break;
-                case ApiConsts.KEY_BCACHE_WRITEBACK:
+                }
+                case ApiConsts.KEY_BCACHE_WRITEBACK -> {
                     if (ApiConsts.VAL_TRUE.equalsIgnoreCase(entry.getValue()))
                     {
                         options.add("--writeback");
                     }
-                    break;
-                case ApiConsts.KEY_BCACHE_DISCARD:
+                }
+                case ApiConsts.KEY_BCACHE_DISCARD -> {
                     if (ApiConsts.VAL_TRUE.equalsIgnoreCase(entry.getValue()))
                     {
                         options.add("--discard");
                     }
-                    break;
-                case ApiConsts.KEY_BCACHE_CACHE_REPLACEMENT_POLICY:
+                }
+                case ApiConsts.KEY_BCACHE_CACHE_REPLACEMENT_POLICY -> {
                     options.add("--cache_replcement_policy");
                     options.add(entry.getValue());
-                    break;
-                case ApiConsts.KEY_BCACHE_POOL_NAME:
+                }
+                case ApiConsts.KEY_BCACHE_POOL_NAME -> {
                     // silently ignored
-                    break;
-                default:
-                    errorReporter.logWarning(
-                        "BCache: Ignoring unknown property: %s with value: %s",
-                        entry.getKey(),
-                        entry.getValue()
-                    );
-                    break;
+                }
+                default -> errorReporter.logWarning(
+                    "BCache: Ignoring unknown property: %s with value: %s",
+                    entry.getKey(),
+                    entry.getValue()
+                );
             }
         }
         return options;

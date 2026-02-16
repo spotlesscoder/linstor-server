@@ -65,32 +65,18 @@ public class EffectivePropertiesPojo
     @Deprecated
     private static String compatLinstorObjToString(LinStorObject linstorObjRef)
     {
-        String ret;
-        switch (linstorObjRef)
+        return switch (linstorObjRef)
         {
             // we do not need to rename all enum values, just the ones that the current client already knows and tries
             // to map
-            case STLT:
-                ret = "SATELLITE";
-                break;
-            case NODE:
-                ret = "NODE";
-                break;
-            case RSC_DFN:
-                ret = "RESOURCE_DEFINITION";
-                break;
-            case RSC:
-                ret = "RESOURCE";
-                break;
-            case STOR_POOL:
-                ret = "STORAGEPOOL";
-                break;
+            case STLT -> "SATELLITE";
+            case NODE -> "NODE";
+            case RSC_DFN -> "RESOURCE_DEFINITION";
+            case RSC -> "RESOURCE";
+            case STOR_POOL -> "STORAGEPOOL";
             // $CASES-OMITTED$
-            default:
-                ret = linstorObjRef.name();
-                break;
-        }
-        return ret;
+            default -> linstorObjRef.name();
+        };
     }
 
     public static class EffectivePropertyPojo

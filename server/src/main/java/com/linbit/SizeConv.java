@@ -36,73 +36,34 @@ public class SizeConv
 
         protected BigInteger getFactor()
         {
-            BigInteger factor = FACTOR_B;
-            switch (this)
+            return switch (this)
             {
-                case UNIT_B:
-                    factor = FACTOR_B;
-                    break;
-                case UNIT_SECTORS:
-                    factor = FACTOR_SECTORS;
-                    break;
-                case UNIT_KiB:
-                    factor = FACTOR_KiB;
-                    break;
-                case UNIT_MiB:
-                    factor = FACTOR_MiB;
-                    break;
-                case UNIT_GiB:
-                    factor = FACTOR_GiB;
-                    break;
-                case UNIT_TiB:
-                    factor = FACTOR_TiB;
-                    break;
-                case UNIT_PiB:
-                    factor = FACTOR_PiB;
-                    break;
-                case UNIT_EiB:
-                    factor = FACTOR_EiB;
-                    break;
-                case UNIT_ZiB:
-                    factor = FACTOR_ZiB;
-                    break;
-                case UNIT_YiB:
-                    factor = FACTOR_YiB;
-                    break;
-                case UNIT_kB:
-                    factor = FACTOR_kB;
-                    break;
-                case UNIT_MB:
-                    factor = FACTOR_MB;
-                    break;
-                case UNIT_GB:
-                    factor = FACTOR_GB;
-                    break;
-                case UNIT_TB:
-                    factor = FACTOR_TB;
-                    break;
-                case UNIT_PB:
-                    factor = FACTOR_PB;
-                    break;
-                case UNIT_EB:
-                    factor = FACTOR_EB;
-                    break;
-                case UNIT_ZB:
-                    factor = FACTOR_ZB;
-                    break;
-                case UNIT_YB:
-                    factor = FACTOR_YB;
-                    break;
-                default:
-                    throw new ImplementationError(
-                        String.format(
-                            "Missing case label for enum member %s",
-                            this.name()
-                        ),
-                        null
-                    );
-            }
-            return factor;
+                case UNIT_B -> FACTOR_B;
+                case UNIT_SECTORS -> FACTOR_SECTORS;
+                case UNIT_KiB -> FACTOR_KiB;
+                case UNIT_MiB -> FACTOR_MiB;
+                case UNIT_GiB -> FACTOR_GiB;
+                case UNIT_TiB -> FACTOR_TiB;
+                case UNIT_PiB -> FACTOR_PiB;
+                case UNIT_EiB -> FACTOR_EiB;
+                case UNIT_ZiB -> FACTOR_ZiB;
+                case UNIT_YiB -> FACTOR_YiB;
+                case UNIT_kB -> FACTOR_kB;
+                case UNIT_MB -> FACTOR_MB;
+                case UNIT_GB -> FACTOR_GB;
+                case UNIT_TB -> FACTOR_TB;
+                case UNIT_PB -> FACTOR_PB;
+                case UNIT_EB -> FACTOR_EB;
+                case UNIT_ZB -> FACTOR_ZB;
+                case UNIT_YB -> FACTOR_YB;
+                default -> throw new ImplementationError(
+                    String.format(
+                        "Missing case label for enum member %s",
+                        this.name()
+                    ),
+                    null
+                );
+            };
         }
 
         public static SizeUnit parse(String str, boolean forcePowerOfTwo)

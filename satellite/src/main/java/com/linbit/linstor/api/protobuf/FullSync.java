@@ -135,24 +135,24 @@ public class FullSync implements ApiCall
 
         switch (fullSyncResult.status)
         {
-            case FAIL_MISSING_REQUIRED_EXT_TOOLS:
+            case FAIL_MISSING_REQUIRED_EXT_TOOLS -> {
                 errorReporter.logError("FullSync error: missing required ext tools %d", fullSyncId);
                 builder.setFullSyncResult(
                     MsgIntFullSyncResponseOuterClass.FullSyncResult.FAIL_MISSING_REQUIRED_EXT_TOOLS
                 );
-                break;
-            case FAIL_UNKNOWN:
+            }
+            case FAIL_UNKNOWN -> {
                 errorReporter.logError("FullSync error: unknown %d", fullSyncId);
                 builder.setFullSyncResult(MsgIntFullSyncResponseOuterClass.FullSyncResult.FAIL_UNKNOWN);
-                break;
-            case SUCCESS:
+            }
+            case SUCCESS -> {
                 errorReporter.logInfo("FullSync successful %d", fullSyncId);
                 builder.setFullSyncResult(MsgIntFullSyncResponseOuterClass.FullSyncResult.SUCCESS);
-                break;
-            default:
+            }
+            default -> {
                 errorReporter.logError("FullSync error: unknown case %s/%d", fullSyncResult, fullSyncId);
                 builder.setFullSyncResult(MsgIntFullSyncResponseOuterClass.FullSyncResult.FAIL_UNKNOWN);
-                break;
+            }
         }
         if (fullSyncResult.status == FullSyncStatus.SUCCESS)
         {

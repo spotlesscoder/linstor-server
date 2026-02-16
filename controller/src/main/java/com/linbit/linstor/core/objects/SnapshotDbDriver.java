@@ -88,7 +88,8 @@ public final class SnapshotDbDriver extends
         setColumnSetter(RESOURCE_FLAGS, snap -> ((Snapshot) snap).getFlags().getFlagsBits(dbCtxRef));
         switch (getDbType())
         {
-            case SQL:
+            case SQL ->
+            {
                 setColumnSetter(
                     CREATE_TIMESTAMP,
                     snap -> snap.getCreateTimestamp().isPresent() ?
@@ -98,8 +99,9 @@ public final class SnapshotDbDriver extends
                 createTimestampTypeMapper = createTime -> createTime != null ?
                     new Timestamp(createTime.getTime()) :
                     null;
-                break;
-            case K8S_CRD:
+            }
+            case K8S_CRD ->
+            {
                 setColumnSetter(
                     CREATE_TIMESTAMP,
                     snap -> snap.getCreateTimestamp().isPresent() ?
@@ -107,9 +109,8 @@ public final class SnapshotDbDriver extends
                         null
                 );
                 createTimestampTypeMapper = createTime -> createTime != null ? createTime.getTime() : null;
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
+            }
+            default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
 
         flagsDriver = generateFlagDriver(RESOURCE_FLAGS, Snapshot.Flags.class);
@@ -148,16 +149,8 @@ public final class SnapshotDbDriver extends
 
             final long flags;
 
-            switch (getDbType())
-            {
-                case SQL:
-                case K8S_CRD:
-                    flags = raw.get(RESOURCE_FLAGS);
-                    createTimestamp = raw.get(CREATE_TIMESTAMP);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            flags = raw.get(RESOURCE_FLAGS);
+            createTimestamp = raw.get(CREATE_TIMESTAMP);
 
             ret = new Pair<>(
                 new Snapshot(

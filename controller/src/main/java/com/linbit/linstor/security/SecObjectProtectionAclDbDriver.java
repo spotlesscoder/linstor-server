@@ -1,6 +1,5 @@
 package com.linbit.linstor.security;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidNameException;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.annotation.SystemContext;
@@ -46,16 +45,8 @@ public final class SecObjectProtectionAclDbDriver
         setColumnSetter(ROLE_NAME, acEntry -> acEntry.subjectRole.name.value);
         setColumnSetter(ACCESS_TYPE, acEntry -> acEntry.access.getAccessMask());
 
-        switch (getDbType())
-        {
-            case SQL:// fall-through
-            case K8S_CRD:
-                setColumnSetter(ACCESS_TYPE, acEntry -> acEntry.access.getAccessMask());
-                accessTypeDriver = generateSingleColumnDriver(ACCESS_TYPE, this::getId, AccessType::getAccessMask);
-                break;
-            default:
-                throw new ImplementationError("Unexpected db type: " + getDbType());
-        }
+        setColumnSetter(ACCESS_TYPE, acEntry -> acEntry.access.getAccessMask());
+        accessTypeDriver = generateSingleColumnDriver(ACCESS_TYPE, this::getId, AccessType::getAccessMask);
     }
 
     @Override

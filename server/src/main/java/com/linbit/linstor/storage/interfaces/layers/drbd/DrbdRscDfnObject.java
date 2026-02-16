@@ -30,24 +30,15 @@ public interface DrbdRscDfnObject extends RscDfnLayerObject
 
         public static TransportType byValue(String str) throws IllegalArgumentException
         {
-            TransportType type = null;
-            switch (str.toUpperCase())
+            return switch (str.toUpperCase())
             {
-                case "IP":
-                    type = IP;
-                    break;
-                case "RDMA":
-                    type = RDMA;
-                    break;
-                case "ROCE":
-                    type = RoCE;
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                        "Unknown TransportType: '" + str + "'"
-                    );
-            }
-            return type;
+                case "IP" -> IP;
+                case "RDMA" -> RDMA;
+                case "ROCE" -> RoCE;
+                default -> throw new IllegalArgumentException(
+                    "Unknown TransportType: '" + str + "'"
+                );
+            };
         }
 
         public static TransportType valueOfIgnoreCase(String string, TransportType defaultValue)

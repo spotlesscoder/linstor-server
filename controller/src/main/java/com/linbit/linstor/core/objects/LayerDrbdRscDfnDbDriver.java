@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.linstor.annotation.Nullable;
@@ -180,16 +179,8 @@ public class LayerDrbdRscDfnDbDriver
         );
         String secret = raw.get(LayerDrbdResourceDefinitions.SECRET);
 
-        switch (getDbType())
-        {
-            case SQL:
-            case K8S_CRD:
-                // bug: by accident we store the peerSlots as INTEGER instead of SMALLINT
-                peerSlots = raw.<Integer>get(LayerDrbdResourceDefinitions.PEER_SLOTS).shortValue();
-                break;
-            default:
-                throw new ImplementationError("Unknown db type: " + getDbType());
-        }
+        // bug: by accident we store the peerSlots as INTEGER instead of SMALLINT
+        peerSlots = raw.<Integer>get(LayerDrbdResourceDefinitions.PEER_SLOTS).shortValue();
 
         SuffixedResourceName suffixedRscName;
 

@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -74,20 +73,12 @@ public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<Exter
         setColumnSetter(FLAGS, extFile -> extFile.getFlags().getFlagsBits(dbCtxRef));
         setColumnSetter(CONTENT_CHECKSUM, extFile -> extFile.getContentCheckSumHex(dbCtxRef));
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(CONTENT, extFile -> extFile.getContent(dbCtxRef));
-                contentDriver = generateSingleColumnDriver(
-                    CONTENT,
-                    extFile -> new String(extFile.getContent(dbCtxRef)),
-                    Function.identity()
-                );
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        setColumnSetter(CONTENT, extFile -> extFile.getContent(dbCtxRef));
+        contentDriver = generateSingleColumnDriver(
+            CONTENT,
+            extFile -> new String(extFile.getContent(dbCtxRef)),
+            Function.identity()
+        );
 
         flagsDriver = generateFlagDriver(FLAGS, ExternalFile.Flags.class);
         contentChecksumDriver = generateSingleColumnDriver(
@@ -141,16 +132,8 @@ public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<Exter
         }
         final long initFlags;
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                content = raw.get(CONTENT);
-                initFlags = raw.get(FLAGS);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        content = raw.get(CONTENT);
+        initFlags = raw.get(FLAGS);
 
         return new Pair<>(
             new ExternalFile(

@@ -82,17 +82,15 @@ public class SecDatabaseLoader
         {
             switch (secConfigDbEntry.key.toUpperCase())
             {
-                case SecurityDbConsts.KEY_AUTH_REQ:
+                case SecurityDbConsts.KEY_AUTH_REQ ->
+                {
                     boolean authRequired = StringConv.getDfltBoolean(secConfigDbEntry.value, true);
                     Authentication.setLoadedConfig(authRequired);
-                    break;
-                case SecurityDbConsts.KEY_SEC_LEVEL:
-                    SecurityLevel.setLoadedSecLevel(secConfigDbEntry.value);
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "Unknown SecurityConfiguration entry: " + secConfigDbEntry.key + " = " + secConfigDbEntry.value
-                    );
+                }
+                case SecurityDbConsts.KEY_SEC_LEVEL -> SecurityLevel.setLoadedSecLevel(secConfigDbEntry.value);
+                default -> throw new ImplementationError(
+                    "Unknown SecurityConfiguration entry: " + secConfigDbEntry.key + " = " + secConfigDbEntry.value
+                );
             }
         }
 

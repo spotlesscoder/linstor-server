@@ -36,52 +36,29 @@ public interface DatabaseDriverInfo
 
         public String displayName()
         {
-            String dspName;
-            switch (this)
+            return switch (this)
             {
-                case SQL:
-                    dspName = "SQL";
-                    break;
-                case K8S_CRD:
-                    dspName = "Kubernetes-CRD";
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
-                        getClass().getCanonicalName()
-                    );
-            }
-            return dspName;
+                case SQL -> "SQL";
+                case K8S_CRD -> "Kubernetes-CRD";
+                default -> throw new ImplementationError(
+                    "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
+                    getClass().getCanonicalName()
+                );
+            };
         }
     }
 
     static DatabaseDriverInfo createDriverInfo(final String dbType)
     {
-        DatabaseDriverInfo dbdriver = null;
-        switch (dbType)
+        return switch (dbType)
         {
-            case "h2":
-                dbdriver = new H2DatabaseInfo();
-                break;
-            case "derby":
-                dbdriver = new DerbyDatabaseInfo();
-                break;
-            case "db2":
-                dbdriver = new Db2DatabaseInfo();
-                break;
-            case "postgresql":
-                dbdriver = new PostgresqlDatabaseInfo();
-                break;
-            case "mysql":
-                // fall-through
-            case "mariadb":
-                dbdriver = new MariaDBInfo(dbType);
-                break;
-            default:
-                throw new RuntimeException(String.format("Database type '%s' not implemented.", dbType));
-        }
-
-        return dbdriver;
+            case "h2" -> new H2DatabaseInfo();
+            case "derby" -> new DerbyDatabaseInfo();
+            case "db2" -> new Db2DatabaseInfo();
+            case "postgresql" -> new PostgresqlDatabaseInfo();
+            case "mysql", "mariadb" -> new MariaDBInfo(dbType);
+            default -> throw new RuntimeException(String.format("Database type '%s' not implemented.", dbType));
+        };
     }
 
     String jdbcUrl(String dbPath);

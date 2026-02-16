@@ -155,25 +155,21 @@ public class MetaData extends MdCommon implements MetaDataApi
 
         long sizeEff = alignUp(size, DRBD_BM_BIT_COVER_kiB);
 
-        long mdSize = 0;
         long alSize = getAlSize(alStripes, alStripeSize);
-        switch (mode)
+        long mdSize = switch (mode)
         {
-            case NET_SIZE:
+            case NET_SIZE ->
             {
                 long bitmapSize = getBitmapInternalSizeNet(sizeEff, peers, alStripes, alStripeSize);
-                mdSize = alignUp(alSize + bitmapSize + DRBD_MD_SUPERBLK_kiB, DRBD_MD_ALIGN_kiB);
-                break;
+                yield alignUp(alSize + bitmapSize + DRBD_MD_SUPERBLK_kiB, DRBD_MD_ALIGN_kiB);
             }
-            case GROSS_SIZE:
+            case GROSS_SIZE ->
             {
                 long bitmapSize = getBitmapInternalSizeGross(sizeEff, peers);
-                mdSize = alignUp(alSize + bitmapSize + DRBD_MD_SUPERBLK_kiB, DRBD_MD_ALIGN_kiB);
-                break;
+                yield alignUp(alSize + bitmapSize + DRBD_MD_SUPERBLK_kiB, DRBD_MD_ALIGN_kiB);
             }
-            default:
-                throw new IllegalArgumentException();
-        }
+            default -> throw new IllegalArgumentException();
+        };
 
         return mdSize;
     }

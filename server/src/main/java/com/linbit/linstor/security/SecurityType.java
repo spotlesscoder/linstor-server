@@ -235,63 +235,61 @@ public final class SecurityType implements Comparable<SecurityType>
         SecurityLevel globalSecLevel = SecurityLevel.get();
         switch (globalSecLevel)
         {
-            case NO_SECURITY:
-                break;
-            case RBAC:
-                break;
-            case MAC:
+            case NO_SECURITY, RBAC ->
+            {
+                // no-op
+            }
+            case MAC ->
+            {
+                boolean allowFlag = false;
+
+                // Get the name of the subject's security domain
+                SecTypeName typeName = context.subjectDomain.name;
+
+                // Look for a rule allowing a certain type of access
+                // between from the subject's security domain to this
+                // security type
+                AccessType accType = rules.get(typeName);
+
+                // If a rule entry was found, check whether the requested type
+                // of access is within the bounds of the type of access
+                // allowed by the rule entry
+                if (accType != null)
                 {
-                    boolean allowFlag = false;
-
-                    // Get the name of the subject's security domain
-                    SecTypeName typeName = context.subjectDomain.name;
-
-                    // Look for a rule allowing a certain type of access
-                    // between from the subject's security domain to this
-                    // security type
-                    AccessType accType = rules.get(typeName);
-
-                    // If a rule entry was found, check whether the requested type
-                    // of access is within the bounds of the type of access
-                    // allowed by the rule entry
-                    if (accType != null)
-                    {
-                        allowFlag = accType.hasAccess(requested);
-                    }
-
-                    // Allow access if the current context has MAC_OVRD privileges
-                    if (!allowFlag)
-                    {
-                        allowFlag = context.privEffective.hasPrivileges(Privilege.PRIV_MAC_OVRD);
-                    }
-
-                    if (!allowFlag)
-                    {
-                        throw new AccessDeniedException(
-                            "Access of type '" + requested +
-                            "' not allowed by mandatory access control rules",
-                            // Description
-                            "Access was denied by mandatory access control rules",
-                            // Cause
-                            "No rule is present that allows access of type " + requested.name() +
-                            " by a subject in security domain " + context.subjectDomain.name +
-                            " to an object of security type " + name,
-                            // Correction
-                            "A rule defining the allowed level of access from the " +
-                            "subject domain to the object type must be defined.\n" +
-                            "Mandatory access control rules can only be defined by a role " +
-                            "with administrative privileges.",
-                            // No error details
-                            null
-                        );
-                    }
+                    allowFlag = accType.hasAccess(requested);
                 }
-                break;
-            default:
-                throw new ImplementationError(
-                    "Missing case label for enum constant " + globalSecLevel.name(),
-                    null
-                );
+
+                // Allow access if the current context has MAC_OVRD privileges
+                if (!allowFlag)
+                {
+                    allowFlag = context.privEffective.hasPrivileges(Privilege.PRIV_MAC_OVRD);
+                }
+
+                if (!allowFlag)
+                {
+                    throw new AccessDeniedException(
+                        "Access of type '" + requested +
+                        "' not allowed by mandatory access control rules",
+                        // Description
+                        "Access was denied by mandatory access control rules",
+                        // Cause
+                        "No rule is present that allows access of type " + requested.name() +
+                        " by a subject in security domain " + context.subjectDomain.name +
+                        " to an object of security type " + name,
+                        // Correction
+                        "A rule defining the allowed level of access from the " +
+                        "subject domain to the object type must be defined.\n" +
+                        "Mandatory access control rules can only be defined by a role " +
+                        "with administrative privileges.",
+                        // No error details
+                        null
+                    );
+                }
+            }
+            default -> throw new ImplementationError(
+                "Missing case label for enum constant " + globalSecLevel.name(),
+                null
+            );
         }
     }
 
@@ -304,16 +302,12 @@ public final class SecurityType implements Comparable<SecurityType>
      */
     public AccessType queryAccess(AccessContext context)
     {
-        AccessType result = null;
         SecurityLevel globalSecLevel = SecurityLevel.get();
-        switch (globalSecLevel)
+        AccessType result = switch (globalSecLevel)
         {
-            case NO_SECURITY:
-                // fall-through
-            case RBAC:
-                result = AccessType.CONTROL;
-                break;
-            case MAC:
+            case NO_SECURITY, RBAC -> AccessType.CONTROL;
+            case MAC ->
+            {
                 // Query the level of access allowed by privileges
                 AccessType privAccess = context.privEffective.toMacAccess();
 
@@ -326,11 +320,10 @@ public final class SecurityType implements Comparable<SecurityType>
                 AccessType ruleAccess = rules.get(typeName);
 
                 // Combine access permissions
-                result = AccessType.union(privAccess, ruleAccess);
-                break;
-            default:
-                throw new AssertionError(globalSecLevel.name());
-        }
+                yield AccessType.union(privAccess, ruleAccess);
+            }
+            default -> throw new AssertionError(globalSecLevel.name());
+        };
         return result;
     }
 

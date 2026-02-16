@@ -61,31 +61,19 @@ public class TcpPortNumber implements Comparable<TcpPortNumber>
     @Override
     public boolean equals(Object other)
     {
-        boolean result = false;
+        boolean result;
         if (this == other)
         {
             result = true;
         }
         else
-        if (other != null)
         {
-            try
+            result = switch (other)
             {
-                if (value == ((TcpPortNumber) other).value)
-                {
-                    result = true;
-                }
-            }
-            catch (ClassCastException castExc)
-            {
-                if (other instanceof Integer)
-                {
-                    if (value == (Integer) other)
-                    {
-                        result = true;
-                    }
-                }
-            }
+                case TcpPortNumber tcpPortNumber -> value == tcpPortNumber.value;
+                case Integer tcpInt -> value == tcpInt;
+                case null, default -> false;
+            };
         }
         return result;
     }

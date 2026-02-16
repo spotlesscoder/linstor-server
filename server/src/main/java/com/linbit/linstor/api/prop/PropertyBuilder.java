@@ -48,27 +48,23 @@ public class PropertyBuilder
         {
             throw new ImplementationError("property key has not been set before building");
         }
-        switch (type)
+        prop = switch (type)
         {
-            case REGEX:
+            case REGEX ->
+            {
                 if (value == null)
                 {
                     throw new ImplementationError(
                         "trying to build a property of type " + type + " but the value was not set before building"
                     );
                 }
-                prop = new RegexProperty(name, key, value, internal, info, unit, dflt);
-                break;
-            case SYMBOL:
-                prop = new RegexProperty(name, key, buildValuesEnumRegex(), internal, info, unit, dflt);
-                break;
-            case BOOLEAN:
-                prop = new BooleanProperty(name, key, internal, info, unit, dflt);
-                break;
-            case BOOLEAN_TRUE_FALSE:
-                prop = new BooleanTrueFalseProperty(name, key, internal, info, unit, dflt);
-                break;
-            case RANGE:
+                yield new RegexProperty(name, key, value, internal, info, unit, dflt);
+            }
+            case SYMBOL -> new RegexProperty(name, key, buildValuesEnumRegex(), internal, info, unit, dflt);
+            case BOOLEAN -> new BooleanProperty(name, key, internal, info, unit, dflt);
+            case BOOLEAN_TRUE_FALSE -> new BooleanTrueFalseProperty(name, key, internal, info, unit, dflt);
+            case RANGE ->
+            {
                 if (min == null)
                 {
                     throw new ImplementationError(
@@ -81,9 +77,10 @@ public class PropertyBuilder
                         "trying to build a property of type " + type + " but the max value was not set before building"
                     );
                 }
-                prop = new RangeProperty(name, key, min, max, internal, info, unit, dflt);
-                break;
-            case RANGE_FLOAT:
+                yield new RangeProperty(name, key, min, max, internal, info, unit, dflt);
+            }
+            case RANGE_FLOAT ->
+            {
                 if (minFloat == null)
                 {
                     throw new ImplementationError(
@@ -98,12 +95,11 @@ public class PropertyBuilder
                             " but the maxFloat value was not set before building"
                     );
                 }
-                prop = new RangeFloatProperty(name, key, minFloat, maxFloat, internal, info, unit, dflt);
-                break;
-            case STRING:
-                prop = new StringProperty(name, key, internal, info, unit, dflt);
-                break;
-            case NUMERIC_OR_SYMBOL:
+                yield new RangeFloatProperty(name, key, minFloat, maxFloat, internal, info, unit, dflt);
+            }
+            case STRING -> new StringProperty(name, key, internal, info, unit, dflt);
+            case NUMERIC_OR_SYMBOL ->
+            {
                 if (min == null)
                 {
                     throw new ImplementationError(
@@ -116,16 +112,13 @@ public class PropertyBuilder
                         "trying to build a property of type " + type + " but the max value was not set before building"
                     );
                 }
-                prop = new NumericOrSymbolProperty(
+                yield new NumericOrSymbolProperty(
                     name, key, min, max, buildValuesEnumRegex(), internal, info, unit, dflt
                 );
-                break;
-            case LONG:
-                prop = new LongProperty(name, key, internal, info, unit, dflt);
-                break;
-            default:
-                throw new ImplementationError("Unknown property type: " + type, null);
-        }
+            }
+            case LONG -> new LongProperty(name, key, internal, info, unit, dflt);
+            default -> throw new ImplementationError("Unknown property type: " + type, null);
+        };
         return prop;
     }
 

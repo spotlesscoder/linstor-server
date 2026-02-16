@@ -219,33 +219,17 @@ public class CtrlSnapLayerDataFactory
         DeviceLayerKind kind
     )
     {
-        AbsSnapLayerHelper<?, ?, ?, ?> layerHelper;
-        switch (kind)
+        AbsSnapLayerHelper<?, ?, ?, ?> layerHelper = switch (kind)
         {
-            case DRBD:
-                layerHelper = drbdLayerHelper;
-                break;
-            case LUKS:
-                layerHelper = luksLayerHelper;
-                break;
-            case NVME:
-                layerHelper = nvmeLayerHelper;
-                break;
-            case STORAGE:
-                layerHelper = storageLayerHelper;
-                break;
-            case WRITECACHE:
-                layerHelper = writecacheLayerHelper;
-                break;
-            case CACHE:
-                layerHelper = cacheLayerHelper;
-                break;
-            case BCACHE:
-                layerHelper = bcacheLayerHelper;
-                break;
-            default:
-                throw new ImplementationError("Unknown device layer kind '" + kind + "'");
-        }
+            case DRBD -> drbdLayerHelper;
+            case LUKS -> luksLayerHelper;
+            case NVME -> nvmeLayerHelper;
+            case STORAGE -> storageLayerHelper;
+            case WRITECACHE -> writecacheLayerHelper;
+            case CACHE -> cacheLayerHelper;
+            case BCACHE -> bcacheLayerHelper;
+            default -> throw new ImplementationError("Unknown device layer kind '" + kind + "'");
+        };
         return layerHelper;
     }
 

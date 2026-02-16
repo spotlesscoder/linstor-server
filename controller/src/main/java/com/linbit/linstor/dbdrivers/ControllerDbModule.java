@@ -319,7 +319,8 @@ public class ControllerDbModule extends AbstractModule
     {
         switch (dbType)
         {
-            case SQL:
+            case SQL ->
+            {
                 bind(ControllerDatabase.class).to(DbConnectionPool.class);
                 bind(DbEngine.class).to(SQLEngine.class);
 
@@ -329,9 +330,9 @@ public class ControllerDbModule extends AbstractModule
                 }).to(new TypeLiteral<DbSQLPersistence>()
                 {
                 });
-
-                break;
-            case K8S_CRD:
+            }
+            case K8S_CRD ->
+            {
                 bind(ControllerDatabase.class).to(DbK8sCrd.class);
                 bind(DbEngine.class).to(K8sCrdEngine.class);
 
@@ -341,10 +342,8 @@ public class ControllerDbModule extends AbstractModule
                 }).to(new TypeLiteral<DbK8sCrdPersistence>()
                 {
                 });
-
-                break;
-            default:
-                throw new RuntimeException("Unknown database type: " + dbType);
+            }
+            default -> throw new RuntimeException("Unknown database type: " + dbType);
         }
     }
 

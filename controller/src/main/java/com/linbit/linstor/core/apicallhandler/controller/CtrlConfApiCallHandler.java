@@ -1485,36 +1485,29 @@ public class CtrlConfApiCallHandler
                     notifyStlts = true;
                     switch (fullKey)
                     {
-                        case ApiConsts.KEY_TCP_PORT_AUTO_RANGE:
-                            reloadAllNodesTcpPortPools();
-                            break;
-                        case ApiConsts.KEY_MINOR_NR_AUTO_RANGE:
-                            minorNrPool.reloadRange();
-                            break;
-                        case ApiConsts.KEY_TCP_PORT_RANGE:
-                            backupShipPortPool.reloadRange();
-                            break;
-                        case ApiConsts.NAMESPC_DRBD_RESOURCE_OPTIONS + "/" + InternalApiConsts.KEY_DRBD_QUORUM:
+                        case ApiConsts.KEY_TCP_PORT_AUTO_RANGE -> reloadAllNodesTcpPortPools();
+                        case ApiConsts.KEY_MINOR_NR_AUTO_RANGE -> minorNrPool.reloadRange();
+                        case ApiConsts.KEY_TCP_PORT_RANGE -> backupShipPortPool.reloadRange();
+                        case ApiConsts.NAMESPC_DRBD_RESOURCE_OPTIONS + "/" + InternalApiConsts.KEY_DRBD_QUORUM ->
                             systemConfRepository.removeCtrlProp(
                                 peerAccCtx.get(), ApiConsts.KEY_QUORUM_SET_BY, ApiConsts.NAMESPC_INTERNAL_DRBD);
-                            break;
-                        case ApiConsts.NAMESPC_DRBD_OPTIONS + "/" + ApiConsts.KEY_DRBD_DISABLE_AUTO_RESYNC_AFTER:
+                        case ApiConsts.NAMESPC_DRBD_OPTIONS + "/" + ApiConsts.KEY_DRBD_DISABLE_AUTO_RESYNC_AFTER ->
                         {
                             PairNonNull<ApiCallRc, Set<Resource>> result = ctrlResyncAfterHelper.manage();
                             apiCallRc.addEntries(result.objA);
                             changedRscs.addAll(result.objB);
                         }
-                            break;
-                        case ApiConsts.NAMESPC_DRBD_OPTIONS + "/" + ApiConsts.KEY_DRBD_DISABLE_AUTO_VERIFY_ALGO:
+                        case ApiConsts.NAMESPC_DRBD_OPTIONS + "/" + ApiConsts.KEY_DRBD_DISABLE_AUTO_VERIFY_ALGO ->
                         {
                             PairNonNull<ApiCallRc, Set<Resource>> result = updateRscDfnsVerifyAlgo();
                             apiCallRc.addEntries(result.objA);
                             changedRscs.addAll(result.objB);
                         }
-                            break;
                         // TODO: check for other properties
-                        default:
+                        default ->
+                        {
                             // ignore - for now
+                        }
                     }
 
                     PropertyChangedListener listener = propsChangedListenersRef.get(fullKey);

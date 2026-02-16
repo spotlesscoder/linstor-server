@@ -56,6 +56,7 @@ Checkstyle: https://checkstyle.sourceforge.net, https://github.com/checkstyle/ch
         <module name="EmptyBlock">
             <property name="tokens" value="LITERAL_CASE,LITERAL_DEFAULT"/>
             <property name="severity" value="error"/>
+            <property name="option" value="text"/>  <!-- comment counts as non-empty -->
         </module>
 
         <module name="EmptyCatchBlock">

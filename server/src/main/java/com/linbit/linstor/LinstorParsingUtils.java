@@ -303,40 +303,17 @@ public class LinstorParsingUtils
 
     public static @Nullable DeviceLayerKind asDeviceLayerKindOrNull(final String layerName)
     {
-        DeviceLayerKind kind;
-        switch (layerName.toUpperCase())
+        return switch (layerName.toUpperCase())
         {
-            case "DRBD":
-                kind = DeviceLayerKind.DRBD;
-                break;
-            case "CRYPT": // fall-through
-            case "CRYPT_SETUP": // fall-through
-            case "LUKS":
-                kind = DeviceLayerKind.LUKS;
-                break;
-            case "STORAGE": // fall-through
-            case "LVM": // fall-through
-            case "SPDK": // fall-through
-            case "ZFS":
-                kind = DeviceLayerKind.STORAGE;
-                break;
-            case "NVME":
-                kind = DeviceLayerKind.NVME;
-                break;
-            case "WRITECACHE":
-                kind = DeviceLayerKind.WRITECACHE;
-                break;
-            case "CACHE":
-                kind = DeviceLayerKind.CACHE;
-                break;
-            case "BCACHE":
-                kind = DeviceLayerKind.BCACHE;
-                break;
-            default:
-                kind = null;
-                break;
-        }
-        return kind;
+            case "DRBD" -> DeviceLayerKind.DRBD;
+            case "CRYPT", "CRYPT_SETUP", "LUKS" -> DeviceLayerKind.LUKS;
+            case "STORAGE", "LVM", "SPDK", "ZFS" -> DeviceLayerKind.STORAGE;
+            case "NVME" -> DeviceLayerKind.NVME;
+            case "WRITECACHE" -> DeviceLayerKind.WRITECACHE;
+            case "CACHE" -> DeviceLayerKind.CACHE;
+            case "BCACHE" -> DeviceLayerKind.BCACHE;
+            default -> null;
+        };
     }
 
     public static DeviceLayerKind asDeviceLayerKind(final String layerName)
@@ -381,65 +358,28 @@ public class LinstorParsingUtils
             );
         }
 
-        switch (stringRef.toUpperCase())
+        kind = switch (stringRef.toUpperCase())
         {
-            case "DRBD_DISKLESS":
-                // fall-through
-            case "DRBDDISKLESS":
-                // fall-through
-            case "DISKLESS":
-                kind = DeviceProviderKind.DISKLESS;
-                break;
-            case "LVM":
-                kind = DeviceProviderKind.LVM;
-                break;
-            case "LVMTHIN":
-                // fall-through
-            case "LVM_THIN":
-                kind = DeviceProviderKind.LVM_THIN;
-                break;
-            case "ZFS":
-                kind = DeviceProviderKind.ZFS;
-                break;
-            case "ZFSTHIN":
-                // fall-through
-            case "ZFS_THIN":
-                kind = DeviceProviderKind.ZFS_THIN;
-                break;
-            case "FILE":
-                kind = DeviceProviderKind.FILE;
-                break;
-            case "FILE_THIN":
-                kind = DeviceProviderKind.FILE_THIN;
-                break;
-            case "SPDK":
-                kind = DeviceProviderKind.SPDK;
-                break;
-            case "REMOTE_SPDK":
-                kind = DeviceProviderKind.REMOTE_SPDK;
-                break;
-            case "EBS_TARGET":
-                kind = DeviceProviderKind.EBS_TARGET;
-                break;
-            case "EBS_INIT":
-                kind = DeviceProviderKind.EBS_INIT;
-                break;
-            case "STORAGE_SPACES":
-            case "STORAGE_SPACES_TARGET":
-                kind = DeviceProviderKind.STORAGE_SPACES;
-                break;
-            case "STORAGE_SPACES_THIN":
-            case "STORAGE_SPACES_THIN_TARGET":
-                kind = DeviceProviderKind.STORAGE_SPACES_THIN;
-                break;
-            default:
-                throw new ApiRcException(
-                    ApiCallRcImpl.simpleEntry(
-                        ApiConsts.FAIL_INVLD_LAYER_KIND,
-                        "Given provider kind '" + stringRef + "' is invalid"
-                    )
-                );
-        }
+            case "DRBD_DISKLESS", "DRBDDISKLESS", "DISKLESS" -> DeviceProviderKind.DISKLESS;
+            case "LVM" -> DeviceProviderKind.LVM;
+            case "LVMTHIN", "LVM_THIN" -> DeviceProviderKind.LVM_THIN;
+            case "ZFS" -> DeviceProviderKind.ZFS;
+            case "ZFSTHIN", "ZFS_THIN" -> DeviceProviderKind.ZFS_THIN;
+            case "FILE" -> DeviceProviderKind.FILE;
+            case "FILE_THIN" -> DeviceProviderKind.FILE_THIN;
+            case "SPDK" -> DeviceProviderKind.SPDK;
+            case "REMOTE_SPDK" -> DeviceProviderKind.REMOTE_SPDK;
+            case "EBS_TARGET" -> DeviceProviderKind.EBS_TARGET;
+            case "EBS_INIT" -> DeviceProviderKind.EBS_INIT;
+            case "STORAGE_SPACES", "STORAGE_SPACES_TARGET" -> DeviceProviderKind.STORAGE_SPACES;
+            case "STORAGE_SPACES_THIN", "STORAGE_SPACES_THIN_TARGET" -> DeviceProviderKind.STORAGE_SPACES_THIN;
+            default -> throw new ApiRcException(
+                ApiCallRcImpl.simpleEntry(
+                    ApiConsts.FAIL_INVLD_LAYER_KIND,
+                    "Given provider kind '" + stringRef + "' is invalid"
+                )
+            );
+        };
         return kind;
     }
 
@@ -541,31 +481,20 @@ public class LinstorParsingUtils
             );
         }
 
-        switch (logLevelRef.toUpperCase())
+        logLevel = switch (logLevelRef.toUpperCase())
         {
-            case "ERROR":
-                logLevel = Level.ERROR;
-                break;
-            case "WARN":
-                logLevel = Level.WARN;
-                break;
-            case "INFO":
-                logLevel = Level.INFO;
-                break;
-            case "DEBUG":
-                logLevel = Level.DEBUG;
-                break;
-            case "TRACE":
-                logLevel = Level.TRACE;
-                break;
-            default:
-                throw new ApiRcException(
-                    ApiCallRcImpl.simpleEntry(
-                        ApiConsts.FAIL_INVLD_CONF,
-                        "Given loglevel '" + logLevelRef + "' is invalid"
-                    )
-                );
-        }
+            case "ERROR" -> Level.ERROR;
+            case "WARN" -> Level.WARN;
+            case "INFO" -> Level.INFO;
+            case "DEBUG" -> Level.DEBUG;
+            case "TRACE" -> Level.TRACE;
+            default -> throw new ApiRcException(
+                ApiCallRcImpl.simpleEntry(
+                    ApiConsts.FAIL_INVLD_CONF,
+                    "Given loglevel '" + logLevelRef + "' is invalid"
+                )
+            );
+        };
         return logLevel;
     }
 

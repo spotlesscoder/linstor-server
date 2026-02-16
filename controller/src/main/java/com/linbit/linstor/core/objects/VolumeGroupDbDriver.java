@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -87,16 +86,8 @@ public final class VolumeGroupDbDriver
         final ResourceGroupName rscGrpName = raw.build(RESOURCE_GROUP_NAME, ResourceGroupName::new);
         final VolumeNumber vlmNr;
         final long flags;
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                vlmNr = raw.build(VLM_NR, VolumeNumber::new);
-                flags = raw.get(FLAGS);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        vlmNr = raw.build(VLM_NR, VolumeNumber::new);
+        flags = raw.get(FLAGS);
         return new Pair<>(
             new VolumeGroup(
                 raw.build(UUID, java.util.UUID::fromString),

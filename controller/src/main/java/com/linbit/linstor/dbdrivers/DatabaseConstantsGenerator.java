@@ -1586,120 +1586,51 @@ public final class DatabaseConstantsGenerator
 
     private String getJavaType(Column clmRef)
     {
-        String ret;
-        switch (clmRef.sqlType)
+        return switch (clmRef.sqlType)
         {
-            case "CHAR":
-                // fall-through
-            case "VARCHAR":
-                // fall-through
-            case "CLOB":
-                ret = "String";
-                break;
-            case "BIGINT":
-                // fall-through
-            case "TIMESTAMP":
-                ret = clmRef.nullable ? "Long" : "long";
-                break;
-            case "INTEGER":
-                ret = clmRef.nullable ? "Integer" : "int";
-                break;
-            case "SMALLINT":
-                ret = clmRef.nullable ? "Short" : "short";
-                break;
-            case "BOOLEAN":
-                ret = clmRef.nullable ? "Boolean" : "boolean";
-                break;
-            case "BLOB":
-                ret = "byte[]";
-                break;
-            case "DATE":
-                ret = "Date";
-                break;
-            default:
-                throw new ImplementationError("Unknown Type: " + clmRef.sqlType);
-        }
-        return ret;
+            case "CHAR", "VARCHAR", "CLOB" -> "String";
+            case "BIGINT", "TIMESTAMP" -> clmRef.nullable ? "Long" : "long";
+            case "INTEGER" -> clmRef.nullable ? "Integer" : "int";
+            case "SMALLINT" -> clmRef.nullable ? "Short" : "short";
+            case "BOOLEAN" -> clmRef.nullable ? "Boolean" : "boolean";
+            case "BLOB" -> "byte[]";
+            case "DATE" -> "Date";
+            default -> throw new ImplementationError("Unknown Type: " + clmRef.sqlType);
+        };
     }
 
     private String getYamlType(Column clmRef)
     {
-        String ret;
-        switch (clmRef.sqlType)
+        return switch (clmRef.sqlType)
         {
-            case "CHAR":
-            case "VARCHAR":
-            case "CLOB":
-            case "BLOB":
-                ret = "string";
-                break;
-            case "DATE":
-            case "BIGINT":
-            case "TIMESTAMP":
-            case "INTEGER":
-            case "SMALLINT":
-                ret = "integer";
-                break;
-            case "BOOLEAN":
-                ret = "boolean";
-                break;
-            default:
-                throw new ImplementationError("Unknown Type: " + clmRef.sqlType);
-        }
-        return ret;
+            case "CHAR", "VARCHAR", "CLOB", "BLOB" -> "string";
+            case "DATE", "BIGINT", "TIMESTAMP", "INTEGER", "SMALLINT" -> "integer";
+            case "BOOLEAN" -> "boolean";
+            default -> throw new ImplementationError("Unknown Type: " + clmRef.sqlType);
+        };
     }
 
     private @Nullable String getYamlFormat(Column clmRef)
     {
-        String ret;
-        switch (clmRef.sqlType)
+        return switch (clmRef.sqlType)
         {
-            case "BIGINT":
-                ret = "int64";
-                break;
-            case "INTEGER":
-                ret = "int32";
-                break;
-            case "DATE":
-                ret = "int64";
-                break;
-            case "BLOB":
-                ret = "byte"; // base64 encoded
-                break;
-            default:
-                ret = null; // no special format
-                break;
-        }
-        return ret;
+            case "BIGINT", "DATE" -> "int64";
+            case "INTEGER" -> "int32";
+            case "BLOB" -> "byte"; // base64 encoded
+            default -> null; // no special format
+        };
     }
 
     private @Nullable String getStringFormatType(Column clmRef)
     {
-        String ret;
-        switch (clmRef.sqlType)
+        return switch (clmRef.sqlType)
         {
-            case "CHAR":
-            case "VARCHAR":
-            case "CLOB":
-            case "DATE":
-                ret = "%s";
-                break;
-            case "BIGINT":
-            case "TIMESTAMP":
-            case "INTEGER":
-            case "SMALLINT":
-                ret = "%d";
-                break;
-            case "BOOLEAN":
-                ret = "%b";
-                break;
-            case "BLOB":
-                ret = null;
-                break;
-            default:
-                throw new ImplementationError("Unknown Type: " + clmRef.sqlType);
-        }
-        return ret;
+            case "CHAR", "VARCHAR", "CLOB", "DATE" -> "%s";
+            case "BIGINT", "TIMESTAMP", "INTEGER", "SMALLINT" -> "%d";
+            case "BOOLEAN" -> "%b";
+            case "BLOB" -> null;
+            default -> throw new ImplementationError("Unknown Type: " + clmRef.sqlType);
+        };
     }
 
     private void cutLastAndAppend(int cutLen, String appendAfter)

@@ -1,7 +1,6 @@
 package com.linbit.linstor.security;
 
 import com.linbit.ExhaustedPoolException;
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueInUseException;
@@ -50,19 +49,11 @@ public class SecTypeDbDriver extends AbsDatabaseDriver<SecurityType, SecTypeInit
         // new entries are always enabled
         setColumnSetter(TYPE_ENABLED, ignored -> true);
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                typeEnabledDriver = generateSingleColumnDriver(
-                    TYPE_ENABLED,
-                    this::getId,
-                    Function.identity()
-                );
-                break;
-            default:
-                throw new ImplementationError("Unexpected Db type: " + getDbType());
-        }
+        typeEnabledDriver = generateSingleColumnDriver(
+            TYPE_ENABLED,
+            this::getId,
+            Function.identity()
+        );
     }
 
     @Override

@@ -111,21 +111,13 @@ public class ResourceStateEventHandler implements EventHandler
             EventRscStateOuterClass.EventRscState eventRscState =
                 EventRscStateOuterClass.EventRscState.parseDelimitedFrom(eventDataIn);
 
-            Boolean inUse;
-            switch (eventRscState.getInUse())
+            Boolean inUse = switch (eventRscState.getInUse())
             {
-                case FALSE:
-                    inUse = false;
-                    break;
-                case TRUE:
-                    inUse = true;
-                    break;
-                case UNKNOWN:
-                    inUse = null;
-                    break;
-                default:
-                    throw new ImplementationError("Unexpected proto InUse enum: " + eventRscState.getInUse());
-            }
+                case FALSE -> false;
+                case TRUE -> true;
+                case UNKNOWN -> null;
+                default -> throw new ImplementationError("Unexpected proto InUse enum: " + eventRscState.getInUse());
+            };
 
             satelliteStateHelper.onSatelliteState(
                 eventIdentifier.getNodeName(),

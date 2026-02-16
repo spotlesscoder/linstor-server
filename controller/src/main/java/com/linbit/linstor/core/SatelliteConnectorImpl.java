@@ -70,21 +70,15 @@ public class SatelliteConnectorImpl implements SatelliteConnector
                 if (activeStltConn != null)
                 {
                     EncryptionType type = activeStltConn.getStltConnEncryptionType(accCtx);
-                    String serviceType;
-                    switch (type)
+                    String serviceType = switch (type)
                     {
-                        case PLAIN:
-                            serviceType = ControllerNetComInitializer.PROPSCON_KEY_DEFAULT_PLAIN_CON_SVC;
-                            break;
-                        case SSL:
-                            serviceType = ControllerNetComInitializer.PROPSCON_KEY_DEFAULT_SSL_CON_SVC;
-                            break;
-                        default:
-                            throw new ImplementationError(
-                                "Unhandled default case for EncryptionType",
-                                null
-                            );
-                    }
+                        case PLAIN -> ControllerNetComInitializer.PROPSCON_KEY_DEFAULT_PLAIN_CON_SVC;
+                        case SSL -> ControllerNetComInitializer.PROPSCON_KEY_DEFAULT_SSL_CON_SVC;
+                        default -> throw new ImplementationError(
+                            "Unhandled default case for EncryptionType",
+                            null
+                        );
+                    };
                     ServiceName dfltConSvcName;
                     try
                     {

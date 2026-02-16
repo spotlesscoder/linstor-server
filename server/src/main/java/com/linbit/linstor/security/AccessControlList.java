@@ -71,11 +71,12 @@ public final class AccessControlList extends BaseTransactionObject
             SecurityLevel globalSecLevel = SecurityLevel.get();
             switch (globalSecLevel)
             {
-                case NO_SECURITY:
-                    break;
-                case RBAC:
-                    // fall-through
-                case MAC:
+                case NO_SECURITY ->
+                {
+                    // no-op
+                }
+                case RBAC, MAC ->
+                {
                     boolean allowFlag = false;
 
                     // Look for an entry for the subject's role in this access control list
@@ -112,12 +113,11 @@ public final class AccessControlList extends BaseTransactionObject
                             null
                         );
                     }
-                    break;
-                default:
-                    throw new ImplementationError(
-                        "Missing case label for enum constant " + globalSecLevel.name(),
-                        null
-                    );
+                }
+                default -> throw new ImplementationError(
+                    "Missing case label for enum constant " + globalSecLevel.name(),
+                    null
+                );
             }
         }
     }
@@ -131,16 +131,12 @@ public final class AccessControlList extends BaseTransactionObject
      */
     public AccessType queryAccess(AccessContext context)
     {
-        AccessType result = null;
         SecurityLevel globalSecLevel = SecurityLevel.get();
-        switch (globalSecLevel)
+        return switch (globalSecLevel)
         {
-            case NO_SECURITY:
-                result = AccessType.CONTROL;
-                break;
-            case RBAC:
-                // fall-through
-            case MAC:
+            case NO_SECURITY -> AccessType.CONTROL;
+            case RBAC, MAC ->
+            {
                 // Query the level of access allowed by privileges
                 AccessType privAccess = context.privEffective.toRbacAccess();
 
@@ -155,12 +151,9 @@ public final class AccessControlList extends BaseTransactionObject
                 }
 
                 // Combine access permissions
-                result = AccessType.union(privAccess, aclAccess);
-                break;
-            default:
-                throw new AssertionError(globalSecLevel.name());
-        }
-        return result;
+                yield AccessType.union(privAccess, aclAccess);
+            }
+        };
     }
 
     /**
@@ -253,45 +246,34 @@ public final class AccessControlList extends BaseTransactionObject
     {
         PrivilegeSet privileges = context.privEffective;
 
-        boolean allowFlag = false;
-        switch (requested)
+        return switch (requested)
         {
-            case VIEW:
-                allowFlag |= privileges.hasSomePrivilege(
-                    Privilege.PRIV_OBJ_VIEW,
-                    Privilege.PRIV_OBJ_USE,
-                    Privilege.PRIV_OBJ_CHANGE,
-                    Privilege.PRIV_OBJ_CONTROL,
-                    Privilege.PRIV_OBJ_OWNER
-                );
-                break;
-            case USE:
-                allowFlag |= privileges.hasSomePrivilege(
-                    Privilege.PRIV_OBJ_USE,
-                    Privilege.PRIV_OBJ_CHANGE,
-                    Privilege.PRIV_OBJ_CONTROL,
-                    Privilege.PRIV_OBJ_OWNER
-                );
-                break;
-            case CHANGE:
-                allowFlag |= privileges.hasSomePrivilege(
-                    Privilege.PRIV_OBJ_CHANGE,
-                    Privilege.PRIV_OBJ_CONTROL,
-                    Privilege.PRIV_OBJ_OWNER
-                );
-                break;
-            case CONTROL:
-                allowFlag |= privileges.hasSomePrivilege(
-                    Privilege.PRIV_OBJ_CONTROL,
-                    Privilege.PRIV_OBJ_OWNER
-                );
-                break;
-            default:
-                throw new ImplementationError(
-                    "Switch statement reached default case, unhandled enumeration case",
-                    null
-                );
-        }
-        return allowFlag;
+            case VIEW -> privileges.hasSomePrivilege(
+                Privilege.PRIV_OBJ_VIEW,
+                Privilege.PRIV_OBJ_USE,
+                Privilege.PRIV_OBJ_CHANGE,
+                Privilege.PRIV_OBJ_CONTROL,
+                Privilege.PRIV_OBJ_OWNER
+            );
+            case USE -> privileges.hasSomePrivilege(
+                Privilege.PRIV_OBJ_USE,
+                Privilege.PRIV_OBJ_CHANGE,
+                Privilege.PRIV_OBJ_CONTROL,
+                Privilege.PRIV_OBJ_OWNER
+            );
+            case CHANGE -> privileges.hasSomePrivilege(
+                Privilege.PRIV_OBJ_CHANGE,
+                Privilege.PRIV_OBJ_CONTROL,
+                Privilege.PRIV_OBJ_OWNER
+            );
+            case CONTROL -> privileges.hasSomePrivilege(
+                Privilege.PRIV_OBJ_CONTROL,
+                Privilege.PRIV_OBJ_OWNER
+            );
+            default -> throw new ImplementationError(
+                "Switch statement reached default case, unhandled enumeration case",
+                null
+            );
+        };
     }
 }

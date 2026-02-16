@@ -577,7 +577,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
             {
                 switch (currentWritePhase)
                 {
-                    case HEADER:
+                    case HEADER ->
                     {
                         final ByteBuffer headerBuffer = msgOut.getHeaderBuffer();
                         if (DEBUG_PLAIN_DATA)
@@ -596,9 +596,8 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                         {
                             currentWritePhase = currentWritePhase.getNextPhase();
                         }
-                        break;
                     }
-                    case DATA:
+                    case DATA ->
                     {
                         final ByteBuffer dataBuffer = msgOut.getDataBuffer();
                         if (DEBUG_PLAIN_DATA)
@@ -637,16 +636,14 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                                 debugLog("sslOutbound: Disable I/O: OP_WRITE (by nextOutMessage)");
                             }
                         }
-                        break;
                     }
-                    default:
-                        throw new ImplementationError(
-                            String.format(
-                                "Missing case label for enum member '%s'",
-                                currentWritePhase.name()
-                            ),
-                            null
-                        );
+                    default -> throw new ImplementationError(
+                        String.format(
+                            "Missing case label for enum member '%s'",
+                            currentWritePhase.name()
+                        ),
+                        null
+                    );
                 }
             }
             else
@@ -880,7 +877,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
         {
             switch (currentReadPhase)
             {
-                case HEADER:
+                case HEADER ->
                 {
                     final ByteBuffer headerBuffer = msgIn.getHeaderBuffer();
                     transferBufferData(plainReadBuffer, headerBuffer);
@@ -889,9 +886,8 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                         currentReadPhase = currentReadPhase.getNextPhase();
                         initDataByteBuffer(headerBuffer);
                     }
-                    break;
                 }
-                case DATA:
+                case DATA ->
                 {
                     final ByteBuffer dataBuffer = msgIn.getDataBuffer();
                     transferBufferData(plainReadBuffer, dataBuffer);
@@ -914,16 +910,14 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                         rdState = ReadState.FINISHED;
                         msgIn = createMessage(false);
                     }
-                    break;
                 }
-                default:
-                    throw new ImplementationError(
-                        String.format(
-                            "Missing case label for enum member '%s'",
-                            currentReadPhase.name()
-                        ),
-                        null
-                    );
+                default -> throw new ImplementationError(
+                    String.format(
+                        "Missing case label for enum member '%s'",
+                        currentReadPhase.name()
+                    ),
+                    null
+                );
             }
         }
     }

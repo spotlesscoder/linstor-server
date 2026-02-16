@@ -85,16 +85,8 @@ public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemot
         setColumnSetter(AVAILABILITY_ZONE, remote -> remote.getAvailabilityZone(dbCtx));
         setColumnSetter(REGION, remote -> remote.getRegion(dbCtx));
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(ACCESS_KEY, remote -> remote.getEncryptedAccessKey(dbCtx));
-                setColumnSetter(SECRET_KEY, remote -> remote.getEncryptedSecretKey(dbCtx));
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        setColumnSetter(ACCESS_KEY, remote -> remote.getEncryptedAccessKey(dbCtx));
+        setColumnSetter(SECRET_KEY, remote -> remote.getEncryptedSecretKey(dbCtx));
 
         urlDriver = generateSingleColumnDriver(URL, remote -> remote.getUrl(dbCtx).toString(), java.net.URL::toString);
         availabilityZoneDriver = generateSingleColumnDriver(
@@ -110,8 +102,8 @@ public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemot
 
         switch (getDbType())
         {
-            case SQL: // fall-through
-            case K8S_CRD:
+            case SQL, K8S_CRD ->
+            {
                 encryptedSecretKeyDriver = generateSingleColumnDriver(
                     SECRET_KEY,
                     ingored -> "do not log",
@@ -122,9 +114,8 @@ public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemot
                     ingored -> "do not log",
                     Function.identity()
                 );
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
+            }
+            default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
 
         flagsDriver = generateFlagDriver(FLAGS, LinstorRemote.Flags.class);
@@ -173,17 +164,9 @@ public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemot
         final long initFlags;
         final byte[] encryptedSecretKey;
         final byte[] encryptedAccessKey;
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                initFlags = raw.get(FLAGS);
-                encryptedSecretKey = raw.get(SECRET_KEY);
-                encryptedAccessKey = raw.get(ACCESS_KEY);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        initFlags = raw.get(FLAGS);
+        encryptedSecretKey = raw.get(SECRET_KEY);
+        encryptedAccessKey = raw.get(ACCESS_KEY);
 
         try
         {

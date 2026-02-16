@@ -158,43 +158,20 @@ public class LockGuardFactory
 
     private ReadWriteLock lockObjToLock(LockObj lockId)
     {
-        ReadWriteLock lock;
-        switch (lockId)
+        return switch (lockId)
         {
-            case RECONFIGURATION:
-                lock = reconfigurationLock;
-                break;
-            case NODES_MAP:
-                lock = nodesMapLock;
-                break;
-            case RSC_DFN_MAP:
-                lock = rscDfnMapLock;
-                break;
-            case STOR_POOL_DFN_MAP:
-                lock = storPoolDfnMapLock;
-                break;
-            case CTRL_CONFIG:
-                lock = ctrlConfigLock;
-                break;
-            case KVS_MAP:
-                lock = kvsMapLock;
-                break;
-            case RSC_GRP_MAP:
-                lock = rscGrpMapLock;
-                break;
-            case EXT_FILE_MAP:
-                lock = extFileMapLock;
-                break;
-            case REMOTE_MAP:
-                lock = remoteMapLock;
-                break;
-            case SCHEDULE_MAP:
-                lock = scheduleMapLock;
-                break;
-            default:
-                throw new ImplementationError("Unknown lock identifier " + lockId.name());
-        }
-        return lock;
+            case RECONFIGURATION -> reconfigurationLock;
+            case NODES_MAP -> nodesMapLock;
+            case RSC_DFN_MAP -> rscDfnMapLock;
+            case STOR_POOL_DFN_MAP -> storPoolDfnMapLock;
+            case CTRL_CONFIG -> ctrlConfigLock;
+            case KVS_MAP -> kvsMapLock;
+            case RSC_GRP_MAP -> rscGrpMapLock;
+            case EXT_FILE_MAP -> extFileMapLock;
+            case REMOTE_MAP -> remoteMapLock;
+            case SCHEDULE_MAP -> scheduleMapLock;
+            default -> throw new ImplementationError("Unknown lock identifier " + lockId.name());
+        };
     }
 
     private class LockGuardBuilderImpl implements LockGuardBuilder

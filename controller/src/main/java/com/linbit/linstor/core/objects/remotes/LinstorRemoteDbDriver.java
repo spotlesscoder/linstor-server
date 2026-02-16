@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects.remotes;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -83,31 +82,15 @@ public final class LinstorRemoteDbDriver extends AbsProtectedDatabaseDriver<Lins
             remote -> remote.getClusterId(dbCtxRef) == null ? null : remote.getClusterId(dbCtxRef).toString()
         );
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(ENCRYPTED_PASSPHRASE, remote -> remote.getEncryptedRemotePassphrase(dbCtx));
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        setColumnSetter(ENCRYPTED_PASSPHRASE, remote -> remote.getEncryptedRemotePassphrase(dbCtx));
 
         urlDriver = generateSingleColumnDriver(URL, remote -> remote.getUrl(dbCtx).toString(), java.net.URL::toString);
 
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                encryptedPassphraseDriver = generateSingleColumnDriver(
-                    ENCRYPTED_PASSPHRASE,
-                    ingored -> "do not log",
-                    Function.identity()
-                );
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        encryptedPassphraseDriver = generateSingleColumnDriver(
+            ENCRYPTED_PASSPHRASE,
+            ingored -> "do not log",
+            Function.identity()
+        );
 
         flagsDriver = generateFlagDriver(FLAGS, LinstorRemote.Flags.class);
         clusterIdDriver = generateSingleColumnDriver(
@@ -149,16 +132,8 @@ public final class LinstorRemoteDbDriver extends AbsProtectedDatabaseDriver<Lins
         final RemoteName remoteName = raw.<String, RemoteName, InvalidNameException>build(DSP_NAME, RemoteName::new);
         final long initFlags;
         final byte[] encryptedPassphrase;
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                initFlags = raw.get(FLAGS);
-                encryptedPassphrase = raw.get(ENCRYPTED_PASSPHRASE);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        initFlags = raw.get(FLAGS);
+        encryptedPassphrase = raw.get(ENCRYPTED_PASSPHRASE);
 
         try
         {

@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects.remotes;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -82,34 +81,18 @@ public final class S3RemoteDbDriver extends AbsProtectedDatabaseDriver<S3Remote,
         setColumnSetter(ENDPOINT, remote -> remote.getUrl(dbCtx));
         setColumnSetter(BUCKET, remote -> remote.getBucket(dbCtx));
         setColumnSetter(REGION, remote -> remote.getRegion(dbCtx));
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                setColumnSetter(ACCESS_KEY, remote -> remote.getAccessKey(dbCtx));
-                setColumnSetter(SECRET_KEY, remote -> remote.getSecretKey(dbCtx));
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        setColumnSetter(ACCESS_KEY, remote -> remote.getAccessKey(dbCtx));
+        setColumnSetter(SECRET_KEY, remote -> remote.getSecretKey(dbCtx));
 
         endpointDriver = generateSingleColumnDriver(ENDPOINT, remote -> remote.getUrl(dbCtx), Function.identity());
         bucketDriver = generateSingleColumnDriver(BUCKET, remote -> remote.getBucket(dbCtx), Function.identity());
         regionDriver = generateSingleColumnDriver(REGION, remote -> remote.getRegion(dbCtx), Function.identity());
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                accessKeyDriver = generateSingleColumnDriver(
-                    ACCESS_KEY, ignored -> MSG_DO_NOT_LOG, Function.identity()
-                );
-                secretKeyDriver = generateSingleColumnDriver(
-                    SECRET_KEY, ignored -> MSG_DO_NOT_LOG, Function.identity()
-                );
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        accessKeyDriver = generateSingleColumnDriver(
+            ACCESS_KEY, ignored -> MSG_DO_NOT_LOG, Function.identity()
+        );
+        secretKeyDriver = generateSingleColumnDriver(
+            SECRET_KEY, ignored -> MSG_DO_NOT_LOG, Function.identity()
+        );
 
         flagsDriver = generateFlagDriver(FLAGS, S3Remote.Flags.class);
 
@@ -159,17 +142,9 @@ public final class S3RemoteDbDriver extends AbsProtectedDatabaseDriver<S3Remote,
         final long initFlags;
         final byte[] accessKey;
         final byte[] secretKey;
-        switch (getDbType())
-        {
-            case SQL: // fall-through
-            case K8S_CRD:
-                initFlags = raw.get(FLAGS);
-                accessKey = raw.get(ACCESS_KEY);
-                secretKey = raw.get(SECRET_KEY);
-                break;
-            default:
-                throw new ImplementationError("Unknown database type: " + getDbType());
-        }
+        initFlags = raw.get(FLAGS);
+        accessKey = raw.get(ACCESS_KEY);
+        secretKey = raw.get(SECRET_KEY);
         return new Pair<>(
             new S3Remote(
                 getObjectProtection(ObjectProtection.buildPath(remoteName)),

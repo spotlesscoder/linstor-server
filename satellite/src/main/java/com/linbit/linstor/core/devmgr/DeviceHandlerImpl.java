@@ -1069,25 +1069,17 @@ public class DeviceHandlerImpl implements DeviceHandler
     private boolean hasPassthrough(CloneSupportResult cloneSupportResultRef, DeviceLayerKind layerKind)
         throws StorageException
     {
-        final boolean ret;
-        switch (cloneSupportResultRef)
+        return switch (cloneSupportResultRef)
         {
-            case FALSE:
-                throw new StorageException(
-                    String.format("Layer %s does not support cloning", layerKind.name())
-                );
-            case TRUE:
-                ret = false;
-                break;
-            case PASSTHROUGH:
-                ret = true;
-                break;
-            default:
-                throw new ImplementationError(
-                    String.format("Unexpected clone support result: %s", cloneSupportResultRef.name())
-                );
-        }
-        return ret;
+            case FALSE -> throw new StorageException(
+                String.format("Layer %s does not support cloning", layerKind.name())
+            );
+            case TRUE -> false;
+            case PASSTHROUGH -> true;
+            default -> throw new ImplementationError(
+                String.format("Unexpected clone support result: %s", cloneSupportResultRef.name())
+            );
+        };
     }
 
     private Set<CloneStrategy> fixupCloneStrategyQuirks(

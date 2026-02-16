@@ -729,19 +729,12 @@ public class CtrlScheduleApiCallHandler
                     {
                         switch (entry.propsDescription)
                         {
-                            case rscDfnStr:
-                                dfn = getBoolFromProp(entry.value);
-                                break;
-                            case rscGrpStr:
-                                grp = getBoolFromProp(entry.value);
-                                break;
-                            case ctrlStr:
-                                ctrl = getBoolFromProp(entry.value);
-                                break;
-                            default:
-                                throw new ImplementationError(
-                                    "unknown case reached: propsDescription was " + entry.propsDescription
-                                );
+                            case rscDfnStr -> { dfn = getBoolFromProp(entry.value); }
+                            case rscGrpStr -> { grp = getBoolFromProp(entry.value); }
+                            case ctrlStr -> { ctrl = getBoolFromProp(entry.value); }
+                            default -> throw new ImplementationError(
+                                "unknown case reached: propsDescription was " + entry.propsDescription
+                            );
                         }
                     }
                     ret.add(new ScheduleDetailsPojo(remote, schedule, ctrl, grp, dfn));

@@ -56,31 +56,21 @@ public class MinorNumber implements Comparable<MinorNumber>
     @Override
     public boolean equals(Object other)
     {
-        boolean result = false;
+        boolean result;
         if (this == other)
         {
             result = true;
         }
         else
         {
-            try
+            result = switch (other)
             {
-                if (other != null && value == ((MinorNumber) other).value)
-                {
-                    result = true;
-                }
-            }
-            catch (ClassCastException castExc)
-            {
-                if (other instanceof Integer)
-                {
-                    if (value == (Integer) other)
-                    {
-                        result = true;
-                    }
-                }
-            }
+                case MinorNumber minorNumber -> value == minorNumber.value;
+                case Integer minorNumInt -> value == minorNumInt;
+                case null, default -> false;
+            };
         }
+
         return result;
     }
 

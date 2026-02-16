@@ -310,16 +310,15 @@ public class CacheLayer implements DeviceLayer
             String policy;
             switch (overridePolicyRef)
             {
-                case DEFAULT:
+                case DEFAULT -> {
                     feature = getFeature(vlm);
                     policy = getPolicy(vlm);
-                    break;
-                case CLEANER:
+                }
+                case CLEANER -> {
                     feature = null;
                     policy = "cleaner";
-                    break;
-                default:
-                    throw new ImplementationError("unexpected overridePolicy:" + overridePolicyRef);
+                }
+                default -> throw new ImplementationError("unexpected overridePolicy:" + overridePolicyRef);
             }
             return DmSetupUtils.getCacheTable(
                 0L,

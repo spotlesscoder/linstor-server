@@ -157,34 +157,22 @@ public class CmdDisplayObjProt extends BaseDebugCmd
             {
                 switch (objClass.toUpperCase())
                 {
-                    case CLS_NODE:
-                        printNodeProt(debugOut, debugErr, accCtx, objPath);
-                        break;
-                    case CLS_RSCDFN:
-                        printRscDfnProt(debugOut, debugErr, accCtx, objPath);
-                        break;
-                    case CLS_RSC:
-                        printRscProt(debugOut, debugErr, accCtx, objPath);
-                        break;
-                    case CLS_STORPOOLDFN:
-                        printStorPoolDfnProt(debugOut, debugErr, accCtx, objPath);
-                        break;
-                    case CLS_SYSOBJ:
-                        printSysObjProt(debugOut, debugErr, accCtx, objPath);
-                        break;
-                    default:
-                        printError(
-                            debugErr,
-                            "",
-                            "The specified object class is not valid",
-                            "Specify a valid object class. Valid classes are:\n" +
-                            "    " + CLS_NODE + "\n" +
-                            "    " + CLS_RSCDFN + "\n" +
-                            "    " + CLS_RSC + "\n" +
-                            "    " + CLS_STORPOOLDFN,
-                            null
-                        );
-                        break;
+                    case CLS_NODE -> printNodeProt(debugOut, debugErr, accCtx, objPath);
+                    case CLS_RSCDFN -> printRscDfnProt(debugOut, debugErr, accCtx, objPath);
+                    case CLS_RSC -> printRscProt(debugOut, debugErr, accCtx, objPath);
+                    case CLS_STORPOOLDFN -> printStorPoolDfnProt(debugOut, debugErr, accCtx, objPath);
+                    case CLS_SYSOBJ -> printSysObjProt(debugOut, debugErr, accCtx, objPath);
+                    default -> printError(
+                        debugErr,
+                        "",
+                        "The specified object class is not valid",
+                        "Specify a valid object class. Valid classes are:\n" +
+                        "    " + CLS_NODE + "\n" +
+                        "    " + CLS_RSCDFN + "\n" +
+                        "    " + CLS_RSC + "\n" +
+                        "    " + CLS_STORPOOLDFN,
+                        null
+                    );
                 }
             }
             catch (InvalidNameException invNameExc)
@@ -229,31 +217,35 @@ public class CmdDisplayObjProt extends BaseDebugCmd
         final String label;
         switch (sysObj)
         {
-            case SO_NODE_DIR:
+            case SO_NODE_DIR ->
+            {
                 objProt = nodeRepository.getObjProt();
                 label = PFX_ARTICLE + LBL_NODE_DIR;
-                break;
-            case SO_RSCDFN_DIR:
+            }
+            case SO_RSCDFN_DIR ->
+            {
                 objProt = resourceDefinitionRepository.getObjProt();
                 label = PFX_ARTICLE + LBL_RSCDFN_DIR;
-                break;
-            case SO_STORPOOLDFN_DIR:
+            }
+            case SO_STORPOOLDFN_DIR ->
+            {
                 objProt = storPoolDefinitionRepository.getObjProt();
                 label = PFX_ARTICLE + LBL_STORPOOLDFN_DIR;
-                break;
-            case SO_CFGVAL:
+            }
+            case SO_CFGVAL ->
+            {
                 objProt = systemConfRepository.getObjProt();
                 label = LBL_CFGVAL;
-                break;
-            case SO_SHUTDOWN:
+            }
+            case SO_SHUTDOWN ->
+            {
                 objProt = shutdownProtHolder.getObjProt();
                 label = LBL_SHUTDOWN;
-                break;
-            default:
-                throw new InvalidNameException(
-                    "The identifier '" + objPath + "' is not a valid system object name",
-                    objPath
-                );
+            }
+            default -> throw new InvalidNameException(
+                "The identifier '" + objPath + "' is not a valid system object name",
+                objPath
+            );
         }
 
         printSectionSeparator(debugOut);

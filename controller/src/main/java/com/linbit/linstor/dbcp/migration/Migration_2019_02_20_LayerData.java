@@ -290,33 +290,18 @@ public class Migration_2019_02_20_LayerData extends LinstorMigration
                                 parentRscLayerId
                             );
 
-                            String providerKind;
-                            switch (spDriverName)
+                            String providerKind = switch (spDriverName)
                             {
-                                case "DisklessDriver":
-                                    providerKind = PROVIDER_KIND_DISKLESS;
-                                    break;
-                                case "LvmDriver":
-                                    providerKind = PROVIDER_KIND_LVM;
-                                    break;
-                                case "LvmThinDriver":
-                                    providerKind = PROVIDER_KIND_LVM_THIN;
-                                    break;
-                                case "ZfsDriver":
-                                    providerKind = PROVIDER_KIND_ZFS;
-                                    break;
-                                case "ZfsThinDriver":
-                                    providerKind = PROVIDER_KIND_ZFS_THIN;
-                                    break;
-                                case "SwordfishInitiatorDriver":
-                                    providerKind = PROVIDER_KIND_SF_INITIATOR;
-                                    break;
-                                case "SwordfishTargetDriver":
-                                    providerKind = PROVIDER_KIND_SF_TARGET;
-                                    break;
-                                default:
+                                case "DisklessDriver" -> PROVIDER_KIND_DISKLESS;
+                                case "LvmDriver" -> PROVIDER_KIND_LVM;
+                                case "LvmThinDriver" -> PROVIDER_KIND_LVM_THIN;
+                                case "ZfsDriver" -> PROVIDER_KIND_ZFS;
+                                case "ZfsThinDriver" -> PROVIDER_KIND_ZFS_THIN;
+                                case "SwordfishInitiatorDriver" -> PROVIDER_KIND_SF_INITIATOR;
+                                case "SwordfishTargetDriver" -> PROVIDER_KIND_SF_TARGET;
+                                default ->
                                     throw new ImplementationError("Unknown storage driver name: "  + spDriverName);
-                            }
+                            };
 
                             executeUpdate(
                                 connection,

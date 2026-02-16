@@ -115,52 +115,28 @@ public class LsBlkEntry
     {
         switch (fieldName)
         {
-            case NAME:
-                name = value;
-                break;
-            case SIZE:
-                size = Long.parseLong(value);
-                break;
-            case PKNAME:
-                parentName = value;
-                break;
-            case KNAME:
-                kernelName = value;
-                break;
-            case ROTA:
-                rotational = "1".equals(value);
-                break;
-            case FSTYPE:
-                fsType = value;
-                break;
-            case MAJ_MIN:
+            case NAME -> { name = value; }
+            case SIZE -> { size = Long.parseLong(value); }
+            case PKNAME -> { parentName = value; }
+            case KNAME -> { kernelName = value; }
+            case ROTA -> { rotational = "1".equals(value); }
+            case FSTYPE -> { fsType = value; }
+            case MAJ_MIN ->
+            {
                 if (value != null && !value.isEmpty())
                 {
                     String[] majmin = value.split(":");
                     major = Integer.parseInt(majmin[0]);
                     minor = Integer.parseInt(majmin[1]);
                 }
-                break;
-            case MODEL:
-                model = value.trim();
-                break;
-            case SERIAL:
-                serial = value;
-                break;
-            case WWN:
-                wwn = value;
-                break;
-            case STATE:
-                state = value;
-                break;
-            case TYPE:
-                type = value;
-                break;
-            case DISC_GRAN:
-                discGran = Long.parseLong(value);
-                break;
-            default:
-                throw new RuntimeException(String.format("Field name '%s' unknown.", fieldName));
+            }
+            case MODEL -> { model = value.trim(); }
+            case SERIAL -> { serial = value; }
+            case WWN -> { wwn = value; }
+            case STATE -> { state = value; }
+            case TYPE -> { type = value; }
+            case DISC_GRAN -> { discGran = Long.parseLong(value); }
+            default -> throw new RuntimeException(String.format("Field name '%s' unknown.", fieldName));
         }
     }
 

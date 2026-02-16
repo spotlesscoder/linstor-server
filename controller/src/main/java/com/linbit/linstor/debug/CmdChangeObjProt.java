@@ -274,21 +274,24 @@ public class CmdChangeObjProt extends BaseDebugCmd
             ProtectedObject obj = null;
             switch (objClass)
             {
-                case CLS_NODE:
+                case CLS_NODE ->
+                {
                     lockList.add(nodeRpsLock.readLock());
                     scopeLock = createScopeLock(lockList);
                     Node nodeObj = getNode(accCtx, objName);
                     setObjInfo(responseMsg, nodeObj.getName().displayValue, CLS_NODE);
                     obj = nodeObj;
-                    break;
-                case CLS_RSCDFN:
+                }
+                case CLS_RSCDFN ->
+                {
                     lockList.add(rscDfnRpsLock.readLock());
                     scopeLock = createScopeLock(lockList);
                     ResourceDefinition rscDfnObj = getResourceDefinition(accCtx, objName);
                     setObjInfo(responseMsg, rscDfnObj.getName().displayValue, CLS_RSCDFN);
                     obj = rscDfnObj;
-                    break;
-                case CLS_RSC:
+                }
+                case CLS_RSC ->
+                {
                     lockList.add(nodeRpsLock.readLock());
                     lockList.add(rscDfnRpsLock.readLock());
                     scopeLock = createScopeLock(lockList);
@@ -300,8 +303,9 @@ public class CmdChangeObjProt extends BaseDebugCmd
                         CLS_RSC
                     );
                     obj = rscObj;
-                    break;
-                case CLS_STORPOOLDFN:
+                }
+                case CLS_STORPOOLDFN ->
+                {
                     lockList.add(storPoolDfnRpsLock.readLock());
                     scopeLock = createScopeLock(lockList);
                     StorPoolDefinition storPoolDfnObj = getStorPoolDefinition(accCtx, objName);
@@ -311,8 +315,9 @@ public class CmdChangeObjProt extends BaseDebugCmd
                         CLS_STORPOOLDFN
                     );
                     obj = storPoolDfnObj;
-                    break;
-                case CLS_KEYVALSTOR:
+                }
+                case CLS_KEYVALSTOR ->
+                {
                     lockList.add(kvStoreRpsLock.readLock());
                     scopeLock = createScopeLock(lockList);
                     KeyValueStore kvStoreObj = getKeyValueStore(accCtx, objName);
@@ -322,24 +327,24 @@ public class CmdChangeObjProt extends BaseDebugCmd
                         kvStoreObj.getName().displayValue,
                         CLS_KEYVALSTOR
                     );
-                    break;
-                case CLS_SYSOBJ:
+                }
+                case CLS_SYSOBJ ->
+                {
                     obj = getSystemObject(objName, lockList, responseMsg);
                     scopeLock = createScopeLock(lockList);
-                    break;
-                default:
-                    throw new LinStorException(
-                        CMD_NAME + ": Invalid " + PRM_OBJ_CLASS + " value '" + objClass + "'",
-                        "Invalid object class identifier",
-                        "The value '" + objClass + "' is not a valid value for the parameter " + PRM_OBJ_CLASS,
-                        "Valid object class identifiers are:\n" +
-                        "    " +
-                        com.linbit.utils.StringUtils.join(
-                            " ",
-                            CLS_NODE, CLS_RSCDFN, CLS_RSC, CLS_STORPOOLDFN, CLS_KEYVALSTOR, CLS_SYSOBJ
-                        ),
-                        null
-                    );
+                }
+                default -> throw new LinStorException(
+                    CMD_NAME + ": Invalid " + PRM_OBJ_CLASS + " value '" + objClass + "'",
+                    "Invalid object class identifier",
+                    "The value '" + objClass + "' is not a valid value for the parameter " + PRM_OBJ_CLASS,
+                    "Valid object class identifiers are:\n" +
+                    "    " +
+                    com.linbit.utils.StringUtils.join(
+                        " ",
+                        CLS_NODE, CLS_RSCDFN, CLS_RSC, CLS_STORPOOLDFN, CLS_KEYVALSTOR, CLS_SYSOBJ
+                    ),
+                    null
+                );
             }
 
             if (obj != null)
@@ -869,38 +874,39 @@ public class CmdChangeObjProt extends BaseDebugCmd
         String upperObjName = objName.toUpperCase();
         switch (upperObjName)
         {
-            case SO_NODE_DIR:
+            case SO_NODE_DIR ->
+            {
                 protObj = nodeRps;
                 lockList.add(nodeRpsLock.writeLock());
-                break;
-            case SO_RSCDFN_DIR:
+            }
+            case SO_RSCDFN_DIR ->
+            {
                 protObj = rscDfnRps;
                 lockList.add(rscDfnRpsLock.writeLock());
-                break;
-            case SO_STORPOOLDFN_DIR:
+            }
+            case SO_STORPOOLDFN_DIR ->
+            {
                 protObj = storPoolDfnRps;
                 lockList.add(storPoolDfnRpsLock.writeLock());
-                break;
-            case SO_CFGVAL:
+            }
+            case SO_CFGVAL ->
+            {
                 protObj = sysCfgRps;
                 lockList.add(sysCfgLock.writeLock());
-                break;
-            case SO_SHUTDOWN:
-                protObj = shutdownObj;
-                break;
-            default:
-                throw new LinStorException(
-                    CMD_NAME + " command failed: Invalid system object name '" + objName + "'",
-                    "Invalid system object name '" + objName + "'",
-                    null,
-                    "Valid system object names are:\n" +
-                    "    " + SO_NODE_DIR + "\n" +
-                    "    " + SO_RSCDFN_DIR + "\n" +
-                    "    " + SO_STORPOOLDFN_DIR + "\n" +
-                    "    " + SO_CFGVAL + "\n" +
-                    "    " + SO_SHUTDOWN + "\n",
-                    null
-                );
+            }
+            case SO_SHUTDOWN -> { protObj = shutdownObj; }
+            default -> throw new LinStorException(
+                CMD_NAME + " command failed: Invalid system object name '" + objName + "'",
+                "Invalid system object name '" + objName + "'",
+                null,
+                "Valid system object names are:\n" +
+                "    " + SO_NODE_DIR + "\n" +
+                "    " + SO_RSCDFN_DIR + "\n" +
+                "    " + SO_STORPOOLDFN_DIR + "\n" +
+                "    " + SO_CFGVAL + "\n" +
+                "    " + SO_SHUTDOWN + "\n",
+                null
+            );
         }
         setObjInfo(responseMsg, upperObjName, CLS_SYSOBJ);
         return protObj;

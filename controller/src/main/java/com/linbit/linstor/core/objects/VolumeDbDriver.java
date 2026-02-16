@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.linstor.annotation.Nullable;
@@ -111,16 +110,8 @@ public final class VolumeDbDriver
             final VolumeNumber vlmNr;
 
             final long flags;
-            switch (getDbType())
-            {
-                case SQL: // fall-through
-                case K8S_CRD:
-                    flags = raw.get(VLM_FLAGS);
-                    vlmNr = raw.build(VLM_NR, VolumeNumber::new);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            flags = raw.get(VLM_FLAGS);
+            vlmNr = raw.build(VLM_NR, VolumeNumber::new);
 
             final Map<Volume.Key, VolumeConnection> vlmConnsMap = new TreeMap<>();
             ret = new Pair<>(

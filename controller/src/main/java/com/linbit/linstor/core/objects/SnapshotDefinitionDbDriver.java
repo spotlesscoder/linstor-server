@@ -1,6 +1,5 @@
 package com.linbit.linstor.core.objects;
 
-import com.linbit.ImplementationError;
 import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
@@ -130,15 +129,7 @@ public final class SnapshotDefinitionDbDriver
                 SnapshotName::new
             );
 
-            switch (getDbType())
-            {
-                case SQL: // fall-through
-                case K8S_CRD:
-                    flags = raw.get(RESOURCE_FLAGS);
-                    break;
-                default:
-                    throw new ImplementationError("Unknown database type: " + getDbType());
-            }
+            flags = raw.get(RESOURCE_FLAGS);
 
             ret = new Pair<>(
                 new SnapshotDefinition(

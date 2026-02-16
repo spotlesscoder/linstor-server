@@ -100,12 +100,11 @@ public class ZfsChecks
                     apiCtx
                 );
 
-                switch (zfsRollbackStrategy)
+                ret = switch (zfsRollbackStrategy)
                 {
-                    case CLONE:
-                        ret = false; // noop, clone always works
-                        break;
-                    case ROLLBACK:
+                    case CLONE -> false; // noop, clone always works
+                    case ROLLBACK ->
+                    {
                         if (!isMostRecentSnapshot(snapDfnRef))
                         {
                             throw new ApiRcException(
@@ -128,17 +127,10 @@ public class ZfsChecks
                                 ).setSkipErrorReport(true)
                             );
                         }
-                        ret = true;
-                        break;
-                    case DYNAMIC:
-                        ret = isMostRecentSnapshot(snapDfnRef) && !isZvolAlreadyDeleted(snapDfnRef);
-                        break;
-                    default:
-                        throw new ImplementationError(
-                            "'" + zfsRollbackStrategy + "' is not a valid value for '" +
-                                ZfsRollbackStrategy.FULL_KEY_USE_ZFS_ROLLBACK_PROP + "'"
-                        );
-                }
+                        yield true;
+                    }
+                    case DYNAMIC -> isMostRecentSnapshot(snapDfnRef) && !isZvolAlreadyDeleted(snapDfnRef);
+                };
             }
             catch (AccessDeniedException accDeniedExc)
             {
@@ -340,7 +332,8 @@ public class ZfsChecks
         ZfsDeleteStrategy strat = ZfsDeleteStrategy.getStrat(rscDfnRef, ctrlPropsRef, accCtxRef);
         switch (strat)
         {
-            case DELETE:
+            case DELETE ->
+            {
                 if (!rscDfnRef.getSnapshotDfns(accCtxRef).isEmpty())
                 {
                     throw new ApiRcException(
@@ -351,17 +344,18 @@ public class ZfsChecks
                         ).setSkipErrorReport(true)
                     );
                 }
-                break;
-            case DYNAMIC:
+            }
+            case DYNAMIC ->
+            {
                 strat = rscDfnRef.getSnapshotDfns(accCtxRef).isEmpty() ?
                     ZfsDeleteStrategy.DELETE :
                     ZfsDeleteStrategy.RENAME;
-                break;
-            case RENAME:
+            }
+            case RENAME ->
+            {
                 // noop, delete via rename is always possible
-                break;
-            default:
-                throw new ImplementationError("Strategy '" + strat + "' not implemented");
+            }
+            default -> throw new ImplementationError("Strategy '" + strat + "' not implemented");
         }
         return strat;
     }

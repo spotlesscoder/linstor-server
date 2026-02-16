@@ -27,36 +27,31 @@ public class CompatibilityUtils
 
         int kindCase = hasDrdbKind ? BIT_DRBD : 0;
         kindCase |= hasNvmeKind ? BIT_NVME : 0;
-        switch (kindCase)
+        ret = switch (kindCase)
         {
-            case 0:
-                throw new ApiRcException(
-                    ApiCallRcImpl.simpleEntry(
-                        ApiConsts.FAIL_INVLD_LAYER_STACK,
-                        "The given storage pool is a diskless storage pool, but no layer " +
-                            "from the given layer-list supports diskless storage pools"
-                    )
-                );
-            case BIT_DRBD:
-                ret = Resource.Flags.DRBD_DISKLESS;
-                break;
-            case BIT_NVME:
-                ret = Resource.Flags.NVME_INITIATOR;
-                break;
-            case BIT_DRBD | BIT_NVME:
+            case 0 -> throw new ApiRcException(
+                ApiCallRcImpl.simpleEntry(
+                    ApiConsts.FAIL_INVLD_LAYER_STACK,
+                    "The given storage pool is a diskless storage pool, but no layer " +
+                        "from the given layer-list supports diskless storage pools"
+                )
+            );
+            case BIT_DRBD -> Resource.Flags.DRBD_DISKLESS;
+            case BIT_NVME -> Resource.Flags.NVME_INITIATOR;
+            case BIT_DRBD | BIT_NVME ->
+            {
                 int nvmeIdx = layerList.indexOf(DeviceLayerKind.NVME);
                 if (layerList.indexOf(DeviceLayerKind.DRBD) < nvmeIdx)
                 {
-                    ret = Resource.Flags.NVME_INITIATOR;
+                    yield Resource.Flags.NVME_INITIATOR;
                 }
                 else
                 {
-                    ret = Resource.Flags.DRBD_DISKLESS;
+                    yield Resource.Flags.DRBD_DISKLESS;
                 }
-                break;
-            default:
-                throw new ImplementationError("not implemented");
-        }
+            }
+            default -> throw new ImplementationError("not implemented");
+        };
         return ret;
     }
 }
