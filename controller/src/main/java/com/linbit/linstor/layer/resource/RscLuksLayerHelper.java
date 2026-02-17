@@ -273,7 +273,7 @@ class RscLuksLayerHelper extends AbsRscLayerHelper<
                 .collect(Collectors.toSet());
             for (Resource otherRsc : sharedRscMgr.getSharedResources(sharedSpNames, rsc.getResourceDefinition()))
             {
-                if (otherRsc != rsc)
+                if (!otherRsc.equals(rsc))
                 {
                     Set<AbsRscLayerObject<Resource>> otherRscLuksDataSet = LayerRscUtils.getRscDataByLayer(
                         otherRsc.getLayerData(apiCtx),

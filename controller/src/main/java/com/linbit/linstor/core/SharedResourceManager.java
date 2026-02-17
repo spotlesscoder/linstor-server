@@ -40,7 +40,7 @@ public class SharedResourceManager
             while (rscIt.hasNext())
             {
                 Resource tmpRsc = rscIt.next();
-                if (tmpRsc != rsc)
+                if (!tmpRsc.equals(rsc))
                 {
                     Set<StorPool> tmpStorPools = LayerVlmUtils.getStorPools(tmpRsc, sysCtx);
                     Set<SharedStorPoolName> tmpSharedSpNames = SharedStorPoolManager.getSharedSpNames(tmpStorPools);

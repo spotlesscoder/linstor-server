@@ -172,7 +172,7 @@ public class Volume extends AbsVolume<Resource>
         sourceVolume.getAbsResource().getObjProt().requireAccess(accCtx, AccessType.CHANGE);
         targetVolume.getAbsResource().getObjProt().requireAccess(accCtx, AccessType.CHANGE);
 
-        if (this == sourceVolume)
+        if (this.equals(sourceVolume))
         {
             volumeConnections.put(targetVolume.getKey(), volumeConnection);
         }
@@ -193,7 +193,7 @@ public class Volume extends AbsVolume<Resource>
         sourceVolume.getAbsResource().getObjProt().requireAccess(accCtx, AccessType.CHANGE);
         targetVolume.getAbsResource().getObjProt().requireAccess(accCtx, AccessType.CHANGE);
 
-        if (this == sourceVolume)
+        if (this.equals(sourceVolume))
         {
             volumeConnections.remove(targetVolume.getKey());
         }

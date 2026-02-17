@@ -501,7 +501,7 @@ public abstract class AbsBackupShippingService implements SystemService
                         snap.getSnapshotName().displayValue
                     ).toString();
 
-                    if (basedOnSnapVlmData != null && basedOnSnapVlmData != snapVlmData)
+                    if (basedOnSnapVlmData != null && !basedOnSnapVlmData.equals(snapVlmData))
                     {
                         Snapshot basedOnSnap = basedOnSnapVlmData.getRscLayerObject().getAbsResource();
                         String basedOnSnapSuffix = basedOnSnap.getSnapshotDefinition()

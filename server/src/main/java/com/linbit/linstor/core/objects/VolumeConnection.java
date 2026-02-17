@@ -107,8 +107,8 @@ public class VolumeConnection extends AbsCoreObj<VolumeConnection>
         }
 
         if (
-            sourceVolumeRef.getVolumeDefinition() != targetVolumeRef.getVolumeDefinition() ||
-                sourceVolumeRef.getResourceDefinition() != targetVolumeRef.getResourceDefinition()
+            !sourceVolumeRef.getVolumeDefinition().equals(targetVolumeRef.getVolumeDefinition()) ||
+                !sourceVolumeRef.getResourceDefinition().equals(targetVolumeRef.getResourceDefinition())
         )
         {
             throw new ImplementationError(

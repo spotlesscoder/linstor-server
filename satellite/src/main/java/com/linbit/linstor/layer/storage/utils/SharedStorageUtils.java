@@ -37,7 +37,7 @@ public class SharedStorageUtils
             Resource otherRsc = rscIt.next();
             StateFlags<Flags> otherRscFlags = otherRsc.getStateFlags();
             if (
-                otherRsc != localRsc &&
+                !otherRsc.equals(localRsc) &&
                     (!otherRscFlags.isSet(accCtx, Resource.Flags.DELETE) ||
                         !otherRscFlags.isSet(accCtx, Resource.Flags.INACTIVE))
             )

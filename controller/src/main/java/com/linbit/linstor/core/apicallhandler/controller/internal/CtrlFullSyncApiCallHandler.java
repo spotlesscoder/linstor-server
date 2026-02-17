@@ -154,7 +154,7 @@ public class CtrlFullSyncApiCallHandler
                 while (otherRscIterator.hasNext())
                 {
                     Resource otherRsc = otherRscIterator.next();
-                    if (otherRsc != rsc)
+                    if (!otherRsc.equals(rsc))
                     {
                         nodes.add(otherRsc.getNode());
                         storPools.addAll(LayerVlmUtils.getStorPools(otherRsc, apiCtx));

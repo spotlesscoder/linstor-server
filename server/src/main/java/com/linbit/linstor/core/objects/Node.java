@@ -347,7 +347,7 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
         sourceNode.getObjProt().requireAccess(accCtx, AccessType.CHANGE);
         targetNode.getObjProt().requireAccess(accCtx, AccessType.CHANGE);
 
-        if (sourceNode == this)
+        if (this.equals(sourceNode))
         {
             nodeConnections.put(targetNode.getName(), nodeConnection);
         }
@@ -369,7 +369,7 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
         sourceNode.getObjProt().requireAccess(accCtx, AccessType.CHANGE);
         targetNode.getObjProt().requireAccess(accCtx, AccessType.CHANGE);
 
-        if (sourceNode == this)
+        if (this.equals(sourceNode))
         {
             nodeConnections.remove(targetNode.getName());
         }

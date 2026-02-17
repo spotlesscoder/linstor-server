@@ -519,7 +519,7 @@ public class ConfFileBuilder
                             // add network connection paths...
                             for (PairNonNull<NetInterface, NetInterface> path : pathsList)
                             {
-                                if (path != pathsList.get(0))
+                                if (!path.equals(pathsList.get(0)))
                                 {
                                     appendLine("");
                                 }

@@ -218,12 +218,12 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
         throws AccessDeniedException, DatabaseException
     {
         objectType.get().requireAccess(context, AccessType.CONTROL);
-        if (context.subjectRole != objectOwner.get())
+        if (!context.subjectRole.equals(objectOwner.get()))
         {
             objectAcl.requireAccess(context, AccessType.CONTROL);
             // Only object owners or privileged users may change the access controls for the
             // role that is being used to change the entry
-            if (context.subjectRole == entryRole &&
+            if (context.subjectRole.equals(entryRole) &&
                 !context.getEffectivePrivs().hasPrivileges(Privilege.PRIV_OBJ_CONTROL)
             )
             {
@@ -252,10 +252,10 @@ public final class ObjectProtection extends BaseTransactionObject implements Com
         throws AccessDeniedException, DatabaseException
     {
         objectType.get().requireAccess(context, AccessType.CONTROL);
-        if (context.subjectRole != objectOwner.get())
+        if (!context.subjectRole.equals(objectOwner.get()))
         {
             objectAcl.requireAccess(context, AccessType.CONTROL);
-            if (context.subjectRole == entryRole &&
+            if (context.subjectRole.equals(entryRole) &&
                 !context.getEffectivePrivs().hasPrivileges(Privilege.PRIV_OBJ_CONTROL)
             )
             {

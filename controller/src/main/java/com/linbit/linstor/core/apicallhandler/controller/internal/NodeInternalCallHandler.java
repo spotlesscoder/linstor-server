@@ -106,7 +106,7 @@ public class NodeInternalCallHandler
                         while (otherRscIterator.hasNext())
                         {
                             Resource otherRsc = otherRscIterator.next();
-                            if (otherRsc != rsc)
+                            if (!otherRsc.equals(rsc))
                             {
                                 otherNodes.add(otherRsc.getNode());
                             }

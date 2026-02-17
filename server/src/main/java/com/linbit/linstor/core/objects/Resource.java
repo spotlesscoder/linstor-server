@@ -256,7 +256,7 @@ public class Resource extends AbsResource<Resource>
             sourceResource.getObjProt().requireAccess(accCtx, AccessType.USE);
             targetResource.getObjProt().requireAccess(accCtx, AccessType.USE);
 
-            if (this == sourceResource)
+            if (this.equals(sourceResource))
             {
                 resourceConnections.put(targetResource.getKey(), resCon);
             }
@@ -279,7 +279,7 @@ public class Resource extends AbsResource<Resource>
             sourceResource.getObjProt().requireAccess(accCtx, AccessType.USE);
             targetResource.getObjProt().requireAccess(accCtx, AccessType.USE);
 
-            if (this == sourceResource)
+            if (this.equals(sourceResource))
             {
                 resourceConnections.remove(targetResource.getKey());
             }

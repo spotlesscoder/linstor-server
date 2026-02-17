@@ -399,7 +399,7 @@ public class CommonMessageProcessor implements MessageProcessor
             // - if authentication is turned off globally by the security subsystem
             // - if the peer's access context has non-public (= authenticated) identity
             if (!(apiMapEntry.reqAuth && Authentication.isRequired()) ||
-                peerAccCtx.subjectId != Identity.PUBLIC_ID)
+                !peerAccCtx.subjectId.equals(Identity.PUBLIC_ID))
             {
                 Long apiCallId = respond ? getApiCallId(header) : 0L;
 

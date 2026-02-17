@@ -135,7 +135,7 @@ public class DbMigrater
 
                 conn.commit();
                 count++;
-                if (curVersion == targetVersion)
+                if (curVersion.equals(targetVersion))
                 {
                     break;
                 }

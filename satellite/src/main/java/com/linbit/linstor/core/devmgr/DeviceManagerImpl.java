@@ -1028,7 +1028,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
                         while (rscIt.hasNext())
                         {
                             Resource otherRsc = rscIt.next();
-                            if (otherRsc != rsc &&
+                            if (!otherRsc.equals(rsc) &&
                                 otherRsc.getStateFlags().isSet(wrkCtx, Resource.Flags.DELETE)
                             )
                             {
@@ -1627,7 +1627,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
                         {
                             Node peerNode = delRsc.getNode();
                             delRsc.delete(wrkCtx);
-                            if (peerNode != controllerPeerConnector.getLocalNode())
+                            if (!peerNode.equals(controllerPeerConnector.getLocalNode()))
                             {
                                 if (StltNodeApiCallHandler.canRemoteNodeBeDeleted(wrkCtx, localNode, peerNode))
                                 {
