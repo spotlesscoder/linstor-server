@@ -30,12 +30,10 @@ public class LinstorRemote extends AbsRemote
         // currently only a place holder for future maps
     }
 
-    private final UUID objId;
     private final LinstorRemoteDatabaseDriver driver;
     private final TransactionSimpleObject<LinstorRemote, URL> url;
     private final TransactionSimpleObject<LinstorRemote, byte[]> encryptedRemotePassphrase;
     private final TransactionSimpleObject<LinstorRemote, UUID> clusterId;
-    private final TransactionSimpleObject<LinstorRemote, Boolean> deleted;
     private final StateFlags<Flags> flags;
 
     public LinstorRemote(
@@ -52,7 +50,6 @@ public class LinstorRemote extends AbsRemote
     )
     {
         super(objIdRef, transObjFactory, transMgrProvider, objProtRef, remoteNameRef);
-        objId = objIdRef;
         driver = driverRef;
 
         url = transObjFactory.createTransactionSimpleObject(this, urlRef, driver.getUrlDriver());
@@ -70,8 +67,6 @@ public class LinstorRemote extends AbsRemote
             driver.getStateFlagsPersistence(),
             initialFlags
         );
-
-        deleted = transObjFactory.createTransactionSimpleObject(this, false, null);
 
         transObjs = Arrays.asList(
             objProt,

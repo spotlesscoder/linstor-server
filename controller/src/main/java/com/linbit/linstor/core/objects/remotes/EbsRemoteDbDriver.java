@@ -47,8 +47,6 @@ import java.util.function.Function;
 public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemote, EbsRemote.InitMaps, Void>
     implements EbsRemoteCtrlDatabaseDriver
 {
-    protected final AccessContext dbCtx;
-
     protected final PropsContainerFactory propsContainerFactory;
     protected final TransactionObjectFactory transObjFactory;
     protected final Provider<? extends TransactionMgr> transMgrProvider;
@@ -72,7 +70,6 @@ public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemot
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.EBS_REMOTES, dbEngine, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

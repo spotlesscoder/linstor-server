@@ -47,7 +47,6 @@ public final class VolumeConnectionDbDriver
         Map<Triple<NodeName, ResourceName, VolumeNumber>, Volume>>
     implements VolumeConnectionCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final Provider<TransactionMgr> transMgrProvider;
     private final PropsContainerFactory propsContainerFactory;
     private final TransactionObjectFactory transObjFactory;
@@ -64,7 +63,6 @@ public final class VolumeConnectionDbDriver
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.VOLUME_CONNECTIONS, dbEngineRef, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

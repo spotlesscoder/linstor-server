@@ -39,7 +39,6 @@ public class StltRemote extends AbsRemote
     private final TransactionSimpleObject<StltRemote, String> ip;
     private final TransactionMap<StltRemote, String, Integer> ports;
     private final TransactionSimpleObject<StltRemote, Boolean> useZstd;
-    private final TransactionSimpleObject<StltRemote, Boolean> deleted;
     private final StateFlags<Flags> flags;
     // this remoteName references the complete cluster instead of only the stlt the shipping should go to
     private final RemoteName linstorRemoteName;
@@ -80,8 +79,6 @@ public class StltRemote extends AbsRemote
             stateFlagsDriverRef,
             initialFlags
         );
-
-        deleted = transObjFactory.createTransactionSimpleObject(this, false, null);
 
         transObjs = Arrays.asList(
             objProt,

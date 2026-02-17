@@ -52,7 +52,6 @@ public final class LinstorRemoteDbDriver extends AbsProtectedDatabaseDriver<Lins
     protected final SingleColumnDatabaseDriver<LinstorRemote, URL> urlDriver;
     protected final SingleColumnDatabaseDriver<LinstorRemote, byte[]> encryptedPassphraseDriver;
     protected final StateFlagsPersistence<LinstorRemote> flagsDriver;
-    protected final AccessContext dbCtx;
     protected final SingleColumnDatabaseDriver<LinstorRemote, UUID> clusterIdDriver;
 
     @Inject
@@ -67,7 +66,6 @@ public final class LinstorRemoteDbDriver extends AbsProtectedDatabaseDriver<Lins
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.LINSTOR_REMOTES, dbEngine, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

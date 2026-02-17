@@ -63,7 +63,6 @@ public final class ScheduleDbDriver extends AbsProtectedDatabaseDriver<Schedule,
     protected final SingleColumnDatabaseDriver<Schedule, OnFailure> onFailureDriver;
     protected final SingleColumnDatabaseDriver<Schedule, Integer> maxRetriesDriver;
     protected final StateFlagsPersistence<Schedule> flagsDriver;
-    protected final AccessContext dbCtx;
 
     @Inject
     public ScheduleDbDriver(
@@ -77,7 +76,6 @@ public final class ScheduleDbDriver extends AbsProtectedDatabaseDriver<Schedule,
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.SCHEDULES, dbEngine, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

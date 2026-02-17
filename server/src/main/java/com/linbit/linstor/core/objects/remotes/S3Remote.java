@@ -28,14 +28,12 @@ public class S3Remote extends AbsRemote
         // currently only a place holder for future maps
     }
 
-    private final ObjectProtection objProt;
     private final S3RemoteDatabaseDriver driver;
     private final TransactionSimpleObject<S3Remote, String> endpoint;
     private final TransactionSimpleObject<S3Remote, String> bucket;
     private final TransactionSimpleObject<S3Remote, String> region;
     private final TransactionSimpleObject<S3Remote, byte[]> accessKey;
     private final TransactionSimpleObject<S3Remote, byte[]> secretKey;
-    private final TransactionSimpleObject<S3Remote, Boolean> deleted;
     private final StateFlags<Flags> flags;
 
     // it would be nicer if both booleans could be TransactionSimpleObjects
@@ -60,7 +58,6 @@ public class S3Remote extends AbsRemote
     )
     {
         super(objIdRef, transObjFactory, transMgrProvider, objProtRef, remoteNameRef);
-        objProt = objProtRef;
         driver = driverRef;
 
         endpoint = transObjFactory.createTransactionSimpleObject(this, endpointRef, driver.getEndpointDriver());
@@ -71,8 +68,6 @@ public class S3Remote extends AbsRemote
 
         flags = transObjFactory
             .createStateFlagsImpl(objProt, this, Flags.class, driver.getStateFlagsPersistence(), initialFlags);
-
-        deleted = transObjFactory.createTransactionSimpleObject(this, false, null);
 
         transObjs = Arrays.asList(
             objProt,

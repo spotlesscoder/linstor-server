@@ -36,7 +36,6 @@ public final class NodeConnectionDbDriver
     extends AbsProtectedDatabaseDriver<NodeConnection, Void, Map<NodeName, ? extends Node>>
     implements NodeConnectionCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final Provider<TransactionMgr> transMgrProvider;
     private final PropsContainerFactory propsContainerFactory;
     private final TransactionObjectFactory transObjFactory;
@@ -53,7 +52,6 @@ public final class NodeConnectionDbDriver
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.NODE_CONNECTIONS, dbEngineRef, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

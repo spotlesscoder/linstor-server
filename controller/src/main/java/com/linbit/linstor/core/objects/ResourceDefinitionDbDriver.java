@@ -60,8 +60,6 @@ public final class ResourceDefinitionDbDriver
 {
     static final String DFLT_SNAP_NAME_FOR_RSC = "";
 
-    private final AccessContext dbCtx;
-
     private final Provider<TransactionMgr> transMgrProvider;
     private final StateFlagsPersistence<ResourceDefinition> flagsDriver;
     private final CollectionDatabaseDriver<ResourceDefinition, DeviceLayerKind> layerStackDrvier;
@@ -82,7 +80,6 @@ public final class ResourceDefinitionDbDriver
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.RESOURCE_DEFINITIONS, dbEngineRef, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

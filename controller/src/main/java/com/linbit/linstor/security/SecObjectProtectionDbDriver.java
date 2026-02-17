@@ -37,7 +37,6 @@ public class SecObjectProtectionDbDriver
     extends AbsDatabaseDriver<ObjectProtection, SecObjProtInitObj, SecObjProtParent>
     implements SecObjProtCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final SecObjProtAclDatabaseDriver objProtAclDriver;
     private final TransactionObjectFactory transObjFactory;
     private final Provider<? extends TransactionMgr> transMgrProvider;
@@ -59,7 +58,6 @@ public class SecObjectProtectionDbDriver
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.SEC_OBJECT_PROTECTION, dbEngineRef);
-        dbCtx = dbCtxRef;
         objProtMap = objProtMapRef;
         objProtAclDriver = objProtAclDriverRef;
         transObjFactory = transObjFactoryRef;

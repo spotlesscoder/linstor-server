@@ -49,7 +49,6 @@ public class LayerStorageVlmDbDriver
     extends AbsLayerVlmDataDbDriver<VlmDfnLayerObject, StorageRscData<?>, VlmProviderObject<?>>
     implements LayerStorageVlmDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final TransactionObjectFactory transObjFactory;
     private final Provider<TransactionMgrSQL> transMgrProvider;
     private final LayerResourceIdDatabaseDriver rscLayerIdDriver;
@@ -71,7 +70,6 @@ public class LayerStorageVlmDbDriver
             GeneratedDatabaseTables.LAYER_STORAGE_VOLUMES,
             dbEngineRef
         );
-        dbCtx = dbCtxRef;
         rscLayerIdDriver = rscLayerIdDriverRef;
         transObjFactory = transObjFactoryRef;
         transMgrProvider = transMgrProviderRef;

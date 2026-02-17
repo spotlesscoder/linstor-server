@@ -31,7 +31,6 @@ import java.util.function.Function;
 public class SecTypeDbDriver extends AbsDatabaseDriver<SecurityType, SecTypeInitObj, Void>
     implements SecTypeCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final SingleColumnDatabaseDriver<SecurityType, Boolean> typeEnabledDriver;
 
     @Inject
@@ -42,7 +41,6 @@ public class SecTypeDbDriver extends AbsDatabaseDriver<SecurityType, SecTypeInit
     )
     {
         super(dbCtxRef, errorReporter, GeneratedDatabaseTables.SEC_TYPES, dbEngineRef);
-        dbCtx = dbCtxRef;
 
         setColumnSetter(TYPE_NAME, type -> type.name.value);
         setColumnSetter(TYPE_DSP_NAME, type -> type.name.displayValue);

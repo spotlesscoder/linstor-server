@@ -55,7 +55,6 @@ public final class S3RemoteDbDriver extends AbsProtectedDatabaseDriver<S3Remote,
     protected final SingleColumnDatabaseDriver<S3Remote, byte[]> accessKeyDriver;
     protected final SingleColumnDatabaseDriver<S3Remote, byte[]> secretKeyDriver;
     protected final StateFlagsPersistence<S3Remote> flagsDriver;
-    protected final AccessContext dbCtx;
 
     @Inject
     public S3RemoteDbDriver(
@@ -69,7 +68,6 @@ public final class S3RemoteDbDriver extends AbsProtectedDatabaseDriver<S3Remote,
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.S3_REMOTES, dbEngine, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

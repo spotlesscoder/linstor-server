@@ -50,7 +50,6 @@ public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<Exter
     protected final SingleColumnDatabaseDriver<ExternalFile, byte[]> contentDriver;
     protected final SingleColumnDatabaseDriver<ExternalFile, byte[]> contentChecksumDriver;
     protected final StateFlagsPersistence<ExternalFile> flagsDriver;
-    protected final AccessContext dbCtx;
 
     @Inject
     public ExternalFileDbDriver(
@@ -64,7 +63,6 @@ public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<Exter
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.FILES, dbEngine, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

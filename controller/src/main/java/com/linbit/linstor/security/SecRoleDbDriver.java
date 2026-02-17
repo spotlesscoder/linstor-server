@@ -36,7 +36,6 @@ public class SecRoleDbDriver extends AbsDatabaseDriver<Role, SecRoleInit, SecRol
 {
     private static final String DFLT_DOMAIN_NAME = "PUBLIC";
 
-    private final AccessContext dbCtx;
     private final SingleColumnDatabaseDriver<Role, SecurityType> domainDriver;
     private final SingleColumnDatabaseDriver<Role, Boolean> roleEnabledDriver;
 
@@ -44,7 +43,6 @@ public class SecRoleDbDriver extends AbsDatabaseDriver<Role, SecRoleInit, SecRol
     public SecRoleDbDriver(@SystemContext AccessContext dbCtxRef, ErrorReporter errorReporterRef, DbEngine dbEngineRef)
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.SEC_ROLES, dbEngineRef);
-        dbCtx = dbCtxRef;
 
         setColumnSetter(ROLE_NAME, role -> role.name.value);
         setColumnSetter(ROLE_DSP_NAME, role -> role.name.displayValue);

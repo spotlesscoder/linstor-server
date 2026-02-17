@@ -36,7 +36,6 @@ import java.util.function.Function;
 public class SecIdentityDbDriver extends AbsDatabaseDriver<SecIdentityDbObj, Void, Void>
     implements SecIdentityCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final SingleColumnDatabaseDriver<SecIdentityDbObj, byte[]> passHashDriver;
     private final SingleColumnDatabaseDriver<SecIdentityDbObj, byte[]> passSaltDriver;
     private final SingleColumnDatabaseDriver<SecIdentityDbObj, Boolean> idEnabledDriver;
@@ -50,7 +49,6 @@ public class SecIdentityDbDriver extends AbsDatabaseDriver<SecIdentityDbObj, Voi
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.SEC_IDENTITIES, dbEngineRef);
-        dbCtx = dbCtxRef;
 
         setColumnSetter(IDENTITY_NAME, id -> id.getIdentity().name.value);
         setColumnSetter(IDENTITY_DSP_NAME, id -> id.getIdentity().name.displayValue);
