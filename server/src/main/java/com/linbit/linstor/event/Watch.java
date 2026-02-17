@@ -55,11 +55,10 @@ public class Watch
         {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof Watch that))
         {
             return false;
         }
-        Watch that = (Watch) obj;
         return Objects.equals(uuid, that.uuid);
     }
 

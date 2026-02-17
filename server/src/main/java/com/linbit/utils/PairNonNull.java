@@ -24,9 +24,8 @@ public class PairNonNull<A, B> implements Comparable<PairNonNull<A, B>>
     public boolean equals(Object obj)
     {
         boolean eq = this == obj;
-        if (!eq && obj != null && getClass() == obj.getClass())
+        if (!eq && obj instanceof PairNonNull<?, ?> other)
         {
-            PairNonNull<?, ?> other = (PairNonNull<?, ?>) obj;
             eq = Objects.equals(objA, other.objA) && Objects.equals(objB, other.objB);
         }
         return eq;

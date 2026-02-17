@@ -148,11 +148,10 @@ public class ObjectIdentifier
         {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof ObjectIdentifier that))
         {
             return false;
         }
-        ObjectIdentifier that = (ObjectIdentifier) obj;
         return Objects.equals(nodeName, that.nodeName) &&
             Objects.equals(resourceName, that.resourceName) &&
             Objects.equals(volumeNumber, that.volumeNumber) &&

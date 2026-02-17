@@ -605,11 +605,10 @@ public class StorPool extends AbsCoreObj<StorPool>
             {
                 return true;
             }
-            if (obj == null || getClass() != obj.getClass())
+            if (!(obj instanceof Key that))
             {
                 return false;
             }
-            Key that = (Key) obj;
             return Objects.equals(nodeName, that.nodeName) &&
                 Objects.equals(storPoolName, that.storPoolName);
         }

@@ -716,15 +716,10 @@ public class ReconnectorTask implements Task
             {
                 return true;
             }
-            if (obj == null)
+            if (!(obj instanceof ReconnectConfig other))
             {
                 return false;
             }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            ReconnectConfig other = (ReconnectConfig) obj;
             return Objects.equals(peer, other.peer);
         }
     }

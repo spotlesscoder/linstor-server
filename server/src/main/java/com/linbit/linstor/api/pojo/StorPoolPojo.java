@@ -233,15 +233,10 @@ public class StorPoolPojo implements Comparable<StorPoolPojo>, StorPoolApi
         {
             return true;
         }
-        if (obj == null)
+        if (!(obj instanceof StorPoolPojo other))
         {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        StorPoolPojo other = (StorPoolPojo) obj;
         return Objects.equals(nodeName, other.nodeName) && Objects.equals(storPoolName, other.storPoolName);
     }
 

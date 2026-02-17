@@ -1986,15 +1986,10 @@ public final class DatabaseConstantsGenerator
             {
                 return true;
             }
-            if (obj == null)
+            if (!(obj instanceof GeneratorVersion other))
             {
                 return false;
             }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            GeneratorVersion other = (GeneratorVersion) obj;
             return Objects.equals(originalVersion, other.originalVersion);
         }
     }

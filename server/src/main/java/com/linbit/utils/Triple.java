@@ -42,9 +42,8 @@ public class Triple<A, B, C> implements Comparable<Triple<A, B, C>>
     public boolean equals(Object obj)
     {
         boolean eq = this == obj;
-        if (!eq && obj != null && getClass() == obj.getClass())
+        if (!eq && obj instanceof Triple<?, ?, ?> other)
         {
-            Triple<?, ?, ?> other = (Triple<?, ?, ?>) obj;
             eq = Objects.equal(objA, other.objA) &&
                 Objects.equal(objB, other.objB) &&
                 Objects.equal(objC, other.objC);

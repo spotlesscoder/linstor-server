@@ -293,9 +293,8 @@ public class ReadOnlyPropsImpl implements Props
             result = true;
         }
         else
-        if (obj != null && getClass() == obj.getClass())
+        if (obj instanceof ReadOnlyPropsImpl other)
         {
-            ReadOnlyPropsImpl other = (ReadOnlyPropsImpl) obj;
             if (propsMap.equals(other.propsMap))
             {
                 result = true;

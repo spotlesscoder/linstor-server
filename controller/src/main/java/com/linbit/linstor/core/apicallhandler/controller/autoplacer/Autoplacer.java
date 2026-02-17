@@ -180,15 +180,10 @@ public class Autoplacer
             {
                 return true;
             }
-            if (obj == null)
+            if (!(obj instanceof StorPoolWithScore other))
             {
                 return false;
             }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            StorPoolWithScore other = (StorPoolWithScore) obj;
             if (Double.doubleToLongBits(score) != Double.doubleToLongBits(other.score))
             {
                 return false;

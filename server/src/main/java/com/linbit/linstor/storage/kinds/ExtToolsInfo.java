@@ -329,15 +329,10 @@ public class ExtToolsInfo
             {
                 return true;
             }
-            if (obj == null)
+            if (!(obj instanceof Version other))
             {
                 return false;
             }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            Version other = (Version) obj;
             return Objects.equals(major, other.major) &&
                 Objects.equals(minor, other.minor) &&
                 Objects.equals(patch, other.patch) &&

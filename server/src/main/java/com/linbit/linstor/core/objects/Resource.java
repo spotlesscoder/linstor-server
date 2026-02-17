@@ -602,11 +602,10 @@ public class Resource extends AbsResource<Resource>
             {
                 return true;
             }
-            if (obj == null || getClass() != obj.getClass())
+            if (!(obj instanceof ResourceKey that))
             {
                 return false;
             }
-            ResourceKey that = (ResourceKey) obj;
             return Objects.equals(nodeName, that.nodeName) &&
                 Objects.equals(resourceName, that.resourceName);
         }

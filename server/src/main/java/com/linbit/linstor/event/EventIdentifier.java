@@ -124,11 +124,10 @@ public class EventIdentifier
         {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof EventIdentifier that))
         {
             return false;
         }
-        EventIdentifier that = (EventIdentifier) obj;
         return Objects.equals(eventName, that.eventName) &&
             Objects.equals(objectIdentifier, that.objectIdentifier);
     }

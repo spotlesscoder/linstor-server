@@ -753,11 +753,10 @@ public class CloneService implements SystemService
             {
                 return true;
             }
-            if (other == null || getClass() != other.getClass())
+            if (!(other instanceof CloneInfo cloneInfo))
             {
                 return false;
             }
-            CloneInfo cloneInfo = (CloneInfo) other;
             return getVlmNr().equals(cloneInfo.getVlmNr()) && getResourceName().equals(cloneInfo.getResourceName()) &&
                 getSuffix().equals(cloneInfo.getSuffix());
         }

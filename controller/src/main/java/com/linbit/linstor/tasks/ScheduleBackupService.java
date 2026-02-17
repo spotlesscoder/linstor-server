@@ -1005,15 +1005,10 @@ public class ScheduleBackupService implements SystemService
             {
                 return true;
             }
-            if (obj == null)
+            if (!(obj instanceof ScheduledShippingConfig other))
             {
                 return false;
             }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            ScheduledShippingConfig other = (ScheduledShippingConfig) obj;
             if (!remote.getName().equals(other.remote.getName()))
             {
                 return false;

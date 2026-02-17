@@ -634,11 +634,10 @@ public class SnapshotDefinition extends AbsCoreObj<SnapshotDefinition> implement
             {
                 return true;
             }
-            if (o == null || getClass() != o.getClass())
+            if (!(o instanceof Key that))
             {
                 return false;
             }
-            Key that = (Key) o;
             return Objects.equals(resourceName, that.resourceName) &&
                 Objects.equals(snapshotName, that.snapshotName);
         }

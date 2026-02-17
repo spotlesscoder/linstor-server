@@ -651,11 +651,10 @@ public class VolumeDefinition extends AbsCoreObj<VolumeDefinition> implements Pr
             {
                 return true;
             }
-            if (o == null || getClass() != o.getClass())
+            if (!(o instanceof Key key))
             {
                 return false;
             }
-            Key key = (Key) o;
             return Objects.equals(rscName, key.rscName) &&
                 Objects.equals(vlmNr, key.vlmNr);
         }

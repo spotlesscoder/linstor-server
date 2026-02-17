@@ -39,9 +39,8 @@ public class Pair<A, B> implements Comparable<Pair<A, B>>
     public boolean equals(Object obj)
     {
         boolean eq = this == obj;
-        if (!eq && obj != null && getClass() == obj.getClass())
+        if (!eq && obj instanceof Pair<?, ?> other)
         {
-            Pair<?, ?> other = (Pair<?, ?>) obj;
             eq = Objects.equals(objA, other.objA) && Objects.equals(objB, other.objB);
         }
         return eq;

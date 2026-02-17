@@ -168,15 +168,10 @@ public class Migration_2021_04_29_FixDuplicatedRestoredLayerData extends Linstor
             {
                 return true;
             }
-            if (obj == null)
+            if (!(obj instanceof LriKey other))
             {
                 return false;
             }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            LriKey other = (LriKey) obj;
 
             return Objects.equals(nodeName, other.nodeName) &&
                 Objects.equals(rscName, other.rscName) &&

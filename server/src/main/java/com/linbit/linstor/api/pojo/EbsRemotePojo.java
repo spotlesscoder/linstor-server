@@ -112,9 +112,8 @@ public class EbsRemotePojo implements Comparable<EbsRemotePojo>
     public boolean equals(Object obj)
     {
         boolean eq = false;
-        if (obj != null && getClass() == obj.getClass())
+        if (obj instanceof EbsRemotePojo other)
         {
-            EbsRemotePojo other = (EbsRemotePojo) obj;
             eq = Objects.equals(other.remoteName, remoteName);
         }
         return eq;

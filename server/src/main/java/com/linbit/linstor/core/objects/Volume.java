@@ -584,11 +584,10 @@ public class Volume extends AbsVolume<Resource>
             {
                 return true;
             }
-            if (o == null || getClass() != o.getClass())
+            if (!(o instanceof Key that))
             {
                 return false;
             }
-            Key that = (Key) o;
             return Objects.equals(nodeName, that.nodeName) &&
                 Objects.equals(resourceName, that.resourceName) &&
                 Objects.equals(volumeNumber, that.volumeNumber);

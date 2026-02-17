@@ -26,9 +26,8 @@ public class TripleNonNull<A, B, C> implements Comparable<TripleNonNull<A, B, C>
     public boolean equals(Object obj)
     {
         boolean eq = this == obj;
-        if (!eq && obj != null && getClass() == obj.getClass())
+        if (!eq && obj instanceof TripleNonNull<?, ?, ?> other)
         {
-            TripleNonNull<?, ?, ?> other = (TripleNonNull<?, ?, ?>) obj;
             eq = Objects.equal(objA, other.objA) &&
                 Objects.equal(objB, other.objB) &&
                 Objects.equal(objC, other.objC);
