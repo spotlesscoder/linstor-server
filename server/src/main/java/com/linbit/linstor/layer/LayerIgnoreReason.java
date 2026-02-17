@@ -98,11 +98,6 @@ public enum LayerIgnoreReason
         this(descrRef, true, true, false);
     }
 
-    LayerIgnoreReason(String descrRef, boolean preventExecutionRef)
-    {
-        this(descrRef, preventExecutionRef, preventExecutionRef, false);
-    }
-
     LayerIgnoreReason(
         String descrRef,
         boolean preventExecutionRef,

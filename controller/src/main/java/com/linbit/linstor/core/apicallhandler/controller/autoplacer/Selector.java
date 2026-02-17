@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -348,47 +347,5 @@ class Selector
         return "true".equalsIgnoreCase(
             prioProps.getProp(ApiConsts.KEY_RSC_ALLOW_MIXING_DEVICE_KIND, null, "false")
         );
-    }
-
-    public @Nullable Node unselect(
-        ResourceDefinition rscDfn,
-        List<Node> fixedNodes,
-        StorPoolWithScore[] sortedStorPoolByScoreArr,
-        boolean selectDiskfulNodeRef
-    )
-        throws AccessDeniedException
-    {
-        @Nullable Node ret = null;
-
-        Iterator<Resource> rscIt = rscDfn.iterateResource(apiCtx);
-        Set<Resource> candidatesToUnselect = new HashSet<>();
-        while (rscIt.hasNext())
-        {
-            Resource rsc = rscIt.next();
-            Node node = rsc.getNode();
-
-            if (!fixedNodes.contains(node))
-            {
-                boolean isDiskless = rsc.isDiskless(apiCtx);
-                if ((isDiskless && !selectDiskfulNodeRef) || (!isDiskless && selectDiskfulNodeRef))
-                {
-                    candidatesToUnselect.add(rsc);
-                }
-            }
-        }
-
-
-        if (ret == null)
-        {
-            if (sortedStorPoolByScoreArr.length > 0)
-            {
-                // sorts highest to lowest as defined in StorPoolWithScore' Comparator
-                Arrays.sort(sortedStorPoolByScoreArr);
-
-                // return node of storage pool with lowest score
-                ret = sortedStorPoolByScoreArr[sortedStorPoolByScoreArr.length - 1].storPool.getNode();
-            }
-        }
-        return ret;
     }
 }

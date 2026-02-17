@@ -546,14 +546,6 @@ public abstract class AbsBackupShippingService implements SystemService
         return new PairNonNull<>(snap, remoteName);
     }
 
-    private PairNonNull<Snapshot, RemoteName> getShipKey(AbsRemote remote, Snapshot snap)
-    {
-        RemoteName remoteForKey = remote instanceof StltRemote stltRemote ?
-            stltRemote.getLinstorRemoteName() :
-            remote.getName();
-        return new PairNonNull<>(snap, remoteForKey);
-    }
-
     /**
      * Throws an {@link ImplementationError} if <code>this.remoteType</code> does not equals to the parameter's
      * <code>remote.getType()</code>
@@ -708,6 +700,7 @@ public abstract class AbsBackupShippingService implements SystemService
      *
      *
      */
+    @SuppressWarnings("UnusedMethod")
     private boolean waitForSnapCreateFinished(Snapshot snap)
     {
         boolean success = false;

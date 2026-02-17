@@ -21,18 +21,13 @@ import com.linbit.linstor.core.CoreModule;
 import com.linbit.linstor.core.CoreModule.RemoteMap;
 import com.linbit.linstor.core.StltConfigAccessor;
 import com.linbit.linstor.core.apicallhandler.StltExtToolsChecker;
-import com.linbit.linstor.core.identifier.NetInterfaceName;
-import com.linbit.linstor.core.identifier.NodeName;
 import com.linbit.linstor.core.identifier.RemoteName;
 import com.linbit.linstor.core.identifier.ResourceName;
 import com.linbit.linstor.core.identifier.SnapshotName;
 import com.linbit.linstor.core.identifier.StorPoolName;
 import com.linbit.linstor.core.identifier.VolumeNumber;
 import com.linbit.linstor.core.objects.AbsVolume;
-import com.linbit.linstor.core.objects.NetInterface;
-import com.linbit.linstor.core.objects.Node;
 import com.linbit.linstor.core.objects.Resource;
-import com.linbit.linstor.core.objects.ResourceConnection;
 import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.objects.Snapshot;
 import com.linbit.linstor.core.objects.SnapshotDefinition;
@@ -1406,47 +1401,6 @@ public abstract class AbsStorageProvider<
         }
     }
 
-    private @Nullable LAYER_SNAP_DATA getPreviousSnapvlmData(
-        LAYER_SNAP_DATA snapVlm,
-        ResourceConnection rscCon
-    )
-        throws AccessDeniedException, InvalidNameException
-    {
-        LAYER_SNAP_DATA prevSnapVlmData = null;
-
-        String prevSnapName = rscCon.getProps(storDriverAccCtx)
-            .getProp(InternalApiConsts.KEY_SNAPSHOT_SHIPPING_NAME_PREV);
-        if (prevSnapName != null)
-        {
-            Snapshot snap = snapVlm.getVolume().getAbsResource();
-            SnapshotDefinition prevSnapDfn = snap.getResourceDefinition()
-                .getSnapshotDfn(storDriverAccCtx, new SnapshotName(prevSnapName));
-            if (prevSnapDfn != null)
-            {
-                AbsRscLayerObject<Snapshot> prevSnapLayerData = prevSnapDfn
-                    .getSnapshot(storDriverAccCtx, snap.getNodeName())
-                    .getLayerData(storDriverAccCtx);
-
-                Set<AbsRscLayerObject<Snapshot>> prevSnapStorageDataSet = LayerRscUtils
-                    .getRscDataByLayer(prevSnapLayerData, DeviceLayerKind.STORAGE);
-
-                AbsRscLayerObject<Snapshot> currentSnapLayerData = snapVlm.getRscLayerObject();
-                String curSnapNameSuffix = currentSnapLayerData.getResourceNameSuffix();
-
-                for (AbsRscLayerObject<Snapshot> prevSnapStorageData : prevSnapStorageDataSet)
-                {
-                    String prevSnapNameSuffix = prevSnapStorageData.getResourceNameSuffix();
-                    if (prevSnapNameSuffix.equals(curSnapNameSuffix))
-                    {
-                        prevSnapVlmData = prevSnapStorageData.getVlmProviderObject(snapVlm.getVlmNr());
-                        break;
-                    }
-                }
-            }
-        }
-        return prevSnapVlmData;
-    }
-
     protected @Nullable LAYER_SNAP_DATA getPreviousSnapvlmData(
         LAYER_SNAP_DATA snapVlm,
         Snapshot snap,
@@ -1524,50 +1478,6 @@ public abstract class AbsStorageProvider<
             snapVlmData,
             s3orLinRemoteName
         );
-    }
-
-    private NetInterface getTargetNetIf(SnapshotDefinition snapDfn, String snapTargetName)
-        throws AccessDeniedException, ImplementationError
-    {
-        NetInterface targetNic;
-        try
-        {
-            Node targetNode = snapDfn.getResourceDefinition()
-                .getResource(storDriverAccCtx, new NodeName(snapTargetName)).getNode();
-
-            PriorityProps targetNodePropProps = new PriorityProps(
-                snapDfn.getSnapDfnProps(storDriverAccCtx),
-                targetNode.getProps(storDriverAccCtx),
-                stltConfigAccessor.getReadonlyProps()
-            );
-            String targetPrefNicStr = targetNodePropProps.getProp(
-                InternalApiConsts.KEY_SNAPSHOT_SHIPPING_PREF_TARGET_NIC,
-                "",
-                ApiConsts.DEFAULT_NETIF
-            );
-            targetNic = targetNode.getNetInterface(storDriverAccCtx, new NetInterfaceName(targetPrefNicStr));
-            if (targetNic == null)
-            {
-                if (!targetPrefNicStr.equalsIgnoreCase(ApiConsts.DEFAULT_NETIF))
-                {
-                    targetNic = targetNode.getNetInterface(
-                        storDriverAccCtx,
-                        new NetInterfaceName(ApiConsts.DEFAULT_NETIF)
-                    );
-                }
-                if (targetNic == null)
-                {
-                    targetNic = targetNode.streamNetInterfaces(storDriverAccCtx).findAny().orElseThrow(
-                        () -> new ImplementationError("No NetIfs available")
-                    );
-                }
-            }
-        }
-        catch (InvalidNameException invalidNameExc)
-        {
-            throw new ImplementationError(invalidNameExc);
-        }
-        return targetNic;
     }
 
     private void handleRollbacks(List<LAYER_DATA> vlmsToCheckForRollback, ApiCallRcImpl apiCallRc)
@@ -1813,26 +1723,6 @@ public abstract class AbsStorageProvider<
             ret = null;
         }
         return ret;
-    }
-
-    private @Nullable String computeRestoreFromSnapshotName(AbsVolume<Resource> absVlm)
-        throws AccessDeniedException
-    {
-        String restoreSnapshotName;
-        try
-        {
-            ReadOnlyProps props = ((Volume) absVlm).getProps(storDriverAccCtx);
-            String restoreFromSnapshotProp = props.getProp(ApiConsts.KEY_VLM_RESTORE_FROM_SNAPSHOT);
-
-            restoreSnapshotName = restoreFromSnapshotProp != null ?
-                // Parse into 'Name' objects in order to validate the property contents
-                new SnapshotName(restoreFromSnapshotProp).displayValue : null;
-        }
-        catch (InvalidNameException | InvalidKeyException exc)
-        {
-            throw new ImplementationError(exc);
-        }
-        return restoreSnapshotName;
     }
 
     private void startBackupRestore(LAYER_SNAP_DATA snapVlmData, AbsBackupShippingService service)

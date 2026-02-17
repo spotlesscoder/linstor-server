@@ -286,29 +286,6 @@ public class ExtToolsInfo
             return cmp;
         }
 
-        private int compare(String v1, String v2)
-        {
-            // null will be sorted before not-null
-            int cmp;
-            if (Objects.equals(v1, v2))
-            {
-                cmp = 0;
-            }
-            else if (v1 == null && v2 != null)
-            {
-                cmp = -1;
-            }
-            else if (v1 != null && v2 == null)
-            {
-                cmp = 1;
-            }
-            else
-            {
-                cmp = v1.compareTo(v2);
-            }
-            return cmp;
-        }
-
         @Override
         public int hashCode()
         {

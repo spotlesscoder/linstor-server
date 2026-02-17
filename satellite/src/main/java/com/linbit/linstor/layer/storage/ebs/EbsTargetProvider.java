@@ -1,19 +1,13 @@
 package com.linbit.linstor.layer.storage.ebs;
 
 import com.linbit.ImplementationError;
-import com.linbit.InvalidNameException;
 import com.linbit.SizeConv;
 import com.linbit.SizeConv.SizeUnit;
-import com.linbit.ValueOutOfRangeException;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.PriorityProps;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.core.devmgr.StltReadOnlyInfo.ReadOnlyVlmProviderInfo;
-import com.linbit.linstor.core.identifier.NodeName;
-import com.linbit.linstor.core.identifier.ResourceName;
-import com.linbit.linstor.core.identifier.SnapshotName;
-import com.linbit.linstor.core.identifier.VolumeNumber;
 import com.linbit.linstor.core.objects.AbsVolume;
 import com.linbit.linstor.core.objects.Resource;
 import com.linbit.linstor.core.objects.ResourceDefinition;
@@ -34,14 +28,9 @@ import com.linbit.linstor.propscon.InvalidValueException;
 import com.linbit.linstor.propscon.Props;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.storage.StorageException;
-import com.linbit.linstor.storage.data.RscLayerSuffixes;
 import com.linbit.linstor.storage.data.provider.ebs.EbsData;
-import com.linbit.linstor.storage.interfaces.categories.resource.AbsRscLayerObject;
-import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject.Size;
-import com.linbit.linstor.storage.kinds.DeviceLayerKind;
 import com.linbit.linstor.storage.kinds.DeviceProviderKind;
-import com.linbit.linstor.utils.layer.LayerRscUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -51,8 +40,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
@@ -441,126 +428,6 @@ public class EbsTargetProvider extends AbsEbsProvider<com.amazonaws.services.ec2
 
         errorReporter.logTrace("Deleting old EBS volumd ID: %s", oldEbsVlmId);
         client.deleteVolume(new DeleteVolumeRequest(oldEbsVlmId));
-    }
-
-    private EbsData<Snapshot> findSourceEbsData(
-        String sourceLvIdRef,
-        String sourceSnapNameRef,
-        NodeName localNodeNameRef
-    )
-    {
-        EbsData<Snapshot> ret;
-
-        Matcher matcher = FORMAT_PATTERN.matcher(sourceLvIdRef);
-        if (!matcher.find())
-        {
-            throw new ImplementationError("Unknown source LV ID format: " + sourceLvIdRef);
-        }
-        String srcRscName = matcher.group(FORMAT_PATTERN_KEY_RSC_NAME);
-        String srcRscNameSuffix = matcher.group(FORMAT_PATTERN_KEY_RSC_SUFFIX);
-        if (srcRscNameSuffix == null)
-        {
-            // regex will return null instead of "". we correct this so we can use .equals later in this method
-            srcRscNameSuffix = RscLayerSuffixes.SUFFIX_DATA;
-        }
-        String srcVlmNrStr = matcher.group(FORMAT_PATTERN_KEY_VLM_NR);
-
-        try
-        {
-            ret = findSourceEbsData(
-                localNodeNameRef,
-                srcRscName,
-                srcRscNameSuffix,
-                new VolumeNumber(Integer.parseInt(srcVlmNrStr)),
-                sourceSnapNameRef
-            );
-        }
-        catch (NumberFormatException | ValueOutOfRangeException exc)
-        {
-            throw new ImplementationError(exc);
-        }
-        return ret;
-    }
-
-    private @Nullable EbsData<Snapshot> findSourceEbsData(
-        NodeName localNodeNameRef,
-        String srcRscName,
-        String rscNameSuffix,
-        VolumeNumber srcVlmNr,
-        String srcSnapNameRef
-    )
-    {
-        EbsData<Snapshot> srcEbsData = null;
-        try
-        {
-            ResourceDefinition srcRscDfn = rscDfnMap.get(new ResourceName(srcRscName));
-            if (srcRscDfn == null)
-            {
-                throw new ImplementationError(
-                    String.format(
-                        "Unknown source resource definition [%s]",
-                        srcRscName
-                    )
-                );
-            }
-            SnapshotDefinition srcSnapDfn = srcRscDfn.getSnapshotDfn(
-                storDriverAccCtx,
-                new SnapshotName(srcSnapNameRef)
-            );
-            if (srcSnapDfn == null)
-            {
-                throw new ImplementationError(
-                    String.format(
-                        "Unknown snapshot definition [%s] of resource definition [%s]",
-                        srcSnapNameRef,
-                        srcRscName
-                    )
-                );
-            }
-            Snapshot srcSnap = srcSnapDfn.getSnapshot(
-                storDriverAccCtx,
-                localNodeNameRef
-            );
-            if (srcSnap == null)
-            {
-                throw new ImplementationError(
-                    String.format(
-                        "Unknown snapshot [%s] of resource [%s] on node [%s]",
-                        srcSnapNameRef,
-                        srcRscName,
-                        localNodeNameRef.displayValue
-                    )
-                );
-            }
-            Set<AbsRscLayerObject<Snapshot>> srcStorSnapDataSet = LayerRscUtils.getRscDataByLayer(
-                srcSnap.getLayerData(storDriverAccCtx),
-                DeviceLayerKind.STORAGE
-            );
-
-            for (AbsRscLayerObject<Snapshot> srcStorSnapData : srcStorSnapDataSet)
-            {
-                if (srcStorSnapData.getResourceNameSuffix().equals(rscNameSuffix))
-                {
-                    VlmProviderObject<Snapshot> srcVlmData = srcStorSnapData.getVlmProviderObject(srcVlmNr);
-                    if (!(srcVlmData instanceof EbsData))
-                    {
-                        throw new ImplementationError(
-                            String.format(
-                                "Source volume data is of instance %s instead of EbsData!",
-                                srcVlmData == null ? "null " : srcVlmData.getClass().getSimpleName()
-                            )
-                        );
-                    }
-                    srcEbsData = (EbsData<Snapshot>) srcVlmData;
-                    break;
-                }
-            }
-        }
-        catch (AccessDeniedException | NumberFormatException | InvalidNameException exc)
-        {
-            throw new ImplementationError(exc);
-        }
-        return srcEbsData;
     }
 
     @Override

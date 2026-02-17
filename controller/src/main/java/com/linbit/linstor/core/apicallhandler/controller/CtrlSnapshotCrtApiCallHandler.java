@@ -997,22 +997,6 @@ public class CtrlSnapshotCrtApiCallHandler
         }
     }
 
-    private void disableFlagsPrivileged(SnapshotDefinition snapshotDfn, SnapshotDefinition.Flags... flags)
-    {
-        try
-        {
-            snapshotDfn.getFlags().disableFlags(apiCtx, flags);
-        }
-        catch (AccessDeniedException accDeniedExc)
-        {
-            throw new ImplementationError(accDeniedExc);
-        }
-        catch (DatabaseException sqlExc)
-        {
-            throw new ApiDatabaseException(sqlExc);
-        }
-    }
-
     @Deprecated
     private void unsetSuspendResourcePrivileged(Snapshot snapshot)
     {

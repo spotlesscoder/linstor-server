@@ -341,6 +341,7 @@ public class CtrlVlmDfnDeleteApiCallHandler implements CtrlSatelliteConnectionLi
         return rscInUse;
     }
 
+    @SuppressWarnings("UnusedMethod") // https://gitlab.at.linbit.com/linstor/linstor-server/-/issues/1317
     private void failIfDependentSnapshot(VolumeDefinition vlmDfn)
     {
         try

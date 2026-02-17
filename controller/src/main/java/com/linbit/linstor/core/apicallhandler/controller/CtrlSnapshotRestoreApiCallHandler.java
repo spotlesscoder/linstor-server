@@ -462,24 +462,6 @@ public class CtrlSnapshotRestoreApiCallHandler
         return ret;
     }
 
-    private boolean isFlagSet(SnapshotDefinition snapDfn, SnapshotDefinition.Flags... flags)
-    {
-        boolean flagsSet;
-        try
-        {
-            flagsSet = snapDfn.getFlags().isSet(peerAccCtx.get(), flags);
-        }
-        catch (AccessDeniedException exc)
-        {
-            throw new ApiAccessDeniedException(
-                exc,
-                "accessing snapshot-definition's flags",
-                ApiConsts.FAIL_ACC_DENIED_SNAP_DFN
-            );
-        }
-        return flagsSet;
-    }
-
     private void unsetFlags(ResourceDefinition rscDfn, ResourceDefinition.Flags... flags)
     {
         try

@@ -1,6 +1,5 @@
 package com.linbit.linstor.security;
 
-import com.linbit.ErrorCheck;
 import com.linbit.crypto.KeyDerivation;
 import com.linbit.linstor.ControllerDatabase;
 import com.linbit.linstor.ControllerSQLDatabase;
@@ -25,20 +24,6 @@ public final class Authentication
 
     private static final AtomicBoolean GLOBAL_AUTH_REQUIRED =
         new AtomicBoolean(true);
-
-    private Authentication(
-        AccessContext initCtx,
-        ControllerDatabase ctrlDbRef,
-        DbAccessor dbDriverRef
-    )
-        throws AccessDeniedException
-    {
-        ErrorCheck.ctorNotNull(Authentication.class, AccessContext.class, initCtx);
-        ErrorCheck.ctorNotNull(Authentication.class, ControllerDatabase.class, ctrlDbRef);
-        ErrorCheck.ctorNotNull(Authentication.class, DbAccessor.class, dbDriverRef);
-
-        initCtx.getEffectivePrivs().requirePrivileges(Privilege.PRIV_SYS_ALL);
-    }
 
     public static boolean isRequired()
     {

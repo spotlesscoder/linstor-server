@@ -277,63 +277,6 @@ public class AutoUnplacer
         return ret;
     }
 
-    private Map<NodeName, Double> getStorPoolRatingByNodeName(Resource[] rscArrRef) throws AccessDeniedException
-    {
-        Set<StorPool> allStorPoolList = new HashSet<>();
-        for (Resource rsc : rscArrRef)
-        {
-            allStorPoolList.addAll(LayerVlmUtils.getStorPools(rsc, apiAccCtx));
-        }
-        Collection<StorPoolWithScore> storPoolRatings = strategyHandler.rate(allStorPoolList, "AutoUnplacer");
-        Map<NodeName, Double> ret = new TreeMap<>();
-        for (StorPoolWithScore spws : storPoolRatings)
-        {
-            NodeName nodeName = spws.storPool.getNode().getName();
-            @Nullable Double value = ret.get(nodeName);
-            if (value == null)
-            {
-                value = 0.0;
-            }
-            value += spws.score;
-            ret.put(nodeName, value);
-        }
-        return ret;
-    }
-
-    private Map<Resource, Double> normalizeUnplaceScore(Map<Resource, Long> unplaceScoreRef)
-    {
-        Map<Resource, Double> ret = new TreeMap<>();
-
-        long highestViolationScore = Long.MIN_VALUE;
-        for (long val : unplaceScoreRef.values())
-        {
-            if (highestViolationScore < val)
-            {
-                highestViolationScore = val;
-            }
-        }
-
-        final double highestViolationScoreDouble = highestViolationScore;
-        for (Map.Entry<Resource, Long> entry : unplaceScoreRef.entrySet())
-        {
-            ret.put(entry.getKey(), ((double) entry.getValue()) / highestViolationScoreDouble);
-        }
-
-        return ret;
-    }
-
-    private void addScores(Map<Resource, Double> rscScoresRef, Map<NodeName, Double> spRatingByNodeRef)
-    {
-        for (Map.Entry<Resource, Double> entry : rscScoresRef.entrySet())
-        {
-            Resource rsc = entry.getKey();
-            rscScoresRef.put(
-                rsc,
-                entry.getValue() + spRatingByNodeRef.get(rsc.getNode().getName())
-            );
-        }
-    }
-
     private Set<Resource> findResourceWithHighestScore(Map<Resource, Long> unplaceScoreRef)
     {
         long highestScore = Long.MIN_VALUE;
