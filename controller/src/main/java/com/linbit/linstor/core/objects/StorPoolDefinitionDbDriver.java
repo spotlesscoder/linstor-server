@@ -145,7 +145,7 @@ public class StorPoolDefinitionDbDriver
         return " (StorPoolName=" + data.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements StorPoolDefinition.InitMaps
+    private static class InitMapsImpl implements StorPoolDefinition.InitMaps
     {
         private final Map<NodeName, StorPool> storPoolMap;
 

@@ -333,7 +333,7 @@ public final class ResourceGroupDbDriver
         return "(RscGrpName=" + rscGrp.getName().displayValue + ")";
     }
 
-    private class RscGrpInitMapsImpl implements ResourceGroup.InitMaps
+    private static class RscGrpInitMapsImpl implements ResourceGroup.InitMaps
     {
         private final Map<VolumeNumber, VolumeGroup> vlmGrpMap;
         private final Map<ResourceName, ResourceDefinition> rscDfnMap;

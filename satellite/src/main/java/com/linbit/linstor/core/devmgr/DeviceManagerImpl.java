@@ -2010,7 +2010,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
             ));
     }
 
-    class SvcCondException extends Exception
+    static class SvcCondException extends Exception
     {
     }
 }

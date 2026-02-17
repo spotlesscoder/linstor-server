@@ -157,7 +157,7 @@ public final class SnapshotDefinitionDbDriver
             " SnapshotName=" + snapDfn.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements SnapshotDefinition.InitMaps
+    private static class InitMapsImpl implements SnapshotDefinition.InitMaps
     {
         private final Map<NodeName, Snapshot> snapMap;
         private final Map<VolumeNumber, SnapshotVolumeDefinition> snapVlmDfnMap;

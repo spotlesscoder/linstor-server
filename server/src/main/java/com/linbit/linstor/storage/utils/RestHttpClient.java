@@ -283,7 +283,7 @@ public class RestHttpClient implements RestClient
         return result;
     }
 
-    private class RestHttpResponse<T> implements RestResponse<T>
+    private static class RestHttpResponse<T> implements RestResponse<T>
     {
         private final int statusCode;
         private final @Nullable T response;

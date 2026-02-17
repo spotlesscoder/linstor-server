@@ -155,7 +155,7 @@ public final class VolumeDefinitionDbDriver extends
             " VolNum=" + vlmDfn.getVolumeNumber().value + ")";
     }
 
-    private class InitMapsImpl implements VolumeDefinition.InitMaps
+    private static class InitMapsImpl implements VolumeDefinition.InitMaps
     {
         private final Map<String, Volume> vlmMap;
 

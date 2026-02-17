@@ -77,7 +77,7 @@ public class Migration_2023_06_12_ChangeLuksTypeToVarChar extends LinstorMigrati
         MigrationUtils.addColumnConstraintNotNull(dbProduct, TBL, CLM_ENCRYPTED_PASSWORD, "VARCHAR2");
     }
 
-    private class LuksVlm
+    private static class LuksVlm
     {
         int rscId;
         int vlmNr;

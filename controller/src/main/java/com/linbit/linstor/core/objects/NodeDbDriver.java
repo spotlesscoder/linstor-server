@@ -172,7 +172,7 @@ public final class NodeDbDriver extends AbsProtectedDatabaseDriver<Node, Node.In
         );
     }
 
-    private class InitMapsImpl implements Node.InitMaps
+    private static class InitMapsImpl implements Node.InitMaps
     {
         private final Map<ResourceName, Resource> rscMap;
         private final Map<SnapshotDefinition.Key, Snapshot> snapshotMap;

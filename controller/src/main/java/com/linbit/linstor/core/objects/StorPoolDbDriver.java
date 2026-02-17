@@ -149,7 +149,7 @@ public final class StorPoolDbDriver
             " PoolName=" + sp.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements StorPool.InitMaps
+    private static class InitMapsImpl implements StorPool.InitMaps
     {
         private final Map<String, VlmProviderObject<Resource>> vlmMap;
         private final Map<String, VlmProviderObject<Snapshot>> snapVlmMap;

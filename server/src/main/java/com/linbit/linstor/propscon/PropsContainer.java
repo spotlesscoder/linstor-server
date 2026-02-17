@@ -1715,7 +1715,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         }
     }
 
-    class PropsKeyComparator implements Comparator<String>
+    static class PropsKeyComparator implements Comparator<String>
     {
         @Override
         public int compare(String key1, String key2)
@@ -1920,7 +1920,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         }
     }
 
-    private abstract class BaseIterator<T> implements Iterator<T>
+    private abstract static class BaseIterator<T> implements Iterator<T>
     {
         PropsContainer container;
         private final Deque<Iterator<PropsContainer>> iterStack;
@@ -2000,7 +2000,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         }
     }
 
-    private class EntriesIterator
+    private static class EntriesIterator
             extends BaseIterator<Map.Entry<String, String>>
     {
         EntriesIterator(PropsContainer con)
@@ -2042,7 +2042,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         }
     }
 
-    private class KeysIterator
+    private static class KeysIterator
             extends BaseIterator<String>
     {
         KeysIterator(PropsContainer con)
@@ -2081,7 +2081,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         }
     }
 
-    private class ValuesIterator
+    private static class ValuesIterator
             extends BaseIterator<String>
     {
         ValuesIterator(PropsContainer con)
@@ -2120,7 +2120,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         }
     }
 
-    private class PropsConEntry implements Map.Entry<String, String>
+    private static class PropsConEntry implements Map.Entry<String, String>
     {
         PropsContainer container;
         String entryKey;

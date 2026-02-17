@@ -170,7 +170,7 @@ public final class S3RemoteDbDriver extends AbsProtectedDatabaseDriver<S3Remote,
         return "S3Remote(" + dataRef.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements S3Remote.InitMaps
+    private static class InitMapsImpl implements S3Remote.InitMaps
     {
         private InitMapsImpl()
         {

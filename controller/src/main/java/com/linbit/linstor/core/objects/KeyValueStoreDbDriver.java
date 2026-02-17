@@ -90,7 +90,7 @@ public class KeyValueStoreDbDriver
         return "(KvsName=" + kvs.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements KeyValueStore.InitMaps
+    private static class InitMapsImpl implements KeyValueStore.InitMaps
     {
         // place holder class for future init maps
     }

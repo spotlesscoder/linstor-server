@@ -152,7 +152,7 @@ public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<Exter
         );
     }
 
-    private class InitMapsImpl implements ExternalFile.InitMaps
+    private static class InitMapsImpl implements ExternalFile.InitMaps
     {
         private InitMapsImpl()
         {

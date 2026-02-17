@@ -165,7 +165,7 @@ public final class LinstorRemoteDbDriver extends AbsProtectedDatabaseDriver<Lins
         return "LinstorRemote(" + dataRef.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements LinstorRemote.InitMaps
+    private static class InitMapsImpl implements LinstorRemote.InitMaps
     {
         private InitMapsImpl()
         {

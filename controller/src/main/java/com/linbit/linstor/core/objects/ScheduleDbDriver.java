@@ -206,7 +206,7 @@ public final class ScheduleDbDriver extends AbsProtectedDatabaseDriver<Schedule,
         return "Schedule(" + dataRef.getName().value + ")";
     }
 
-    private class InitMapsImpl implements Schedule.InitMaps
+    private static class InitMapsImpl implements Schedule.InitMaps
     {
         private InitMapsImpl()
         {

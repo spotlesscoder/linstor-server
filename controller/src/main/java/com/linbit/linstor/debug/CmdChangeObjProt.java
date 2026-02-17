@@ -957,7 +957,7 @@ public class CmdChangeObjProt extends BaseDebugCmd
         return scopeLock;
     }
 
-    private class MissingParamException extends LinStorException
+    private static class MissingParamException extends LinStorException
     {
         private final String[] checkParams;
 

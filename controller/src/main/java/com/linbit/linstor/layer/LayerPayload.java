@@ -36,7 +36,7 @@ public class LayerPayload
         storagePayload = new TreeMap<>();
     }
 
-    public class DrbdRscPayload
+    public static class DrbdRscPayload
     {
         /** only for internal usage, do not let users set this! */
         public @Nullable Integer replacingOldLayerRscId;
@@ -50,7 +50,7 @@ public class LayerPayload
         public @Nullable Long rscFlags;
     }
 
-    public class DrbdRscDfnPayload
+    public static class DrbdRscDfnPayload
     {
         public @Nullable Integer tcpPort;
         public @Nullable TransportType transportType;
@@ -61,7 +61,7 @@ public class LayerPayload
         public @Nullable Long alStripeSize;
     }
 
-    public class DrbdVlmDfnPayload
+    public static class DrbdVlmDfnPayload
     {
         public @Nullable Integer minorNr;
     }
@@ -81,7 +81,7 @@ public class LayerPayload
         return drbdVlmDfn;
     }
 
-    public class StorageVlmPayload
+    public static class StorageVlmPayload
     {
         public StorPool storPool;
 

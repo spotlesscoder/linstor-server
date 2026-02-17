@@ -182,7 +182,7 @@ public final class ResourceDefinitionDbDriver
         return "(ResName=" + rscDfn.getName().displayValue + ")";
     }
 
-    class RscDfnInitMaps implements ResourceDefinition.InitMaps
+    static class RscDfnInitMaps implements ResourceDefinition.InitMaps
     {
         private final Map<VolumeNumber, VolumeDefinition> vlmDfnMap;
         private final Map<NodeName, Resource> rscMap;

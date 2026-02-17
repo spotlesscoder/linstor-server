@@ -142,7 +142,7 @@ public final class VolumeDbDriver
             " VolNum=" + vlm.getVolumeDefinition().getVolumeNumber().value + ")";
     }
 
-    private class VolumeInitMaps implements Volume.InitMaps
+    private static class VolumeInitMaps implements Volume.InitMaps
     {
         private final Map<Volume.Key, VolumeConnection> vlmConnMap;
 

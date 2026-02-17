@@ -200,7 +200,7 @@ public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemot
         return "EbsRemote(" + dataRef.getName().displayValue + ")";
     }
 
-    private class InitMapsImpl implements EbsRemote.InitMaps
+    private static class InitMapsImpl implements EbsRemote.InitMaps
     {
         private InitMapsImpl()
         {

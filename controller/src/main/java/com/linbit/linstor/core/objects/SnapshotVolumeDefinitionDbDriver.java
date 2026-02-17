@@ -166,7 +166,7 @@ public final class SnapshotVolumeDefinitionDbDriver
             " volumeNr=" + snapVlmDfn.getVolumeNumber().value + ")";
     }
 
-    private class InitMapsImpl implements SnapshotVolumeDefinition.InitMaps
+    private static class InitMapsImpl implements SnapshotVolumeDefinition.InitMaps
     {
         private final Map<NodeName, SnapshotVolume> snapVlmMap;
 

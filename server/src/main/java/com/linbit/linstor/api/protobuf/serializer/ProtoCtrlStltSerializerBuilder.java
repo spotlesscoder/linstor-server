@@ -1638,7 +1638,7 @@ public class ProtoCtrlStltSerializerBuilder extends ProtoCommonSerializerBuilder
         }
     }
 
-    private class CtrlSerializerHelper
+    private static class CtrlSerializerHelper
     {
         private ReadOnlyProps ctrlConfProps;
 
