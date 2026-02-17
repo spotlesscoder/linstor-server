@@ -351,7 +351,7 @@ public class H2ErrorReporter
                 pDelStmt.executeUpdate();
 
                 con.commit();
-                return delIds;
+                return Collections.unmodifiableList(delIds);
             }
         }
         catch (SQLException sqlExc)
