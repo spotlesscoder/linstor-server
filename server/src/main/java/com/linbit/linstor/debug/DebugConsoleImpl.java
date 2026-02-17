@@ -133,16 +133,20 @@ public class DebugConsoleImpl implements DebugConsole
             if (reportId != null)
             {
                 debugErr.printf(
-                    "DebugConsole: An unhandled I/O exception was encountered while processing the debug command.\n" +
-                    "The report ID of the error report is %s\n",
+                    """
+                    DebugConsole: An unhandled I/O exception was encountered while processing the debug command.
+                    The report ID of the error report is %s
+                    """,
                     reportId
                 );
                 String excMsg = ioExc.getMessage();
                 if (excMsg != null)
                 {
                     debugErr.printf(
-                        "The error description returned by the runtime environment or operating system is:\n" +
-                        "%s\n",
+                        """
+                        The error description returned by the runtime environment or operating system is:
+                        %s
+                        """,
                         excMsg
                     );
                 }
@@ -155,17 +159,21 @@ public class DebugConsoleImpl implements DebugConsole
             if (reportId != null)
             {
                 debugErr.printf(
-                    "DebugConsole: An unhandled error was encountered while processing the debug command:\n" +
-                    "The error type is: %s\n" +
-                    "The report ID of the error report is: %s\n",
+                    """
+                    DebugConsole: An unhandled error was encountered while processing the debug command:
+                    The error type is: %s
+                    The report ID of the error report is: %s
+                    """,
                     error.getClass().getCanonicalName(), reportId
                 );
                 String excMsg = error.getMessage();
                 if (excMsg != null)
                 {
                     debugErr.printf(
-                        "The error description returned by the runtime environment or operating system is:\n" +
-                        "%s\n",
+                        """
+                        The error description returned by the runtime environment or operating system is:
+                        %s
+                        """,
                         excMsg
                     );
                 }
@@ -313,18 +321,22 @@ public class DebugConsoleImpl implements DebugConsole
                     if (reportId != null)
                     {
                         debugErr.printf(
-                            "DebugConsole: An unhandled exception was encountered while processing " +
-                            "the debug command:\n" +
-                            "The exception type is: %s\n" +
-                            "The report ID of the error report is: %s\n",
+                            """
+                            DebugConsole: An unhandled exception was encountered while processing \
+                            the debug command:
+                            The exception type is: %s
+                            The report ID of the error report is: %s
+                            """,
                             exc.getClass().getCanonicalName(), reportId
                         );
                         String excMsg = exc.getMessage();
                         if (excMsg != null)
                         {
                             debugErr.printf(
-                                "The error description returned by the runtime environment or operating system is:\n" +
-                                "%s\n",
+                                """
+                                The error description returned by the runtime environment or operating system is:
+                                %s
+                                """,
                                 excMsg
                             );
                         }
@@ -337,8 +349,10 @@ public class DebugConsoleImpl implements DebugConsole
                 StringBuilder errorMsg = new StringBuilder();
                 errorMsg.append(
                     String.format(
-                        "Error:\n" +
-                        "    The '%s' command does not support the following parameters:\n",
+                        """
+                        Error:
+                            The '%s' command does not support the following parameters:
+                        """,
                         displayCmdName
                     )
                 );
@@ -349,8 +363,10 @@ public class DebugConsoleImpl implements DebugConsole
                     errorMsg.append("\n");
                 }
                 errorMsg.append(
-                    "Correction:\n" +
-                    "    Remove all unsupported parameters from the command line\n"
+                    """
+                    Correction:
+                        Remove all unsupported parameters from the command line
+                    """
                 );
                 debugErr.print(errorMsg.toString());
             }
@@ -358,12 +374,14 @@ public class DebugConsoleImpl implements DebugConsole
         else
         {
             debugErr.printf(
-                "Error:\n" +
-                "    The statement '%s' is not a valid debug console command.\n" +
-                "Correction:\n" +
-                "    Enter a valid debug console command.\n" +
-                "    Use the \"?\" builtin query (without quotes) to display a list\n" +
-                "    of available commands.\n",
+                """
+                Error:
+                    The statement '%s' is not a valid debug console command.
+                Correction:
+                    Enter a valid debug console command.
+                    Use the "?" builtin query (without quotes) to display a list
+                    of available commands.
+                """,
                 command
             );
         }
@@ -397,29 +415,33 @@ public class DebugConsoleImpl implements DebugConsole
                 if (cmdName.indexOf(' ') != -1 || cmdName.indexOf('\t') != -1)
                 {
                     debugErr.print(
-                        "Error:\n" +
-                        "    No command that matches the command name specified in the command line was found.\n" +
-                        "Cause:\n" +
-                        "    The command line appears to contain multiple parameters.\n" +
-                        "Correction:\n" +
-                        "    Reenter the HELP command line in the correct format.\n" +
-                        "    The following format is expected:\n" +
-                        "        HELP commandname\n"
+                        """
+                        Error:
+                            No command that matches the command name specified in the command line was found.
+                        Cause:
+                            The command line appears to contain multiple parameters.
+                        Correction:
+                            Reenter the HELP command line in the correct format.
+                            The following format is expected:
+                                HELP commandname
+                        """
                     );
                 }
                 else
                 {
                     debugErr.print(
-                        "Error:\n" +
-                        "    No command that matches the command name specified in the command line was found.\n" +
-                        "Cause:\n" +
-                        "    Common causes for this error are:\n" +
-                        "        * The command name was mistyped\n" +
-                        "        * A command with the specified name does not exist\n" +
-                        "        * The command with the specified name in currently unavailable, because it\n" +
-                        "          was not loaded by the system\n" +
-                        "Correction:\n" +
-                        "    Check whether the command name specified on the command line is correct.\n"
+                        """
+                        Error:
+                            No command that matches the command name specified in the command line was found.
+                        Cause:
+                            Common causes for this error are:
+                                * The command name was mistyped
+                                * A command with the specified name does not exist
+                                * The command with the specified name in currently unavailable, because it
+                                  was not loaded by the system
+                        Correction:
+                            Check whether the command name specified on the command line is correct.
+                        """
                     );
                 }
             }
@@ -432,14 +454,19 @@ public class DebugConsoleImpl implements DebugConsole
     )
     {
         debugOut.println(
-            "To request help for a debug console command, enter the HELP command in\n" +
-            "the following format:\n\n" +
-            "    HELP commandname\n\n" +
-            "Substitute the word 'commandname' with the name of the command for which\n" +
-            "help information should be displayed.\n\n" +
-            "Enter ? to display a list of all available commands.\n" +
-            "Enter ? followed by a regular expression to apply as a filter to display a\n" +
-            "list of those commands that have a name that matches the filter.\n\n"
+            """
+            To request help for a debug console command, enter the HELP command in
+            the following format:
+
+                HELP commandname
+
+            Substitute the word 'commandname' with the name of the command for which
+            help information should be displayed.
+
+            Enter ? to display a list of all available commands.
+            Enter ? followed by a regular expression to apply as a filter to display a
+            list of those commands that have a name that matches the filter.
+            """
         );
     }
 
@@ -512,18 +539,22 @@ public class DebugConsoleImpl implements DebugConsole
                 if (undeclParamsDescr == null)
                 {
                     debugOut.print(
-                        "This command accepts additional parameters that are not declared in the\n" +
-                        "list of supported parameters. The command does not provide additional\n" +
-                        "information about those parameters.\n"
+                        """
+                        This command accepts additional parameters that are not declared in the
+                        list of supported parameters. The command does not provide additional
+                        information about those parameters.
+                        """
                     );
                     debugOut.println();
                 }
                 else
                 {
                     debugOut.print(
-                        "This command accepts additional parameters that are not declared in the\n" +
-                        "list of supported parameters. The following description is provided by\n" +
-                        "the command for the use of such additional parameters:\n"
+                        """
+                        This command accepts additional parameters that are not declared in the
+                        list of supported parameters. The following description is provided by
+                        the command for the use of such additional parameters:
+                        """
                     );
                     AutoIndent.printWithIndent(debugOut, AutoIndent.DEFAULT_INDENTATION, undeclParamsDescr);
                     debugOut.println();
@@ -612,13 +643,15 @@ public class DebugConsoleImpl implements DebugConsole
         catch (PatternSyntaxException patternExc)
         {
             debugErr.println(
-                "Error:\n" +
-                "    The specified regular expression pattern is not valid.\n" +
-                "    (See error details section for a more detailed description of the error)\n" +
-                "Correction:\n" +
-                "    If any text is entered following the ? sign, the text must form a valid\n" +
-                "    regular expression pattern.\n" +
-                "Error details:\n"
+                """
+                Error:
+                    The specified regular expression pattern is not valid.
+                    (See error details section for a more detailed description of the error)
+                Correction:
+                    If any text is entered following the ? sign, the text must form a valid
+                    regular expression pattern.
+                Error details:
+                """
             );
             debugErr.println(patternExc.getMessage());
         }
@@ -782,13 +815,15 @@ public class DebugConsoleImpl implements DebugConsole
     {
         throw new ParseException(
             String.format(
-                "Error:\n" +
-                "    The command line is not valid. An invalid parameter key was encountered at position %d.\n" +
-                "Correction:\n" +
-                "    Check whether the format of the command parameter key at the\n" +
-                "    specified position is correct.\n" +
-                "    The general format of a command parameter is:\n" +
-                "        PARAMETERKEY(parametervalue)\n",
+                """
+                Error:
+                    The command line is not valid. An invalid parameter key was encountered at position %d.
+                Correction:
+                    Check whether the format of the command parameter key at the
+                    specified position is correct.
+                    The general format of a command parameter is:
+                        PARAMETERKEY(parametervalue)
+                """,
                 pos
             ),
             pos
@@ -799,13 +834,14 @@ public class DebugConsoleImpl implements DebugConsole
     {
         throw new ParseException(
             String.format(
-                "Error:\n" +
-                "    The command line is not valid. The parser encountered an error at position %d.\n" +
-                "Cause:\n" +
-                "    This error is commonly cause by entering an invalid character or unbalanced parenthesis.\n" +
-                "Correction:\n" +
-                "    Make sure that values for command parameters are correctly enclosed in parenthesis\n" +
-                "    and that no invalid characters are present in the command line.",
+                """
+                Error:
+                    The command line is not valid. The parser encountered an error at position %d.
+                Cause:
+                    This error is commonly cause by entering an invalid character or unbalanced parenthesis.
+                Correction:
+                    Make sure that values for command parameters are correctly enclosed in parenthesis
+                    and that no invalid characters are present in the command line.""",
                 pos
             ),
             pos
@@ -815,16 +851,17 @@ public class DebugConsoleImpl implements DebugConsole
     private void errorIncompleteLine(int pos) throws ParseException
     {
         throw new ParseException(
-            "Error:\n" +
-            "    The command line is not valid. The input line appears to have been truncated.\n" +
-            "Cause:\n" +
-            "    This error is commonly caused by entering a command parameter without a value.\n" +
-            "Correction:\n" +
-            "    Reenter the command using the correct format for command parameters.\n" +
-            "    The general format of a command parameter is:\n" +
-            "        PARAMETERKEY(parametervalue)\n" +
-            "Error details:\n" +
-            "    The parameter key is not case sensitive.",
+            """
+            Error:
+                The command line is not valid. The input line appears to have been truncated.
+            Cause:
+                This error is commonly caused by entering a command parameter without a value.
+            Correction:
+                Reenter the command using the correct format for command parameters.
+                The general format of a command parameter is:
+                    PARAMETERKEY(parametervalue)
+            Error details:
+                The parameter key is not case sensitive.""",
             pos
         );
     }

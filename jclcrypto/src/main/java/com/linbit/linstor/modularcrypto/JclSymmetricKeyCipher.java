@@ -179,10 +179,11 @@ public final class JclSymmetricKeyCipher implements ByteArrayCipher
                 "is not valid",
                 "The initialization of a cryptographic cipher failed",
                 "The key specification generated from the supplied password is not valid",
-                "- The password may not be suitable. Try using a different password.\n" +
-                "  Make sure the password has reasonable length and content.\n" +
-                "- Try changing the cryptographic settings, such as the key length for\n" +
-                "  the encryption algorithm.",
+                """
+                - The password may not be suitable. Try using a different password.
+                  Make sure the password has reasonable length and content.
+                - Try changing the cryptographic settings, such as the key length for
+                  the encryption algorithm.""",
                 "The currently selected algorithm is " + CIPHER_SPEC + " in " + MODE_SPEC + " mode with the " +
                 PAD_SPEC + " padding scheme",
                 keySpecExc

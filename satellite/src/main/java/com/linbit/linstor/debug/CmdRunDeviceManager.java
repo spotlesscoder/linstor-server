@@ -111,11 +111,12 @@ public class CmdRunDeviceManager extends BaseDebugCmd
                     "    - The satellite may not be connected to a controller\n" +
                     "    - Initialization data may not yet have been sent by the controller\n" +
                     "    - The satellite may not be registered in the controller's database",
-                    "- Make sure the satellite is connected to a controller\n" +
-                    "- Check whether the satellite has received data from the controller\n" +
-                    "- Check the satellite's node name\n" +
-                    "- Check whether a node entry for the satellite's node name appears in the\n" +
-                    "  satellite's node list",
+                    """
+                    - Make sure the satellite is connected to a controller
+                    - Check whether the satellite has received data from the controller
+                    - Check the satellite's node name
+                    - Check whether a node entry for the satellite's node name appears in the
+                      satellite's node list""",
                     null
                 );
             }
@@ -259,9 +260,10 @@ public class CmdRunDeviceManager extends BaseDebugCmd
                             debugErr,
                             "The resource named '" + prmRsc + "' does not exist",
                             null,
-                            "- Check whether the resource name is spelled correctly\n" +
-                            "- Check whether the satellite is connected to a controller and has received\n" +
-                            "  information about the cluster configuration",
+                            """
+                            - Check whether the resource name is spelled correctly
+                            - Check whether the satellite is connected to a controller and has received
+                              information about the cluster configuration""",
                             null
                         );
                     }

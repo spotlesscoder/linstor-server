@@ -54,11 +54,13 @@ public class CmdDisplayModuleInfo extends BaseDebugCmd
         VersionInfoProvider versionInfoProvider = LinStor.VERSION_INFO_PROVIDER;
 
         debugOut.printf(
-            "PROGRAM:        %s\n" +
-            "MODULE:         %s\n" +
-            "VERSION:        %s (%s)\n" +
-            "BUILD TIME:     %s\n" +
-            "INSTANCE ID:    %s\n",
+            """
+            PROGRAM:        %s
+            MODULE:         %s
+            VERSION:        %s (%s)
+            BUILD TIME:     %s
+            INSTANCE ID:    %s
+            """,
             LinStor.PROGRAM, moduleName,
             versionInfoProvider.getVersion(), versionInfoProvider.getGitCommitId(),
             versionInfoProvider.getBuildTime(),

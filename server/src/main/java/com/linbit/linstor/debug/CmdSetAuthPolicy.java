@@ -27,14 +27,15 @@ public class CmdSetAuthPolicy extends BaseDebugCmd
     {
         PARAMETER_DESCRIPTIONS.put(
             PRM_REQAUTH_NAME,
-            "Whether or not to require authentication for API calls\n" +
-            "    ENABLED\n" +
-            "        Authentication is required.\n" +
-            "        Clients must sign in before interacting with the system.\n" +
-            "    DISABLED\n" +
-            "        Authentication is optional.\n" +
-            "        Requests received from anonymous/unauthenticated clients are\n" +
-            "        accepted and executed under the PUBLIC access context."
+            """
+            Whether or not to require authentication for API calls
+                ENABLED
+                    Authentication is required.
+                    Clients must sign in before interacting with the system.
+                DISABLED
+                    Authentication is optional.
+                    Requests received from anonymous/unauthenticated clients are
+                    accepted and executed under the PUBLIC access context."""
         );
     }
 
@@ -55,10 +56,11 @@ public class CmdSetAuthPolicy extends BaseDebugCmd
                 "SetAutPlc"
             },
             "Set the authentication policy",
-            "Sets the policy for client authentication:\n" +
-            "    ENABLED  - Interacting with the system requires a client to sign in first\n" +
-            "    DISABLED - Requests received from anonymous/unauthenticated clients are\n" +
-            "               accepted and executed under the PUBLIC access context",
+            """
+            Sets the policy for client authentication:
+                ENABLED  - Interacting with the system requires a client to sign in first
+                DISABLED - Requests received from anonymous/unauthenticated clients are
+                           accepted and executed under the PUBLIC access context""",
             PARAMETER_DESCRIPTIONS,
             null
         );

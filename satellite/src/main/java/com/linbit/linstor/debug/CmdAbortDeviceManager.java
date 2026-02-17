@@ -28,9 +28,10 @@ public class CmdAbortDeviceManager extends BaseDebugCmd
                 "AbrtDevMgr"
             },
             "Abort dispatching resource handlers",
-            "The device manager is notified to abort dispatching resource handlers, so that\n" +
-            "a currently proceeding run of the device manager ends early and potentially\n" +
-            "without checking and readjusting all resources.",
+            """
+            The device manager is notified to abort dispatching resource handlers, so that
+            a currently proceeding run of the device manager ends early and potentially
+            without checking and readjusting all resources.""",
             null,
             null
         );

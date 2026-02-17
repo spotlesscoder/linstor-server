@@ -11,17 +11,18 @@ public interface DatabaseDriverInfo
      * in SQL statements and other dialects don't. This is the way FlyWay set up the table, and we have to keep using it
      * with the given lower- or upper-case.
      */
-    String CREATE_TBL_SCHEMA_HISTORY = "CREATE TABLE IF NOT EXISTS \"FLYWAY_SCHEMA_HISTORY\"(\n" +
-        "    \"installed_rank\" INT NOT NULL PRIMARY KEY,\n" +
-        "    \"version\" VARCHAR(50),\n" +
-        "    \"description\" VARCHAR(200) NOT NULL,\n" +
-        "    \"type\" VARCHAR(20) NOT NULL,\n" +
-        "    \"script\" VARCHAR(1000) NOT NULL,\n" +
-        "    \"checksum\" INT,\n" +
-        "    \"installed_by\" VARCHAR(100) NOT NULL,\n" +
-        "    \"installed_on\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,\n" +
-        "    \"execution_time\" INT NOT NULL,\n" +
-        "    \"success\" BOOLEAN NOT NULL)";
+    String CREATE_TBL_SCHEMA_HISTORY = """
+        CREATE TABLE IF NOT EXISTS "FLYWAY_SCHEMA_HISTORY"(
+            "installed_rank" INT NOT NULL PRIMARY KEY,
+            "version" VARCHAR(50),
+            "description" VARCHAR(200) NOT NULL,
+            "type" VARCHAR(20) NOT NULL,
+            "script" VARCHAR(1000) NOT NULL,
+            "checksum" INT,
+            "installed_by" VARCHAR(100) NOT NULL,
+            "installed_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+            "execution_time" INT NOT NULL,
+            "success" BOOLEAN NOT NULL)""";
     String DB_VERSIONS_QUERY_STMT = "SELECT \"installed_rank\", \"version\" FROM \"FLYWAY_SCHEMA_HISTORY\" " +
         "WHERE \"version\" IS NOT NULL ORDER BY \"version\"";
     String DB_VERSION_HIGHEST_RANK = "SELECT \"installed_rank\" FROM \"FLYWAY_SCHEMA_HISTORY\" " +

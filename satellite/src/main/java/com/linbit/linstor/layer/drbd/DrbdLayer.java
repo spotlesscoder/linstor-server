@@ -586,12 +586,14 @@ public class DrbdLayer implements DeviceLayer
                 "Shutdown of the DRBD resource '" + suffixedRscName + " failed",
                 getAbortMsg(drbdRscData),
                 "The external command for stopping the DRBD resource failed",
-                "- Check whether the required software is installed\n" +
-                    "- Check whether the application's search path includes the location\n" +
-                    "  of the external software\n" +
-                    "- Check whether the application has execute permission for the external command\n",
-                    null,
-                    cmdExc
+                """
+                - Check whether the required software is installed
+                - Check whether the application's search path includes the location
+                  of the external software
+                - Check whether the application has execute permission for the external command
+                """,
+                null,
+                cmdExc
             );
         }
         catch (IOException exc)
@@ -1438,11 +1440,13 @@ public class DrbdLayer implements DeviceLayer
                 "Meta data creation for resource '" +
                 drbdVlmData.getRscLayerObject().getSuffixedResourceName() + "' volume " + vlmNr + " failed",
                 getAbortMsg(drbdVlmData),
-                "Volume " + vlmNr + " of the resource uses a thin provisioning storage driver,\n" +
-                "but no initial value for the DRBD current generation is set on the volume definition",
-                "- Ensure that the initial DRBD current generation is set on the volume definition\n" +
-                "or\n" +
-                "- Recreate the volume definition",
+                "Volume " + vlmNr +
+                    " of the resource uses a thin provisioning storage driver,\nbut no initial value for the DRBD" +
+                    " current generation is set on the volume definition",
+                """
+                - Ensure that the initial DRBD current generation is set on the volume definition
+                or
+                - Recreate the volume definition""",
                 "The key of the initial DRBD current generation property is:\n" +
                 ApiConsts.KEY_DRBD_CURRENT_GI,
                 null
@@ -1857,10 +1861,12 @@ public class DrbdLayer implements DeviceLayer
                     " failed",
                 getAbortMsg(drbdRscData),
                 "The external command for changing the DRBD resource's role failed",
-                    "- Check whether the required software is installed\n" +
-                        "- Check whether the application's search path includes the location\n" +
-                        "  of the external software\n" +
-                        "- Check whether the application has execute permission for the external command\n",
+                """
+                - Check whether the required software is installed
+                - Check whether the application's search path includes the location
+                  of the external software
+                - Check whether the application has execute permission for the external command
+                """,
                 null,
                 cmdExc
             );

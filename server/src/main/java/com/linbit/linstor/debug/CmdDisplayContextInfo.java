@@ -97,9 +97,11 @@ public class CmdDisplayContextInfo extends BaseDebugCmd
         if (detail == DetailLevel.DEFAULT || detail == DetailLevel.FULL)
         {
             debugOut.printf(
-                "Identity:        %s\n" +
-                "Role:            %s\n" +
-                "Security domain: %s\n",
+                """
+                Identity:        %s
+                Role:            %s
+                Security domain: %s
+                """,
                 accCtx.subjectId.name.displayValue,
                 accCtx.subjectRole.name.displayValue,
                 accCtx.subjectDomain.name.displayValue

@@ -99,10 +99,12 @@ public class CtrlSnapLayerDataFactory
                 )
                     .setCause("The pool of free TCP/IP port numbers is exhausted")
                     .setCorrection(
-                        "- Adjust the TcpPortAutoRange controller configuration value to extend the range\n" +
-                            "  of TCP/IP port numbers used for automatic allocation\n" +
-                            "- Delete unused resource definitions that occupy TCP/IP port numbers from the range\n" +
-                            "  used for automatic allocation\n"
+                        """
+                        - Adjust the TcpPortAutoRange controller configuration value to extend the range
+                          of TCP/IP port numbers used for automatic allocation
+                        - Delete unused resource definitions that occupy TCP/IP port numbers from the range
+                          used for automatic allocation
+                        """
                     ),
                 exc
             );

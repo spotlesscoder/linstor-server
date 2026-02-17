@@ -33,19 +33,21 @@ public class CmdSetSecLevel extends BaseDebugCmd
     static
     {
         PARAMETER_DESCRIPTIONS.put(PRM_SECLVL_NAME,
-            "The security level to set as the global security level\n" +
-            "    NO_SECURITY\n" +
-            "        No object protection, public access to all objects.\n" +
-            "    RBAC\n" +
-            "        Role based access controls.\n" +
-            "        Objects are protected by access control lists that a certain type of access\n" +
-            "        to specific roles. Sign-in is required to assume any other role than the\n" +
-            "        PUBLIC role.\n" +
-            "    MAC\n" +
-            "        Mandatory access controls.\n" +
-            "        In addition to RBAC security, objects and roles are compartmentalized, and\n" +
-            "        access across compartment boundaries is regulated by mandatory access control\n" +
-            "        rules established by the system administrator.\n"
+            """
+            The security level to set as the global security level
+                NO_SECURITY
+                    No object protection, public access to all objects.
+                RBAC
+                    Role based access controls.
+                    Objects are protected by access control lists that a certain type of access
+                    to specific roles. Sign-in is required to assume any other role than the
+                    PUBLIC role.
+                MAC
+                    Mandatory access controls.
+                    In addition to RBAC security, objects and roles are compartmentalized, and
+                    access across compartment boundaries is regulated by mandatory access control
+                    rules established by the system administrator.
+            """
             );
     }
 
@@ -118,11 +120,13 @@ public class CmdSetSecLevel extends BaseDebugCmd
                                 "The value '%s' specified for the parameter %s is not a valid security level name",
                                 secLevelText, PRM_SECLVL_NAME
                             ),
-                            String.format("Specify a valid security level.\n" +
-                                "Valid security levels are:\n" +
-                                "    %s\n" +
-                                "    %s\n" +
-                                "    %s\n",
+                            String.format("""
+                                Specify a valid security level.
+                                Valid security levels are:
+                                    %s
+                                    %s
+                                    %s
+                                """,
                                 PRM_SECLVL_NO_SECURITY, PRM_SECLVL_RBAC, PRM_SECLVL_MAC
                             ),
                             null

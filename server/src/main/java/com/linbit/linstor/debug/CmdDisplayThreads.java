@@ -43,8 +43,10 @@ public class CmdDisplayThreads extends BaseDebugCmd
         thrCount = Thread.enumerate(activeThreads);
 
         debugOut.printf(
-            "\u001b[1;37mA\u001b[0m Alive / \u001b[1;37mD\u001b[0m Daemon / \u001b[1;37mI\u001b[0m Interrupted\n" +
-            "%-72s %18s %4s %-15s A D I\n",
+            """
+            \u001b[1;37mA\u001b[0m Alive / \u001b[1;37mD\u001b[0m Daemon / \u001b[1;37mI\u001b[0m Interrupted
+            %-72s %18s %4s %-15s A D I
+            """,
             "Thread name", "Id", "Prio", "State"
         );
         printSectionSeparator(debugOut);

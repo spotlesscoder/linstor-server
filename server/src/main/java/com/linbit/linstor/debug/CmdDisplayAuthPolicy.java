@@ -23,10 +23,11 @@ public class CmdDisplayAuthPolicy extends BaseDebugCmd
                 "DspAutPlc"
             },
             "Display authentication policy",
-            "Displays the current policy for client authentication:\n" +
-            "    ENABLED  - Interacting with the system requires a client to sign in first\n" +
-            "    DISABLED - Requests received from anonymous/unauthenticated clients are\n" +
-            "               accepted and executed under the PUBLIC access context",
+            """
+            Displays the current policy for client authentication:
+                ENABLED  - Interacting with the system requires a client to sign in first
+                DISABLED - Requests received from anonymous/unauthenticated clients are
+                           accepted and executed under the PUBLIC access context""",
             null,
             null
         );

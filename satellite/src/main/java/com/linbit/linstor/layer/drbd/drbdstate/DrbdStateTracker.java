@@ -466,18 +466,20 @@ public class DrbdStateTracker
     public void debugOutput()
     {
         System.out.printf(
-            "OBS_RES_CRT_SLOT    = %d\n" +
-            "OBS_RES_DSTR_SLOT   = %d\n" +
-            "OBS_ROLE_SLOT       = %d\n" +
-            "OBS_PEER_ROLE_SLOT  = %d\n" +
-            "OBS_VOL_CRT_SLOT    = %d\n" +
-            "OBS_VOL_DSTR_SLOT   = %d\n" +
-            "OBS_MINOR_SLOT      = %d\n" +
-            "OBS_DISK_SLOT       = %d\n" +
-            "OBS_REPL_SLOT       = %d\n" +
-            "OBS_CONN_CRT_SLOT   = %d\n" +
-            "OBS_CONN_DSTR_SLOT  = %d\n" +
-            "OBS_CONN_SLOT       = %d\n",
+            """
+            OBS_RES_CRT_SLOT    = %d
+            OBS_RES_DSTR_SLOT   = %d
+            OBS_ROLE_SLOT       = %d
+            OBS_PEER_ROLE_SLOT  = %d
+            OBS_VOL_CRT_SLOT    = %d
+            OBS_VOL_DSTR_SLOT   = %d
+            OBS_MINOR_SLOT      = %d
+            OBS_DISK_SLOT       = %d
+            OBS_REPL_SLOT       = %d
+            OBS_CONN_CRT_SLOT   = %d
+            OBS_CONN_DSTR_SLOT  = %d
+            OBS_CONN_SLOT       = %d
+            """,
             OBS_RES_CRT_SLOT,
             OBS_RES_DSTR_SLOT,
             OBS_ROLE_SLOT,
@@ -493,18 +495,20 @@ public class DrbdStateTracker
         );
 
         System.out.printf(
-            "OBS_RES_CRT         = %08x\n" +
-            "OBS_RES_DSTR        = %08x\n" +
-            "OBS_ROLE            = %08x\n" +
-            "OBS_PEER_ROLE       = %08x\n" +
-            "OBS_VOL_CRT         = %08x\n" +
-            "OBS_VOL_DSTR        = %08x\n" +
-            "OBS_MINOR           = %08x\n" +
-            "OBS_DISK            = %08x\n" +
-            "OBS_REPL            = %08x\n" +
-            "OBS_CONN_CRT        = %08x\n" +
-            "OBS_CONN_DSTR       = %08x\n" +
-            "OBS_CONN            = %08x\n",
+            """
+            OBS_RES_CRT         = %08x
+            OBS_RES_DSTR        = %08x
+            OBS_ROLE            = %08x
+            OBS_PEER_ROLE       = %08x
+            OBS_VOL_CRT         = %08x
+            OBS_VOL_DSTR        = %08x
+            OBS_MINOR           = %08x
+            OBS_DISK            = %08x
+            OBS_REPL            = %08x
+            OBS_CONN_CRT        = %08x
+            OBS_CONN_DSTR       = %08x
+            OBS_CONN            = %08x
+            """,
             OBS_RES_CRT,
             OBS_RES_DSTR,
             OBS_ROLE,

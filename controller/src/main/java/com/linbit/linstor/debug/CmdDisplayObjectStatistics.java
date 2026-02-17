@@ -33,16 +33,17 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
     {
         PARAMETER_DESCRIPTIONS.put(
             PRM_DETAIL_NAME,
-            "Selects the detail categories to display\n" +
-            "    SECURITY\n" +
-            "        Display security objects count\n" +
-            "    CONFIG\n" +
-            "        Display controller configuration entries count\n" +
-            "    STOROBJ\n" +
-            "        Display managed storage management objects count\n" +
-            "        (registered nodes, resource definitions, etc.)\n" +
-            "    ALL\n" +
-            "        Selects all categories"
+            """
+            Selects the detail categories to display
+                SECURITY
+                    Display security objects count
+                CONFIG
+                    Display controller configuration entries count
+                STOROBJ
+                    Display managed storage management objects count
+                    (registered nodes, resource definitions, etc.)
+                ALL
+                    Selects all categories"""
         );
     }
 
@@ -163,10 +164,12 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
                 {
                     debugOut.println("Security objects");
                     debugOut.printf(
-                        "    Identities:             %5d\n" +
-                        "    Roles:                  %5d\n" +
-                        "    Types:                  %5d\n" +
-                        "    Type rules:             %5d\n",
+                        """
+                            Identities:             %5d
+                            Roles:                  %5d
+                            Types:                  %5d
+                            Type rules:             %5d
+                        """,
                         Identity.getIdentityCount(),
                         Role.getRoleCount(),
                         SecurityType.getTypeCount(),
@@ -239,10 +242,12 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
 
                     debugOut.println("Storage management objects");
                     debugOut.printf(
-                        "    Nodes:                  %5d\n" +
-                        "    Resource definitions    %5d\n" +
-                        "    Deployed resources:     %5d\n" +
-                        "    Storage pools:          %5d\n",
+                        """
+                            Nodes:                  %5d
+                            Resource definitions    %5d
+                            Deployed resources:     %5d
+                            Storage pools:          %5d
+                        """,
                         nodesCount, rscDfnCount, rscCount, storPoolDfnCount
                     );
                 }

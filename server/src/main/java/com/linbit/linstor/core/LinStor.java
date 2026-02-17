@@ -126,12 +126,14 @@ public abstract class LinStor
         long availMem = rt.maxMemory() / MEGA_BYTE;
 
         return String.format(
-            "Version:            %s (%s)\n" +
-            "Build time:         %s Log v2\n" +
-            "Java Version:       %s\n" +
-            "Java VM:            %s, Version %s\n" +
-            "Operating system:   %s, Version %s\n" +
-            "Environment:        %s, %d processors, %d MiB memory reserved for allocations\n",
+            """
+            Version:            %s (%s)
+            Build time:         %s Log v2
+            Java Version:       %s
+            Java VM:            %s, Version %s
+            Operating system:   %s, Version %s
+            Environment:        %s, %d processors, %d MiB memory reserved for allocations
+            """,
             VERSION_INFO_PROVIDER.getVersion(), VERSION_INFO_PROVIDER.getGitCommitId(),
             VERSION_INFO_PROVIDER.getBuildTime(),
             jvmSpecVersion,

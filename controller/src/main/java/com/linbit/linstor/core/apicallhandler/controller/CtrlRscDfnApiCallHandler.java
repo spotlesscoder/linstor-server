@@ -1697,9 +1697,10 @@ public class CtrlRscDfnApiCallHandler
                     "The resource name generation for the creation of a new resource definition failed"
                 );
                 rcEntry.setCause(
-                    "Name generation was selected by specifying a zero-length resource name,\n" +
-                    "but the external name field required for name generation is not present\n" +
-                    "in the API call data"
+                    """
+                    Name generation was selected by specifying a zero-length resource name,
+                    but the external name field required for name generation is not present
+                    in the API call data"""
                 );
                 rcEntry.setCorrection(
                     "For name generation from an external name\n" +

@@ -57,27 +57,29 @@ public class CmdDisplayConnections extends BaseDebugCmd
     {
         PARAMETER_DESCRIPTIONS.put(
             PRM_DETAIL_NAME,
-            "The level of detail to display\n" +
-            "    DEFAULT\n" +
-            "        Displays the peer address along with statistics\n" +
-            "    ID\n" +
-            "        Displays connection IDs\n" +
-            "    STATS\n" +
-            "        Displays queueing and traffic statistics\n" +
-            "    CONN\n" +
-            "        Displays additional information about the connection\n" +
-            "    CONTEXT\n" +
-            "        Displays access contexts\n" +
-            "    PRIVS\n" +
-            "        Displays the privilege sets associated with the\n" +
-            "        connection's access context\n" +
-            "    PENDING\n" +
-            "        Displays pending connections (connections in the connect phase)\n" +
-            "        This option implies the ID option, because pending connections can be in a state\n" +
-            "        where the endpoint addresses are unknown, so the connection can only be identified\n" +
-            "        by its connection ID\n" +
-            "    FULL\n" +
-            "        Displays all available information\n"
+            """
+            The level of detail to display
+                DEFAULT
+                    Displays the peer address along with statistics
+                ID
+                    Displays connection IDs
+                STATS
+                    Displays queueing and traffic statistics
+                CONN
+                    Displays additional information about the connection
+                CONTEXT
+                    Displays access contexts
+                PRIVS
+                    Displays the privilege sets associated with the
+                    connection's access context
+                PENDING
+                    Displays pending connections (connections in the connect phase)
+                    This option implies the ID option, because pending connections can be in a state
+                    where the endpoint addresses are unknown, so the connection can only be identified
+                    by its connection ID
+                FULL
+                    Displays all available information
+            """
         );
         PARAMETER_DESCRIPTIONS.put(
             PRM_CONNECTOR_MATCH,
@@ -295,8 +297,10 @@ public class CmdDisplayConnections extends BaseDebugCmd
                                 Role peerRole = peerAccCtx.getRole();
                                 SecurityType peerDomain = peerAccCtx.getDomain();
                                 debugOut.printf(
-                                    "    Identity:   %-24s Role: %-24s\n" +
-                                    "    Security domain: %-24s\n",
+                                    """
+                                        Identity:   %-24s Role: %-24s
+                                        Security domain: %-24s
+                                    """,
                                     peerIdentity, peerRole, peerDomain
                                 );
                             }

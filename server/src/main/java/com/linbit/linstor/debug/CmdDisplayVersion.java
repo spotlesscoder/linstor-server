@@ -42,8 +42,10 @@ public class CmdDisplayVersion extends BaseDebugCmd
         VersionInfoProvider versionInfoProvider = LinStor.VERSION_INFO_PROVIDER;
 
         debugOut.printf(
-            "VERSION:        %s (%s)\n" +
-            "BUILD TIME:     %s\n",
+            """
+            VERSION:        %s (%s)
+            BUILD TIME:     %s
+            """,
             versionInfoProvider.getVersion(), versionInfoProvider.getGitCommitId(),
             versionInfoProvider.getBuildTime()
         );

@@ -279,9 +279,10 @@ public class CtrlRemoteApiCallHandler
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
                     ApiConsts.FAIL_UNKNOWN_ERROR | ApiConsts.MASK_BACKUP,
-                    "The remote could not be reached with the given parameters and therefore wasn't created.\n" +
-                        "Please check for spelling errors and that you have the correct access-key and secret-key.\n" +
-                        "For more information on the error, please check the error-report."
+                    """
+                    The remote could not be reached with the given parameters and therefore wasn't created.
+                    Please check for spelling errors and that you have the correct access-key and secret-key.
+                    For more information on the error, please check the error-report."""
                 ),
                 exc
             );
@@ -408,9 +409,10 @@ public class CtrlRemoteApiCallHandler
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
                     ApiConsts.FAIL_UNKNOWN_ERROR | ApiConsts.MASK_BACKUP,
-                    "The remote could not be reached with the given parameters and therefore wasn't created.\n" +
-                        "Please check for spelling errors and that you have the correct access-key and secret-key.\n" +
-                        "For more information on the error, please check the error-report."
+                    """
+                    The remote could not be reached with the given parameters and therefore wasn't created.
+                    Please check for spelling errors and that you have the correct access-key and secret-key.
+                    For more information on the error, please check the error-report."""
                 ),
                 exc
             );

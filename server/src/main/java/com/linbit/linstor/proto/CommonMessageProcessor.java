@@ -451,8 +451,10 @@ public class CommonMessageProcessor implements MessageProcessor
                     "Non-existent API '" + apiCallName + "' called by the client",
                     "The API call '" + apiCallName + "' cannot be executed.",
                     "The specified API does not exist",
-                    "- Correct the client application to call a supported API\n" +
-                        "- Load the API module required by the client application into the server\n",
+                    """
+                    - Correct the client application to call a supported API
+                    - Load the API module required by the client application into the server
+                    """,
                     "The API call name specified by the client was:\n" +
                         apiCallName
                 ),
@@ -719,11 +721,12 @@ public class CommonMessageProcessor implements MessageProcessor
     private byte[] makeUnknownApiCallMessage(long apiCallId, String apiCallName)
     {
         String cause =
-            "Common causes of this error are:\n" +
-                "   - The function call name specified by the caller\n" +
-                "     (client side) is incorrect\n" +
-                "   - The requested function call was not loaded into\n" +
-                "     the system (server side)";
+            """
+            Common causes of this error are:
+               - The function call name specified by the caller
+                 (client side) is incorrect
+               - The requested function call was not loaded into
+                 the system (server side)""";
 
         return commonSerializer
             .answerBuilder(ApiConsts.API_REPLY, apiCallId)

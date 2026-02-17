@@ -389,9 +389,11 @@ public class CmdChangeObjProt extends BaseDebugCmd
                     debugErr,
                     "Object '" + objName + "' of class " + objClass + " does not exist",
                     null,
-                    "Check whether\n" +
-                    "  - the object name has been typed correctly\n" +
-                    "  - the correct object class has been selected\n",
+                    """
+                    Check whether
+                      - the object name has been typed correctly
+                      - the correct object class has been selected
+                    """,
                     null
                 );
             }
@@ -962,10 +964,11 @@ public class CmdChangeObjProt extends BaseDebugCmd
         MissingParamException(String... paramList)
         {
             super(
-                "A required parameter was not present on the command line.\n" +
-                "This is a debug error message that is only displayed because this\n" +
-                "exception was not handled properly.\n" +
-                "Please report this problem to the developers of this application."
+                """
+                A required parameter was not present on the command line.
+                This is a debug error message that is only displayed because this
+                exception was not handled properly.
+                Please report this problem to the developers of this application."""
             );
             if (paramList == null)
             {

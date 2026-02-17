@@ -213,9 +213,11 @@ public class CmdSetConnectionContext extends BaseDebugCmd
                     AutoIndent.printWithIndent(
                         debugOut, AutoIndent.DEFAULT_INDENTATION,
                         String.format(
-                            "Identity:        %s\n" +
-                            "Role:            %s\n" +
-                            "Security domain: %s\n",
+                            """
+                            Identity:        %s
+                            Role:            %s
+                            Security domain: %s
+                            """,
                             idObj.name.displayValue, rlObj.name.displayValue, dmnObj.name.displayValue
                         )
                     );

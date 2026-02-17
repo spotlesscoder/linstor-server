@@ -132,9 +132,10 @@ public class DrbdResourceFileUtils
                         "' failed due to an I/O error",
                     DrbdLayer.getAbortMsg(drbdRscData),
                     "Creation of the DRBD configuration file failed due to an I/O error",
-                    "- Check whether enough free space is available for the creation of the file\n" +
-                        "- Check whether the application has write access to the target directory\n" +
-                        "- Check whether the storage is operating flawlessly",
+                    """
+                    - Check whether enough free space is available for the creation of the file
+                    - Check whether the application has write access to the target directory
+                    - Check whether the storage is operating flawlessly""",
                     "The error reported by the runtime environment or operating system is:\n" + ioErrorMsg,
                     ioExc
                 );
@@ -157,9 +158,10 @@ public class DrbdResourceFileUtils
                     "Unable to move temporary DRBD resource file '" + tmpResFile + "' to resource directory.",
                     DrbdLayer.getAbortMsg(drbdRscData),
                     "Unable to move temporary DRBD resource file due to an I/O error",
-                    "- Check whether enough free space is available for moving the file\n" +
-                        "- Check whether the application has write access to the target directory\n" +
-                        "- Check whether the storage is operating flawlessly",
+                    """
+                    - Check whether enough free space is available for moving the file
+                    - Check whether the application has write access to the target directory
+                    - Check whether the storage is operating flawlessly""",
                     "The error reported by the runtime environment or operating system is:\n" + ioErrorMsg,
                     ioExc
                 );
@@ -302,9 +304,10 @@ public class DrbdResourceFileUtils
                 errMsg,
                 errCause,
                 null,
-                "- Check whether enough free space is available for the creation of the file\n" +
-                    "- Check whether the application has write access to the target directory\n" +
-                    "- Check whether the storage is operating flawlessly",
+                """
+                - Check whether enough free space is available for the creation of the file
+                - Check whether the application has write access to the target directory
+                - Check whether the storage is operating flawlessly""",
                 "The error reported by the runtime environment or operating system is:\n" + ioErrorMsg,
                 ioExc
             );

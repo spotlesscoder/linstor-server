@@ -23,11 +23,12 @@ public class CmdSetTraceMode extends BaseDebugCmd
     {
         PARAMETER_DESCRIPTIONS.put(
             PRM_MODE_NAME,
-            "Specifies the TRACE level logging mode to set\n" +
-            "    ENABLED\n" +
-            "        Enables logging at the TRACE level\n" +
-            "    DISABLED\n" +
-            "        Disables logging at the TRACE level"
+            """
+            Specifies the TRACE level logging mode to set
+                ENABLED
+                    Enables logging at the TRACE level
+                DISABLED
+                    Disables logging at the TRACE level"""
         );
     }
 

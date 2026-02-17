@@ -423,9 +423,10 @@ public class CmdDisplayObjProt extends BaseDebugCmd
                     msg,
                     msg,
                     null,
-                    "Reenter the command using a valid object path.\n" +
-                    "The format for a resource path is:\n" +
-                    "    NodeName/ResourceDefinitionName",
+                    """
+                    Reenter the command using a valid object path.
+                    The format for a resource path is:
+                        NodeName/ResourceDefinitionName""",
                     null
                 )
             );
@@ -484,8 +485,10 @@ public class CmdDisplayObjProt extends BaseDebugCmd
     )
     {
         debugOut.printf(
-            "Creator: %-24s Owner: %-24s\n" +
-            "Security type: %-24s\n",
+            """
+            Creator: %-24s Owner: %-24s
+            Security type: %-24s
+            """,
             objProt.getCreator().name.displayValue,
             objProt.getOwner().name.displayValue,
             objProt.getSecurityType().name.displayValue

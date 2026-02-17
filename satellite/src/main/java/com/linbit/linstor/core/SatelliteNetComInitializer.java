@@ -196,9 +196,10 @@ public final class SatelliteNetComInitializer
                                 "The SSL/TLS protocol '%s' is not available on this system",
                                 stltCfg.getNetSecureSslProtocol()
                             ),
-                            "- Select a supported SSL/TLS protocol in the network communications configuration\n" +
-                            "or\n" +
-                            "- Enable support for the currently selected SSL/TLS protocol on this system",
+                            """
+                            - Select a supported SSL/TLS protocol in the network communications configuration
+                            or
+                            - Enable support for the currently selected SSL/TLS protocol on this system""",
                             null,
                             exc
                         )

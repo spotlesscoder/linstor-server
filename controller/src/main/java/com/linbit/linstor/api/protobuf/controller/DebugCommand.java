@@ -34,8 +34,10 @@ import java.util.LinkedList;
  */
 @ProtobufApiCall(
     name = "DebugCommand",
-    description = "Submits a debug command to an active debug console attached to the peer.\n" +
-        "The debug console typically answers with a DebugReply message.\n"
+    description = """
+        Submits a debug command to an active debug console attached to the peer.
+        The debug console typically answers with a DebugReply message.
+        """
 )
 @Singleton
 public class DebugCommand implements ApiCall

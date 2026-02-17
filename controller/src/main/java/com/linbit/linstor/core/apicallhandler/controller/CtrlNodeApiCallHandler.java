@@ -774,9 +774,10 @@ public class CtrlNodeApiCallHandler
                     "Registration of node '" + nodeName.displayValue + "' failed."
                 )
                 .setCause("A node with the specified name '" + nodeName.displayValue + "' already exists.")
-                .setCorrection("- Specify another name for the new node\n" +
-                    "or\n" +
-                    "- Delete the existing node before creating a new node with the same name")
+                .setCorrection("""
+                    - Specify another name for the new node
+                    or
+                    - Delete the existing node before creating a new node with the same name""")
                 .setSkipErrorReport(true)
                 .build(),
                 dataAlreadyExistsExc

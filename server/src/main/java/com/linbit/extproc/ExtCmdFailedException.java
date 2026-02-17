@@ -22,13 +22,16 @@ public class ExtCmdFailedException extends LinStorException
         super(
             String.format("The external command '%s' did not complete within the timeout", command[0]),
             String.format(EXCEPTION_DESCR_FORMAT, command[0]),
-            "The external command did not complete within the timeout.\n" +
-            "Possible causes include:\n" +
-            "- The system load may be too high to ensure completion of external commands in a timely manner.\n" +
-            "- The program implementing the external command may not be operating properly.\n" +
-            "- The operating system may have entered an erroneous state.",
-            "Check whether the external program and the operating system are still operating properly.\n" +
-            "Check whether the system's load is within normal parameters.\n",
+            """
+            The external command did not complete within the timeout.
+            Possible causes include:
+            - The system load may be too high to ensure completion of external commands in a timely manner.
+            - The program implementing the external command may not be operating properly.
+            - The operating system may have entered an erroneous state.""",
+            """
+            Check whether the external program and the operating system are still operating properly.
+            Check whether the system's load is within normal parameters.
+            """,
             String.format(EXCEPTION_DETAILS_FORMAT, ShellUtils.joinShellQuote(command)),
             cause
         );
@@ -53,10 +56,11 @@ public class ExtCmdFailedException extends LinStorException
             String.format("The external command '%s' exited with error code %d\n", command[0], outputData.exitCode),
             String.format(EXCEPTION_DESCR_FORMAT, command[0]),
             String.format("The external command exited with error code %d.", outputData.exitCode),
-            "- Check whether the external program is operating properly.\n" +
-            "- Check whether the command line is correct.\n" +
-            "  Contact a system administrator or a developer if the command line is no longer valid\n" +
-            "  for the installed version of the external program.",
+            """
+            - Check whether the external program is operating properly.
+            - Check whether the command line is correct.
+              Contact a system administrator or a developer if the command line is no longer valid
+              for the installed version of the external program.""",
             String.format(
                 EXCEPTION_DETAILS_FORMAT +
                 "\n\n",

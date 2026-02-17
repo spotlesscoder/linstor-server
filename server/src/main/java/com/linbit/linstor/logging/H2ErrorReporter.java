@@ -34,22 +34,23 @@ public class H2ErrorReporter
 {
     private static final String DB_CRT_VERSION_TABLE = "CREATE TABLE IF NOT EXISTS VERSION (" +
         "VERSION_NUMBER INT);";
-    private static final String DB_CRT_ERRORS_TABLE = "CREATE TABLE IF NOT EXISTS ERRORS (\n" +
-        "\tINSTANCE_EPOCH BIGINT,\n" +
-        "\tERROR_NR INT,\n" +
-        "\tNODE VARCHAR(255),\n" +
-        "\tMODULE INT,\n" +
-        "\tERROR_ID VARCHAR(32),\n" +
-        "\tDATETIME TIMESTAMP NOT NULL,\n" +
-        "\tVERSION VARCHAR(32),\n" +
-        "\tPEER VARCHAR(128),\n" +
-        "\tEXCEPTION VARCHAR(128),\n" +
-        "\tEXCEPTION_MESSAGE VARCHAR(2048),\n" +
-        "\tORIGIN_FILE VARCHAR(128),\n" +
-        "\tORIGIN_METHOD VARCHAR(128),\n" +
-        "\tORIGIN_LINE INT,\n" +
-        "\tTEXT TEXT,\n" +
-        "\tPRIMARY KEY(INSTANCE_EPOCH, ERROR_NR, NODE));";
+    private static final String DB_CRT_ERRORS_TABLE = """
+        CREATE TABLE IF NOT EXISTS ERRORS (
+          INSTANCE_EPOCH BIGINT,
+          ERROR_NR INT,
+          NODE VARCHAR(255),
+          MODULE INT,
+          ERROR_ID VARCHAR(32),
+          DATETIME TIMESTAMP NOT NULL,
+          VERSION VARCHAR(32),
+          PEER VARCHAR(128),
+          EXCEPTION VARCHAR(128),
+          EXCEPTION_MESSAGE VARCHAR(2048),
+          ORIGIN_FILE VARCHAR(128),
+          ORIGIN_METHOD VARCHAR(128),
+          ORIGIN_LINE INT,
+          TEXT TEXT,
+          PRIMARY KEY(INSTANCE_EPOCH, ERROR_NR, NODE));""";
 
     private final ErrorReporter errorReporter;
     private final BasicDataSource dataSource = new BasicDataSource();

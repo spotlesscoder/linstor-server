@@ -1556,8 +1556,10 @@ public class BitmapPool implements NumberPool
             for (int curLevel = 0; curLevel < bmPool.levels; ++curLevel)
             {
                 output.printf(
-                    "    Level %d: IntermediateBitmap elements = %2d\n" +
-                    "             [levelShift = %2d, levelDivisor = %9d]\n",
+                    """
+                        Level %d: IntermediateBitmap elements = %2d
+                                 [levelShift = %2d, levelDivisor = %9d]
+                    """,
                     curLevel,
                     bmPool.levelSubElem[curLevel] > 0 ? bmPool.levelSubElem[curLevel] : ELEM_BITS,
                     bmPool.levelShift[curLevel],

@@ -51,9 +51,10 @@ public class CmdDisplayConfValue extends BaseDebugCmd
         );
         PARAMETER_DESCRIPTIONS.put(
             PRM_NAMESPACE,
-            "Namespace (path) in the configuration.\n" +
-            "Entries from the selected namespace will be listed, unless a key specifies\n" +
-            "an absolute path outside of the namespace."
+            """
+            Namespace (path) in the configuration.
+            Entries from the selected namespace will be listed, unless a key specifies
+            an absolute path outside of the namespace."""
         );
     }
 
