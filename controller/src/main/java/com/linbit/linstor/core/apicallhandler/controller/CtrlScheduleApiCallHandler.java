@@ -129,10 +129,7 @@ public class CtrlScheduleApiCallHandler
             AccessContext pAccCtx = peerAccCtx.get();
             for (Entry<ScheduleName, Schedule> entry : scheduleRepository.getMapForView(pAccCtx).entrySet())
             {
-                if (entry.getValue() instanceof Schedule)
-                {
-                    ret.add(entry.getValue().getApiData(pAccCtx, null, null));
-                }
+                ret.add(entry.getValue().getApiData(pAccCtx, null, null));
             }
         }
         catch (AccessDeniedException exc)
