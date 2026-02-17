@@ -54,8 +54,8 @@ import com.linbit.utils.InjectorLoader;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
@@ -193,7 +193,7 @@ public class LinstorDatabaseTool
             DonePercentageEventHandler.class,
             ConnectionStateEventHandler.class
         );
-        final List<Module> injModList = new LinkedList<>(
+        final List<Module> injModList = new ArrayList<>(
             Arrays.asList(
                 new GuiceConfigModule(),
                 new LoggingModule(errorLog),

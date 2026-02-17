@@ -90,7 +90,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -573,7 +572,7 @@ public final class Controller
             errorLog.logInfo("Dependency injection started.");
             long startDepInjectionTime = System.currentTimeMillis();
 
-            final List<Module> injModList = new LinkedList<>(
+            final List<Module> injModList = new ArrayList<>(
                 Arrays.asList(
                     new GuiceConfigModule(),
                     new LoggingModule(errorLog),

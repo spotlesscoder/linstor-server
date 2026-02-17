@@ -72,6 +72,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,7 +80,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -282,7 +282,7 @@ public class DeviceHandlerImpl implements DeviceHandler
             {
                 AbsRscLayerObject<RSC> rootRscData = absRsc.getLayerData(wrkCtx);
 
-                LinkedList<AbsRscLayerObject<RSC>> toProcess = new LinkedList<>();
+                ArrayDeque<AbsRscLayerObject<RSC>> toProcess = new ArrayDeque<>();
                 toProcess.add(rootRscData);
                 while (!toProcess.isEmpty())
                 {

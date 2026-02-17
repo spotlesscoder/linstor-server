@@ -24,6 +24,7 @@ import com.linbit.utils.StringUtils;
 
 import javax.inject.Provider;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +33,6 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
@@ -1771,7 +1771,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         @Override
         public Object[] toArray()
         {
-            Collection<String> valuesList = new LinkedList<>();
+            Collection<String> valuesList = new ArrayList<>();
             container.collectAllValues(valuesList, true);
             return valuesList.toArray();
         }
@@ -1779,7 +1779,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         @Override
         public <T> T[] toArray(T[] valuesArray)
         {
-            Collection<String> valuesList = new LinkedList<>();
+            Collection<String> valuesList = new ArrayList<>();
             container.collectAllValues(valuesList, true);
             return valuesList.toArray(valuesArray);
         }
@@ -1931,7 +1931,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
         BaseIterator(PropsContainer con)
         {
             container = con;
-            iterStack = new LinkedList<>();
+            iterStack = new ArrayDeque<>();
             subConIter = container.containerMap.values().iterator();
             currentIter = container.propMap.entrySet().iterator();
         }

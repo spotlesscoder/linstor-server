@@ -42,7 +42,7 @@ import javax.inject.Named;
 import javax.inject.Provider;
 
 import java.io.PrintStream;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -251,7 +251,7 @@ public class CmdChangeObjProt extends BaseDebugCmd
     )
         throws Exception
     {
-        List<Lock> lockList = new LinkedList<>();
+        List<Lock> lockList = new ArrayList<>();
         LockGuard scopeLock = null;
         Lock rcfgRdLock = rcfgLock.readLock();
         rcfgRdLock.lock();

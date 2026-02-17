@@ -1,6 +1,5 @@
 package com.linbit.linstor.api.rest.v1;
 
-import com.linbit.ImplementationError;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.pojo.ExternalFilePojo;
@@ -27,7 +26,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -85,36 +83,29 @@ public class ExternalFiles
     @Path("{extFileName}")
     public Response getFiles(@Context Request request, @PathParam("extFileName") String extFileName)
     {
-        try
-        {
-            String decodedExtFileName = URLDecoder.decode(extFileName, StandardCharsets.UTF_8.displayName());
+        String decodedExtFileName = URLDecoder.decode(extFileName, StandardCharsets.UTF_8);
 
-            return requestHelper.doInScope(
-                ApiConsts.API_LST_EXT_FILES,
-                request,
-                () ->
-                {
-                    List<ExternalFilePojo> extFilePojoList = extFilesHandler
-                        .listFiles(arg -> arg.equalsIgnoreCase(decodedExtFileName));
+        return requestHelper.doInScope(
+            ApiConsts.API_LST_EXT_FILES,
+            request,
+            () ->
+            {
+                List<ExternalFilePojo> extFilePojoList = extFilesHandler
+                    .listFiles(arg -> arg.equalsIgnoreCase(decodedExtFileName));
 
-                    List<ExternalFile> extFiles = extFilePojoList.stream()
-                        .map(pojo -> Json.apiToExternalFile(pojo, true))
-                        .collect(Collectors.toList());
-                    return RequestHelper.queryRequestResponse(
-                        objectMapper,
-                        ApiConsts.FAIL_UNKNOWN_ERROR,
-                        "External file",
-                        decodedExtFileName,
-                        extFiles
-                    );
-                },
-                false
-            );
-        }
-        catch (UnsupportedEncodingException exc)
-        {
-            throw new ImplementationError(exc);
-        }
+                List<ExternalFile> extFiles = extFilePojoList.stream()
+                    .map(pojo -> Json.apiToExternalFile(pojo, true))
+                    .collect(Collectors.toList());
+                return RequestHelper.queryRequestResponse(
+                    objectMapper,
+                    ApiConsts.FAIL_UNKNOWN_ERROR,
+                    "External file",
+                    decodedExtFileName,
+                    extFiles
+                );
+            },
+            false
+        );
     }
 
     @GET
@@ -125,29 +116,22 @@ public class ExternalFiles
         @PathParam("node") String nodeName
     )
     {
-        try
-        {
-            String decodedExtFileName = URLDecoder.decode(extFileName, StandardCharsets.UTF_8.displayName());
+        String decodedExtFileName = URLDecoder.decode(extFileName, StandardCharsets.UTF_8);
 
-            return requestHelper.doInScope(
-                ApiConsts.API_CHECK_EXT_FILE,
-                request,
-                () ->
-                {
-                    boolean allowed = extFilesHandler.checkFile(decodedExtFileName, nodeName);
+        return requestHelper.doInScope(
+            ApiConsts.API_CHECK_EXT_FILE,
+            request,
+            () ->
+            {
+                boolean allowed = extFilesHandler.checkFile(decodedExtFileName, nodeName);
 
-                    return Response
-                        .status(Response.Status.OK)
-                        .entity(objectMapper.writeValueAsString(Json.apiToExtFileCheckResult(allowed)))
-                        .build();
-                },
-                false
-            );
-        }
-        catch (UnsupportedEncodingException exc)
-        {
-            throw new ImplementationError(exc);
-        }
+                return Response
+                    .status(Response.Status.OK)
+                    .entity(objectMapper.writeValueAsString(Json.apiToExtFileCheckResult(allowed)))
+                    .build();
+            },
+            false
+        );
     }
 
     @PUT
@@ -164,7 +148,7 @@ public class ExternalFiles
         {
             JsonGenTypes.ExternalFile extFileJson = objectMapper.readValue(jsonData, JsonGenTypes.ExternalFile.class);
             Flux<ApiCallRc> flux = extFilesHandler.set(
-                URLDecoder.decode(extFileName, StandardCharsets.UTF_8.displayName()),
+                URLDecoder.decode(extFileName, StandardCharsets.UTF_8),
                 Base64.decode(extFileJson.content)
             );
 
@@ -189,20 +173,13 @@ public class ExternalFiles
         @PathParam("extFileName") String extFileName
     )
     {
-        try
-        {
-            Flux<ApiCallRc> flux = extFilesHandler
-                .delete(URLDecoder.decode(extFileName, StandardCharsets.UTF_8.displayName()));
-            requestHelper.doFlux(
-                ApiConsts.API_DEL_EXT_FILE,
-                request,
-                asyncResponse,
-                ApiCallRcRestUtils.mapToMonoResponse(flux, Response.Status.OK)
-            );
-        }
-        catch (UnsupportedEncodingException exc)
-        {
-            throw new ImplementationError(exc);
-        }
+        Flux<ApiCallRc> flux = extFilesHandler
+            .delete(URLDecoder.decode(extFileName, StandardCharsets.UTF_8));
+        requestHelper.doFlux(
+            ApiConsts.API_DEL_EXT_FILE,
+            request,
+            asyncResponse,
+            ApiCallRcRestUtils.mapToMonoResponse(flux, Response.Status.OK)
+        );
     }
 }

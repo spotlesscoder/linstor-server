@@ -38,7 +38,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -284,24 +283,17 @@ public class ResourceDefinitions
         @PathParam("path") String path
     )
     {
-        try
-        {
-            Flux<ApiCallRc> flux = ctrlRscDfnApiCallHandler.setDeployFile(
-                rscName,
-                URLDecoder.decode(path, StandardCharsets.UTF_8.displayName()),
-                true
-            );
-            requestHelper.doFlux(
-                ApiConsts.API_DEPLOY_EXT_FILE,
-                request,
-                asyncResponse,
-                ApiCallRcRestUtils.mapToMonoResponse(flux)
-            );
-        }
-        catch (UnsupportedEncodingException exc)
-        {
-            throw new ImplementationError(exc);
-        }
+        Flux<ApiCallRc> flux = ctrlRscDfnApiCallHandler.setDeployFile(
+            rscName,
+            URLDecoder.decode(path, StandardCharsets.UTF_8),
+            true
+        );
+        requestHelper.doFlux(
+            ApiConsts.API_DEPLOY_EXT_FILE,
+            request,
+            asyncResponse,
+            ApiCallRcRestUtils.mapToMonoResponse(flux)
+        );
     }
 
     @DELETE
@@ -313,24 +305,17 @@ public class ResourceDefinitions
         @PathParam("path") String path
     )
     {
-        try
-        {
-            Flux<ApiCallRc> flux = ctrlRscDfnApiCallHandler.setDeployFile(
-                rscName,
-                URLDecoder.decode(path, StandardCharsets.UTF_8.displayName()),
-                false
-            );
-            requestHelper.doFlux(
-                ApiConsts.API_UNDEPLOY_EXT_FILE,
-                request,
-                asyncResponse,
-                ApiCallRcRestUtils.mapToMonoResponse(flux)
-            );
-        }
-        catch (UnsupportedEncodingException exc)
-        {
-            throw new ImplementationError(exc);
-        }
+        Flux<ApiCallRc> flux = ctrlRscDfnApiCallHandler.setDeployFile(
+            rscName,
+            URLDecoder.decode(path, StandardCharsets.UTF_8),
+            false
+        );
+        requestHelper.doFlux(
+            ApiConsts.API_UNDEPLOY_EXT_FILE,
+            request,
+            asyncResponse,
+            ApiCallRcRestUtils.mapToMonoResponse(flux)
+        );
     }
 
     private Mono<Response> mapToCloneStarted(String srcName, String clonedName, Flux<ApiCallRc> flux)

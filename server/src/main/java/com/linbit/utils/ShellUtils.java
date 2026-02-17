@@ -3,7 +3,6 @@ package com.linbit.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -145,7 +144,7 @@ public class ShellUtils
                 // If no modified output list exists, construct it now
                 if (argList == null)
                 {
-                    argList = new LinkedList<>();
+                    argList = new ArrayList<>();
                     int idx = 0;
                     for (String copyArg : commandArgs)
                     {

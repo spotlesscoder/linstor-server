@@ -4,7 +4,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.core.identifier.VolumeNumber;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -207,7 +207,7 @@ public class DrbdConnection
 
     public Iterator<DrbdVolume> iterateVolumes()
     {
-        LinkedList<DrbdVolume> volListCopy = new LinkedList<>();
+        ArrayList<DrbdVolume> volListCopy = new ArrayList<>();
         synchronized (volList)
         {
             volListCopy.addAll(volList.values());

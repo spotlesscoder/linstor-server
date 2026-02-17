@@ -36,8 +36,8 @@ import com.linbit.utils.SignedAlign;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -191,7 +191,7 @@ public class LuksLayerSizeCalculator extends AbsLayerSizeCalculator<LuksVlmData<
         );
         List<String> userOptions = userOptProp != null ?
             ShellUtils.shellSplit(userOptProp) :
-            new LinkedList<>();
+            new ArrayList<>();
 
         final long alignedHeaderSizeInBytes;
         final long unalignedHeaderSizeInBytes;

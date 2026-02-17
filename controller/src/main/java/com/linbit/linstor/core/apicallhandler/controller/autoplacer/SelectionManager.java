@@ -23,13 +23,14 @@ import com.linbit.utils.CollectionUtils;
 import com.linbit.utils.MathUtils;
 import com.linbit.utils.StringUtils;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -63,7 +64,7 @@ public class SelectionManager
     private final boolean allowStorPoolMixing;
     private final boolean canChangeMinIoSize;
 
-    private final LinkedList<State> selectionStack = new LinkedList<>();
+    private final Deque<State> selectionStack = new ArrayDeque<>();
     private final HashMap<String, Integer> xReplicasOnDiffCount = new HashMap<>();
 
     private @Nullable final Long minIoSize;

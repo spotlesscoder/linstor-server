@@ -23,8 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * Pipes a debug command from the peer to the server and the
@@ -128,7 +128,7 @@ public class DebugCommand implements ApiCall
 
     private String[] toLinesArray(byte[] text)
     {
-        Deque<String> debugOutLines = new LinkedList<>();
+        Deque<String> debugOutLines = new ArrayDeque<>();
         int offset = 0;
         for (int idx = 0; idx < text.length; ++idx)
         {

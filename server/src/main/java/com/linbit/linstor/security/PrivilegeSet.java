@@ -3,8 +3,8 @@ package com.linbit.linstor.security;
 import com.linbit.ImplementationError;
 import com.linbit.linstor.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -154,7 +154,7 @@ public final class PrivilegeSet implements Cloneable
 
     public List<Privilege> getEnabledPrivileges()
     {
-        List<Privilege> privList = new LinkedList<>();
+        List<Privilege> privList = new ArrayList<>();
         long enabledPrivs = limitPrivs == null ? privileges : privileges & limitPrivs.privileges;
         for (Privilege priv : Privilege.PRIVILEGE_LIST)
         {

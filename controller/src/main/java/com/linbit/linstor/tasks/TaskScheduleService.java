@@ -11,7 +11,7 @@ import com.linbit.linstor.logging.ErrorReporter;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -112,8 +112,8 @@ public class TaskScheduleService implements SystemService, Runnable
 
     private @Nullable Thread workerThread;
 
-    private final TreeMap<Long, LinkedList<Task>> tasks = new TreeMap<>();
-    private final LinkedList<Task> newTasks = new LinkedList<>();
+    private final TreeMap<Long, List<Task>> tasks = new TreeMap<>();
+    private final List<Task> newTasks = new ArrayList<>();
     private final ErrorReporter errorReporter;
 
     @Inject
@@ -247,7 +247,7 @@ public class TaskScheduleService implements SystemService, Runnable
                     {
                         // Run any new tasks and reschedule each task according to
                         // the delay that the task requested
-                        final List<Task> execTaskList = new LinkedList<>(newTasks);
+                        final List<Task> execTaskList = new ArrayList<>(newTasks);
                         newTasks.clear();
                         if (!execTaskList.isEmpty())
                         {
@@ -271,8 +271,8 @@ public class TaskScheduleService implements SystemService, Runnable
                         while (entryTime != null && entryTime <= now)
                         {
                             // Remove the task
-                            Entry<Long, LinkedList<Task>> taskEntry = tasks.pollFirstEntry();
-                            final List<Task> execTaskList = new LinkedList<>(taskEntry.getValue());
+                            Entry<Long, List<Task>> taskEntry = tasks.pollFirstEntry();
+                            final List<Task> execTaskList = new ArrayList<>(taskEntry.getValue());
 
                             tasksLock.unlock();
                             for (Task execTask : execTaskList)
@@ -361,10 +361,10 @@ public class TaskScheduleService implements SystemService, Runnable
             try
             {
                 tasksLock.lock();
-                LinkedList<Task> taskList = tasks.get(delay);
+                List<Task> taskList = tasks.get(delay);
                 if (taskList == null)
                 {
-                    taskList = new LinkedList<>();
+                    taskList = new ArrayList<>();
                     tasks.put(delay, taskList);
                 }
                 taskList.add(task);
@@ -390,7 +390,7 @@ public class TaskScheduleService implements SystemService, Runnable
         {
             tasksLock.lock();
             Long deleteEntry = null;
-            for (Entry<Long, LinkedList<Task>> entry : tasks.entrySet())
+            for (Entry<Long, List<Task>> entry : tasks.entrySet())
             {
                 if (entry.getValue().remove(task) && entry.getValue().isEmpty())
                 {
@@ -405,10 +405,10 @@ public class TaskScheduleService implements SystemService, Runnable
             if (newDelay >= 0)
             {
                 long targetTime = newDelay + System.currentTimeMillis();
-                LinkedList<Task> taskList = tasks.get(targetTime);
+                List<Task> taskList = tasks.get(targetTime);
                 if (taskList == null)
                 {
-                    taskList = new LinkedList<>();
+                    taskList = new ArrayList<>();
                     tasks.put(targetTime, taskList);
                 }
                 taskList.add(task);

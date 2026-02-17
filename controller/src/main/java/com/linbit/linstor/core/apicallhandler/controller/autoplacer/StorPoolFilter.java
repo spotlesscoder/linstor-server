@@ -42,7 +42,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -163,7 +162,7 @@ public class StorPoolFilter
         List<StorPool> availableStorPools = availableStorPoolsRef;
         if (!canChangeMinIoSize && minIoSize != null)
         {
-            List<StorPool> filteredStorPools = new LinkedList<>();
+            List<StorPool> filteredStorPools = new ArrayList<>();
             for (StorPool entry : availableStorPools)
             {
                 final long poolMinIoSize = entry.getMinIoSize(apiAccCtx);

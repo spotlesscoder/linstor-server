@@ -99,7 +99,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -697,7 +697,7 @@ public class Json
 
     private static @Nullable String getSharedName(ResourceApi rscApiRef)
     {
-        LinkedList<RscLayerDataApi> toExplore = new LinkedList<>();
+        ArrayDeque<RscLayerDataApi> toExplore = new ArrayDeque<>();
         toExplore.add(rscApiRef.getLayerData());
         String sharedName = null;
         while (!toExplore.isEmpty())

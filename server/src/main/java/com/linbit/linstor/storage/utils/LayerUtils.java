@@ -17,10 +17,10 @@ import static com.linbit.linstor.storage.kinds.DeviceLayerKind.NVME;
 import static com.linbit.linstor.storage.kinds.DeviceLayerKind.STORAGE;
 import static com.linbit.linstor.storage.kinds.DeviceLayerKind.WRITECACHE;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -171,7 +171,7 @@ public class LayerUtils
         DeviceLayerKind kind
     )
     {
-        LinkedList<AbsRscLayerObject<RSC>> rscDataToExplore = new LinkedList<>();
+        ArrayDeque<AbsRscLayerObject<RSC>> rscDataToExplore = new ArrayDeque<>();
         if (rscDataRef != null)
         {
             rscDataToExplore.add(rscDataRef);

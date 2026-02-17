@@ -1,11 +1,11 @@
 package com.linbit.linstor.debug;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvalidDetailsException extends Exception
 {
-    private final List<String> invalidDetails = new LinkedList<>();
+    private final List<String> invalidDetails = new ArrayList<>();
 
     InvalidDetailsException()
     {

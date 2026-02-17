@@ -46,9 +46,9 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.UnsupportedAddressTypeException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -431,7 +431,7 @@ public class TcpConnectorService implements Runnable, TcpConnector
     public void run()
     {
         // Selector loop
-        LinkedList<Peer> peersWithFinishedMessages = new LinkedList<>();
+        ArrayList<Peer> peersWithFinishedMessages = new ArrayList<>();
         while (!shutdownFlag.get())
         {
             try (var ignore = MDC.putCloseable(ErrorReporter.LOGID, ErrorReporter.getNewLogId()))

@@ -110,11 +110,11 @@ import com.linbit.utils.Either;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -559,7 +559,7 @@ public class ProtoCtrlStltSerializerBuilder extends ProtoCommonSerializerBuilder
 
             IntController serializedCtrl = ctrlSerializerHelper.buildControllerDataMsg();
 
-            LinkedList<Node> nodes = new LinkedList<>(nodeSet);
+            ArrayDeque<Node> nodes = new ArrayDeque<>(nodeSet);
 
             while (!nodes.isEmpty())
             {

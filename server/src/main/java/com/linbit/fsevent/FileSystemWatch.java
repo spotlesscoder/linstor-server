@@ -24,10 +24,10 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchEvent.Kind;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -131,8 +131,8 @@ public class FileSystemWatch implements Runnable, SystemService
     @Override
     public void run()
     {
-        List<FileEntry> fileObs = new LinkedList<>();
-        List<DirectoryEntry> dirObs = new LinkedList<>();
+        List<FileEntry> fileObs = new ArrayList<>();
+        List<DirectoryEntry> dirObs = new ArrayList<>();
         while (!stopFlag.get())
         {
             WatchKey polledKey = null;
@@ -409,7 +409,7 @@ public class FileSystemWatch implements Runnable, SystemService
      */
     public void addFileEntryList(List<FileEntry> entryList) throws IOException
     {
-        List<FileEntry> triggerList = new LinkedList<>();
+        List<FileEntry> triggerList = new ArrayList<>();
         synchronized (mapLock)
         {
             try
@@ -843,7 +843,7 @@ public class FileSystemWatch implements Runnable, SystemService
         public FileEntryGroupBuilder()
         {
             group = new FileEntryGroup();
-            entryList = new LinkedList<>();
+            entryList = new ArrayList<>();
             egbFileSys = FileSystems.getDefault();
         }
 

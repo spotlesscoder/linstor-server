@@ -9,7 +9,7 @@ import com.linbit.linstor.core.identifier.VolumeNumber;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.utils.TripleNonNull;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -44,7 +44,7 @@ public class DrbdEventsMonitor
     private final ResourceDefinitionMap rscDfnMap;
 
     private boolean existsFinished = false;
-    private final LinkedList<TripleNonNull<String, String, Map<String, String>>> duringExistsQueue = new LinkedList<>();
+    private final ArrayList<TripleNonNull<String, String, Map<String, String>>> duringExistsQueue = new ArrayList<>();
 
     public DrbdEventsMonitor(
         DrbdStateTracker trackerRef,

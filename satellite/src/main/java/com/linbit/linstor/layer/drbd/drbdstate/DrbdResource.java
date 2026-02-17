@@ -10,7 +10,7 @@ import com.linbit.linstor.core.objects.ResourceDefinition;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -324,7 +324,7 @@ public class DrbdResource
 
     public Iterator<DrbdVolume> iterateVolumes()
     {
-        LinkedList<DrbdVolume> volListCopy = new LinkedList<>();
+        ArrayList<DrbdVolume> volListCopy = new ArrayList<>();
         synchronized (volList)
         {
             volListCopy.addAll(volList.values());

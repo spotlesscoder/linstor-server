@@ -39,12 +39,13 @@ import com.linbit.linstor.utils.layer.LayerRscUtils;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -266,7 +267,7 @@ public class CtrlRscLayerDataFactory
     {
         try
         {
-            LinkedList<AbsRscLayerObject<Resource>> rscDataToProcess = new LinkedList<>();
+            Deque<AbsRscLayerObject<Resource>> rscDataToProcess = new ArrayDeque<>();
             rscDataToProcess.add(rscRef.getLayerData(apiCtx));
 
             while (!rscDataToProcess.isEmpty())

@@ -27,11 +27,11 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -188,7 +188,7 @@ public class TcpConnectorPeer implements Peer
         peerHost = peerHostRef;
         connector = connectorRef;
         node = nodeRef;
-        msgOutQueue = new LinkedList<>();
+        msgOutQueue = new ArrayDeque<>();
         clientMode  = clientModeRef;
 
         // Do not use createMessage() here!
@@ -214,7 +214,7 @@ public class TcpConnectorPeer implements Peer
             satelliteState = new SatelliteState();
         }
 
-        finishedMsgInQueue = new LinkedList<>();
+        finishedMsgInQueue = new ArrayDeque<>();
 
         incomingMessageSink = Sinks.many().unicast().onBackpressureBuffer();
         Flux<Tuple2<Long, Publisher<?>>> flux = incomingMessageSink.asFlux();

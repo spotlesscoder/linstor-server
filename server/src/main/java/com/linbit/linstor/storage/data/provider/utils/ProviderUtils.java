@@ -9,7 +9,8 @@ import com.linbit.linstor.storage.interfaces.categories.resource.AbsRscLayerObje
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmLayerObject;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class ProviderUtils
 {
@@ -23,7 +24,7 @@ public class ProviderUtils
 
         VolumeNumber vlmNr = vlm.getVolumeNumber();
 
-        LinkedList<AbsRscLayerObject<RSC>> rscDataList = new LinkedList<>();
+        Deque<AbsRscLayerObject<RSC>> rscDataList = new ArrayDeque<>();
         rscDataList.add(rsc.getLayerData(accCtx));
 
         while (!rscDataList.isEmpty())

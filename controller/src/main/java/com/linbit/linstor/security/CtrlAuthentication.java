@@ -157,6 +157,7 @@ public class CtrlAuthentication<CTRL_DB_TYPE extends ControllerDatabase>
     {
         AccessContext signInContext = null;
 
+        @SuppressWarnings("JdkObsolete") // InitialDirContext requires Hashtable
         Hashtable<String, String> ldapEnv = new Hashtable<>();
         ldapEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         ldapEnv.put(Context.PROVIDER_URL, ctrlCfg.getLdapUri());

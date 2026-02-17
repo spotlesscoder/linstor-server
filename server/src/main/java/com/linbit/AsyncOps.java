@@ -1,6 +1,6 @@
 package com.linbit;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -85,7 +85,7 @@ public class AsyncOps
         public Builder()
         {
             count = 0;
-            runList = new LinkedList<>();
+            runList = new ArrayList<>();
         }
 
         public void register(Runnable op)

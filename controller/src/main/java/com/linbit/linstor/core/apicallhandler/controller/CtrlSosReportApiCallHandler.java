@@ -83,10 +83,11 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -371,7 +372,7 @@ public class CtrlSosReportApiCallHandler
             Path sosDir = tmpDirRef.resolve(sosReportName + "/" + msgSosReportListReply.getNodeName());
             String sosReportDirOnStltStr = LinStor.SOS_REPORTS_DIR.resolve(sosReportName).toString();
             String sosDirStr = sosDir.toString();
-            LinkedList<RequestFilePojo> filesToRequest = new LinkedList<>();
+            ArrayDeque<RequestFilePojo> filesToRequest = new ArrayDeque<>();
             for (FileInfo fileInfo : msgSosReportListReply.getFilesList())
             {
                 if (fileInfo.getSize() == 0)
@@ -429,7 +430,7 @@ public class CtrlSosReportApiCallHandler
         Path tmpDirRef,
         String sosReportNameRef,
         Peer stltPeerRef,
-        LinkedList<RequestFilePojo> filesToRequestRef
+        Deque<RequestFilePojo> filesToRequestRef
     )
     {
         long sumFileSizes = 0;
@@ -523,7 +524,7 @@ public class CtrlSosReportApiCallHandler
         Path tmpDirRef,
         String sosReportNameRef,
         Peer stltPeerRef,
-        LinkedList<RequestFilePojo> filesToRequestRef,
+        Deque<RequestFilePojo> filesToRequestRef,
         ByteArrayInputStream responseRef
     )
     {

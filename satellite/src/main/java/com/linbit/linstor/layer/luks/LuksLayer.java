@@ -53,7 +53,7 @@ import javax.inject.Singleton;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -565,7 +565,7 @@ public class LuksLayer implements DeviceLayer
             final @Nullable String userOptProp = prioProps.getProp(optionsKey, STOR_DRIVER_NAMESPACE);
             additionalOptions = userOptProp != null ?
                 ShellUtils.shellSplit(userOptProp) :
-                new LinkedList<>();
+                new ArrayList<>();
         }
         catch (AccessDeniedException | InvalidKeyException exc)
         {
