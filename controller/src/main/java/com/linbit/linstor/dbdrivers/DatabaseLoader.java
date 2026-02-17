@@ -115,7 +115,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -791,7 +790,7 @@ public class DatabaseLoader implements DatabaseDriver
                 Collectors.toMap(
                     rlo -> rlo.getRscLayerId(),
                     Function.identity(),
-                    throwingMerger(),
+                    DatabaseLoader::throwingMerger,
                     HashMap::new
                 )
             );
@@ -987,14 +986,11 @@ public class DatabaseLoader implements DatabaseDriver
         );
     }
 
-    private static <T> BinaryOperator<T> throwingMerger()
+    private static <T> T throwingMerger(T key, T value)
     {
-        return (key, value) ->
-        {
-            throw new ImplementationError("At least two objects have the same name.\n" +
-                "That should have caused an sql exception when inserting. Key: '" + key + "'",
-                null
-            );
-        };
+        throw new ImplementationError("At least two objects have the same name.\n" +
+            "That should have caused an sql exception when inserting. Key: '" + key + "'",
+            null
+        );
     }
 }
