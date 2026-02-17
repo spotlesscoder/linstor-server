@@ -324,9 +324,8 @@ public class SnapshotVolumeDefinition extends AbsCoreObj<SnapshotVolumeDefinitio
         {
             ret = true;
         }
-        else if (obj instanceof SnapshotVolumeDefinition)
+        else if (obj instanceof SnapshotVolumeDefinition other)
         {
-            SnapshotVolumeDefinition other = (SnapshotVolumeDefinition) obj;
             other.checkDeleted();
             ret = Objects.equals(snapshotDfn, other.snapshotDfn) && Objects.equals(vlmNr, other.vlmNr);
         }
@@ -491,11 +490,10 @@ public class SnapshotVolumeDefinition extends AbsCoreObj<SnapshotVolumeDefinitio
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             return Objects.equals(rscName, other.rscName) && Objects.equals(snapName, other.snapName) && Objects.equals(
                 vlmNr,
                 other.vlmNr

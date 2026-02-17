@@ -121,9 +121,8 @@ public class S3Remote extends AbsRemote
         {
             ret = true;
         }
-        else if (obj instanceof S3Remote)
+        else if (obj instanceof S3Remote other)
         {
-            S3Remote other = (S3Remote) obj;
             other.checkDeleted();
             ret = Objects.equals(remoteName, other.remoteName);
         }

@@ -396,9 +396,9 @@ public final class Satellite
         // We cannot directly call System.exit on a Critical error, because the code calling the exit
         // can still have locks and the applicationmanager also needs locks for a prober shutdown
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            if (throwable instanceof CriticalError)
+            if (throwable instanceof CriticalError criticalError)
             {
-                CriticalError.die(errorLog, (CriticalError) throwable);
+                CriticalError.die(errorLog, criticalError);
             }
         });
 

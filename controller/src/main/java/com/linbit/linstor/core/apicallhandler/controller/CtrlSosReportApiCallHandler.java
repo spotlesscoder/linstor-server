@@ -1033,15 +1033,13 @@ public class CtrlSosReportApiCallHandler
             {
                 event = deque.take();
 
-                if (event instanceof StdOutEvent)
+                if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    StdOutEvent stdOutEvent = (StdOutEvent) event;
                     data = stdOutEvent.data;
                     file = outFile;
                 }
-                else if (event instanceof StdErrEvent)
+                else if (event instanceof StdErrEvent stdErrEvent)
                 {
-                    StdErrEvent stdErrEvent = (StdErrEvent) event;
                     data = stdErrEvent.data;
                     file = errFile;
                 }
@@ -1049,13 +1047,13 @@ public class CtrlSosReportApiCallHandler
                 {
                     running = false;
                 }
-                else if (event instanceof ExceptionEvent)
+                else if (event instanceof ExceptionEvent exceptionEvent)
                 {
                     running = false;
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     PrintWriter pw = new PrintWriter(baos);
-                    ((ExceptionEvent) event).exc.printStackTrace(pw);
+                    exceptionEvent.exc.printStackTrace(pw);
                     pw.flush();
                     data = baos.toByteArray();
 

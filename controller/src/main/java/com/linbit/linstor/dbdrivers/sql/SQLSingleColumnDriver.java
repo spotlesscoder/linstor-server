@@ -137,10 +137,9 @@ class SQLSingleColumnDriver<DATA, INPUT_TYPE, DB_TYPE> implements SingleColumnDa
             {
                 stmt.setNull(startIdx, colToUpdate.getSqlType());
             }
-            else if (element instanceof byte[])
+            else if (element instanceof byte[] arr)
             {
                 // BLOB needs special treatment as i.e. PSQL does not support setting byte[] as a blob
-                byte[] arr = (byte[]) element;
                 stmt.setBytes(startIdx, arr);
             }
             else

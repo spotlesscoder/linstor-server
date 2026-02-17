@@ -399,9 +399,9 @@ public final class SecurityType implements Comparable<SecurityType>
     public boolean equals(Object other)
     {
         boolean equals = false;
-        if (other != null && other instanceof SecurityType)
+        if (other instanceof SecurityType securityType)
         {
-            equals = this.name.equals(((SecurityType) other).name);
+            equals = this.name.equals(securityType.name);
         }
         return equals;
     }

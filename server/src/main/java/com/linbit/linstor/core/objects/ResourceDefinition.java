@@ -826,9 +826,8 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
         {
             ret = true;
         }
-        else if (obj instanceof ResourceDefinition)
+        else if (obj instanceof ResourceDefinition other)
         {
-            ResourceDefinition other = (ResourceDefinition) obj;
             other.checkDeleted();
             ret = Objects.equals(resourceName, other.resourceName);
         }

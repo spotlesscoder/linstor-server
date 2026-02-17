@@ -181,9 +181,8 @@ public abstract class AbsVlmData<RSC extends AbsResource<RSC>, RSC_DATA extends 
         {
             ret = true;
         }
-        else if (obj instanceof AbsVlmData)
+        else if (obj instanceof AbsVlmData<?, ?> other)
         {
-            AbsVlmData<?, ?> other = (AbsVlmData<?, ?>) obj;
             ret = Objects.equals(rscData.getRscLayerId(), other.rscData.getRscLayerId()) &&
                 Objects.equals(vlm.getVolumeNumber(), other.vlm.getVolumeNumber());
         }
@@ -195,13 +194,13 @@ public abstract class AbsVlmData<RSC extends AbsResource<RSC>, RSC_DATA extends 
     {
         int compareTo = 0;
         AbsVolume<RSC> otherVolume = other.getVolume();
-        if (vlm instanceof Volume && otherVolume instanceof Volume)
+        if (vlm instanceof Volume volume && otherVolume instanceof Volume otherVol)
         {
-            compareTo = ((Volume) vlm).compareTo((Volume) otherVolume);
+            compareTo = volume.compareTo(otherVol);
         }
-        else if (vlm instanceof SnapshotVolume && otherVolume instanceof SnapshotVolume)
+        else if (vlm instanceof SnapshotVolume snapshotVolume && otherVolume instanceof SnapshotVolume otherSnapVol)
         {
-            compareTo = ((SnapshotVolume) vlm).compareTo((SnapshotVolume) otherVolume);
+            compareTo = snapshotVolume.compareTo(otherSnapVol);
         }
         else
         {

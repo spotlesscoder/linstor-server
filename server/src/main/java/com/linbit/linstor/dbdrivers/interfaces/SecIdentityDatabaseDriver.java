@@ -88,11 +88,10 @@ public interface SecIdentityDatabaseDriver extends GenericDatabaseDriver<SecIden
             {
                 return true;
             }
-            if (!(obj instanceof SecIdentityDbObj))
+            if (!(obj instanceof SecIdentityDbObj other))
             {
                 return false;
             }
-            SecIdentityDbObj other = (SecIdentityDbObj) obj;
             return Objects.equals(id, other.id);
         }
     }

@@ -354,9 +354,8 @@ public class BackgroundRunner
 
     private void reportErrorResponses(String operationDescription, Object responses)
     {
-        if (responses instanceof ApiCallRc)
+        if (responses instanceof ApiCallRc apiCallResponses)
         {
-            ApiCallRc apiCallResponses = (ApiCallRc) responses;
             if (ApiRcUtils.isError(apiCallResponses))
             {
                 errorReporter.logError(

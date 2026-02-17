@@ -267,11 +267,10 @@ public class NodePojo implements NodeApi, Comparable<NodePojo>
             {
                 return true;
             }
-            if (!(obj instanceof NodeConnPojo))
+            if (!(obj instanceof NodeConnPojo other))
             {
                 return false;
             }
-            NodeConnPojo other = (NodeConnPojo) obj;
             return Objects.equals(uuid, other.uuid);
         }
     }

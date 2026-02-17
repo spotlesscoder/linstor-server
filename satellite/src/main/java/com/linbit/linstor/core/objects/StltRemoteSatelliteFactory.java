@@ -101,9 +101,9 @@ public class StltRemoteSatelliteFactory
                     uuid
                 );
             }
-            if (remote instanceof StltRemote)
+            if (remote instanceof StltRemote stltRmt)
             {
-                stltRemote = (StltRemote) remote;
+                stltRemote = stltRmt;
             }
             else
             {

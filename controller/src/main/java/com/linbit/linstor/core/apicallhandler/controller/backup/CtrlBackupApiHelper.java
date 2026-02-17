@@ -135,7 +135,7 @@ public class CtrlBackupApiHelper
     S3Remote getS3Remote(String remoteName) throws AccessDeniedException, InvalidNameException
     {
         AbsRemote remote = getRemote(remoteName);
-        if (!(remote instanceof S3Remote))
+        if (!(remote instanceof S3Remote s3Remote))
         {
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
@@ -144,7 +144,7 @@ public class CtrlBackupApiHelper
                 )
             );
         }
-        return (S3Remote) remote;
+        return s3Remote;
     }
 
     /**
@@ -153,7 +153,7 @@ public class CtrlBackupApiHelper
     LinstorRemote getL2LRemote(String remoteName) throws AccessDeniedException, InvalidNameException
     {
         AbsRemote remote = getRemote(remoteName);
-        if (!(remote instanceof LinstorRemote))
+        if (!(remote instanceof LinstorRemote linstorRemote))
         {
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
@@ -162,7 +162,7 @@ public class CtrlBackupApiHelper
                 )
             );
         }
-        return (LinstorRemote) remote;
+        return linstorRemote;
     }
 
     /**
@@ -277,10 +277,10 @@ public class CtrlBackupApiHelper
         if (ret && !expectedRemote.equalsIgnoreCase(remoteToCheck))
         {
             AbsRemote remote = remoteRepo.get(sysCtx, new RemoteName(remoteToCheck, true));
-            if (remote instanceof StltRemote)
+            if (remote instanceof StltRemote stltRemote)
             {
                 // we checked the stlt-remote instead of the correct remote, check again
-                if (!((StltRemote) remote).getLinstorRemoteName().displayValue.equalsIgnoreCase(expectedRemote))
+                if (!stltRemote.getLinstorRemoteName().displayValue.equalsIgnoreCase(expectedRemote))
                 {
                     // the correct remote doesn't have the same name either
                     ret = false;

@@ -61,9 +61,9 @@ public class EbsUtils
     {
         ReadOnlyProps props;
         AbsVolume<?> absVlm = vlmDataRef.getVolume();
-        if (absVlm instanceof Volume)
+        if (absVlm instanceof Volume volume)
         {
-            props = ((Volume) absVlm).getProps(accCtx);
+            props = volume.getProps(accCtx);
         }
         else
         {
@@ -133,13 +133,13 @@ public class EbsUtils
         {
             throw new ImplementationError(exc);
         }
-        if (!(remote instanceof EbsRemote))
+        if (!(remote instanceof EbsRemote ebsRemote))
         {
             throw new ImplementationError(
                 "Unexpected remote type: " + (remote == null ? "null" : remote.getClass().getSimpleName())
             );
         }
-        return (EbsRemote) remote;
+        return ebsRemote;
     }
 
     public static PriorityProps getPrioProps(

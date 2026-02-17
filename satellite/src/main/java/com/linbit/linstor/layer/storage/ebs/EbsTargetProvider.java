@@ -183,8 +183,8 @@ public class EbsTargetProvider extends AbsEbsProvider<com.amazonaws.services.ec2
                 try
                 {
                     AbsVolume<?> absVlm = vlmDataRef.getVolume();
-                    Props vlmProps = absVlm instanceof Volume ?
-                        ((Volume) absVlm).getProps(storDriverAccCtx) :
+                    Props vlmProps = absVlm instanceof Volume volume ?
+                        volume.getProps(storDriverAccCtx) :
                         ((SnapshotVolume) absVlm).getSnapVlmProps(storDriverAccCtx);
                     vlmProps.setProp(
                         InternalApiConsts.KEY_EBS_VLM_ID + vlmDataRef.getRscLayerObject().getResourceNameSuffix(),

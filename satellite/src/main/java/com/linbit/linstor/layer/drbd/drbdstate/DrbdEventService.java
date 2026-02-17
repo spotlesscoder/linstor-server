@@ -103,24 +103,24 @@ public class DrbdEventService implements SystemService, Runnable, DrbdStateStore
             try (var ignore = MDC.putCloseable(ErrorReporter.LOGID, ErrorReporter.getNewLogId()))
             {
                 event = eventDeque.take();
-                if (event instanceof StdOutEvent)
+                if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    eventsMonitor.receiveEvent(new String(((StdOutEvent) event).data));
+                    eventsMonitor.receiveEvent(new String(stdOutEvent.data));
                 }
                 else
-                if (event instanceof StdErrEvent)
+                if (event instanceof StdErrEvent stdErrEvent)
                 {
                     errorReporter.logWarning(
                         "DRBD 'events2' returned error: %n%s",
-                        new String(((StdErrEvent) event).data)
+                        new String(stdErrEvent.data)
                     );
                     restartEvents2Stream(RESTART_EVENTS2_STREAM_TIMEOUT);
                 }
                 else
-                if (event instanceof ExceptionEvent)
+                if (event instanceof ExceptionEvent exceptionEvent)
                 {
                     errorReporter.logTrace("ExceptionEvent in DRBD 'events2':");
-                    errorReporter.reportError(((ExceptionEvent) event).exc);
+                    errorReporter.reportError(exceptionEvent.exc);
                     // FIXME: Report the exception to the controller
                 }
                 else

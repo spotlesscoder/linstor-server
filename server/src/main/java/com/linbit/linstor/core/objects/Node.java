@@ -288,9 +288,8 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
         {
             ret = true;
         }
-        else if (obj instanceof Node)
+        else if (obj instanceof Node other)
         {
-            Node other = (Node) obj;
             other.checkDeleted();
             ret = Objects.equals(nodeName, other.nodeName);
         }

@@ -83,17 +83,17 @@ public class StltSosReportApiCallHandler
 
             for (SosReportType report : reports)
             {
-                if (report instanceof SosReportType.SosInfoType)
+                if (report instanceof SosReportType.SosInfoType sosInfoType)
                 {
-                    appendInfoType(sosReportDir, (SosInfoType) report, fileList, errors);
+                    appendInfoType(sosReportDir, sosInfoType, fileList, errors);
                 }
-                else if (report instanceof SosReportType.SosFileType)
+                else if (report instanceof SosReportType.SosFileType sosFileType)
                 {
-                    appendFileType(sosReportDir, (SosFileType) report, fileList, errors);
+                    appendFileType(sosReportDir, sosFileType, fileList, errors);
                 }
-                else if (report instanceof SosReportType.SosCommandType)
+                else if (report instanceof SosReportType.SosCommandType sosCommandType)
                 {
-                    appendCommandType(sosReportDir, (SosCommandType) report, fileList, errors);
+                    appendCommandType(sosReportDir, sosCommandType, fileList, errors);
                 }
                 else
                 {

@@ -238,7 +238,7 @@ public class CtrlBackupL2LSrcApiCallHandler
     {
         AbsRemote remote = ctrlApiDataLoader.loadRemote(linstorRemoteNameRef, true);
 
-        if (!(remote instanceof LinstorRemote))
+        if (!(remote instanceof LinstorRemote linstorRemote))
         {
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
@@ -344,7 +344,7 @@ public class CtrlBackupL2LSrcApiCallHandler
             srcRscNameRef,
             backupName,
             now,
-            (LinstorRemote) remote,
+            linstorRemote,
             dstRscNameRef,
             dstNodeNameRef,
             dstNetIfNameRef,
@@ -367,7 +367,7 @@ public class CtrlBackupL2LSrcApiCallHandler
                     srcSnapDfnUuids,
                     dstNodeNameRef
                 ),
-                (LinstorRemote) remote,
+                linstorRemote,
                 sysCtx
             ).doOnError(IOException.class, exc ->
             {

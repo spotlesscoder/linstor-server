@@ -330,9 +330,8 @@ public class CopySnapsHelper
                 final UUID localClusterUuid = UUID.fromString(clusterIdStr);
                 for (AbsRemote remote : remoteRepository.getMapForView(apiCtx).values())
                 {
-                    if (remote instanceof LinstorRemote)
+                    if (remote instanceof LinstorRemote linstorRemote)
                     {
-                        LinstorRemote linstorRemote = (LinstorRemote) remote;
                         if (localClusterUuid.equals(linstorRemote.getClusterId(apiCtx)))
                         {
                             ret = linstorRemote;

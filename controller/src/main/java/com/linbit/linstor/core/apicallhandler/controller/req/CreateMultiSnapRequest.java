@@ -220,11 +220,10 @@ public class CreateMultiSnapRequest
         {
             return true;
         }
-        if (!(obj instanceof CreateMultiSnapRequest))
+        if (!(obj instanceof CreateMultiSnapRequest other))
         {
             return false;
         }
-        CreateMultiSnapRequest other = (CreateMultiSnapRequest) obj;
         return Objects.equals(snapshots, other.snapshots);
     }
 
@@ -319,11 +318,10 @@ public class CreateMultiSnapRequest
             {
                 return true;
             }
-            if (!(obj instanceof SnapReq))
+            if (!(obj instanceof SnapReq other))
             {
                 return false;
             }
-            SnapReq other = (SnapReq) obj;
             return Objects.equals(nodeNames, other.nodeNames) && Objects.equals(rscName, other.rscName) && Objects
                 .equals(snapName, other.snapName);
         }

@@ -53,9 +53,8 @@ public abstract class SosReportType
     public boolean equals(Object obj)
     {
         boolean eq = false;
-        if (obj instanceof SosReportType)
+        if (obj instanceof SosReportType other)
         {
-            SosReportType other = (SosReportType) obj;
             eq = Objects.equals(fileName, other.fileName) &&
                 Objects.equals(timestamp, other.timestamp);
         }
@@ -90,9 +89,8 @@ public abstract class SosReportType
         public boolean equals(Object obj)
         {
             boolean eq = false;
-            if (obj instanceof SosInfoType)
+            if (obj instanceof SosInfoType other)
             {
-                SosInfoType other = (SosInfoType) obj;
                 eq = super.equals(obj) && Objects.equals(info, other.info);
             }
             return eq;
@@ -139,9 +137,8 @@ public abstract class SosReportType
         public boolean equals(Object obj)
         {
             boolean eq = false;
-            if (obj instanceof SosCommandType)
+            if (obj instanceof SosCommandType other)
             {
-                SosCommandType other = (SosCommandType) obj;
                 eq = super.equals(obj) && Arrays.equals(command, other.command);
             }
             return eq;
@@ -192,9 +189,8 @@ public abstract class SosReportType
         public boolean equals(Object obj)
         {
             boolean eq = false;
-            if (obj instanceof SosFileType)
+            if (obj instanceof SosFileType other)
             {
-                SosFileType other = (SosFileType) obj;
                 eq = super.equals(obj) && Objects.equals(path, other.path);
             }
             return eq;

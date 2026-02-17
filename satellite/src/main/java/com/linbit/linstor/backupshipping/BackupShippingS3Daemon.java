@@ -243,20 +243,20 @@ public class BackupShippingS3Daemon implements Runnable, BackupShippingDaemon
             try
             {
                 event = deque.take();
-                if (event instanceof StdOutEvent)
+                if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    errorReporter.logTrace("stdOut: %s", new String(((StdOutEvent) event).data));
+                    errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data));
                     // should not exist when sending due to handler.setStdOutListener(false)
                 }
-                else if (event instanceof StdErrEvent)
+                else if (event instanceof StdErrEvent stdErrEvent)
                 {
-                    String stdErr = new String(((StdErrEvent) event).data);
+                    String stdErr = new String(stdErrEvent.data);
                     errorReporter.logWarning("stdErr: %s", stdErr);
                 }
-                else if (event instanceof ExceptionEvent)
+                else if (event instanceof ExceptionEvent exceptionEvent)
                 {
                     errorReporter.logTrace("ExceptionEvent in '%s':", Arrays.toString(command));
-                    errorReporter.reportError(((ExceptionEvent) event).exc);
+                    errorReporter.reportError(exceptionEvent.exc);
                     // FIXME: Report the exception to the controller
                 }
                 else if (event instanceof PoisonEvent)

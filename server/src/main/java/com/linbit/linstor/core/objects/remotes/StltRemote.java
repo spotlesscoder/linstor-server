@@ -127,9 +127,8 @@ public class StltRemote extends AbsRemote
         {
             ret = true;
         }
-        else if (obj instanceof StltRemote)
+        else if (obj instanceof StltRemote other)
         {
-            StltRemote other = (StltRemote) obj;
             other.checkDeleted();
             ret = Objects.equals(remoteName, other.remoteName);
         }

@@ -176,11 +176,10 @@ public class StltReadOnlyInfo
             {
                 return true;
             }
-            if (!(obj instanceof ReadOnlyStorPool))
+            if (!(obj instanceof ReadOnlyStorPool other))
             {
                 return false;
             }
-            ReadOnlyStorPool other = (ReadOnlyStorPool) obj;
             return Objects.equals(name, other.name) && Objects.equals(node, other.node);
         }
     }
@@ -244,11 +243,10 @@ public class StltReadOnlyInfo
             {
                 return true;
             }
-            if (!(obj instanceof ReadOnlyNode))
+            if (!(obj instanceof ReadOnlyNode other))
             {
                 return false;
             }
-            ReadOnlyNode other = (ReadOnlyNode) obj;
             return Objects.equals(name, other.name) && Objects.equals(props, other.props);
         }
     }
@@ -284,10 +282,10 @@ public class StltReadOnlyInfo
             rscName = absRscLayerObject.getResourceName();
             rscSuffix = absRscLayerObject.getResourceNameSuffix();
             vlmNr = vlmProvObjRef.getVlmNr();
-            if (absResource instanceof Snapshot)
+            if (absResource instanceof Snapshot snapshot)
             {
                 vlmKey = null;
-                snapName = ((Snapshot) absResource).getSnapshotName();
+                snapName = snapshot.getSnapshotName();
                 snapVlmKey = ((SnapshotVolume) vlmProvObjRef.getVolume()).getKey();
             }
             else

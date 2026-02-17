@@ -436,9 +436,8 @@ public class ResourceConnection extends AbsCoreObj<ResourceConnection>
         {
             ret = true;
         }
-        else if (obj instanceof ResourceConnection)
+        else if (obj instanceof ResourceConnection other)
         {
-            ResourceConnection other = (ResourceConnection) obj;
             other.checkDeleted();
             ret = Objects.equals(connectionKey, other.connectionKey);
         }

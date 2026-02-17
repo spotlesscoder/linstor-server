@@ -574,9 +574,8 @@ public class VolumeDefinition extends AbsCoreObj<VolumeDefinition> implements Pr
         {
             ret = true;
         }
-        else if (obj instanceof VolumeDefinition)
+        else if (obj instanceof VolumeDefinition other)
         {
-            VolumeDefinition other = (VolumeDefinition) obj;
             other.checkDeleted();
             ret = Objects.equals(resourceDfn, other.resourceDfn) && Objects.equals(volumeNr, other.volumeNr);
         }

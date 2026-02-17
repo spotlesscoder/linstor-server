@@ -243,11 +243,10 @@ public class Migration_2025_05_27_MoveTcpPortsToNodes extends LinstorMigration
             {
                 return true;
             }
-            if (!(obj instanceof RscDfnKey))
+            if (!(obj instanceof RscDfnKey other))
             {
                 return false;
             }
-            RscDfnKey other = (RscDfnKey) obj;
             return Objects.equals(rscName, other.rscName) &&
                 Objects.equals(rscNameSuffix, other.rscNameSuffix);
         }

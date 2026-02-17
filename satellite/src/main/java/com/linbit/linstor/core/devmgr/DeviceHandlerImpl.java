@@ -528,9 +528,9 @@ public class DeviceHandlerImpl implements DeviceHandler
             details = linExc.getDetailsText();
         }
         else
-        if (exc instanceof AbortLayerProcessingException)
+        if (exc instanceof AbortLayerProcessingException abortExc)
         {
-            AbsRscLayerObject<?> rscLayerData = ((AbortLayerProcessingException) exc).rscLayerObject;
+            AbsRscLayerObject<?> rscLayerData = abortExc.rscLayerObject;
             rc = ApiConsts.FAIL_UNKNOWN_ERROR;
             errMsg = exc.getMessage();
 
@@ -642,9 +642,9 @@ public class DeviceHandlerImpl implements DeviceHandler
     {
         final boolean ret;
         final RSC absRsc = rscDataRef.getAbsResource();
-        if (absRsc instanceof Resource)
+        if (absRsc instanceof Resource resource)
         {
-            ret = ((Resource) absRsc).getStateFlags().isSet(wrkCtx, Resource.Flags.DELETE);
+            ret = resource.getStateFlags().isSet(wrkCtx, Resource.Flags.DELETE);
         }
         else
         {
@@ -1300,9 +1300,8 @@ public class DeviceHandlerImpl implements DeviceHandler
                 ApiConsts.FAIL_UNKNOWN_ERROR,
                 "Preparing resources for layer " + layer.getName() + " failed"
             );
-            if (exc instanceof LinStorException)
+            if (exc instanceof LinStorException linstorExc)
             {
-                LinStorException linstorExc = (LinStorException) exc;
                 builder = builder
                     .setCause(linstorExc.getCauseText())
                     .setCorrection(linstorExc.getCorrectionText())

@@ -534,9 +534,9 @@ public abstract class AbsRscLayerHelper<
         {
             layerStack = absRsc.getResourceDefinition().getLayerStack(apiCtx);
         }
-        else if (absRsc instanceof Snapshot)
+        else if (absRsc instanceof Snapshot snap)
         {
-            layerStack = ((Snapshot) absRsc).getSnapshotDefinition().getLayerStack(apiCtx);
+            layerStack = snap.getSnapshotDefinition().getLayerStack(apiCtx);
         }
         return layerStack;
     }

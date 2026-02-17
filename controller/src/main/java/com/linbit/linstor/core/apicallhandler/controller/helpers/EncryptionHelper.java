@@ -342,9 +342,8 @@ public class EncryptionHelper
                 boolean anyEbsRemoteDecrypted = false;
                 for (AbsRemote remote : remoteMap.values())
                 {
-                    if (remote instanceof EbsRemote)
+                    if (remote instanceof EbsRemote ebsRemote)
                     {
-                        EbsRemote ebsRemote = (EbsRemote) remote;
                         ebsRemote.setDecryptedAccessKey(
                             apiCtx,
                             new String(

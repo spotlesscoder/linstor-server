@@ -319,9 +319,8 @@ public class ResourceGroup extends AbsCoreObj<ResourceGroup> implements Protecte
         {
             ret = true;
         }
-        else if (obj instanceof ResourceGroup)
+        else if (obj instanceof ResourceGroup other)
         {
-            ResourceGroup other = (ResourceGroup) obj;
             other.checkDeleted();
             ret = Objects.equals(name, other.name);
         }

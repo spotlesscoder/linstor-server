@@ -281,11 +281,10 @@ public class LayerResourceIdDbDriver extends AbsDatabaseDriver<AbsRscLayerObject
             {
                 return true;
             }
-            if (!(obj instanceof ParentResourceLayerIdLoadingPojo))
+            if (!(obj instanceof ParentResourceLayerIdLoadingPojo other))
             {
                 return false;
             }
-            ParentResourceLayerIdLoadingPojo other = (ParentResourceLayerIdLoadingPojo) obj;
             return rscLayerId == other.rscLayerId;
         }
 

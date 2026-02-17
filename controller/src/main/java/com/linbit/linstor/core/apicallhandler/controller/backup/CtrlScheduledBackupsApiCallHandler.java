@@ -148,10 +148,10 @@ public class CtrlScheduledBackupsApiCallHandler
     {
         Flux<ApiCallRc> deleteFlux = Flux.empty();
         deleteFlux = deleteFlux.concatWith(checkKeepLocal(rscDfn, schedule, s3orLinRemote));
-        if (s3orLinRemote instanceof S3Remote)
+        if (s3orLinRemote instanceof S3Remote s3Remote)
         {
             deleteFlux = deleteFlux
-                .concatWith(checkKeepRemote(rscDfn.getName().displayValue, (S3Remote) s3orLinRemote, schedule));
+                .concatWith(checkKeepRemote(rscDfn.getName().displayValue, s3Remote, schedule));
         }
 
         return deleteFlux;

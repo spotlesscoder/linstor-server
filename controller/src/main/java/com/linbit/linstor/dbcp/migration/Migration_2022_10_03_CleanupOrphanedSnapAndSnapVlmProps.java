@@ -164,9 +164,8 @@ public class Migration_2022_10_03_CleanupOrphanedSnapAndSnapVlmProps extends Lin
         public boolean equals(Object obj)
         {
             boolean ret = false;
-            if (obj instanceof SnapshotKey)
+            if (obj instanceof SnapshotKey other)
             {
-                SnapshotKey other = (SnapshotKey) obj;
                 ret = Objects.equals(nodeName, other.nodeName) &&
                     Objects.equals(rscName, other.rscName) &&
                     Objects.equals(snapName, other.snapName);
@@ -215,9 +214,8 @@ public class Migration_2022_10_03_CleanupOrphanedSnapAndSnapVlmProps extends Lin
         public boolean equals(Object obj)
         {
             boolean ret = false;
-            if (obj instanceof SnapshotVolumeKey)
+            if (obj instanceof SnapshotVolumeKey other)
             {
-                SnapshotVolumeKey other = (SnapshotVolumeKey) obj;
                 ret = Objects.equals(nodeName, other.nodeName) &&
                     Objects.equals(rscName, other.rscName) &&
                     Objects.equals(vlmNr, other.vlmNr) &&

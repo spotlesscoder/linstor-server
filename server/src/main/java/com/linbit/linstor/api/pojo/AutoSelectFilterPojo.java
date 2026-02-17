@@ -429,11 +429,10 @@ public class AutoSelectFilterPojo implements AutoSelectFilterApi
         {
             return true;
         }
-        if (!(obj instanceof AutoSelectFilterPojo))
+        if (!(obj instanceof AutoSelectFilterPojo other))
         {
             return false;
         }
-        AutoSelectFilterPojo other = (AutoSelectFilterPojo) obj;
         return Objects.equals(additionalPlaceCount, other.additionalPlaceCount) &&
             Objects.equals(disklessOnRemaining, other.disklessOnRemaining) &&
             Objects.equals(disklessType, other.disklessType) &&

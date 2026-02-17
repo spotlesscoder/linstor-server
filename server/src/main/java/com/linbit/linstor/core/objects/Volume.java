@@ -360,14 +360,14 @@ public class Volume extends AbsVolume<Resource>
     public int compareTo(AbsVolume<Resource> otherVlm)
     {
         int eq = 1;
-        if (otherVlm instanceof Volume)
+        if (otherVlm instanceof Volume volume)
         {
             eq = getAbsResource().getNode().compareTo(
                 otherVlm.getAbsResource().getNode()
             );
             if (eq == 0)
             {
-                eq = volumeDfn.compareTo(((Volume) otherVlm).volumeDfn); // also contains rscName comparison
+                eq = volumeDfn.compareTo(volume.volumeDfn); // also contains rscName comparison
             }
         }
         return eq;
@@ -389,9 +389,8 @@ public class Volume extends AbsVolume<Resource>
         {
             ret = true;
         }
-        else if (obj instanceof Volume)
+        else if (obj instanceof Volume other)
         {
-            Volume other = (Volume) obj;
             other.checkDeleted();
             ret = Objects.equals(vlmKey, other.vlmKey);
         }

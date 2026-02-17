@@ -300,9 +300,8 @@ public class EbsRemote extends AbsRemote
         {
             ret = true;
         }
-        else if (obj instanceof EbsRemote)
+        else if (obj instanceof EbsRemote other)
         {
-            EbsRemote other = (EbsRemote) obj;
             other.checkDeleted();
             ret = Objects.equals(remoteName, other.remoteName);
         }

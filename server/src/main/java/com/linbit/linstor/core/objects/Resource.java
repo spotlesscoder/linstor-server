@@ -521,12 +521,12 @@ public class Resource extends AbsResource<Resource>
     public int compareTo(AbsResource<Resource> otherRsc)
     {
         int eq = 1;
-        if (otherRsc instanceof Resource)
+        if (otherRsc instanceof Resource resource)
         {
             eq = getNode().compareTo(otherRsc.getNode());
             if (eq == 0)
             {
-                eq = getResourceDefinition().compareTo(((Resource) otherRsc).getResourceDefinition());
+                eq = getResourceDefinition().compareTo(resource.getResourceDefinition());
             }
         }
         return eq;
@@ -547,9 +547,8 @@ public class Resource extends AbsResource<Resource>
         {
             ret = true;
         }
-        else if (obj instanceof Resource)
+        else if (obj instanceof Resource other)
         {
-            Resource other = (Resource) obj;
             other.checkDeleted();
             ret = Objects.equals(rscKey, other.rscKey);
         }

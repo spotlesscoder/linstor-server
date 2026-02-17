@@ -596,8 +596,8 @@ public class CtrlSnapshotCrtApiCallHandler
         // which can happen as both, sender and receiver try to abort a failed shipment
         if (snapshotDfn != null)
         {
-            SnapshotDefinition.Flags flag = exception instanceof CtrlResponseUtils.DelayedApiRcException &&
-                isFailNotConnected((CtrlResponseUtils.DelayedApiRcException) exception) ?
+            SnapshotDefinition.Flags flag = exception instanceof CtrlResponseUtils.DelayedApiRcException delayedExc &&
+                isFailNotConnected(delayedExc) ?
                     SnapshotDefinition.Flags.FAILED_DISCONNECT :
                     SnapshotDefinition.Flags.FAILED_DEPLOYMENT;
 

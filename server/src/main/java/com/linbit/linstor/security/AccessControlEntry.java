@@ -44,11 +44,10 @@ public final class AccessControlEntry implements Comparable<AccessControlEntry>
         {
             return true;
         }
-        if (!(obj instanceof AccessControlEntry))
+        if (!(obj instanceof AccessControlEntry other))
         {
             return false;
         }
-        AccessControlEntry other = (AccessControlEntry) obj;
         return Objects.equals(objPath, other.objPath) && Objects.equals(subjectRole, other.subjectRole);
     }
 }

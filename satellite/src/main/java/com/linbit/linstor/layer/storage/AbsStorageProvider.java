@@ -993,9 +993,9 @@ public abstract class AbsStorageProvider<
             {
                 throw new ImplementationError(exc);
             }
-            if (remote instanceof StltRemote)
+            if (remote instanceof StltRemote stltRemote)
             {
-                remoteName = ((StltRemote) remote).getLinstorRemoteName().displayValue;
+                remoteName = stltRemote.getLinstorRemoteName().displayValue;
             }
             if (remote == null)
             {
@@ -2029,9 +2029,8 @@ public abstract class AbsStorageProvider<
         else
         {
             errorReporter.logDebug("updateMinIoSize: Don't have vlmProviderList, using temporary volumes");
-            if (this instanceof ProbeVlmStorageProvider)
+            if (this instanceof ProbeVlmStorageProvider storPrv)
             {
-                final ProbeVlmStorageProvider storPrv = (ProbeVlmStorageProvider) this;
                 try
                 {
                     final String storDevicePath = storPrv.createTmpProbeVlm(storPoolObj);

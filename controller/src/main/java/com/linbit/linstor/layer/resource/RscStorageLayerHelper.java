@@ -462,7 +462,7 @@ public class RscStorageLayerHelper extends
         {
             throw new ImplementationError(exc);
         }
-        if (!(remote instanceof EbsRemote))
+        if (!(remote instanceof EbsRemote ebsRemote))
         {
             throw new ImplementationError(
                 "Remote was unexpectedly not an EBS remote, but: " + (remote == null ?
@@ -470,7 +470,7 @@ public class RscStorageLayerHelper extends
                     remote.getClass().getSimpleName())
             );
         }
-        return ((EbsRemote) remote).getAvailabilityZone(accCtx);
+        return ebsRemote.getAvailabilityZone(accCtx);
     }
 
     private static PairNonNull<String, Resource> findUnusedTargetEbsPair(

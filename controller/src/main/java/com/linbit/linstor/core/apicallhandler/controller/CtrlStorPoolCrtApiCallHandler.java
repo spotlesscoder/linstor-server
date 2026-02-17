@@ -287,11 +287,11 @@ public class CtrlStorPoolCrtApiCallHandler
         catch (InvalidNameException | LinStorException exc)
         {
             ApiCallRc.RcEntry errorRc;
-            if (exc instanceof LinStorException)
+            if (exc instanceof LinStorException linStorExc)
             {
                 errorRc = ApiCallRcImpl.copyFromLinstorExc(
                     ApiConsts.FAIL_UNKNOWN_ERROR,
-                    (LinStorException) exc
+                    linStorExc
                 );
             }
             else

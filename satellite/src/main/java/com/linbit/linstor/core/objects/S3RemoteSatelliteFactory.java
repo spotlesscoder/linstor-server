@@ -99,9 +99,9 @@ public class S3RemoteSatelliteFactory
                     uuid
                 );
             }
-            if (remote instanceof S3Remote)
+            if (remote instanceof S3Remote s3rmt)
             {
-                s3remote = (S3Remote) remote;
+                s3remote = s3rmt;
             }
             else
             {

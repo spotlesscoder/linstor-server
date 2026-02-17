@@ -1854,9 +1854,8 @@ public class CtrlBackupRestoreApiCallHandler
         UUID srcClusterId = UUID.fromString(sourceClusterIdStr);
         for (AbsRemote sourceRemote : remoteRepo.getMapForView(sysCtx).values())
         {
-            if (sourceRemote instanceof LinstorRemote)
+            if (sourceRemote instanceof LinstorRemote linstorSrcRemote)
             {
-                LinstorRemote linstorSrcRemote = (LinstorRemote) sourceRemote;
                 UUID remoteClusterId = linstorSrcRemote.getClusterId(sysCtx);
                 if (Objects.equals(remoteClusterId, srcClusterId))
                 {
@@ -2241,13 +2240,13 @@ public class CtrlBackupRestoreApiCallHandler
                             )
                         );
 
-                        if (remote instanceof StltRemote)
+                        if (remote instanceof StltRemote stltRemote)
                         {
                             // cleanupStltRemote will not be executed if flux has an error - this issue is currently
                             // unavoidable.
                             // This will be fixed with the linstor2 issue 19 (Combine Changed* proto messages for atomic
                             // updates)
-                            delPropFlux = delPropFlux.concatWith(backupHelper.cleanupStltRemote((StltRemote) remote));
+                            delPropFlux = delPropFlux.concatWith(backupHelper.cleanupStltRemote(stltRemote));
                             // since we have a stltRemote, we are at the end of an l2l shipping. This means that we need
                             // to tell the src-cluster that we are done with the download.
                             BackupShippingDstData data = backupInfoMgr.getL2LDstData(snap);
@@ -2288,8 +2287,8 @@ public class CtrlBackupRestoreApiCallHandler
                         peerProvider.get(),
                         rscNameRef,
                         snapNameRef,
-                        remote instanceof StltRemote ?
-                            ((StltRemote) remote).getLinstorRemoteName().displayValue :
+                        remote instanceof StltRemote stltRem ?
+                            stltRem.getLinstorRemoteName().displayValue :
                             srcRemoteName
                     )
                 )

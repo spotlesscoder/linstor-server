@@ -34,11 +34,10 @@ class CategoryLvm implements Category
         {
             return true;
         }
-        if (!(obj instanceof CategoryLvm))
+        if (!(obj instanceof CategoryLvm other))
         {
             return false;
         }
-        CategoryLvm other = (CategoryLvm) obj;
         return Objects.equals(metadata, other.metadata);
     }
 
@@ -46,13 +45,12 @@ class CategoryLvm implements Category
     public int compareTo(Category other)
     {
         int ret;
-        if (!(other instanceof CategoryLvm))
+        if (!(other instanceof CategoryLvm otherLvm))
         {
             ret = other.getClass().getSimpleName().compareTo(CategoryLvm.class.getSimpleName());
         }
         else
         {
-            CategoryLvm otherLvm = (CategoryLvm) other;
             ret = otherLvm.getMetadata().size() - metadata.size();
             if (ret == 0)
             {

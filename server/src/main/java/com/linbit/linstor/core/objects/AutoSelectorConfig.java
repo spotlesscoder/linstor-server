@@ -411,11 +411,10 @@ public class AutoSelectorConfig extends BaseTransactionObject
         {
             return true;
         }
-        if (!(obj instanceof AutoSelectorConfig))
+        if (!(obj instanceof AutoSelectorConfig other))
         {
             return false;
         }
-        AutoSelectorConfig other = (AutoSelectorConfig) obj;
         return Objects.equals(allowedProviderList, other.allowedProviderList) && Objects.equals(
             disklessOnRemaining,
             other.disklessOnRemaining

@@ -357,9 +357,8 @@ public class NodeConnection extends AbsCoreObj<NodeConnection>
         {
             ret = true;
         }
-        else if (obj instanceof NodeConnection)
+        else if (obj instanceof NodeConnection other)
         {
-            NodeConnection other = (NodeConnection) obj;
             other.checkDeleted();
             ret = Objects.equals(sourceNode, other.sourceNode) && Objects.equals(targetNode, other.targetNode);
         }
@@ -416,11 +415,10 @@ public class NodeConnection extends AbsCoreObj<NodeConnection>
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             return Objects.equals(sourceNodeName, other.sourceNodeName) && Objects.equals(
                 targetNodeName,
                 other.targetNodeName

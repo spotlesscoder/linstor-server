@@ -107,9 +107,8 @@ public class ExternalFile extends AbsCoreObj<ExternalFile> implements ProtectedO
         {
             ret = true;
         }
-        else if (obj instanceof ExternalFile)
+        else if (obj instanceof ExternalFile other)
         {
-            ExternalFile other = (ExternalFile) obj;
             other.checkDeleted();
             ret = Objects.equals(fileName, other.fileName);
         }

@@ -413,9 +413,9 @@ public class StorageLayer implements DeviceLayer
         @Nullable LocalPropsChangePojo updatePropsPojo = null;
         if (update)
         {
-            if (storPoolInfo instanceof StorPool)
+            if (storPoolInfo instanceof StorPool storPool)
             {
-                updatePropsPojo = deviceProvider.update((StorPool) storPoolInfo);
+                updatePropsPojo = deviceProvider.update(storPool);
             }
             else
             {

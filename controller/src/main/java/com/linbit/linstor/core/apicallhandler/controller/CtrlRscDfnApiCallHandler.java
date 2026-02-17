@@ -351,9 +351,9 @@ public class CtrlRscDfnApiCallHandler
         {
             if (throwOnError)
             {
-                if (exc instanceof ApiRcException)
+                if (exc instanceof ApiRcException apiRcException)
                 {
-                    throw (ApiRcException) exc;
+                    throw apiRcException;
                 }
                 else
                 {

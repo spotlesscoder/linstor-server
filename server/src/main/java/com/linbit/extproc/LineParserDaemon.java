@@ -87,22 +87,22 @@ public class LineParserDaemon implements Runnable
             try
             {
                 event = deque.take();
-                if (event instanceof OutputProxy.StdOutEvent)
+                if (event instanceof OutputProxy.StdOutEvent stdOutEvent)
                 {
-                    String line = new String(((OutputProxy.StdOutEvent) event).data);
+                    String line = new String(stdOutEvent.data);
                     consumer.accept(line);
                     errorReporter.logTrace(line);
                 }
-                else if (event instanceof OutputProxy.StdErrEvent)
+                else if (event instanceof OutputProxy.StdErrEvent stdErrEvent)
                 {
-                    String stdErrLine = new String(((OutputProxy.StdErrEvent) event).data);
+                    String stdErrLine = new String(stdErrEvent.data);
                     sbErr.append(stdErrLine);
                     errorReporter.logWarning("stdErr: %s", stdErrLine);
                 }
-                else if (event instanceof OutputProxy.ExceptionEvent)
+                else if (event instanceof OutputProxy.ExceptionEvent exceptionEvent)
                 {
                     errorReporter.logError("ExceptionEvent in '%s':", strCommand);
-                    errorReporter.reportError(((OutputProxy.ExceptionEvent) event).exc);
+                    errorReporter.reportError(exceptionEvent.exc);
                 }
                 else if (event instanceof LineParserDaemon.PoisonEvent)
                 {

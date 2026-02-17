@@ -99,9 +99,9 @@ public class NvmeRscData<RSC extends AbsResource<RSC>>
     public boolean isInitiator(AccessContext accCtx) throws AccessDeniedException
     {
         boolean isDiskless = false;
-        if (rsc instanceof Resource)
+        if (rsc instanceof Resource resource)
         {
-            isDiskless = ((Resource) rsc).getStateFlags().isSet(accCtx, Resource.Flags.NVME_INITIATOR);
+            isDiskless = resource.getStateFlags().isSet(accCtx, Resource.Flags.NVME_INITIATOR);
         }
         return isDiskless;
     }

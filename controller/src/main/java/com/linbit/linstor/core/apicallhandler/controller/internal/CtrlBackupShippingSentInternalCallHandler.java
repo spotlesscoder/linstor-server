@@ -450,10 +450,10 @@ public class CtrlBackupShippingSentInternalCallHandler
         if (remote != null)
         {
             remoteForSchedule = remote;
-            if (remote instanceof StltRemote)
+            if (remote instanceof StltRemote stltRemote)
             {
                 // get the linstor-remote instead to set the prop
-                AbsRemote linstorRemote = remoteRepo.get(sysCtx, ((StltRemote) remote).getLinstorRemoteName());
+                AbsRemote linstorRemote = remoteRepo.get(sysCtx, stltRemote.getLinstorRemoteName());
                 if (success)
                 {
                     rscDfn.getProps(peerAccCtx.get())

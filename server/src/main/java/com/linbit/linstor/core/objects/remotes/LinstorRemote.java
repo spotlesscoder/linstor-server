@@ -117,9 +117,8 @@ public class LinstorRemote extends AbsRemote
         {
             ret = true;
         }
-        else if (obj instanceof LinstorRemote)
+        else if (obj instanceof LinstorRemote other)
         {
-            LinstorRemote other = (LinstorRemote) obj;
             other.checkDeleted();
             ret = Objects.equals(remoteName, other.remoteName);
         }

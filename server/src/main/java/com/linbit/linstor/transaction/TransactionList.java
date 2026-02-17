@@ -62,9 +62,9 @@ public class TransactionList<PARENT, VALUE>
         // forward transaction manager to values
         for (VALUE val : backingList)
         {
-            if (val instanceof TransactionObject)
+            if (val instanceof TransactionObject transactionObject)
             {
-                ((TransactionObject) val).setConnection(transMgrRef);
+                transactionObject.setConnection(transMgrRef);
             }
         }
     }

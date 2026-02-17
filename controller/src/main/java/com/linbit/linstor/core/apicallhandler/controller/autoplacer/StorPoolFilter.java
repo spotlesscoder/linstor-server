@@ -688,13 +688,13 @@ public class StorPoolFilter
         boolean log = false;
         if (obj != null)
         {
-            if (obj instanceof Collection)
+            if (obj instanceof Collection col)
             {
-                log = !((Collection) obj).isEmpty();
+                log = !col.isEmpty();
             }
-            else if (obj instanceof Map)
+            else if (obj instanceof Map map)
             {
-                log = !((Map) obj).isEmpty();
+                log = !map.isEmpty();
             }
             else
             {

@@ -591,13 +591,13 @@ public class ProtoCtrlStltSerializerBuilder extends ProtoCommonSerializerBuilder
             }
             for (AbsRemote remote : remotes)
             {
-                if (remote instanceof S3Remote)
+                if (remote instanceof S3Remote s3Remote)
                 {
-                    serializedS3Remotes.add(remoteSerializerHelper.buildS3RemoteMsg((S3Remote) remote));
+                    serializedS3Remotes.add(remoteSerializerHelper.buildS3RemoteMsg(s3Remote));
                 }
-                else if (remote instanceof EbsRemote)
+                else if (remote instanceof EbsRemote ebsRemote)
                 {
-                    serializedEbsRemotes.add(remoteSerializerHelper.buildEbsRemoteMsg((EbsRemote) remote));
+                    serializedEbsRemotes.add(remoteSerializerHelper.buildEbsRemoteMsg(ebsRemote));
                 }
                 else if (remote instanceof StltRemote)
                 {
@@ -647,17 +647,17 @@ public class ProtoCtrlStltSerializerBuilder extends ProtoCommonSerializerBuilder
         try
         {
             MsgIntApplyRemote.Builder builder = MsgIntApplyRemote.newBuilder();
-            if (remoteRef instanceof S3Remote)
+            if (remoteRef instanceof S3Remote s3Remote)
             {
-                builder.setS3Remote(remoteSerializerHelper.buildS3RemoteMsg((S3Remote) remoteRef));
+                builder.setS3Remote(remoteSerializerHelper.buildS3RemoteMsg(s3Remote));
             }
-            else if (remoteRef instanceof StltRemote)
+            else if (remoteRef instanceof StltRemote stltRemote)
             {
-                builder.setSatelliteRemote(remoteSerializerHelper.buildStltRemoteMsg((StltRemote) remoteRef));
+                builder.setSatelliteRemote(remoteSerializerHelper.buildStltRemoteMsg(stltRemote));
             }
-            else if (remoteRef instanceof EbsRemote)
+            else if (remoteRef instanceof EbsRemote ebsRemote)
             {
-                builder.setEbsRemote(remoteSerializerHelper.buildEbsRemoteMsg((EbsRemote) remoteRef));
+                builder.setEbsRemote(remoteSerializerHelper.buildEbsRemoteMsg(ebsRemote));
             }
             else
             {

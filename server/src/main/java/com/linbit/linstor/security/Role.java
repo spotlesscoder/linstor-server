@@ -193,9 +193,9 @@ public final class Role implements Comparable<Role>
     public boolean equals(Object other)
     {
         boolean equals = false;
-        if (other != null && other instanceof Role)
+        if (other instanceof Role role)
         {
-            equals = this.name.equals(((Role) other).name);
+            equals = this.name.equals(role.name);
         }
         return equals;
     }

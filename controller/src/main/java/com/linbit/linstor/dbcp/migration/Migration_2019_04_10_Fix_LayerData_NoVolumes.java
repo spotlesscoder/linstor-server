@@ -312,9 +312,8 @@ public class Migration_2019_04_10_Fix_LayerData_NoVolumes extends LinstorMigrati
         public boolean equals(Object obj)
         {
             boolean eq = this == obj;
-            if (!eq && obj != null && obj instanceof RscKey)
+            if (!eq && obj instanceof RscKey other)
             {
-                RscKey other = (RscKey) obj;
                 eq = Objects.equals(nodeName, other.nodeName) &&
                     Objects.equals(rscName, other.rscName);
             }

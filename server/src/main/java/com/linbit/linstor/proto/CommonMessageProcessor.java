@@ -110,9 +110,9 @@ public class CommonMessageProcessor implements MessageProcessor
         sink = Sinks.many().unicast().onBackpressureBuffer(Queues.<Runnable>unbounded(queueSize).get());
         Flux<Runnable> workerPool = sink.asFlux();
         Hooks.onOperatorError((throwable, context) -> {
-            if (throwable instanceof CriticalError)
+            if (throwable instanceof CriticalError criticalError)
             {
-                CriticalError.die(errorLog, (CriticalError) throwable);
+                CriticalError.die(errorLog, criticalError);
             }
             return throwable;
         });
@@ -507,23 +507,23 @@ public class CommonMessageProcessor implements MessageProcessor
         Flux<byte[]> flux;
         BaseApiCall apiObj = apiMapEntry.apiCall;
         final var logContextMap = MDC.getCopyOfContextMap();
-        if (apiObj instanceof ApiCall)
+        if (apiObj instanceof ApiCall apiCall)
         {
             flux = scopeRunner.fluxInScope(
                 "Execute single-stage API " + apiCallName,
                 LockGuard.createDeferred(),
-                () -> executeNonReactive((ApiCall) apiObj, msgDataIn),
+                () -> executeNonReactive(apiCall, msgDataIn),
                 apiMapEntry.transactional,
                 logContextMap
             );
         }
         else
-        if (apiObj instanceof ApiCallReactive)
+        if (apiObj instanceof ApiCallReactive apiCallReactive)
         {
             Flux<byte[]> executionFlux = Mono
                 .fromCallable(() -> {
                     MDC.setContextMap(logContextMap);
-                    return ((ApiCallReactive) apiObj).executeReactive(msgDataIn);
+                    return apiCallReactive.executeReactive(msgDataIn);
                 })
                 .flatMapMany(Function.identity());
 

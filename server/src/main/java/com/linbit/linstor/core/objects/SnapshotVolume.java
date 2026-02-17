@@ -186,12 +186,12 @@ public class SnapshotVolume extends AbsVolume<Snapshot> // TODO implement Snapsh
     public int compareTo(AbsVolume<Snapshot> other)
     {
         int cmp = -1;
-        if (other instanceof SnapshotVolume)
+        if (other instanceof SnapshotVolume snapshotVolume)
         {
             cmp = absRsc.compareTo(other.getAbsResource());
             if (cmp == 0)
             {
-                cmp = snapshotVolumeDefinition.compareTo(((SnapshotVolume) other).getSnapshotVolumeDefinition());
+                cmp = snapshotVolumeDefinition.compareTo(snapshotVolume.getSnapshotVolumeDefinition());
             }
         }
         return cmp;
@@ -213,9 +213,8 @@ public class SnapshotVolume extends AbsVolume<Snapshot> // TODO implement Snapsh
         {
             ret = true;
         }
-        else if (obj instanceof SnapshotVolume)
+        else if (obj instanceof SnapshotVolume other)
         {
-            SnapshotVolume other = (SnapshotVolume) obj;
             other.checkDeleted();
             ret = Objects.equals(snapshotVolumeDefinition, other.snapshotVolumeDefinition) &&
                 Objects.equals(absRsc, other.absRsc);
@@ -345,11 +344,10 @@ public class SnapshotVolume extends AbsVolume<Snapshot> // TODO implement Snapsh
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
             {
                 return false;

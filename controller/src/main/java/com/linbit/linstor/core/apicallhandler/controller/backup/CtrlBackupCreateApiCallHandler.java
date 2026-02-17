@@ -1029,7 +1029,7 @@ public class CtrlBackupCreateApiCallHandler
                 else
                 {
                     if (
-                        remote instanceof S3Remote && BackupShippingUtils.hasShippingStatus(
+                        remote instanceof S3Remote s3remote && BackupShippingUtils.hasShippingStatus(
                             prevSnapDfn,
                             remote.getName().displayValue,
                             InternalApiConsts.VALUE_SUCCESS,
@@ -1037,7 +1037,6 @@ public class CtrlBackupCreateApiCallHandler
                         )
                     )
                     {
-                        S3Remote s3remote = (S3Remote) remote;
                         ApiCallRcImpl apiCallRc = new ApiCallRcImpl();
                         Map<String, S3ObjectInfo> s3LinstorObjects = backupHelper.loadAllLinstorS3Objects(
                             s3remote,

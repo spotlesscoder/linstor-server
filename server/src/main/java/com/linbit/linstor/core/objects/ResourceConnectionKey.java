@@ -91,9 +91,8 @@ public class ResourceConnectionKey implements Comparable<ResourceConnectionKey>
         {
             ret = true;
         }
-        else if (obj instanceof ResourceConnectionKey)
+        else if (obj instanceof ResourceConnectionKey other)
         {
-            ResourceConnectionKey other = (ResourceConnectionKey) obj;
             ret = Objects.equals(rscName, other.rscName) && Objects.equals(srcNodeName, other.srcNodeName) &&
                 Objects.equals(tgtNodeName, other.tgtNodeName);
         }

@@ -112,9 +112,8 @@ public class StorageLayerSizeCalculator extends AbsLayerSizeCalculator<AbsStorag
     private int getStripes(VlmProviderObject<?> vlmDataRef) throws AccessDeniedException
     {
         int stripes = 1; // by default
-        if (vlmDataRef instanceof LvmData)
+        if (vlmDataRef instanceof LvmData<?> lvmData)
         {
-            LvmData<?> lvmData = (LvmData<?>) vlmDataRef;
             @Nullable String stripesStr = getProps(sysCtx, lvmData)
                 .getProp(getStripesPropKey(lvmData));
             if (stripesStr != null)
@@ -168,9 +167,9 @@ public class StorageLayerSizeCalculator extends AbsLayerSizeCalculator<AbsStorag
     {
         AbsVolume<?> absVlm = vlmDataRef.getVolume();
         Props props;
-        if (absVlm instanceof Volume)
+        if (absVlm instanceof Volume volume)
         {
-            props = ((Volume) absVlm).getProps(accCtxRef);
+            props = volume.getProps(accCtxRef);
         }
         else
         {

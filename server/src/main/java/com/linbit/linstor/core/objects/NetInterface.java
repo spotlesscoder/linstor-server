@@ -219,9 +219,8 @@ public class NetInterface extends AbsCoreObj<NetInterface> implements ProtectedO
         {
             ret = true;
         }
-        else if (obj instanceof NetInterface)
+        else if (obj instanceof NetInterface other)
         {
-            NetInterface other = (NetInterface) obj;
             other.checkDeleted();
             ret = Objects.equals(niName, other.niName) && Objects.equals(niNode, other.niNode);
         }
@@ -301,11 +300,10 @@ public class NetInterface extends AbsCoreObj<NetInterface> implements ProtectedO
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             return Objects.equals(netIfName, other.netIfName) && Objects.equals(nodeName, other.nodeName);
         }
 

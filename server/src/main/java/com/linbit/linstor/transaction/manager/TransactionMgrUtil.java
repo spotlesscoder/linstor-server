@@ -7,14 +7,14 @@ public class TransactionMgrUtil
     public static void seedTransactionMgr(final LinStorScope initScope, final TransactionMgr transMgr)
     {
         initScope.seed(TransactionMgr.class, transMgr);
-        if (transMgr instanceof TransactionMgrSQL)
+        if (transMgr instanceof TransactionMgrSQL transactionMgrSQL)
         {
-            initScope.seed(TransactionMgrSQL.class, (TransactionMgrSQL) transMgr);
+            initScope.seed(TransactionMgrSQL.class, transactionMgrSQL);
         }
         else
-        if (transMgr instanceof TransactionMgrK8sCrd)
+        if (transMgr instanceof TransactionMgrK8sCrd transactionMgrK8sCrd)
         {
-            initScope.seed(TransactionMgrK8sCrd.class, (TransactionMgrK8sCrd) transMgr);
+            initScope.seed(TransactionMgrK8sCrd.class, transactionMgrK8sCrd);
         }
         else
         if (transMgr instanceof SatelliteTransactionMgr)

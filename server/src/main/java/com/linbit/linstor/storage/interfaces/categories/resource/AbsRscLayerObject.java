@@ -168,9 +168,9 @@ public interface AbsRscLayerObject<RSC extends AbsResource<RSC>>
     {
         SnapshotName snapName = null;
         RSC absRsc = getAbsResource();
-        if (absRsc instanceof Snapshot)
+        if (absRsc instanceof Snapshot snapshot)
         {
-            snapName = ((Snapshot) absRsc).getSnapshotName();
+            snapName = snapshot.getSnapshotName();
         }
         return snapName;
     }

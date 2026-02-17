@@ -75,9 +75,8 @@ public class ExternalFileName implements Comparable<ExternalFileName>
         }
         else
         {
-            if (obj instanceof ExternalFileName)
+            if (obj instanceof ExternalFileName other)
             {
-                ExternalFileName other = (ExternalFileName) obj;
                 eq = Objects.equal(extFileName, other.extFileName);
             }
             else

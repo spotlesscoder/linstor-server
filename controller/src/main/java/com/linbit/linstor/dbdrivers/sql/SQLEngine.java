@@ -798,9 +798,9 @@ public class SQLEngine implements DbEngine
                     case Types.TIMESTAMP ->
                     {
                         Timestamp timestamp;
-                        if (objRef instanceof Timestamp)
+                        if (objRef instanceof Timestamp ts)
                         {
-                            timestamp = (Timestamp) objRef;
+                            timestamp = ts;
                         }
                         else
                         {
@@ -811,9 +811,9 @@ public class SQLEngine implements DbEngine
                     case Types.DATE ->
                     {
                         long dateTimestamp;
-                        if (objRef instanceof java.util.Date)
+                        if (objRef instanceof java.util.Date dateObj)
                         {
-                            dateTimestamp = ((java.util.Date) objRef).getTime();
+                            dateTimestamp = dateObj.getTime();
                         }
                         else
                         {

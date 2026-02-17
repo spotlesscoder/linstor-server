@@ -225,9 +225,9 @@ public class CtrlRscDfnApiCallHelper
         for (Resource rsc : rscsRef)
         {
             Property dynProp = rsc.getNode().getPeer(accCtxRef).getDynamicProperty(FULL_KEY_DISC_GRAN);
-            if (dynProp instanceof RangeProperty)
+            if (dynProp instanceof RangeProperty rangeProp)
             {
-                maxDiscGrans.add(((RangeProperty) dynProp).getMax());
+                maxDiscGrans.add(rangeProp.getMax());
             }
         }
         long ret;

@@ -357,9 +357,9 @@ public class Snapshot extends AbsResource<Snapshot> // TODO: add SnapshotConnect
     public int compareTo(AbsResource<Snapshot> otherSnapshot)
     {
         int eq = -1;
-        if (otherSnapshot instanceof Snapshot)
+        if (otherSnapshot instanceof Snapshot snapshot)
         {
-            eq = snapshotDfn.compareTo(((Snapshot) otherSnapshot).snapshotDfn);
+            eq = snapshotDfn.compareTo(snapshot.snapshotDfn);
             if (eq == 0)
             {
                 eq = getNode().compareTo(otherSnapshot.getNode());
@@ -384,9 +384,8 @@ public class Snapshot extends AbsResource<Snapshot> // TODO: add SnapshotConnect
         {
             ret = true;
         }
-        else if (obj instanceof Snapshot)
+        else if (obj instanceof Snapshot other)
         {
-            Snapshot other = (Snapshot) obj;
             other.checkDeleted();
             ret = Objects.equals(snapshotDfn, other.snapshotDfn) && Objects.equals(node, other.node);
         }
@@ -583,11 +582,10 @@ public class Snapshot extends AbsResource<Snapshot> // TODO: add SnapshotConnect
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             return Objects.equals(nodeName, other.nodeName) && Objects.equals(resourceName, other.resourceName) &&
                 Objects.equals(snapshotName, other.snapshotName);
         }

@@ -249,9 +249,9 @@ public abstract class AbsBackupShippingService implements SystemService
                 {
                     startDaemon = true;
                 }
-                else if (s3orStltRemote instanceof StltRemote)
+                else if (s3orStltRemote instanceof StltRemote stltRemote)
                 {
-                    @Nullable String ip = ((StltRemote) s3orStltRemote).getIp(accCtx);
+                    @Nullable String ip = stltRemote.getIp(accCtx);
                     startDaemon = ip != null && !ip.isBlank();
                 }
                 else
@@ -285,8 +285,8 @@ public abstract class AbsBackupShippingService implements SystemService
                             InternalApiConsts.API_NOTIFY_BACKUP_SHIPPING_SENT,
                             true,
                             false,
-                            s3orStltRemote instanceof StltRemote ?
-                                ((StltRemote) s3orStltRemote).getLinstorRemoteName().displayValue :
+                            s3orStltRemote instanceof StltRemote stltRmt ?
+                                stltRmt.getLinstorRemoteName().displayValue :
                                 s3orStltRemoteName
                         ),
                         basedOnSnapVlmData,
@@ -319,9 +319,9 @@ public abstract class AbsBackupShippingService implements SystemService
 
                 ensureRemoteType(remote);
                 Integer port = null;
-                if (remote instanceof StltRemote)
+                if (remote instanceof StltRemote stltRemote)
                 {
-                    port = ((StltRemote) remote).getPorts(accCtx)
+                    port = stltRemote.getPorts(accCtx)
                         .get(snapVlmData.getVlmNr() + snapVlmData.getRscLayerObject().getResourceNameSuffix());
                 }
 
@@ -347,8 +347,8 @@ public abstract class AbsBackupShippingService implements SystemService
                         InternalApiConsts.API_NOTIFY_BACKUP_SHIPPING_RECEIVED,
                         true,
                         true,
-                        remote instanceof StltRemote ?
-                            ((StltRemote) remote).getLinstorRemoteName().displayValue :
+                        remote instanceof StltRemote stltRmt ?
+                            stltRmt.getLinstorRemoteName().displayValue :
                             remoteName
                     ),
                     null,
@@ -375,8 +375,8 @@ public abstract class AbsBackupShippingService implements SystemService
             {
                 throw new ImplementationError(exc);
             }
-            RemoteName s3orLinRemoteName = remote instanceof StltRemote ? ((StltRemote) remote).getLinstorRemoteName() :
-                remote.getName();
+            RemoteName s3orLinRemoteName = remote instanceof StltRemote stltRemote ?
+                stltRemote.getLinstorRemoteName() : remote.getName();
             PairNonNull<Snapshot, RemoteName> shipKey = getShipKey(s3orLinRemoteName.displayValue, snap);
             info = shippingInfoMap.get(shipKey);
             if (info != null)
@@ -444,16 +444,16 @@ public abstract class AbsBackupShippingService implements SystemService
 
         if (serviceStarted)
         {
-            RemoteName s3orLinRemoteName = s3orStltRemote instanceof StltRemote ? ((StltRemote) s3orStltRemote)
-                .getLinstorRemoteName() : s3orStltRemote.getName();
+            RemoteName s3orLinRemoteName = s3orStltRemote instanceof StltRemote stltRemote ?
+                stltRemote.getLinstorRemoteName() : s3orStltRemote.getName();
             if (!alreadyStarted(snapVlmData, s3orLinRemoteName.displayValue))
             {
                 Snapshot snap = snapVlmData.getRscLayerObject().getAbsResource();
                 PairNonNull<Snapshot, RemoteName> shipKey = getShipKey(s3orLinRemoteName.displayValue, snap);
                 ShippingInfo info = shippingInfoMap.computeIfAbsent(shipKey, key -> new ShippingInfo());
-                if (s3orStltRemote instanceof StltRemote)
+                if (s3orStltRemote instanceof StltRemote stltRemote)
                 {
-                    @Nullable Integer port = ((StltRemote) s3orStltRemote).getPorts(accCtx)
+                    @Nullable Integer port = stltRemote.getPorts(accCtx)
                         .get(snapVlmData.getVlmNr() + snapVlmData.getRscLayerObject().getResourceNameSuffix());
                     if (port != null)
                     {
@@ -487,8 +487,8 @@ public abstract class AbsBackupShippingService implements SystemService
                     else
                     {
                         namespc = BackupShippingUtils.BACKUP_SOURCE_PROPS_NAMESPC + "/" +
-                            (s3orStltRemote instanceof StltRemote ?
-                                ((StltRemote) s3orStltRemote).getLinstorRemoteName().displayValue :
+                            (s3orStltRemote instanceof StltRemote stltRmt ?
+                                stltRmt.getLinstorRemoteName().displayValue :
                                 s3orStltRemote.getName().displayValue);
                     }
                     String s3Suffix = stltConfigAccessor.getReadonlyProps()
@@ -552,8 +552,8 @@ public abstract class AbsBackupShippingService implements SystemService
 
     private PairNonNull<Snapshot, RemoteName> getShipKey(AbsRemote remote, Snapshot snap)
     {
-        RemoteName remoteForKey = remote instanceof StltRemote ?
-            ((StltRemote) remote).getLinstorRemoteName() :
+        RemoteName remoteForKey = remote instanceof StltRemote stltRemote ?
+            stltRemote.getLinstorRemoteName() :
             remote.getName();
         return new PairNonNull<>(snap, remoteForKey);
     }

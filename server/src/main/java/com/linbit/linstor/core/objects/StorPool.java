@@ -524,9 +524,8 @@ public class StorPool extends AbsCoreObj<StorPool>
         {
             ret = true;
         }
-        else if (obj instanceof StorPool)
+        else if (obj instanceof StorPool other)
         {
-            StorPool other = (StorPool) obj;
             other.checkDeleted();
             ret = Objects.equals(node, other.node) && Objects.equals(storPoolDef, other.storPoolDef);
         }

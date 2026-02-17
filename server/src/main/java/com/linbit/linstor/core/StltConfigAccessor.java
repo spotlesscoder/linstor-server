@@ -62,9 +62,9 @@ public class StltConfigAccessor
         @Nullable ReadOnlyProps ns = stltProps.getNamespace(namespace);
         if (ns != null)
         {
-            if (ns instanceof Props)
+            if (ns instanceof Props props)
             {
-                roRet = new ReadOnlyPropsImpl((Props) ns);
+                roRet = new ReadOnlyPropsImpl(props);
             }
             else
             {

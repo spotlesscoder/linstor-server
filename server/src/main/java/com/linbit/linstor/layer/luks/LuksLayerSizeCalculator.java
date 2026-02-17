@@ -419,9 +419,9 @@ public class LuksLayerSizeCalculator extends AbsLayerSizeCalculator<LuksVlmData<
 
         final ReadOnlyProps vlmProps;
         final ReadOnlyProps rscProps;
-        if (vlm instanceof Volume)
+        if (vlm instanceof Volume volume)
         {
-            vlmProps = ((Volume) vlm).getProps(sysCtx);
+            vlmProps = volume.getProps(sysCtx);
             rscProps = ((Resource) rsc).getProps(sysCtx);
         }
         else

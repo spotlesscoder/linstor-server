@@ -63,11 +63,10 @@ public class AggregateCapacityInfo implements Comparable<AggregateCapacityInfo>
         {
             return true;
         }
-        if (!(obj instanceof AggregateCapacityInfo))
+        if (!(obj instanceof AggregateCapacityInfo other))
         {
             return false;
         }
-        AggregateCapacityInfo other = (AggregateCapacityInfo) obj;
         return Objects.equals(nodeName, other.nodeName);
     }
 }

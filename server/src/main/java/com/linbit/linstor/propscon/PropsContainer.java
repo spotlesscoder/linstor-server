@@ -1136,15 +1136,14 @@ public class PropsContainer extends AbsTransactionObject implements Props
             try
             {
                 Object effKey = key;
-                if (effKey instanceof Map.Entry)
+                if (effKey instanceof Map.Entry<?, ?> entry)
                 {
-                    Map.Entry<?, ?> entry = (Map.Entry<?, ?>) effKey;
                     effKey = entry.getKey();
                 }
 
-                if (effKey instanceof String)
+                if (effKey instanceof String string)
                 {
-                    value = container.removeProp((String) effKey, null);
+                    value = container.removeProp(string, null);
                 }
                 else
                 {
@@ -1247,9 +1246,8 @@ public class PropsContainer extends AbsTransactionObject implements Props
         public boolean equals(Object obj)
         {
             boolean equals = this == obj;
-            if (!equals && obj != null && obj instanceof Map)
+            if (!equals && obj instanceof Map<?, ?> map)
             {
-                Map<?, ?> map = (Map<?, ?>) obj;
                 equals = Objects.equals(map.entrySet(), this.entrySet());
             }
             return equals;
@@ -1309,9 +1307,8 @@ public class PropsContainer extends AbsTransactionObject implements Props
         public boolean equals(Object obj)
         {
             boolean equals = this == obj;
-            if (!equals && obj != null && obj instanceof Set)
+            if (!equals && obj instanceof Set<?> set)
             {
-                Set<?> set = (Set<?>) obj;
                 equals = this.size() == set.size();
                 Iterator<?> iterator = set.iterator();
                 while (equals && iterator.hasNext())
@@ -1540,9 +1537,9 @@ public class PropsContainer extends AbsTransactionObject implements Props
                 key = obj;
             }
             else
-            if (obj instanceof Map.Entry)
+            if (obj instanceof Map.Entry<?, ?> entry)
             {
-                key = ((Map.Entry<?, ?>) obj).getKey();
+                key = entry.getKey();
             }
             else
             {
@@ -2404,9 +2401,8 @@ public class PropsContainer extends AbsTransactionObject implements Props
         {
             ret = true;
         }
-        else if (obj instanceof PropsContainer)
+        else if (obj instanceof PropsContainer other)
         {
-            PropsContainer other = (PropsContainer) obj;
             ret = Objects.equals(instanceName, other.instanceName);
         }
         return ret;

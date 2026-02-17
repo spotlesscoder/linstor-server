@@ -123,9 +123,8 @@ public class Schedule extends AbsCoreObj<Schedule> implements ProtectedObject
         {
             ret = true;
         }
-        else if (obj instanceof Schedule)
+        else if (obj instanceof Schedule other)
         {
-            Schedule other = (Schedule) obj;
             other.checkDeleted();
             ret = Objects.equals(scheduleName, other.scheduleName);
         }

@@ -194,9 +194,8 @@ public class StorPoolDefinition extends AbsCoreObj<StorPoolDefinition> implement
         {
             ret = true;
         }
-        else if (obj instanceof StorPoolDefinition)
+        else if (obj instanceof StorPoolDefinition other)
         {
-            StorPoolDefinition other = (StorPoolDefinition) obj;
             other.checkDeleted();
             ret = Objects.equals(name, other.name);
         }

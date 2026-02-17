@@ -384,9 +384,9 @@ public class Migration_2019_02_20_LayerData extends LinstorMigration
         for (int paramIdx = 1; paramIdx <= params.length; ++paramIdx)
         {
             Object param = params[paramIdx - 1];
-            if (param instanceof SqlNullType)
+            if (param instanceof SqlNullType sqlNullType)
             {
-                stmt.setNull(paramIdx, ((SqlNullType) param).sqlType);
+                stmt.setNull(paramIdx, sqlNullType.sqlType);
             }
             else
             {

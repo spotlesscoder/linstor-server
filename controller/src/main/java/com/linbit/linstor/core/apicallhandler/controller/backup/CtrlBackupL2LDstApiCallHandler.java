@@ -394,9 +394,8 @@ public class CtrlBackupL2LDstApiCallHandler
             UUID srcClusterId = UUID.fromString(srcClusterIdRef);
             for (AbsRemote remote : remoteRepo.getMapForView(apiCtx).values())
             {
-                if (remote instanceof LinstorRemote)
+                if (remote instanceof LinstorRemote linRem)
                 {
-                    LinstorRemote linRem = (LinstorRemote) remote;
                     if (Objects.equals(linRem.getClusterId(apiCtx), srcClusterId))
                     {
                         ret = linRem;
@@ -452,9 +451,8 @@ public class CtrlBackupL2LDstApiCallHandler
         try
         {
             AbsRemote remote = remoteRepo.get(apiCtx, new RemoteName(remoteName, true));
-            if (remote instanceof StltRemote)
+            if (remote instanceof StltRemote stltRemote)
             {
-                StltRemote stltRemote = (StltRemote) remote;
                 Map<String, Integer> newPorts = new TreeMap<>();
                 for (Entry<String, Integer> portEntry : stltRemote.getPorts(apiCtx).entrySet())
                 {
@@ -671,9 +669,9 @@ public class CtrlBackupL2LDstApiCallHandler
             NetInterface netIf = null;
             AbsRemote remote = remoteRepo.get(apiCtx, new RemoteName(remoteName, true));
             Map<String, Integer> ports;
-            if (remote instanceof StltRemote)
+            if (remote instanceof StltRemote stltRemote)
             {
-                ports = ((StltRemote) remote).getPorts(apiCtx);
+                ports = stltRemote.getPorts(apiCtx);
             }
             else
             {

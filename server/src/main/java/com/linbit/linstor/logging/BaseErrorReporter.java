@@ -164,9 +164,8 @@ public abstract class BaseErrorReporter
                 {
                     outputRef.println(ERROR_FIELD_FORMAT, "Error message:", curErrorInfo.getMessage());
                 }
-                if (curErrorInfo instanceof ErrorContextSupplier)
+                if (curErrorInfo instanceof ErrorContextSupplier linStorException)
                 {
-                    ErrorContextSupplier linStorException = (ErrorContextSupplier) curErrorInfo;
                     if (linStorException.hasErrorContext())
                     {
                         outputRef.println(linStorException.getErrorContext());
@@ -432,9 +431,9 @@ public abstract class BaseErrorReporter
             output.println();
         }
 
-        if (errorInfo instanceof ErrorContextSupplier)
+        if (errorInfo instanceof ErrorContextSupplier errorContextSupplier)
         {
-            String context = ((ErrorContextSupplier) errorInfo).getErrorContext();
+            String context = errorContextSupplier.getErrorContext();
             if (context != null)
             {
                 output.println(context);
@@ -480,10 +479,9 @@ public abstract class BaseErrorReporter
         if (printStackTraces)
         {
             errorInfo.printStackTrace();
-            if (errorInfo instanceof ErrorContextSupplier)
+            if (errorInfo instanceof ErrorContextSupplier errCtxSup)
             {
                 System.err.println("ErrorContext: ");
-                ErrorContextSupplier errCtxSup = (ErrorContextSupplier) errorInfo;
                 String errCtx = errCtxSup.getErrorContext();
                 if (errCtx != null)
                 {

@@ -11,15 +11,15 @@ public class DbUtils
     public static int parseVersionAsInt(Object versionRef) throws DatabaseException
     {
         int ret;
-        if (versionRef instanceof Integer)
+        if (versionRef instanceof Integer versionInt)
         {
-            ret = (int) versionRef;
+            ret = versionInt;
         }
-        else if (versionRef instanceof String)
+        else if (versionRef instanceof String versionStr)
         {
             try
             {
-                ret = Integer.parseInt((String) versionRef);
+                ret = Integer.parseInt(versionStr);
             }
             catch (NumberFormatException nfe)
             {

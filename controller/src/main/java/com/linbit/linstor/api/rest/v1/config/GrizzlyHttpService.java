@@ -454,10 +454,10 @@ class LinstorMapper implements ExceptionMapper<Exception>
         javax.ws.rs.core.Response.Status respStatus;
 
         ApiCallRcImpl apiCallRc = new ApiCallRcImpl();
-        if (exc instanceof ApiRcException)
+        if (exc instanceof ApiRcException apiRcException)
         {
             errorReporter.reportError(exc);
-            apiCallRc.addEntries(((ApiRcException) exc).getApiCallRc());
+            apiCallRc.addEntries(apiRcException.getApiCallRc());
             respStatus = javax.ws.rs.core.Response.Status.BAD_REQUEST;
         }
         else

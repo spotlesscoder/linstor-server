@@ -38,9 +38,8 @@ public class NodeId implements Comparable<NodeId>
     @Override
     public boolean equals(Object other)
     {
-        return other != null &&
-            (other instanceof NodeId) &&
-            ((NodeId) other).value == this.value;
+        return other instanceof NodeId nodeId &&
+            nodeId.value == this.value;
     }
 
     @Override

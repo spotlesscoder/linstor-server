@@ -583,9 +583,8 @@ public class SnapshotDefinition extends AbsCoreObj<SnapshotDefinition> implement
         {
             ret = true;
         }
-        else if (obj instanceof SnapshotDefinition)
+        else if (obj instanceof SnapshotDefinition other)
         {
-            SnapshotDefinition other = (SnapshotDefinition) obj;
             other.checkDeleted();
             ret = Objects.equals(resourceDfn, other.resourceDfn) && Objects.equals(snapshotName, other.snapshotName);
         }

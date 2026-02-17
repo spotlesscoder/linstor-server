@@ -54,11 +54,10 @@ public interface SecConfigDatabaseDriver extends GenericDatabaseDriver<SecConfig
             {
                 return true;
             }
-            if (!(obj instanceof SecConfigDbEntry))
+            if (!(obj instanceof SecConfigDbEntry other))
             {
                 return false;
             }
-            SecConfigDbEntry other = (SecConfigDbEntry) obj;
             return Objects.equals(key, other.key) && Objects.equals(value, other.value);
         }
     }

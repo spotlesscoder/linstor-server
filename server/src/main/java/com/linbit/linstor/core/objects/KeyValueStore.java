@@ -88,9 +88,8 @@ public class KeyValueStore extends AbsCoreObj<KeyValueStore> implements Protecte
         {
             ret = true;
         }
-        else if (obj instanceof KeyValueStore)
+        else if (obj instanceof KeyValueStore other)
         {
-            KeyValueStore other = (KeyValueStore) obj;
             other.checkDeleted();
             ret = Objects.equals(kvsName, other.kvsName);
         }

@@ -273,9 +273,8 @@ public class CmdDisplayConnections extends BaseDebugCmd
                                     );
                                 }
                                 Object peerCtx = curPeer.getAttachment();
-                                if (peerCtx instanceof com.linbit.linstor.ControllerPeerCtx)
+                                if (peerCtx instanceof ControllerPeerCtx ctrlPeerCtx)
                                 {
-                                    ControllerPeerCtx ctrlPeerCtx = (ControllerPeerCtx) peerCtx;
                                     DebugConsole dbgCnsl = ctrlPeerCtx.getDebugConsole();
                                     if (dbgCnsl != null)
                                     {

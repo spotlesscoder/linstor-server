@@ -582,9 +582,8 @@ public class DrbdRscData<RSC extends AbsResource<RSC>>
     {
         final boolean ret;
         RSC absRsc = getAbsResource();
-        if (absRsc instanceof Resource)
+        if (absRsc instanceof Resource rsc)
         {
-            Resource rsc = (Resource) absRsc;
             PriorityProps prioProps = new PriorityProps(rsc.getProps(apiCtxRef));
             for (StorPool storPool : LayerVlmUtils.getStorPools(rsc, apiCtxRef))
             {

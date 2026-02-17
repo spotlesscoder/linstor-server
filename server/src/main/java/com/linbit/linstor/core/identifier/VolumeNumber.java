@@ -60,9 +60,8 @@ public class VolumeNumber implements Comparable<VolumeNumber>
     @Override
     public boolean equals(Object other)
     {
-        return other != null &&
-            (other instanceof VolumeNumber) &&
-            ((VolumeNumber) other).value == this.value;
+        return other instanceof VolumeNumber volumeNumber &&
+            volumeNumber.value == this.value;
     }
 
     @Override

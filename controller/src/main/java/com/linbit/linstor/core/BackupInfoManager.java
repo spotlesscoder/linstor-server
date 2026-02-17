@@ -1105,7 +1105,7 @@ public class BackupInfoManager
         public boolean equals(Object obj)
         {
             boolean equals = false;
-            if (obj instanceof QueueItem)
+            if (obj instanceof QueueItem other)
             {
                 if (this == obj)
                 {
@@ -1113,7 +1113,6 @@ public class BackupInfoManager
                 }
                 else
                 {
-                    QueueItem other = (QueueItem) obj;
                     equals = Objects.equals(s3orLinRemote, other.s3orLinRemote) &&
                         Objects.equals(snapDfn, other.snapDfn);
                 }

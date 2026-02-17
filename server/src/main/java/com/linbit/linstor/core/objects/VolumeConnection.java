@@ -287,9 +287,8 @@ public class VolumeConnection extends AbsCoreObj<VolumeConnection>
         {
             ret = true;
         }
-        else if (obj instanceof VolumeConnection)
+        else if (obj instanceof VolumeConnection other)
         {
-            VolumeConnection other = (VolumeConnection) obj;
             other.checkDeleted();
             ret = Objects.equals(sourceVolume, other.sourceVolume) && Objects.equals(targetVolume, other.targetVolume);
         }
@@ -371,11 +370,10 @@ public class VolumeConnection extends AbsCoreObj<VolumeConnection>
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             return Objects.equals(rscName, other.rscName) && Objects.equals(sourceNodeName, other.sourceNodeName) &&
                 Objects.equals(targetNodeName, other.targetNodeName) && Objects.equals(vlmNr, other.vlmNr);
         }

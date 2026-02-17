@@ -199,10 +199,8 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
         org.slf4j.Logger crtLogger = org.slf4j.LoggerFactory.getLogger(
             Logger.ROOT_LOGGER_NAME
         );
-        if (crtLogger instanceof ch.qos.logback.classic.Logger)
+        if (crtLogger instanceof ch.qos.logback.classic.Logger crtLogbackLogger)
         {
-            ch.qos.logback.classic.Logger crtLogbackLogger = (ch.qos.logback.classic.Logger) crtLogger;
-
             if (level != null)
             {
                 ch.qos.logback.classic.Level logBackLevel = ch.qos.logback.classic.Level.toLevel(level.toString());
@@ -210,11 +208,11 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
             }
             if (linstorLevel != null)
             {
-                if (mainLogger instanceof ch.qos.logback.classic.Logger)
+                if (mainLogger instanceof ch.qos.logback.classic.Logger logbackMainLogger)
                 {
                     ch.qos.logback.classic.Level logBackLevel = ch.qos.logback.classic.Level
                         .toLevel(linstorLevel.toString());
-                    ((ch.qos.logback.classic.Logger) mainLogger).setLevel(logBackLevel);
+                    logbackMainLogger.setLevel(logBackLevel);
                 }
                 else
                 {

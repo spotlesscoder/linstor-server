@@ -361,24 +361,24 @@ public class SharedStorPoolManager
     private Node getNode(TransactionObject txObj)
     {
         Node ret;
-        if (txObj instanceof Resource)
+        if (txObj instanceof Resource rsc)
         {
-            ret = ((Resource) txObj).getNode();
+            ret = rsc.getNode();
         }
         else
-        if (txObj instanceof Snapshot)
+        if (txObj instanceof Snapshot snap)
         {
-            ret = ((Snapshot) txObj).getNode();
+            ret = snap.getNode();
         }
         else
-        if (txObj instanceof Node)
+        if (txObj instanceof Node node)
         {
-            ret = (Node) txObj;
+            ret = node;
         }
         else
-        if (txObj instanceof StorPool)
+        if (txObj instanceof StorPool storPool)
         {
-            ret = ((StorPool) txObj).getNode();
+            ret = storPool.getNode();
         }
         else
         {
@@ -392,27 +392,27 @@ public class SharedStorPoolManager
         Set<SharedStorPoolName> ret;
         try
         {
-            if (txObj instanceof Resource)
+            if (txObj instanceof Resource rsc)
             {
-                ret = getSharedSpNames(LayerVlmUtils.getStorPools((Resource) txObj, sysCtx));
+                ret = getSharedSpNames(LayerVlmUtils.getStorPools(rsc, sysCtx));
             }
             else
-            if (txObj instanceof Snapshot)
+            if (txObj instanceof Snapshot snap)
             {
-                ret = getSharedSpNames(LayerVlmUtils.getStorPools((Snapshot) txObj, sysCtx));
+                ret = getSharedSpNames(LayerVlmUtils.getStorPools(snap, sysCtx));
             }
             else
-            if (txObj instanceof Node)
+            if (txObj instanceof Node node)
             {
                 ret = getSharedSpNames(
-                    ((Node) txObj).streamStorPools(sysCtx)
+                    node.streamStorPools(sysCtx)
                         .collect(Collectors.toList())
                 );
             }
             else
-            if (txObj instanceof StorPool)
+            if (txObj instanceof StorPool storPool)
             {
-                ret = getSharedSpNames(Collections.singleton((StorPool) txObj));
+                ret = getSharedSpNames(Collections.singleton(storPool));
             }
             else
             {

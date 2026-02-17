@@ -173,15 +173,15 @@ public class BackupShippingL2LDaemon implements Runnable, BackupShippingDaemon
             try
             {
                 event = deque.take();
-                if (event instanceof StdOutEvent)
+                if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    errorReporter.logTrace("stdOut: %s", new String(((StdOutEvent) event).data));
+                    errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data));
                     // ignore for now...
                 }
                 else
-                if (event instanceof StdErrEvent)
+                if (event instanceof StdErrEvent stdErrEvent)
                 {
-                    String stdErr = new String(((StdErrEvent) event).data);
+                    String stdErr = new String(stdErrEvent.data);
                     Matcher mLog = SOCAT_LOG_NOTICE.matcher(stdErr);
                     if (!mLog.matches())
                     {
@@ -197,10 +197,10 @@ public class BackupShippingL2LDaemon implements Runnable, BackupShippingDaemon
                     }
                 }
                 else
-                if (event instanceof ExceptionEvent)
+                if (event instanceof ExceptionEvent exceptionEvent)
                 {
                     errorReporter.logTrace("ExceptionEvent in '%s':", Arrays.toString(command));
-                    reportError(((ExceptionEvent) event).exc);
+                    reportError(exceptionEvent.exc);
                     // FIXME: Report the exception to the controller
                 }
                 else

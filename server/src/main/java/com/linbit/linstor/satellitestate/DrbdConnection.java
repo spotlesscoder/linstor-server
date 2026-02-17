@@ -30,9 +30,8 @@ public class DrbdConnection
     @Override
     public boolean equals(Object oth)
     {
-        if (oth instanceof DrbdConnection)
+        if (oth instanceof DrbdConnection other)
         {
-            DrbdConnection other = (DrbdConnection) oth;
             return nodeA.equals(other.nodeA) && nodeB.equals(other.nodeB);
         }
         return false;

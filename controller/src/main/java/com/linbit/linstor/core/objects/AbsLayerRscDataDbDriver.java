@@ -87,9 +87,8 @@ public abstract class AbsLayerRscDataDbDriver<
         public boolean equals(Object obj)
         {
             boolean ret = false;
-            if (obj instanceof SuffixedResourceName)
+            if (obj instanceof SuffixedResourceName other)
             {
-                SuffixedResourceName other = (SuffixedResourceName) obj;
                 ret = Objects.equal(rscName, other.rscName) &&
                     Objects.equal(snapName, other.snapName) &&
                     Objects.equal(rscNameSuffix, other.rscNameSuffix);

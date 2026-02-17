@@ -841,13 +841,12 @@ public class TcpConnectorPeer implements Peer
         {
             @SuppressWarnings("resource")
             SelectableChannel channel = selKey.channel();
-            if (channel != null && channel instanceof SocketChannel)
+            if (channel instanceof SocketChannel sockChannel)
             {
-                SocketChannel sockChannel = (SocketChannel) channel;
                 SocketAddress sockAddr = sockChannel.getRemoteAddress();
-                if (sockAddr != null && sockAddr instanceof InetSocketAddress)
+                if (sockAddr instanceof InetSocketAddress inetSocketAddress)
                 {
-                    peerAddr = (InetSocketAddress) sockAddr;
+                    peerAddr = inetSocketAddress;
                 }
             }
         }
@@ -867,13 +866,12 @@ public class TcpConnectorPeer implements Peer
         {
             @SuppressWarnings("resource")
             SelectableChannel channel = selKey.channel();
-            if (channel != null && channel instanceof SocketChannel)
+            if (channel instanceof SocketChannel sockChannel)
             {
-                SocketChannel sockChannel = (SocketChannel) channel;
                 SocketAddress sockAddr = sockChannel.getLocalAddress();
-                if (sockAddr != null && sockAddr instanceof InetSocketAddress)
+                if (sockAddr instanceof InetSocketAddress inetSocketAddress)
                 {
-                    localAddr = (InetSocketAddress) sockAddr;
+                    localAddr = inetSocketAddress;
                 }
             }
         }

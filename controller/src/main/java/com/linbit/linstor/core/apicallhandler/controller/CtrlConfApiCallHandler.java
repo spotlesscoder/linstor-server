@@ -1066,9 +1066,9 @@ public class CtrlConfApiCallHandler
                 rc = ApiConsts.FAIL_ACC_DENIED_CTRL_CFG;
             }
             else
-            if (exc instanceof InvalidKeyException)
+            if (exc instanceof InvalidKeyException invKeyExc)
             {
-                errorMsg = "Invalid key: " + ((InvalidKeyException) exc).invalidKey;
+                errorMsg = "Invalid key: " + invKeyExc.invalidKey;
                 rc = ApiConsts.FAIL_INVLD_PROP;
             }
             else
@@ -1344,9 +1344,9 @@ public class CtrlConfApiCallHandler
                 );
                 rc = ApiConsts.FAIL_ACC_DENIED_CTRL_CFG;
             }
-            else if (exc instanceof InvalidKeyException)
+            else if (exc instanceof InvalidKeyException invKeyExc)
             {
-                errorMsg = "Invalid key: " + ((InvalidKeyException) exc).invalidKey;
+                errorMsg = "Invalid key: " + invKeyExc.invalidKey;
                 rc = ApiConsts.FAIL_INVLD_PROP;
             }
             else if (exc instanceof InvalidValueException)
@@ -1543,9 +1543,9 @@ public class CtrlConfApiCallHandler
                 rc = ApiConsts.FAIL_ACC_DENIED_CTRL_CFG;
             }
             else
-            if (exc instanceof InvalidKeyException)
+            if (exc instanceof InvalidKeyException invKeyExc)
             {
-                errorMsg = "Invalid key: " + ((InvalidKeyException) exc).invalidKey;
+                errorMsg = "Invalid key: " + invKeyExc.invalidKey;
                 rc = ApiConsts.FAIL_INVLD_PROP;
             }
             else

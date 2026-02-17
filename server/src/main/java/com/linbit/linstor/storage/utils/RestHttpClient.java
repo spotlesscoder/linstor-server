@@ -117,9 +117,10 @@ public class RestHttpClient implements RestClient
             default -> throw new ImplementationError("Unknown Rest operation: " + request.op);
         };
         // add data if possible and available
-        if (req instanceof HttpEntityEnclosingRequest && request.payload != null && !request.payload.isEmpty())
+        if (req instanceof HttpEntityEnclosingRequest httpEntityEnclosingRequest &&
+            request.payload != null && !request.payload.isEmpty())
         {
-            ((HttpEntityEnclosingRequest) req).setEntity(
+            httpEntityEnclosingRequest.setEntity(
                 new StringEntity(
                     request.payload,
                     ContentType.APPLICATION_JSON

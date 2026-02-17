@@ -101,9 +101,9 @@ public class EbsRemoteSatelliteFactory
                     uuid
                 );
             }
-            if (remote instanceof EbsRemote)
+            if (remote instanceof EbsRemote ebsRmt)
             {
-                ebsRemote = (EbsRemote) remote;
+                ebsRemote = ebsRmt;
             }
             else
             {

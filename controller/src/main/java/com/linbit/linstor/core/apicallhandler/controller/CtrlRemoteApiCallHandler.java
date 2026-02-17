@@ -1136,9 +1136,9 @@ public class CtrlRemoteApiCallHandler
         if (!backupInfoMgr.hasRemoteInProgressBackups(remote.getName()))
         {
             enableFlags(remote, AbsRemote.Flags.DELETE);
-            if (remote instanceof S3Remote)
+            if (remote instanceof S3Remote s3Remote)
             {
-                backupHandler.deleteRemoteFromCache((S3Remote) remote);
+                backupHandler.deleteRemoteFromCache(s3Remote);
             }
             ctrlTransactionHelper.commit();
             responses.addEntry(

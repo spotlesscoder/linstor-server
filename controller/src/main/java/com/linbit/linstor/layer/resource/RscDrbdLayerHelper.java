@@ -886,9 +886,9 @@ public class RscDrbdLayerHelper extends
         String resourceNameSuffix = fromSnapDataRef.getResourceNameSuffix();
         DrbdRscDfnData<RSC> dfnData;
         RSC absRsc = fromSnapDataRef.getAbsResource();
-        if (absRsc instanceof Snapshot)
+        if (absRsc instanceof Snapshot snap)
         {
-            dfnData = ((Snapshot) absRsc).getSnapshotDefinition().getLayerData(
+            dfnData = snap.getSnapshotDefinition().getLayerData(
                 apiCtx,
                 DeviceLayerKind.DRBD,
                 resourceNameSuffix

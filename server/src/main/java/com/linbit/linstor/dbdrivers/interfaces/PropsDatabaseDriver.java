@@ -51,11 +51,10 @@ public interface PropsDatabaseDriver extends GenericDatabaseDriver<PropsDbEntry>
             {
                 return true;
             }
-            if (!(obj instanceof PropsDbEntry))
+            if (!(obj instanceof PropsDbEntry other))
             {
                 return false;
             }
-            PropsDbEntry other = (PropsDbEntry) obj;
             return Objects.equals(propKey, other.propKey) &&
                 Objects.equals(propValue, other.propValue) &&
                 Objects.equals(propsInstance, other.propsInstance);

@@ -97,21 +97,21 @@ public class CloneDaemon implements Runnable
                 try
                 {
                     event = deque.take();
-                    if (event instanceof OutputProxy.StdOutEvent)
+                    if (event instanceof OutputProxy.StdOutEvent stdOutEvent)
                     {
-                        errorReporter.logTrace("stdOut: %s", new String(((OutputProxy.StdOutEvent) event).data));
+                        errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data));
                         // ignore for now...
                     }
-                    else if (event instanceof OutputProxy.StdErrEvent)
+                    else if (event instanceof OutputProxy.StdErrEvent stdErrEvent)
                     {
-                        String stdErr = new String(((OutputProxy.StdErrEvent) event).data);
+                        String stdErr = new String(stdErrEvent.data);
                         sbErr.append(stdErr);
                         errorReporter.logWarning("stdErr: %s", stdErr);
                     }
-                    else if (event instanceof OutputProxy.ExceptionEvent)
+                    else if (event instanceof OutputProxy.ExceptionEvent exceptionEvent)
                     {
                         errorReporter.logTrace("ExceptionEvent in '%s':", Arrays.toString(command));
-                        errorReporter.reportError(((OutputProxy.ExceptionEvent) event).exc);
+                        errorReporter.reportError(exceptionEvent.exc);
                         // FIXME: Report the exception to the controller
                     }
                     else if (event instanceof CloneDaemon.PoisonEvent)

@@ -121,11 +121,11 @@ public class CtrlAuthenticator
             try
             {
                 Peer peer = node.getPeer(peerAccCtx.get());
-                if (peer instanceof TcpConnectorPeer)
+                if (peer instanceof TcpConnectorPeer tcpPeer)
                 {
                     errorReporter.logDebug("Adding peer to PingTask: '" + node.getName() + "'");
                     pingTask.add(peer);
-                    flux = ((TcpConnectorPeer) peer).apiCall(
+                    flux = tcpPeer.apiCall(
                         InternalApiConsts.API_AUTH,
                         serializer
                             .headerlessBuilder()

@@ -35,9 +35,9 @@ public class LinstorMigrationVersion implements Comparable<LinstorMigrationVersi
     public boolean equals(Object other)
     {
         boolean equal = false;
-        if (other instanceof LinstorMigrationVersion)
+        if (other instanceof LinstorMigrationVersion otherVersion)
         {
-            equal = versionString.equals(((LinstorMigrationVersion) other).versionString);
+            equal = versionString.equals(otherVersion.versionString);
         }
         return equal;
     }

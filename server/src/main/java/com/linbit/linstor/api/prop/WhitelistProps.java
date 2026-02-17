@@ -379,9 +379,9 @@ public class WhitelistProps
         for (int idx = 0; idx < list.getLength(); idx++)
         {
             Node node = list.item(idx);
-            if (node instanceof Element)
+            if (node instanceof Element element)
             {
-                consumer.accept((Element) node);
+                consumer.accept(element);
             }
         }
     }

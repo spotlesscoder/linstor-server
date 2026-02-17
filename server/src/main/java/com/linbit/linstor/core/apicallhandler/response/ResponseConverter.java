@@ -102,9 +102,8 @@ public class ResponseConverter
     {
         ApiCallRcImpl apiCallRc = new ApiCallRcImpl();
 
-        if (exc instanceof ApiRcException)
+        if (exc instanceof ApiRcException apiRcException)
         {
-            ApiRcException apiRcException = (ApiRcException) exc;
 
             if (apiRcException.hasContext())
             {
@@ -140,9 +139,8 @@ public class ResponseConverter
             }
         }
         else
-        if (exc instanceof ApiAccessDeniedException)
+        if (exc instanceof ApiAccessDeniedException acExc)
         {
-            ApiAccessDeniedException acExc = (ApiAccessDeniedException) exc;
             apiCallRc.addEntry(ApiCallRcImpl
                 .entryBuilder(
                     acExc.getRetCode(),
@@ -153,9 +151,8 @@ public class ResponseConverter
             );
         }
         else
-        if (exc instanceof ApiTransactionException)
+        if (exc instanceof ApiTransactionException sqlExc)
         {
-            ApiTransactionException sqlExc = (ApiTransactionException) exc;
             apiCallRc.addEntry(ApiCallRcImpl
                 .entryBuilder(
                     ApiConsts.FAIL_SQL,

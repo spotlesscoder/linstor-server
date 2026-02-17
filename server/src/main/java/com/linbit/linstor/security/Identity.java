@@ -171,9 +171,9 @@ public final class Identity implements Comparable<Identity>
     public boolean equals(Object other)
     {
         boolean equals = false;
-        if (other != null && other instanceof Identity)
+        if (other instanceof Identity identity)
         {
-            equals = this.name.equals(((Identity) other).name);
+            equals = this.name.equals(identity.name);
         }
         return equals;
     }

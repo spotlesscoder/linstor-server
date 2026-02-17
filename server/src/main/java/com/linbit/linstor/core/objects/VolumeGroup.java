@@ -164,9 +164,8 @@ public class VolumeGroup extends AbsCoreObj<VolumeGroup> implements ProtectedObj
         {
             ret = true;
         }
-        else if (obj instanceof VolumeGroup)
+        else if (obj instanceof VolumeGroup other)
         {
-            VolumeGroup other = (VolumeGroup) obj;
             other.checkDeleted();
             ret = Objects.equals(rscGrp, other.rscGrp) && Objects.equals(vlmNr, other.vlmNr);
         }
@@ -293,11 +292,10 @@ public class VolumeGroup extends AbsCoreObj<VolumeGroup> implements ProtectedObj
             {
                 return true;
             }
-            if (!(obj instanceof Key))
+            if (!(obj instanceof Key other))
             {
                 return false;
             }
-            Key other = (Key) obj;
             return Objects.equals(rscGrpName, other.rscGrpName) && Objects.equals(vlmNr, other.vlmNr);
         }
 

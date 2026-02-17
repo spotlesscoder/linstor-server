@@ -226,11 +226,10 @@ public class Migration_2022_11_14_CleanupOrphanedObjects extends LinstorMigratio
             {
                 return true;
             }
-            if (!(obj instanceof SnapDfnKey))
+            if (!(obj instanceof SnapDfnKey other))
             {
                 return false;
             }
-            SnapDfnKey other = (SnapDfnKey) obj;
             return Objects.equals(rscName, other.rscName) &&
                 Objects.equals(snapName, other.snapName);
         }
