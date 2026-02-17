@@ -88,15 +88,15 @@ public enum DiskState
 
     private static class Consts
     {
-        public static final String DS_LABEL_DISKLESS = "Diskless";
-        public static final String DS_LABEL_ATTACHING = "Attaching";
-        public static final String DS_LABEL_DETACHING = "Detaching";
-        public static final String DS_LABEL_FAILED = "Failed";
-        public static final String DS_LABEL_NEGOTIATING = "Negotiating";
-        public static final String DS_LABEL_INCONSISTENT = "Inconsistent";
-        public static final String DS_LABEL_OUTDATED = "Outdated";
-        public static final String DS_LABEL_UNKNOWN = "DUnknown";
-        public static final String DS_LABEL_CONSISTENT = "Consistent";
-        public static final String DS_LABEL_UP_TO_DATE = "UpToDate";
+        private static final String DS_LABEL_DISKLESS = "Diskless";
+        private static final String DS_LABEL_ATTACHING = "Attaching";
+        private static final String DS_LABEL_DETACHING = "Detaching";
+        private static final String DS_LABEL_FAILED = "Failed";
+        private static final String DS_LABEL_NEGOTIATING = "Negotiating";
+        private static final String DS_LABEL_INCONSISTENT = "Inconsistent";
+        private static final String DS_LABEL_OUTDATED = "Outdated";
+        private static final String DS_LABEL_UNKNOWN = "DUnknown";
+        private static final String DS_LABEL_CONSISTENT = "Consistent";
+        private static final String DS_LABEL_UP_TO_DATE = "UpToDate";
     }
 }

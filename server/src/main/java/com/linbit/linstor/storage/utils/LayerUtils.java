@@ -160,7 +160,7 @@ public class LayerUtils
             return this;
         }
 
-        public void setAllowedEnd(boolean endAllowedRef)
+        private void setAllowedEnd(boolean endAllowedRef)
         {
             endAllowed = endAllowedRef;
         }

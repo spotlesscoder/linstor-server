@@ -1610,7 +1610,7 @@ public class ProtoCtrlStltSerializerBuilder extends ProtoCommonSerializerBuilder
                 .build();
         }
 
-        public IntStltRemote buildStltRemoteMsg(StltRemote stltremote)
+        private IntStltRemote buildStltRemoteMsg(StltRemote stltremote)
             throws AccessDeniedException
         {
             IntStltRemote.Builder builder = IntStltRemote.newBuilder()

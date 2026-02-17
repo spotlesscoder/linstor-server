@@ -1007,7 +1007,7 @@ public class FileSystemWatch implements Runnable, SystemService
             isFileEntry = origEntryRef instanceof FileEntry;
         }
 
-        public void handleNextEntry()
+        private void handleNextEntry()
         {
             try
             {

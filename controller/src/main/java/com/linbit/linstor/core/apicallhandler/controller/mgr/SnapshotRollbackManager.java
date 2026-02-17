@@ -323,7 +323,7 @@ public class SnapshotRollbackManager
          *
          * @return True if after calling this method the waitingForNodes set is empty
          */
-        public boolean handle(NodeName nodeNameRef, boolean successRef)
+        private boolean handle(NodeName nodeNameRef, boolean successRef)
         {
             if (successRef)
             {

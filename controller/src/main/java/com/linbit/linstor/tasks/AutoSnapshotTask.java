@@ -282,7 +282,7 @@ public class AutoSnapshotTask implements TaskScheduleService.Task
             this(rscNameRef, runEveryInMsRef, System.currentTimeMillis() + runEveryInMsRef);
         }
 
-        public AutoSnapshotConfig next()
+        private AutoSnapshotConfig next()
         {
             return new AutoSnapshotConfig(rscName, runEveryInMs, nextRerunAt + runEveryInMs);
         }

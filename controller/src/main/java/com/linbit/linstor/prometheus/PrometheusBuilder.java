@@ -76,17 +76,17 @@ public class PrometheusBuilder
             value = val;
         }
 
-        public String getName()
+        private String getName()
         {
             return name;
         }
 
-        public int getValue()
+        private int getValue()
         {
             return value;
         }
 
-        public static VolumeStates getByName(final @Nullable String name)
+        private static VolumeStates getByName(final @Nullable String name)
         {
             VolumeStates vlmStates = DUNKNOWN;
             for (VolumeStates state : VolumeStates.values())

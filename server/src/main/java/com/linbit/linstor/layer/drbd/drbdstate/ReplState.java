@@ -112,21 +112,21 @@ public enum ReplState
 
     private static class Consts
     {
-        public static final String RS_LABEL_OFF = "Off";
-        public static final String RS_LABEL_ESTABLISHED = "Established";
-        public static final String RS_LABEL_STARTING_SYNC_SOURCE = "StartingSyncS";
-        public static final String RS_LABEL_STARTING_SYNC_TARGET = "StartingSyncT";
-        public static final String RS_LABEL_WF_BITMAP_SOURCE = "WFBitMapS";
-        public static final String RS_LABEL_WF_BITMAP_TARGET = "WFBitMapT";
-        public static final String RS_LABEL_WF_SYNC_UUID = "WFSyncUUID";
-        public static final String RS_LABEL_SYNC_SOURCE = "SyncSource";
-        public static final String RS_LABEL_SYNC_TARGET = "SyncTarget";
-        public static final String RS_LABEL_PAUSED_SYNC_SOURCE = "PausedSyncS";
-        public static final String RS_LABEL_PAUSED_SYNC_TARGET = "PausedSyncT";
-        public static final String RS_LABEL_VERIFY_SOURCE = "VerifyS";
-        public static final String RS_LABEL_VERIFY_TARGET = "VerifyT";
-        public static final String RS_LABEL_AHEAD = "Ahead";
-        public static final String RS_LABEL_BEHIND = "Behind";
-        public static final String RS_LABEL_UNKNOWN = "Unknown";
+        private static final String RS_LABEL_OFF = "Off";
+        private static final String RS_LABEL_ESTABLISHED = "Established";
+        private static final String RS_LABEL_STARTING_SYNC_SOURCE = "StartingSyncS";
+        private static final String RS_LABEL_STARTING_SYNC_TARGET = "StartingSyncT";
+        private static final String RS_LABEL_WF_BITMAP_SOURCE = "WFBitMapS";
+        private static final String RS_LABEL_WF_BITMAP_TARGET = "WFBitMapT";
+        private static final String RS_LABEL_WF_SYNC_UUID = "WFSyncUUID";
+        private static final String RS_LABEL_SYNC_SOURCE = "SyncSource";
+        private static final String RS_LABEL_SYNC_TARGET = "SyncTarget";
+        private static final String RS_LABEL_PAUSED_SYNC_SOURCE = "PausedSyncS";
+        private static final String RS_LABEL_PAUSED_SYNC_TARGET = "PausedSyncT";
+        private static final String RS_LABEL_VERIFY_SOURCE = "VerifyS";
+        private static final String RS_LABEL_VERIFY_TARGET = "VerifyT";
+        private static final String RS_LABEL_AHEAD = "Ahead";
+        private static final String RS_LABEL_BEHIND = "Behind";
+        private static final String RS_LABEL_UNKNOWN = "Unknown";
     }
 }

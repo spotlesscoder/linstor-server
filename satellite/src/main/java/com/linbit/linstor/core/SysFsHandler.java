@@ -625,7 +625,7 @@ public class SysFsHandler
             map = new HashMap<>();
         }
 
-        public boolean deviceExists()
+        private boolean deviceExists()
         {
             return Files.exists(pathOfDevice);
         }
