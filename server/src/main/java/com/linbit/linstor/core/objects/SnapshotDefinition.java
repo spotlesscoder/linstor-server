@@ -42,11 +42,11 @@ import com.linbit.utils.PairNonNull;
 
 import javax.inject.Provider;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -533,21 +533,21 @@ public class SnapshotDefinition extends AbsCoreObj<SnapshotDefinition> implement
      * Get the average creation time of all snapshots of this snapDfn
      *
      */
-    public @Nullable Date getCreationTime()
+    public @Nullable Instant getCreationTime()
     {
         checkDeleted();
         int count = 0;
         long sum = 0;
         for (Snapshot snap : snapshotMap.values())
         {
-            Optional<Date> crtTs = snap.getCreateTimestamp();
+            Optional<Instant> crtTs = snap.getCreateTimestamp();
             if (crtTs.isPresent())
             {
-                sum += crtTs.get().getTime();
+                sum += crtTs.get().toEpochMilli();
                 count++;
             }
         }
-        return count == 0 ? null : new Date(sum / count);
+        return count == 0 ? null : Instant.ofEpochMilli(sum / count);
     }
 
     @Override

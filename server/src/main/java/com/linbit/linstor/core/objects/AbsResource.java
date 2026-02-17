@@ -16,8 +16,8 @@ import com.linbit.linstor.transaction.manager.TransactionMgr;
 
 import javax.inject.Provider;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,13 +30,13 @@ public abstract class AbsResource<RSC extends AbsResource<RSC>>
     implements ProtectedObject
 {
     // use special epoch time to mark this as a new resource which will get set on resource apply
-    // mysql/mariadb do not allow 0 here, so I choose 1000, as it doesn't mather
+    // mysql/mariadb do not allow 0 here, so I choose 1000, as it doesn't matter
     public static final int CREATE_DATE_INIT_VALUE = 1000;
 
     // Reference to the node this resource is assigned to
     protected final Node node;
 
-    protected final TransactionSimpleObject<AbsResource<RSC>, @Nullable Date> createTimestamp;
+    protected final TransactionSimpleObject<AbsResource<RSC>, @Nullable Instant> createTimestamp;
 
     protected final TransactionSimpleObject<AbsResource<RSC>, @Nullable AbsRscLayerObject<RSC>> rootLayerData;
 
@@ -45,7 +45,7 @@ public abstract class AbsResource<RSC extends AbsResource<RSC>>
         Node nodeRef,
         Provider<? extends TransactionMgr> transMgrProviderRef,
         TransactionObjectFactory transObjFactory,
-        @Nullable Date createTimestampRef,
+        @Nullable Instant createTimestampRef,
         AbsResourceDatabaseDriver<RSC> dbDriverRef
     )
     {
@@ -72,13 +72,13 @@ public abstract class AbsResource<RSC extends AbsResource<RSC>>
         return node;
     }
 
-    public Optional<Date> getCreateTimestamp()
+    public Optional<Instant> getCreateTimestamp()
     {
         checkDeleted();
         return Optional.ofNullable(createTimestamp.get());
     }
 
-    public void setCreateTimestamp(AccessContext accCtx, Date creationDate)
+    public void setCreateTimestamp(AccessContext accCtx, Instant creationDate)
         throws AccessDeniedException, DatabaseException
     {
         checkDeleted();

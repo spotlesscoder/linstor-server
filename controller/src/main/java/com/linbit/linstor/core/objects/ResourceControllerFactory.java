@@ -31,7 +31,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -175,7 +175,7 @@ public class ResourceControllerFactory
                 new TreeMap<>(),
                 new TreeMap<>(),
                 // use special epoch time to mark this as a new resource which will get set on resource apply
-                new Date(AbsResource.CREATE_DATE_INIT_VALUE)
+                Instant.ofEpochMilli(AbsResource.CREATE_DATE_INIT_VALUE)
             );
 
             dbDriver.create(rsc);

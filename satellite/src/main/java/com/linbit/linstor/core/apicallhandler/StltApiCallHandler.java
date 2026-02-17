@@ -78,8 +78,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -905,8 +905,8 @@ public class StltApiCallHandler
     public byte[] listErrorReports(
         final Set<String> nodes,
         boolean withContent,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset
@@ -926,8 +926,8 @@ public class StltApiCallHandler
     }
 
     public byte[] deleteErrorReports(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final String exception,
         @Nullable final String version,
         @Nullable final List<String> ids)

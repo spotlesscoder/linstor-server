@@ -7,7 +7,7 @@ import com.linbit.linstor.core.apis.SnapshotDefinitionApi;
 import com.linbit.linstor.core.apis.SnapshotVolumeApi;
 import com.linbit.linstor.core.objects.AbsResource;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class SnapshotPojo implements SnapshotApi, Comparable<SnapshotPojo>
     private final List<SnapshotVolumeApi> snapshotVlms;
     private final RscLayerDataApi layerData;
     private final String nodeName;
-    private final @Nullable Date createTimestamp;
+    private final @Nullable Instant createTimestamp;
     private final Map<String, String> snapPropsMap;
     private final Map<String, String> rscPropsMap;
     private final boolean shipBackup;
@@ -41,7 +41,7 @@ public class SnapshotPojo implements SnapshotApi, Comparable<SnapshotPojo>
         List<SnapshotVolumeApi> snapshotVlmsRef,
         RscLayerDataApi layerDataRef,
         String nodeNameRef,
-        @Nullable Date createTimestampRef,
+        @Nullable Instant createTimestampRef,
         Map<String, String> snapPropsMapRef,
         Map<String, String> rscPropsMapRef,
         boolean shipBackupRef
@@ -61,7 +61,7 @@ public class SnapshotPojo implements SnapshotApi, Comparable<SnapshotPojo>
         rscPropsMap = rscPropsMapRef;
         shipBackup = shipBackupRef;
         createTimestamp = createTimestampRef != null &&
-            createTimestampRef.getTime() != AbsResource.CREATE_DATE_INIT_VALUE ?
+            createTimestampRef.toEpochMilli() != AbsResource.CREATE_DATE_INIT_VALUE ?
                 createTimestampRef : null;
     }
 
@@ -108,7 +108,7 @@ public class SnapshotPojo implements SnapshotApi, Comparable<SnapshotPojo>
     }
 
     @Override
-    public Optional<Date> getCreateTimestamp()
+    public Optional<Instant> getCreateTimestamp()
     {
         return Optional.ofNullable(createTimestamp);
     }

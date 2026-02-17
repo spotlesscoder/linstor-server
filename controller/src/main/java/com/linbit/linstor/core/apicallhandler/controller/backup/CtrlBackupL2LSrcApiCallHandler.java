@@ -71,9 +71,9 @@ import javax.inject.Singleton;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -264,7 +264,7 @@ public class CtrlBackupL2LSrcApiCallHandler
         Set<String> srcSnapDfnUuids = new HashSet<>();
         ResourceDefinition rscDfn = ctrlApiDataLoader.loadRscDfn(srcRscNameRef, true);
         SnapshotDefinition snapDfnToShip = null;
-        Date crtTime = null;
+        @Nullable Instant crtTime = null;
         if (srcSnapNameRef != null)
         {
             snapDfnToShip = rscDfn.getSnapshotDfn(sysCtx, new SnapshotName(srcSnapNameRef));
@@ -306,8 +306,8 @@ public class CtrlBackupL2LSrcApiCallHandler
                 {
                     if (crtTime != null)
                     {
-                        Date curCrtTime = snapDfn.getCreationTime();
-                        if (curCrtTime != null && curCrtTime.before(crtTime))
+                        @Nullable Instant curCrtTime = snapDfn.getCreationTime();
+                        if (curCrtTime != null && curCrtTime.isBefore(crtTime))
                         {
                             srcSnapDfnUuids.add(snapDfn.getUuid().toString());
                         }

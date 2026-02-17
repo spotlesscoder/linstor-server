@@ -43,7 +43,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
@@ -59,7 +59,7 @@ public final class SnapshotDbDriver extends
     private final TransactionObjectFactory transObjFactory;
 
     private final StateFlagsPersistence<AbsResource<Snapshot>> flagsDriver;
-    private final SingleColumnDatabaseDriver<AbsResource<Snapshot>, Date> createTimestampDriver;
+    private final SingleColumnDatabaseDriver<AbsResource<Snapshot>, Instant> createTimestampDriver;
 
     @Inject
     public SnapshotDbDriver(
@@ -77,7 +77,7 @@ public final class SnapshotDbDriver extends
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;
 
-        Function<Date, Object> createTimestampTypeMapper;
+        Function<Instant, Object> createTimestampTypeMapper;
 
         setColumnSetter(UUID, snap -> snap.getUuid().toString());
         setColumnSetter(NODE_NAME, snap -> snap.getNode().getName().value);
@@ -91,11 +91,11 @@ public final class SnapshotDbDriver extends
                 setColumnSetter(
                     CREATE_TIMESTAMP,
                     snap -> snap.getCreateTimestamp().isPresent() ?
-                        new Timestamp(snap.getCreateTimestamp().get().getTime()) :
+                        new Timestamp(snap.getCreateTimestamp().get().toEpochMilli()) :
                         null
                 );
                 createTimestampTypeMapper = createTime -> createTime != null ?
-                    new Timestamp(createTime.getTime()) :
+                    new Timestamp(createTime.toEpochMilli()) :
                     null;
             }
             case K8S_CRD ->
@@ -103,10 +103,10 @@ public final class SnapshotDbDriver extends
                 setColumnSetter(
                     CREATE_TIMESTAMP,
                     snap -> snap.getCreateTimestamp().isPresent() ?
-                        snap.getCreateTimestamp().get().getTime() :
+                        snap.getCreateTimestamp().get().toEpochMilli() :
                         null
                 );
-                createTimestampTypeMapper = createTime -> createTime != null ? createTime.getTime() : null;
+                createTimestampTypeMapper = createTime -> createTime != null ? createTime.toEpochMilli() : null;
             }
             default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
@@ -165,7 +165,7 @@ public final class SnapshotDbDriver extends
                     transObjFactory,
                     transMgrProvider,
                     snapshotVlmMap,
-                    createTimestamp == null ? null : new Date(createTimestamp)
+                    createTimestamp == null ? null : Instant.ofEpochMilli(createTimestamp)
                 ),
                 new InitMapsImpl(snapshotVlmMap)
             );
@@ -199,7 +199,7 @@ public final class SnapshotDbDriver extends
     }
 
     @Override
-    public SingleColumnDatabaseDriver<AbsResource<Snapshot>, Date> getCreateTimeDriver()
+    public SingleColumnDatabaseDriver<AbsResource<Snapshot>, Instant> getCreateTimeDriver()
     {
         return createTimestampDriver;
     }

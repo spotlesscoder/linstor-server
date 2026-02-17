@@ -10,7 +10,7 @@ import com.linbit.linstor.core.apis.VolumeApi;
 import com.linbit.linstor.core.objects.Resource;
 import com.linbit.linstor.proto.common.RscOuterClass;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -92,8 +92,7 @@ public class RscApiData implements ResourceApi
     }
 
     @Override
-    @Nullable
-    public Optional<Date> getCreateTimestamp()
+    public Optional<Instant> getCreateTimestamp()
     {
         return Optional.empty();
     }

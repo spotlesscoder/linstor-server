@@ -16,10 +16,10 @@ import com.linbit.linstor.event.common.ResourceState;
 import com.linbit.linstor.logging.ErrorReportResult;
 import com.linbit.linstor.storage.kinds.ExtToolsInfo;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -87,16 +87,16 @@ public interface CommonSerializer
         CommonSerializerBuilder requestErrorReports(
             Set<String> nodes,
             boolean withContent,
-            Date since,
-            Date to,
+            Instant since,
+            Instant to,
             Set<String> ids,
             Long limit,
             Long offset
         );
 
         CommonSerializerBuilder deleteErrorReports(
-            @Nullable Date since,
-            @Nullable Date to,
+            @Nullable Instant since,
+            @Nullable Instant to,
             @Nullable String exception,
             @Nullable String version,
             @Nullable List<String> ids

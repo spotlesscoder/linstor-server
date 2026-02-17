@@ -9,8 +9,8 @@ import com.linbit.linstor.core.apis.VolumeApi;
 import com.linbit.linstor.core.apis.VolumeDefinitionApi;
 import com.linbit.linstor.core.objects.AbsResource;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class RscPojo implements Comparable<RscPojo>, ResourceApi
     // in the second ctor this gets filled with null, this should be fixed through gitlab-issue #1207
     @SuppressFBWarnings("NP_STORE_INTO_NONNULL_FIELD")
     private final RscLayerDataApi rscLayerDataPojo;
-    private final @Nullable Date createTimestamp;
+    private final @Nullable Instant createTimestamp;
     private final @Nullable EffectivePropertiesPojo propsPojo;
 
     public RscPojo(
@@ -52,7 +52,7 @@ public class RscPojo implements Comparable<RscPojo>, ResourceApi
         final @Nullable Long fullSyncIdRef,
         final @Nullable Long updateIdRef,
         final RscLayerDataApi rscLayerDataPojoRef,
-        final @Nullable Date createTimestampRef,
+        final @Nullable Instant createTimestampRef,
         @Nullable EffectivePropertiesPojo propsPojoRef
     )
     {
@@ -71,7 +71,7 @@ public class RscPojo implements Comparable<RscPojo>, ResourceApi
         rscLayerDataPojo = rscLayerDataPojoRef;
         propsPojo = propsPojoRef;
         createTimestamp = createTimestampRef != null &&
-            createTimestampRef.getTime() != AbsResource.CREATE_DATE_INIT_VALUE ?
+            createTimestampRef.toEpochMilli() != AbsResource.CREATE_DATE_INIT_VALUE ?
                 createTimestampRef : null;
     }
 
@@ -171,7 +171,7 @@ public class RscPojo implements Comparable<RscPojo>, ResourceApi
     }
 
     @Override
-    public Optional<Date> getCreateTimestamp()
+    public Optional<Instant> getCreateTimestamp()
     {
         return Optional.ofNullable(createTimestamp);
     }

@@ -9,8 +9,8 @@ import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
 
 import java.nio.file.Path;
+import java.time.Instant;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -173,8 +173,8 @@ public interface ErrorReporter
 
     default ErrorReportResult listReports(
         boolean withText,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset
@@ -184,8 +184,8 @@ public interface ErrorReporter
     }
 
     default ApiCallRc deleteErrorReports(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final String exception,
         @Nullable final String version,
         @Nullable final List<String> ids)

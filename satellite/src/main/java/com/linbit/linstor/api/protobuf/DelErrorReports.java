@@ -1,5 +1,6 @@
 package com.linbit.linstor.api.protobuf;
 
+import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCall;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.core.apicallhandler.StltApiCallHandler;
@@ -12,7 +13,7 @@ import javax.inject.Singleton;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Protobuf API call handler for deleting error reports.
@@ -42,8 +43,8 @@ public class DelErrorReports implements ApiCall
         throws IOException
     {
         MsgDelErrorReports reqErrorReport = MsgDelErrorReports.parseDelimitedFrom(msgDataIn);
-        Date since = reqErrorReport.hasSince() ? new Date(reqErrorReport.getSince()) : null;
-        Date to = reqErrorReport.hasTo() ? new Date(reqErrorReport.getTo()) : null;
+        @Nullable Instant since = reqErrorReport.hasSince() ? Instant.ofEpochMilli(reqErrorReport.getSince()) : null;
+        @Nullable Instant to = reqErrorReport.hasTo() ? Instant.ofEpochMilli(reqErrorReport.getTo()) : null;
 
         peerProvider.get().sendMessage(
             apiCallHandler.deleteErrorReports(

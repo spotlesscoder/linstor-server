@@ -43,9 +43,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,12 +148,13 @@ public class BalanceResources
     {
         long gracePeriodSecs = getGracePeriod();
         long nowSecs = System.currentTimeMillis() / 1000L;
-        final Date deadLine = new Date((nowSecs - gracePeriodSecs) * 1000L);
-        final Date beforeDeadLine = new Date((nowSecs - gracePeriodSecs - 10) * 1000L);
+        final Instant deadLine = Instant.ofEpochMilli((nowSecs - gracePeriodSecs) * 1000L);
+        final Instant beforeDeadLine = Instant.ofEpochMilli((nowSecs - gracePeriodSecs - 10) * 1000L);
 
-        return rsc.getCreateTimestamp().orElse(beforeDeadLine).after(deadLine) ||
+        return rsc.getCreateTimestamp().orElse(beforeDeadLine).isAfter(deadLine) ||
             rsc.getCreateTimestamp().orElse(
-                new Date(AbsResource.CREATE_DATE_INIT_VALUE)).getTime() == AbsResource.CREATE_DATE_INIT_VALUE;
+                Instant.ofEpochMilli(AbsResource.CREATE_DATE_INIT_VALUE))
+                .toEpochMilli() == AbsResource.CREATE_DATE_INIT_VALUE;
     }
 
     /**

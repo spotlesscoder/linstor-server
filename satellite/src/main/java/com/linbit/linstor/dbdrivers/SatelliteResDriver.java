@@ -9,7 +9,7 @@ import com.linbit.linstor.stateflags.StateFlagsPersistence;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Singleton
 public class SatelliteResDriver
@@ -17,7 +17,7 @@ public class SatelliteResDriver
     implements ResourceDatabaseDriver
 {
     private final StateFlagsPersistence<AbsResource<Resource>> stateFlagsDriver;
-    private final SingleColumnDatabaseDriver<AbsResource<Resource>, Date> createTimeDriver;
+    private final SingleColumnDatabaseDriver<AbsResource<Resource>, Instant> createTimeDriver;
 
     @Inject
     public SatelliteResDriver()
@@ -33,7 +33,7 @@ public class SatelliteResDriver
     }
 
     @Override
-    public SingleColumnDatabaseDriver<AbsResource<Resource>, Date> getCreateTimeDriver()
+    public SingleColumnDatabaseDriver<AbsResource<Resource>, Instant> getCreateTimeDriver()
     {
         return createTimeDriver;
     }

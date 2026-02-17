@@ -32,11 +32,11 @@ import com.linbit.linstor.transaction.manager.TransactionMgr;
 
 import javax.inject.Provider;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +86,7 @@ public class Snapshot extends AbsResource<Snapshot> // TODO: add SnapshotConnect
         TransactionObjectFactory transObjFactory,
         Provider<? extends TransactionMgr> transMgrProviderRef,
         Map<VolumeNumber, SnapshotVolume> snapshotVlmMapRef,
-        @Nullable Date createTimestampRef
+        @Nullable Instant createTimestampRef
     )
         throws DatabaseException
     {

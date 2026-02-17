@@ -45,6 +45,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -600,8 +601,21 @@ public class SQLEngine implements DbEngine
                         // casted later on to Short
                     case Types.TIMESTAMP ->
                     {
-                        Timestamp timestamp = resultSet.getTimestamp(column.getName());
-                        yield timestamp != null ? timestamp.getTime() : null;
+                        @Nullable Timestamp timestamp = resultSet.getTimestamp(column.getName());
+                        if (timestamp != null)
+                        {
+                            yield timestamp.getTime();
+                        }
+                        yield null;
+                    }
+                    case Types.DATE ->
+                    {
+                        @Nullable java.sql.Date sqlDate = resultSet.getDate(column.getName());
+                        if (sqlDate != null)
+                        {
+                            yield Instant.ofEpochMilli(sqlDate.getTime());
+                        }
+                        yield null;
                     }
                     default -> resultSet.getObject(column.getName());
                 };
@@ -811,9 +825,9 @@ public class SQLEngine implements DbEngine
                     case Types.DATE ->
                     {
                         long dateTimestamp;
-                        if (objRef instanceof java.util.Date dateObj)
+                        if (objRef instanceof java.time.Instant dateObj)
                         {
-                            dateTimestamp = dateObj.getTime();
+                            dateTimestamp = dateObj.toEpochMilli();
                         }
                         else
                         {

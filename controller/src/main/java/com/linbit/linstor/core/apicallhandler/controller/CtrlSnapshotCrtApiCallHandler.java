@@ -59,10 +59,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -832,17 +832,17 @@ public class CtrlSnapshotCrtApiCallHandler
         {
             if (!snapDfn.isDeleted())
             {
-                @Nullable Date createTs = null;
+                @Nullable Instant createTs = null;
                 for (Snapshot snapshot : getAllSnapshotsPrivileged(snapDfn))
                 {
-                    Optional<Date> crtTs = snapshot.getCreateTimestamp();
+                    Optional<Instant> crtTs = snapshot.getCreateTimestamp();
                     if (crtTs.isPresent())
                     {
                         createTs = crtTs.get();
                         break;
                     }
                 }
-                createTs = createTs == null ? new Date() : createTs;
+                createTs = createTs == null ? Instant.now() : createTs;
                 for (Snapshot snapshot : getAllSnapshotsPrivileged(snapDfn))
                 {
                     unsetSuspendResourcePrivileged(snapshot);

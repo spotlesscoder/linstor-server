@@ -32,9 +32,9 @@ import javax.inject.Singleton;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,8 +75,8 @@ public class CtrlErrorListApiCallHandler
     }
 
     public Flux<ApiCallRc> deleteErrorReports(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final List<String> nodes,
         @Nullable final String exception,
         @Nullable final String version,
@@ -98,8 +98,8 @@ public class CtrlErrorListApiCallHandler
     }
 
     private Flux<Tuple2<NodeName, ByteArrayInputStream>> assembleDeleteRequests(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final List<String> nodes,
         @Nullable final String exception,
         @Nullable final String version,
@@ -123,8 +123,8 @@ public class CtrlErrorListApiCallHandler
 
     private Flux<ByteArrayInputStream> prepareErrDelReq(
         final Node node,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final String exception,
         @Nullable final String version,
         @Nullable final List<String> ids)
@@ -142,8 +142,8 @@ public class CtrlErrorListApiCallHandler
     }
 
     private Flux<ApiCallRc> assembleDeleteRcs(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final List<String> nodes,
         @Nullable final String exception,
         @Nullable final String version,
@@ -189,8 +189,8 @@ public class CtrlErrorListApiCallHandler
     public Flux<ErrorReportResult> listErrorReports(
         final Set<String> nodes,
         boolean withContent,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset
@@ -215,8 +215,8 @@ public class CtrlErrorListApiCallHandler
     private Flux<Tuple2<NodeName, ByteArrayInputStream>> assembleRequests(
         Set<String> nodesToRequest,
         boolean withContent,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset)
@@ -240,8 +240,8 @@ public class CtrlErrorListApiCallHandler
     private Flux<ByteArrayInputStream> prepareErrRequestApi(
         final Node node,
         boolean withContent,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset)
@@ -293,8 +293,8 @@ public class CtrlErrorListApiCallHandler
     private ErrorReportResult assembleList(
         Set<String> nodesToRequest,
         boolean withContent,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset,
@@ -356,7 +356,7 @@ public class CtrlErrorListApiCallHandler
                 errorReport.getOriginFile(),
                 errorReport.getOriginMethod(),
                 errorReport.getOriginLine(),
-                new Date(errorReport.getErrorTime()),
+                Instant.ofEpochMilli(errorReport.getErrorTime()),
                 errorReport.getText())
             );
         }

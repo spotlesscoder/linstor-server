@@ -612,7 +612,7 @@ public class Json
         rsc.layer_object = apiToResourceLayer(rscApi.getLayerData());
         rsc.uuid = rscApi.getUuid().toString();
         rsc.effective_props = apiToEffectiveProps(rscApi.getEffectivePropsPojo());
-        rscApi.getCreateTimestamp().ifPresent(d -> rsc.create_timestamp = d.getTime());
+        rscApi.getCreateTimestamp().ifPresent(d -> rsc.create_timestamp = d.toEpochMilli());
 
         rsc.shared_name = getSharedName(rscApi);
 
@@ -1064,7 +1064,7 @@ public class Json
         jsonSnap.uuid = snapshotApi.getSnapshotUuid().toString();
         jsonSnap.snapshot_props = snapshotApi.getSnapPropsMap();
         jsonSnap.resource_props = snapshotApi.getRscPropsMap();
-        snapshotApi.getCreateTimestamp().ifPresent(d -> jsonSnap.create_timestamp = d.getTime());
+        snapshotApi.getCreateTimestamp().ifPresent(d -> jsonSnap.create_timestamp = d.toEpochMilli());
         jsonSnap.snapshot_volumes = snapshotApi.getSnapshotVlmList()
             .stream()
             .map(Json::apiToSnapshotVolumeNode)

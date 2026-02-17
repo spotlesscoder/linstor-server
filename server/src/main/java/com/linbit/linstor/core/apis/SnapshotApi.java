@@ -2,7 +2,7 @@ package com.linbit.linstor.core.apis;
 
 import com.linbit.linstor.api.interfaces.RscLayerDataApi;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public interface SnapshotApi
     long getFlags();
     boolean getSuspendResource();
     boolean getTakeSnapshot();
-    Optional<Date> getCreateTimestamp();
+    Optional<Instant> getCreateTimestamp();
     Long getFullSyncId();
     Long getUpdateId();
     List<? extends SnapshotVolumeApi> getSnapshotVlmList();

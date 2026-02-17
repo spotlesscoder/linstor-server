@@ -56,7 +56,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -222,9 +221,9 @@ public class RscInternalCallHandler
             Resource rsc = rscDfn.getResource(apiCtx, nodeName);
 
             if (rsc.getCreateTimestamp().isPresent() &&
-                rsc.getCreateTimestamp().get().equals(new Date(AbsResource.CREATE_DATE_INIT_VALUE)))
+                rsc.getCreateTimestamp().get().toEpochMilli() == AbsResource.CREATE_DATE_INIT_VALUE)
             {
-                rsc.setCreateTimestamp(apiCtx, new Date(Instant.now().toEpochMilli()));
+                rsc.setCreateTimestamp(apiCtx, Instant.now());
             }
 
             layerRscDataMerger.mergeLayerData(rsc, rscLayerDataPojoRef, false);

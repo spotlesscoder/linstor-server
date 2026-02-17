@@ -41,7 +41,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
@@ -58,7 +58,7 @@ public final class ResourceDbDriver extends
     private final TransactionObjectFactory transObjFactory;
     private final Provider<TransactionMgr> transMgrProvider;
 
-    protected final SingleColumnDatabaseDriver<AbsResource<Resource>, Date> createTimestampDriver;
+    final SingleColumnDatabaseDriver<AbsResource<Resource>, Instant> createTimestampDriver;
 
     @Inject
     public ResourceDbDriver(
@@ -84,7 +84,7 @@ public final class ResourceDbDriver extends
 
         flagsDriver = generateFlagDriver(RESOURCE_FLAGS, Resource.Flags.class);
 
-        Function<Date, Object> createTimestampTypeMapper;
+        Function<Instant, Object> createTimestampTypeMapper;
 
         setColumnSetter(UUID, rsc -> rsc.getUuid().toString());
         setColumnSetter(NODE_NAME, rsc -> rsc.getNode().getName().value);
@@ -96,16 +96,16 @@ public final class ResourceDbDriver extends
             case SQL ->
             {
                 setColumnSetter(CREATE_TIMESTAMP, rsc -> rsc.getCreateTimestamp().isPresent() ?
-                    new Timestamp(rsc.getCreateTimestamp().get().getTime()) : null);
+                    new Timestamp(rsc.getCreateTimestamp().get().toEpochMilli()) : null);
                 createTimestampTypeMapper = createTime -> createTime != null ?
-                    new Timestamp(createTime.getTime()) :
+                    new Timestamp(createTime.toEpochMilli()) :
                     null;
             }
             case K8S_CRD ->
             {
                 setColumnSetter(CREATE_TIMESTAMP, rsc -> rsc.getCreateTimestamp().isPresent() ?
-                    rsc.getCreateTimestamp().get().getTime() : null);
-                createTimestampTypeMapper = createTime -> createTime != null ? createTime.getTime() : null;
+                    rsc.getCreateTimestamp().get().toEpochMilli() : null);
+                createTimestampTypeMapper = createTime -> createTime != null ? createTime.toEpochMilli() : null;
             }
             default -> throw new ImplementationError("Unknown database type: " + getDbType());
         }
@@ -159,7 +159,7 @@ public final class ResourceDbDriver extends
                     transMgrProvider,
                     rscConMap,
                     vlmMap,
-                    createTimestamp == null ? null : new Date(createTimestamp)
+                    createTimestamp == null ? null : Instant.ofEpochMilli(createTimestamp)
                 ),
                 new InitMapImpl(rscConMap, vlmMap)
             );
@@ -202,7 +202,7 @@ public final class ResourceDbDriver extends
     }
 
     @Override
-    public SingleColumnDatabaseDriver<AbsResource<Resource>, Date> getCreateTimeDriver()
+    public SingleColumnDatabaseDriver<AbsResource<Resource>, Instant> getCreateTimeDriver()
     {
         return createTimestampDriver;
     }

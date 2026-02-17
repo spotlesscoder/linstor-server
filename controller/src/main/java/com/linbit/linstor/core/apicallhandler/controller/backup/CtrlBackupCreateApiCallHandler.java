@@ -71,11 +71,11 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -458,14 +458,14 @@ public class CtrlBackupCreateApiCallHandler
         SnapshotDefinition prevSnapDfn = null;
         if (allowIncremental)
         {
-            Date crtTime = snapDfn.getCreationTime();
-            Date prevCrtTime = null;
+            @Nullable Instant crtTime = snapDfn.getCreationTime();
+            @Nullable Instant prevCrtTime = null;
             for (SnapshotDefinition dfn : rscDfn.getSnapshotDfns(sysCtx))
             {
-                Date curCrtTime = dfn.getCreationTime();
+                @Nullable Instant curCrtTime = dfn.getCreationTime();
                 if (
-                    curCrtTime != null && curCrtTime.before(crtTime) &&
-                        (prevCrtTime == null || curCrtTime.after(prevCrtTime))
+                    curCrtTime != null && curCrtTime.isBefore(crtTime) &&
+                        (prevCrtTime == null || curCrtTime.isAfter(prevCrtTime))
                 )
                 {
                     prevCrtTime = curCrtTime;

@@ -162,10 +162,10 @@ import com.linbit.utils.TimeUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -708,8 +708,8 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
     public CommonSerializer.CommonSerializerBuilder requestErrorReports(
         Set<String> nodes,
         boolean withContent,
-        @Nullable Date since,
-        @Nullable Date to,
+        @Nullable Instant since,
+        @Nullable Instant to,
         Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset
@@ -720,11 +720,11 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
             MsgReqErrorReport.Builder bld = MsgReqErrorReport.newBuilder();
             if (since != null)
             {
-                bld.setSince(since.getTime());
+                bld.setSince(since.toEpochMilli());
             }
             if (to != null)
             {
-                bld.setTo(to.getTime());
+                bld.setTo(to.toEpochMilli());
             }
             if (limit != null)
             {
@@ -755,7 +755,7 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                 com.linbit.linstor.proto.responses.MsgErrorReportOuterClass.ErrorReport.Builder protoErrorReport =
                     com.linbit.linstor.proto.responses.MsgErrorReportOuterClass.ErrorReport.newBuilder();
 
-                protoErrorReport.setErrorTime(errReport.getDateTime().getTime());
+                protoErrorReport.setErrorTime(errReport.getDateTime().toEpochMilli());
                 protoErrorReport.setNodeNames(errReport.getNodeName());
                 protoErrorReport.setFilename(errReport.getFileName());
                 protoErrorReport.setModule((int) errReport.getModule().getFlagValue());
@@ -780,8 +780,8 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
 
     @Override
     public CommonSerializer.CommonSerializerBuilder deleteErrorReports(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final String exception,
         @Nullable final String version,
         @Nullable final List<String> ids)
@@ -791,11 +791,11 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
             final MsgDelErrorReports.Builder bld = MsgDelErrorReports.newBuilder();
             if (since != null)
             {
-                bld.setSince(since.getTime());
+                bld.setSince(since.toEpochMilli());
             }
             if (to != null)
             {
-                bld.setTo(to.getTime());
+                bld.setTo(to.toEpochMilli());
             }
             if (exception != null)
             {

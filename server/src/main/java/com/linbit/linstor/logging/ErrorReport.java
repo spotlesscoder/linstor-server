@@ -3,7 +3,7 @@ package com.linbit.linstor.logging;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.core.objects.Node;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.Optional;
 
 public class ErrorReport extends LinstorFile
@@ -28,7 +28,7 @@ public class ErrorReport extends LinstorFile
         @Nullable final String originFileRef,
         @Nullable final String originMethodRef,
         @Nullable final Integer originLineRef,
-        final Date dateRef,
+        final Instant dateRef,
         @Nullable final String textRef)
     {
         super(nodeNameRef, fileNameRef, dateRef, textRef);
@@ -47,7 +47,7 @@ public class ErrorReport extends LinstorFile
     }
 
     @Override
-    public Date getDateTime()
+    public Instant getDateTime()
     {
         return dateTime;
     }

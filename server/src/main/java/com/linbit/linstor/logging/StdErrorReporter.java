@@ -28,10 +28,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -413,8 +413,8 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
     @Override
     public ErrorReportResult listReports(
         boolean withText,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset
@@ -425,8 +425,8 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
 
     @Override
     public ApiCallRc deleteErrorReports(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final String exception,
         @Nullable final String version,
         @Nullable final List<String> ids)
@@ -486,7 +486,7 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
     @Override
     public void archiveLogDirectory()
     {
-        // create a Date instance that is starting 2 months before.
+        // create an Instant that is starting 1 month before (at month starting).
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
         cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -494,7 +494,7 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        final Date beforeDate = cal.getTime();
+        final Instant beforeDate = cal.toInstant();
 
         try (Stream<Path> files = Files.list(getLogDirectory()))
         {
@@ -526,8 +526,8 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
                     boolean use = false;
                     if (attr != null)
                     {
-                        Date createDate = new Date(attr.creationTime().toMillis());
-                        use = createDate.before(beforeDate);
+                        Instant createDate = Instant.ofEpochMilli(attr.creationTime().toMillis());
+                        use = createDate.isBefore(beforeDate);
                     }
                     return use;
                 })

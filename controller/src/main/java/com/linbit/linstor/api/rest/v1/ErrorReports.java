@@ -26,8 +26,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -99,8 +99,8 @@ public class ErrorReports
         @DefaultValue("0") @QueryParam("offset") long offset // is currently ignored, because it isn't working
     )
     {
-        Date optSince = since != null ? new Date(since) : null;
-        Date optTo = to != null ? new Date(to) : null;
+        @Nullable Instant optSince = since != null ? Instant.ofEpochMilli(since) : null;
+        @Nullable Instant optTo = to != null ? Instant.ofEpochMilli(to) : null;
         Set<String> filterNodes = new HashSet<>();
         Set<String> filterIds = new HashSet<>();
 
@@ -134,7 +134,7 @@ public class ErrorReports
                         {
                             JsonGenTypes.ErrorReport jsonErrorReport = new JsonGenTypes.ErrorReport();
                             jsonErrorReport.node_name = errorReport.getNodeName();
-                            jsonErrorReport.error_time = errorReport.getDateTime().getTime();
+                            jsonErrorReport.error_time = errorReport.getDateTime().toEpochMilli();
                             jsonErrorReport.filename = errorReport.getFileName();
                             jsonErrorReport.module = errorReport.getModuleString();
                             jsonErrorReport.version = errorReport.getVersion().orElse(null);
@@ -188,8 +188,8 @@ public class ErrorReports
             JsonGenTypes.ErrorReportDelete data = objectMapper.readValue(
                 jsonData, JsonGenTypes.ErrorReportDelete.class);
 
-            Date optSince = data.since != null ? new Date(data.since) : null;
-            Date optTo = data.to != null ? new Date(data.to) : null;
+            @Nullable Instant optSince = data.since != null ? Instant.ofEpochMilli(data.since) : null;
+            @Nullable Instant optTo = data.to != null ? Instant.ofEpochMilli(data.to) : null;
             Flux<ApiCallRc> flux = ctrlErrorListApiCallHandler
                 .deleteErrorReports(optSince, optTo, data.nodes, data.exception, data.version, data.ids);
 

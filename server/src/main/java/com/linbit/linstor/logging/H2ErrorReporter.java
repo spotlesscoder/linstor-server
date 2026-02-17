@@ -21,10 +21,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -162,8 +162,8 @@ public class H2ErrorReporter
 
     public ErrorReportResult listReports(
         boolean withText,
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         final Set<String> ids,
         @Nullable final Long limit,
         @Nullable final Long offset
@@ -180,12 +180,12 @@ public class H2ErrorReporter
 
         if (since != null)
         {
-            where += " AND DATETIME >= '" + new java.sql.Date(since.getTime()) + "'";
+            where += " AND DATETIME >= '" + new java.sql.Date(since.toEpochMilli()) + "'";
         }
 
         if (to != null)
         {
-            where += " AND DATETIME <= '" + new java.sql.Date(to.getTime()) + "'";
+            where += " AND DATETIME <= '" + new java.sql.Date(to.toEpochMilli()) + "'";
         }
 
         final String columnsStr = "INSTANCE_EPOCH, ERROR_NR, NODE, MODULE, ERROR_ID, DATETIME, VERSION, PEER," +
@@ -238,7 +238,7 @@ public class H2ErrorReporter
                         rslt.getString("ORIGIN_FILE"),
                         rslt.getString("ORIGIN_METHOD"),
                         rslt.getInt("ORIGIN_LINE"),
-                        new Date(rslt.getTimestamp("DATETIME").getTime()),
+                        Instant.ofEpochMilli(rslt.getTimestamp("DATETIME").getTime()),
                         text
                     )
                 );
@@ -254,8 +254,8 @@ public class H2ErrorReporter
     }
 
     public List<String> deleteErrorReports(
-        @Nullable final Date since,
-        @Nullable final Date to,
+        @Nullable final Instant since,
+        @Nullable final Instant to,
         @Nullable final String exception,
         @Nullable final String version,
         @Nullable final List<String> ids)
@@ -312,13 +312,13 @@ public class H2ErrorReporter
                 int index = 1;
                 if (to != null)
                 {
-                    pSelStmt.setTimestamp(index, new java.sql.Timestamp(to.getTime()));
-                    pDelStmt.setTimestamp(index++, new java.sql.Timestamp(to.getTime()));
+                    pSelStmt.setTimestamp(index, new java.sql.Timestamp(to.toEpochMilli()));
+                    pDelStmt.setTimestamp(index++, new java.sql.Timestamp(to.toEpochMilli()));
                 }
                 if (since != null)
                 {
-                    pSelStmt.setTimestamp(index, new java.sql.Timestamp(since.getTime()));
-                    pDelStmt.setTimestamp(index++, new java.sql.Timestamp(since.getTime()));
+                    pSelStmt.setTimestamp(index, new java.sql.Timestamp(since.toEpochMilli()));
+                    pDelStmt.setTimestamp(index++, new java.sql.Timestamp(since.toEpochMilli()));
                 }
                 if (exception != null)
                 {

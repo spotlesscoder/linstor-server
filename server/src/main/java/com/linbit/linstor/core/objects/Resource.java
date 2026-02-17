@@ -38,11 +38,11 @@ import com.linbit.linstor.utils.layer.LayerVlmUtils;
 
 import javax.inject.Provider;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +100,7 @@ public class Resource extends AbsResource<Resource>
         Provider<? extends TransactionMgr> transMgrProviderRef,
         Map<Resource.ResourceKey, ResourceConnection> rscConnMapRef,
         Map<VolumeNumber, Volume> vlmMapRef,
-        @Nullable Date createTimestampRef
+        @Nullable Instant createTimestampRef
     )
         throws DatabaseException
     {
