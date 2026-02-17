@@ -77,7 +77,7 @@ public class DrbdLayerUtils
                 }
             }
             boolean isInactive = rscFlags.isSet(accCtx, Resource.Flags.INACTIVE);
-            if (hasNvmeBelow && isNvmeTarget || isEbsTarget || isInactive)
+            if ((hasNvmeBelow && isNvmeTarget) || isEbsTarget || isInactive)
             {
                 // target NVME or inactive resource will never return a device, so drbd will not exist
                 isDevExpected = false;

@@ -479,7 +479,7 @@ public class TcpConnectorPeer implements Peer
 
                     openRpcs.put(apiCallId, fluxSink);
 
-                    if (authenticationRequired && !authenticated || fullSyncAppliedRequired && !fullSyncApplied)
+                    if ((authenticationRequired && !authenticated) || (fullSyncAppliedRequired && !fullSyncApplied))
                     {
                         fluxSink.error(new PeerNotConnectedException());
                     }

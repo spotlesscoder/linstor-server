@@ -198,8 +198,8 @@ class CtrlNetIfApiCallHandler
 
             // reconnect necessary if ip or port changes on the active stlt conn
             boolean needsReconnect =
-                !isModifyingActiveStltConn && setActive ||
-                isModifyingActiveStltConn && (addressStr != null || stltPort != null && stltEncrType != null);
+                (!isModifyingActiveStltConn && setActive) ||
+                (isModifyingActiveStltConn && (addressStr != null || (stltPort != null && stltEncrType != null)));
 
             if (needsReconnect && nodeType.isSpecial())
             {

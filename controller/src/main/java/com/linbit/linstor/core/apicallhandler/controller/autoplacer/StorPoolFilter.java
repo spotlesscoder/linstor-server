@@ -469,7 +469,7 @@ public class StorPoolFilter
 
                 if (nodeMatches &&
                     (
-                        filterDoNotPlaceWithRscList != null && !filterDoNotPlaceWithRscList.isEmpty() ||
+                        (filterDoNotPlaceWithRscList != null && !filterDoNotPlaceWithRscList.isEmpty()) ||
                         filterDoNotPlaceWithRscRegex != null
                     )
                 )

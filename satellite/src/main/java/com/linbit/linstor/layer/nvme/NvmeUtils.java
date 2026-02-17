@@ -861,7 +861,7 @@ public class NvmeUtils
         }
         while (!extCmdSuccess && tries < NVME_GREP_SLEEP_MAX_WAIT_TIME);
 
-        if (isWaiting && tries >= NVME_GREP_SLEEP_MAX_WAIT_TIME || !extCmdSuccess)
+        if ((isWaiting && tries >= NVME_GREP_SLEEP_MAX_WAIT_TIME) || !extCmdSuccess)
         {
             output = null;
         }

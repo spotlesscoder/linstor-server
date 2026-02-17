@@ -615,7 +615,7 @@ public class DrbdRscData<RSC extends AbsResource<RSC>>
             for (DrbdVlmData<RSC> vlmData : this.getVlmLayerObjects().values())
             {
                 if (vlmData.getDataDevice() == null ||
-                    vlmData.isUsingExternalMetaData() && vlmData.getMetaDiskPath() == null)
+                    (vlmData.isUsingExternalMetaData() && vlmData.getMetaDiskPath() == null))
                 {
                     isReady = false;
                     break;

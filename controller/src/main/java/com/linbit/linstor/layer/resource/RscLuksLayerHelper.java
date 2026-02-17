@@ -211,7 +211,7 @@ class RscLuksLayerHelper extends AbsRscLayerHelper<
 
         boolean isStoragePoolShared = areAllShared(allStorPools);
 
-        if (isNvmeBelow && isNvmeInitiator || isEbsInitiator)
+        if ((isNvmeBelow && isNvmeInitiator) || isEbsInitiator)
         {
             // we need to find our target resource and copy the node-id from that target-resource
             errorReporter.logTrace("Nvme- or EBS initiator below us.. looking for target");

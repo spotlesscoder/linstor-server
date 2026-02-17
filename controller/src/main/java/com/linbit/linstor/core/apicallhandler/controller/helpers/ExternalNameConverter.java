@@ -144,9 +144,9 @@ public class ExternalNameConverter
     private static boolean isValidChar(final byte curChar, final boolean innerChar)
     {
         boolean validFlag;
-        if (curChar >= 'a' && curChar <= 'z' ||
-            curChar >= 'A' && curChar <= 'Z' ||
-            innerChar && curChar >= '0' && curChar <= '9')
+        if ((curChar >= 'a' && curChar <= 'z') ||
+            (curChar >= 'A' && curChar <= 'Z') ||
+            (innerChar && curChar >= '0' && curChar <= '9'))
         {
             validFlag = true;
         }

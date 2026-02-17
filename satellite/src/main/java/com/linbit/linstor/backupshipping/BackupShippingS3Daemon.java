@@ -270,7 +270,7 @@ public class BackupShippingS3Daemon implements Runnable, BackupShippingDaemon
                     int exitCode = handler.getExitCode();
                     errorReporter.logTrace("EOF. Exit code: " + exitCode);
                     success = exitCode == 0;
-                    if (restore && !first || !restore)
+                    if ((restore && !first) || !restore)
                     {
                         running = false;
                     }

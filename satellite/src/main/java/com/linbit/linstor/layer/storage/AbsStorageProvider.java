@@ -409,8 +409,8 @@ public abstract class AbsStorageProvider<
                             Volume volume = (Volume) vlmData.getVolume();
                             if (
                                 sizeState.equals(VlmProviderObject.Size.TOO_SMALL) ||
-                                    volume.getFlags().isSet(storDriverAccCtx, Volume.Flags.RESIZE) &&
-                                    sizeState.equals(VlmProviderObject.Size.TOO_LARGE)
+                                    (volume.getFlags().isSet(storDriverAccCtx, Volume.Flags.RESIZE) &&
+                                    sizeState.equals(VlmProviderObject.Size.TOO_LARGE))
                             )
                             {
                                 errorReporter.logTrace(

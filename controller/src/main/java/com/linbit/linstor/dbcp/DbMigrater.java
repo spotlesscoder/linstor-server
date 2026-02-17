@@ -292,7 +292,7 @@ public class DbMigrater
 
                     if (
                         currVersionMajor < minVersionMajor ||
-                            currVersionMajor == minVersionMajor && currVersionMinor < minVersionMinor
+                            (currVersionMajor == minVersionMajor && currVersionMinor < minVersionMinor)
                     )
                     {
                         throw new InitializationException(

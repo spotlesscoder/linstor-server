@@ -231,12 +231,12 @@ public class ScheduleBackupService implements SystemService
             Set<ScheduledShippingConfig> ret = new TreeSet<>();
             for (ScheduledShippingConfig conf : activeShippings)
             {
-                boolean add = rscName == null || rscName.isEmpty() ||
-                    conf.rscDfn.getName().value.equalsIgnoreCase(rscName);
-                add &= remoteName == null || remoteName.isEmpty() ||
-                    conf.remote.getName().value.equalsIgnoreCase(remoteName);
-                add &= scheduleName == null || scheduleName.isEmpty() ||
-                    conf.schedule.getName().value.equalsIgnoreCase(scheduleName);
+                boolean add = (rscName == null || rscName.isEmpty() ||
+                    conf.rscDfn.getName().value.equalsIgnoreCase(rscName));
+                add &= (remoteName == null || remoteName.isEmpty() ||
+                    conf.remote.getName().value.equalsIgnoreCase(remoteName));
+                add &= (scheduleName == null || scheduleName.isEmpty() ||
+                    conf.schedule.getName().value.equalsIgnoreCase(scheduleName));
 
                 if (add)
                 {
@@ -464,7 +464,7 @@ public class ScheduleBackupService implements SystemService
                     forceRscGrp
                 );
                 boolean confIsActive = activeShippings.contains(config);
-                if (lastStartTime >= 0 && confIsActive || lastStartTime == NOT_STARTED_YET)
+                if ((lastStartTime >= 0 && confIsActive) || lastStartTime == NOT_STARTED_YET)
                 {
                     BackupShippingTask task = new BackupShippingTask(
                         new BackupShippingtaskConfig(
@@ -862,8 +862,8 @@ public class ScheduleBackupService implements SystemService
                 // key for activating scheduled shipping is namespace/{remoteName}/{scheduleName}/Enabled
                 String[] splitKey = propKey.split(ReadOnlyProps.PATH_SEPARATOR);
                 if (splitKey.length == expectedKeyLength && (
-                    remoteName != null && splitKey[1].equals(remoteName) ||
-                    scheduleName != null && splitKey[2].equals(scheduleName))
+                    (remoteName != null && splitKey[1].equals(remoteName)) ||
+                    (scheduleName != null && splitKey[2].equals(scheduleName)))
                 )
                 {
                     props.removeProp(propKey);

@@ -286,9 +286,9 @@ public class CtrlBackupApiCallHandler
         }
         else
         if (
-            timestamp != null && !timestamp.isEmpty() ||
-                rscName != null && !rscName.isEmpty() ||
-                nodeName != null && !nodeName.isEmpty()
+            (timestamp != null && !timestamp.isEmpty()) ||
+                (rscName != null && !rscName.isEmpty()) ||
+                (nodeName != null && !nodeName.isEmpty())
         ) // case 4: (time|rsc|node)+ [cascading]
         {
             deleteByTimeRscNode(
@@ -579,10 +579,10 @@ public class CtrlBackupApiCallHandler
         ToDeleteCollections toDeleteRef
     )
     {
-        Predicate<String> nodeNameCheck = nodeNameRef == null ||
-            nodeNameRef.isEmpty() ? ignore -> true : nodeNameRef::equalsIgnoreCase;
-        Predicate<String> rscNameCheck = rscNameRef == null ||
-            rscNameRef.isEmpty() ? ignore -> true : rscNameRef::equalsIgnoreCase;
+        Predicate<String> nodeNameCheck = (nodeNameRef == null ||
+            nodeNameRef.isEmpty()) ? ignore -> true : nodeNameRef::equalsIgnoreCase;
+        Predicate<String> rscNameCheck = (rscNameRef == null ||
+            rscNameRef.isEmpty()) ? ignore -> true : rscNameRef::equalsIgnoreCase;
         Predicate<Long> timestampCheck;
         if (timestampRef == null || timestampRef.isEmpty())
         {
@@ -1162,7 +1162,7 @@ public class CtrlBackupApiCallHandler
                     boolean isSnapDfnTarget = InternalApiConsts.VALUE_SHIPPING.equals(
                         BackupShippingUtils.getTargetShippingStatus(snapDfn, peerAccCtx.get())
                     );
-                    boolean abort = isSnapDfnSource && create || isSnapDfnTarget && restore;
+                    boolean abort = (isSnapDfnSource && create) || (isSnapDfnTarget && restore);
                     if (isSnapDfnSource && create)
                     {
                         String remoteName = snapDfn.getSnapDfnProps(peerAccCtx.get())

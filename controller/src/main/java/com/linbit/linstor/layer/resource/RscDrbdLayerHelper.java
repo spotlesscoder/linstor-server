@@ -350,7 +350,7 @@ public class RscDrbdLayerHelper extends
 
         boolean isStoragePoolShared = areAllShared(allStorPools);
 
-        if (isNvmeBelow && isNvmeInitiator || isEbsInitiator)
+        if ((isNvmeBelow && isNvmeInitiator) || isEbsInitiator)
         {
             // we need to find our target resource and copy the node-id from that target-resource
             final Resource targetRsc;

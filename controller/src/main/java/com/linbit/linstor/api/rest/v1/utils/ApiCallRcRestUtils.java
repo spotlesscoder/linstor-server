@@ -61,8 +61,8 @@ public class ApiCallRcRestUtils
                 }
                 else
                 if (rc.getReturnCode() == ApiConsts.FAIL_SIGN_IN ||
-                    strippedCode >= MIN_ACC_DENIED &&
-                    strippedCode <= MAX_ACC_DENIED)
+                    (strippedCode >= MIN_ACC_DENIED &&
+                    strippedCode <= MAX_ACC_DENIED))
                 {
                     status = Response.Status.FORBIDDEN;
                 }

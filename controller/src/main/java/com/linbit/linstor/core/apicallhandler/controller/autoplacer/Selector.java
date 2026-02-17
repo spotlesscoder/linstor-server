@@ -109,10 +109,10 @@ class Selector
                         selectFilterRef.skipAlreadyPlacedOnNodeNamesCheck();
                     Boolean skipAlreadyPlacedOnAllNodesCheck = selectFilterRef.skipAlreadyPlacedOnAllNodeCheck();
 
-                    boolean countResource = skipAlreadyPlacedOnAllNodesCheck == null ||
-                        !skipAlreadyPlacedOnAllNodesCheck;
-                    countResource &= skipAlreadyPlacedOnNodeNamesCheck == null ||
-                        !skipAlreadyPlacedOnNodeNamesCheck.contains(node.getName().displayValue);
+                    boolean countResource = (skipAlreadyPlacedOnAllNodesCheck == null ||
+                        !skipAlreadyPlacedOnAllNodesCheck);
+                    countResource &= (skipAlreadyPlacedOnNodeNamesCheck == null ||
+                        !skipAlreadyPlacedOnNodeNamesCheck.contains(node.getName().displayValue));
 
                     countResource &= !(rscFlags.isSet(apiCtx, Resource.Flags.EVACUATE) ||
                         node.getFlags().isSet(apiCtx, Node.Flags.EVACUATE));
@@ -370,7 +370,7 @@ class Selector
             if (!fixedNodes.contains(node))
             {
                 boolean isDiskless = rsc.isDiskless(apiCtx);
-                if (isDiskless && !selectDiskfulNodeRef || !isDiskless && selectDiskfulNodeRef)
+                if ((isDiskless && !selectDiskfulNodeRef) || (!isDiskless && selectDiskfulNodeRef))
                 {
                     candidatesToUnselect.add(rsc);
                 }
