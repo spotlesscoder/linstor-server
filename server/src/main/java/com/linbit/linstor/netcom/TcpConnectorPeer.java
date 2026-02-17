@@ -729,6 +729,7 @@ public class TcpConnectorPeer implements Peer
 
     // it does not really matter which value the threads read, as long as they read a value
     @SuppressFBWarnings("VO_VOLATILE_INCREMENT")
+    @SuppressWarnings("NonAtomicVolatileUpdate")
     protected void nextInMessage()
     {
         msgIn = createMessage(false);
