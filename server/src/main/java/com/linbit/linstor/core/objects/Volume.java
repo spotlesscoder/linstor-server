@@ -53,8 +53,6 @@ public class Volume extends AbsVolume<Resource>
         Map<Key, VolumeConnection> getVolumeConnections();
     }
 
-    private static final String TO_STRING_FORMAT = "Node: '%s', Rsc: '%s', VlmNr: '%s'";
-
     // Reference to the volume definition that defines this volume
     private final VolumeDefinition volumeDfn;
 
@@ -350,7 +348,7 @@ public class Volume extends AbsVolume<Resource>
     @Override
     public String toStringImpl()
     {
-        return String.format(TO_STRING_FORMAT, vlmKey.nodeName, vlmKey.resourceName, vlmKey.volumeNumber);
+        return String.format("Node: '%s', Rsc: '%s', VlmNr: '%s'", vlmKey.nodeName, vlmKey.resourceName, vlmKey.volumeNumber);
     }
 
     @Override

@@ -55,7 +55,6 @@ import java.util.Set;
 
 public class CacheLayer implements DeviceLayer
 {
-    private static final String FORMAT_DM_NAME = "linstor_cache_%s%s_%05d";
     private static final String FORMAT_DEV_PATH = "/dev/mapper/%s";
 
     private static final String DFLT_FEATURE = "writeback";
@@ -148,7 +147,7 @@ public class CacheLayer implements DeviceLayer
     {
         AbsRscLayerObject<Resource> rscData = vlmDataRef.getRscLayerObject();
         return String.format(
-            FORMAT_DM_NAME,
+            "linstor_cache_%s%s_%05d",
             rscData.getResourceName().displayValue,
             rscData.getResourceNameSuffix(),
             vlmDataRef.getVlmNr().value

@@ -35,7 +35,6 @@ import java.util.stream.Stream;
 
 public class SnapshotVolume extends AbsVolume<Snapshot> // TODO implement SnapshotVolumeConnections
 {
-    private static final String TO_STRING_FORMAT = "Node: '%s', Resource: '%s', Snapshot: '%s', VlmNr: '%s'";
     private final SnapshotVolumeDefinition snapshotVolumeDefinition;
 
     private final SnapshotVolumeDatabaseDriver dbDriver;
@@ -174,7 +173,7 @@ public class SnapshotVolume extends AbsVolume<Snapshot> // TODO implement Snapsh
     public String toStringImpl()
     {
         return String.format(
-            TO_STRING_FORMAT,
+            "Node: '%s', Resource: '%s', Snapshot: '%s', VlmNr: '%s'",
             snapVlmKey.nodeName,
             snapVlmKey.rscName,
             snapVlmKey.snapName,

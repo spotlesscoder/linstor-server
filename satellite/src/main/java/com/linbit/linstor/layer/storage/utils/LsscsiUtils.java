@@ -21,7 +21,6 @@ import java.util.Set;
 public class LsscsiUtils
 {
     private static final Object SYNC_OBJ = new Object();
-    private static final String RESCAN_PATH_FORMAT = "/sys/class/scsi_host/host%s/scan";
 
     private static @Nullable List<LsscsiRow> cachedLsscsiRows;
 
@@ -86,7 +85,7 @@ public class LsscsiUtils
             {
                 for (String host : hostSet)
                 {
-                    rescanPath = String.format(RESCAN_PATH_FORMAT, host);
+                    rescanPath = String.format("/sys/class/scsi_host/host%s/scan", host);
                     errReporter.logTrace("rescanning %s using filter: %s", rescanPath, filter);
                     Files.write(Paths.get(rescanPath), filter.getBytes(StandardCharsets.UTF_8));
                 }

@@ -65,96 +65,7 @@ public class LinstorConfigTool
 {
     private static @Nullable CommandLine commandLine;
 
-    private static final String DB_CFG = """
-        [db]
-          user = "%s"
-          password = "%s"
-          connection_url = "%s"
-        """;
 
-    private static final String DEF_CTRL_TOML = """
-        [db]
-        # user = "linstor"
-        # password = "linstor"
-
-        ## jdbc connection url
-        # connection_url = "jdbc:h2:/var/lib/linstor/linstordb"
-
-        ## if you use TLS with crd
-        # ca_certificate = "ca.pem"
-        # client_certificate = "client.pem"
-        # client_key_pkcs8_pem = "client-key.pkcs8"
-        ## set client_key_password if private key has a password
-        # client_key_password = "mysecret"
-
-        ## for k8s crd
-        # connection_url = "k8s"
-            [db.k8s]
-            ## how often to retry connecting to k8s crd
-            # request_retries = 5
-            ## how many rollack retries
-            # rollback_retires = 5
-
-        [encrypt]
-        ## provide passphrase here to auto unlock Linstor encryption master passphrase
-        # passphrase = "mysecret"
-
-        [http]
-        # enabled = true
-        # listen_addr = "::"
-        # port = 3370
-
-        [https]
-        # enabled = false
-        # listen_addr = "::"
-        # port = 3371
-
-        ## keystore containing the https server certificate
-        # keystore = "/path/to/valid/file.jks"
-
-        ## keystore password to unlock the server certificate
-        # keystore_password = "linstor"
-
-        ## to only allow clients with the correct certificates
-        # truststore = "/path/to/valid/truststore.jks
-        # truststore_password = "password"
-
-        [ldap]
-        # enabled = false
-
-        ## allow_public_access: if no authorization fields are given allow users to work with the public context
-        # allow_public_access = false
-
-        ## uri: ldap uri to use e.g.: ldap://hostname
-        # uri = ""
-
-        ## distinguished name: {user} can be used as template for the user name
-        # dn = "uid={user}"
-
-        ## search base for the search_filter field
-        # search_base = ""
-
-        ## search_filter: ldap filter to restrict users on memberships
-        # search_filter = ""
-
-        [logging]
-        # level = "info" # minimal log level 3rd party libs, can be trace, debug, info, warning, error
-        # linstor_level = "info" # minimal log level for Linstor, can be trace, debug, info, warning, error
-
-        ## path to the rest access log, if relative path it will be resolved to the linstor log directory
-        # rest_access_log_path = "rest-access.log"
-
-        ## rest_access_log_mode configures the way the log is archived
-        ##   - "APPEND" will always append to the same file
-        ##   - "ROTATE_HOURLY" will rotate the file on an hourly basis
-        ##   - "ROTATE_DAILY"  will rotate the file on a daily basis
-        ##   - "NO_LOG" will not write a access log file
-        # rest_access_log_mode = "NO_LOG"
-
-        [webUi]
-        ## path to the web ui directory
-        # directory = "./ui"
-        """;
 
     @CommandLine.Command(name = "linstor-config", subcommands = {
         CmdSetPlainPort.class,
@@ -303,9 +214,10 @@ public class LinstorConfigTool
                  Connection con = dataSource.getConnection())
             {
                 con.setSchema(DATABASE_SCHEMA_NAME);
-                final String stmt = "UPDATE PROPS_CONTAINERS SET PROP_VALUE='%d' " +
-                    "WHERE PROPS_INSTANCE='/CTRLCFG' AND PROP_KEY='netcom/PlainConnector/port'";
-                SQLUtils.executeStatement(con, String.format(stmt, controllerPort));
+                SQLUtils.executeStatement(con, String.format(
+                    "UPDATE PROPS_CONTAINERS SET PROP_VALUE='%d' " +
+                        "WHERE PROPS_INSTANCE='/CTRLCFG' AND PROP_KEY='netcom/PlainConnector/port'",
+                    controllerPort));
                 con.commit();
                 System.out.println("Controller plain port set to " + controllerPort);
             }
@@ -330,9 +242,10 @@ public class LinstorConfigTool
                  Connection con = dataSource.getConnection())
             {
                 con.setSchema(DATABASE_SCHEMA_NAME);
-                final String stmt = "UPDATE PROPS_CONTAINERS SET PROP_VALUE='%s' " +
-                    "WHERE PROPS_INSTANCE='/CTRLCFG' AND PROP_KEY='netcom/PlainConnector/bindaddress'";
-                SQLUtils.executeStatement(con, String.format(stmt, listenAddress));
+                SQLUtils.executeStatement(con, String.format(
+                    "UPDATE PROPS_CONTAINERS SET PROP_VALUE='%s' " +
+                        "WHERE PROPS_INSTANCE='/CTRLCFG' AND PROP_KEY='netcom/PlainConnector/bindaddress'",
+                    listenAddress));
                 con.commit();
 
                 System.out.println("Controller plain listen address set to " + listenAddress);
@@ -408,8 +321,12 @@ public class LinstorConfigTool
                 dbProps.loadFromXML(fis);
             }
 
-            final String tomlDBEntry = String.format(
-                DB_CFG,
+            final String tomlDBEntry = String.format("""
+                [db]
+                  user = "%s"
+                  password = "%s"
+                  connection_url = "%s"
+                """,
                 dbProps.getProperty("user"),
                 dbProps.getProperty("password"),
                 dbProps.getProperty("connection-url")

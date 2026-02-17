@@ -51,8 +51,6 @@ public class Snapshot extends AbsResource<Snapshot> // TODO: add SnapshotConnect
         Map<VolumeNumber, SnapshotVolume> getSnapshotVlmMap();
     }
 
-    private static final String TO_STRING_FORMAT = "Node: '%s', Rsc: '%s', Snapshot: '%s'";
-
     private final SnapshotDefinition snapshotDfn;
 
     private final SnapshotDatabaseDriver dbDriver;
@@ -350,7 +348,7 @@ public class Snapshot extends AbsResource<Snapshot> // TODO: add SnapshotConnect
     @Override
     public String toStringImpl()
     {
-        return String.format(TO_STRING_FORMAT, snapKey.nodeName, snapKey.resourceName, snapKey.snapshotName);
+        return String.format("Node: '%s', Rsc: '%s', Snapshot: '%s'", snapKey.nodeName, snapKey.resourceName, snapKey.snapshotName);
     }
 
     @Override

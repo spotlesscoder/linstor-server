@@ -63,8 +63,6 @@ public class Resource extends AbsResource<Resource>
         Map<VolumeNumber, Volume> getVlmMap();
     }
 
-    private static final String TO_STRING_FORMAT = "Node: '%s', Rsc: '%s'";
-
     private final Props props;
 
     // Reference to the resource definition
@@ -557,7 +555,7 @@ public class Resource extends AbsResource<Resource>
     @Override
     public String toStringImpl()
     {
-        return String.format(TO_STRING_FORMAT, rscKey.nodeName, rscKey.resourceName);
+        return String.format("Node: '%s', Rsc: '%s'", rscKey.nodeName, rscKey.resourceName);
     }
 
     public static String getStringId(Resource rsc)

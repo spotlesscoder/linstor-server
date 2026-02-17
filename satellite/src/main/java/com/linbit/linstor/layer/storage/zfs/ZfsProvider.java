@@ -83,7 +83,6 @@ public class ZfsProvider
      * </p>
      */
     public static final String FORMAT_SNAP_TO_ZFS_ID = FORMAT_RSC_TO_ZFS_ID + "%s@%s";
-    private static final String FORMAT_ZFS_DEV_PATH = "/dev/zvol/%s/%s";
     private static final int TOLERANCE_FACTOR = 3;
 
     private static final long ZFS_DFLT_EXTENT_SIZE_IN_KIB = 8L;
@@ -701,7 +700,7 @@ public class ZfsProvider
     @Override
     public String getDevicePath(String zPool, String identifier)
     {
-        return String.format(FORMAT_ZFS_DEV_PATH, zPool, identifier);
+        return String.format("/dev/zvol/%s/%s", zPool, identifier);
     }
 
     @Override

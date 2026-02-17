@@ -50,7 +50,6 @@ import java.util.TreeMap;
 
 public class WritecacheLayer implements DeviceLayer
 {
-    private static final String FORMAT_DM_NAME = "linstor_writecache_%s%s_%05d";
     private static final String FORMAT_DEV_PATH = "/dev/mapper/%s";
 
     /**
@@ -156,7 +155,7 @@ public class WritecacheLayer implements DeviceLayer
     {
         AbsRscLayerObject<Resource> rscData = vlmDataRef.getRscLayerObject();
         return String.format(
-            FORMAT_DM_NAME,
+            "linstor_writecache_%s%s_%05d",
             rscData.getResourceName().displayValue,
             rscData.getResourceNameSuffix(),
             vlmDataRef.getVlmNr().value

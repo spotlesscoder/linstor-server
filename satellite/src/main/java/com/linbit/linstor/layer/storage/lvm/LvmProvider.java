@@ -74,8 +74,6 @@ public class LvmProvider
     // FIXME: FORMAT should be private, only made public for LayeredSnapshotHelper
     public static final String FORMAT_RSC_TO_LVM_ID = "%s%s_%05d";
     public static final String FORMAT_SNAP_TO_LVM_ID = FORMAT_RSC_TO_LVM_ID + "_%s";
-    private static final String FORMAT_LVM_ID_WIPE_IN_PROGRESS = "%s-linstor_wiping_in_progress-%d";
-    private static final String FORMAT_DEV_PATH = "/dev/%s/%s";
 
     private static final String DFLT_LVCREATE_TYPE = "linear";
 
@@ -498,7 +496,7 @@ public class LvmProvider
 
             // just make sure to not colide with any other ongoing wipe-lv-name
             String newLvmId = String.format(
-                FORMAT_LVM_ID_WIPE_IN_PROGRESS,
+                "%s-linstor_wiping_in_progress-%d",
                 asLvIdentifier(vlmData),
                 DELETED_ID.incrementAndGet()
             );
@@ -610,7 +608,7 @@ public class LvmProvider
     @Override
     public String getDevicePath(String storageName, String lvId)
     {
-        return String.format(FORMAT_DEV_PATH, storageName, lvId);
+        return String.format("/dev/%s/%s", storageName, lvId);
     }
 
     @Override

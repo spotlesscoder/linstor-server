@@ -69,8 +69,6 @@ public class FileProvider extends AbsStorageProvider<FileInfo, FileData<Resource
     private static final String FORMAT_VLM_TO_ID = FORMAT_VLM_TO_ID_BASE + ".img";
     private static final String FORMAT_SNAP_VLM_TO_ID = FORMAT_VLM_TO_ID_BASE + "_%s.img";
 
-    private static final String FORMAT_ID_WIPE_IN_PROGRESS = "%s_linstor_wiping_in_progress";
-
     private static final String LODEV_FILE = LinStor.CONFIG_PATH + "/loop_device_mapping";
     private static final String LODEV_FILE_TMP = LODEV_FILE + ".tmp";
 
@@ -292,7 +290,7 @@ public class FileProvider extends AbsStorageProvider<FileInfo, FileData<Resource
             // TODO use this path once async wiping is implemened
 
             // just make sure to not colide with any other ongoing wipe-lv-name
-            String newId = String.format(FORMAT_ID_WIPE_IN_PROGRESS, UUID.randomUUID().toString());
+            String newId = String.format("%s_linstor_wiping_in_progress", UUID.randomUUID().toString());
             FileCommands.rename(
                 storageDirectory,
                 oldId,

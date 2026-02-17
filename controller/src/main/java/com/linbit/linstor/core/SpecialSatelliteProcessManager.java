@@ -45,8 +45,6 @@ public class SpecialSatelliteProcessManager
 {
     private static final String LOCALHOST = "localhost";
     private static final String SATELLITE_LOG_DIRECTORY = "specialTargets";
-    private static final String SATELLITE_ERR_LOG_DIRECTORY = "satellite-%d-logs";
-    private static final String SATELLITE_OUT_FILE_FORMAT = SATELLITE_LOG_DIRECTORY + "/satellite-%d.log";
 
     private static final int WAIT_FOR_START_RETRY_DELAY_MS = 100;
     private static final int WAIT_FOR_START_RETRY_COUNT = 1000; // 10 sec max
@@ -208,7 +206,7 @@ public class SpecialSatelliteProcessManager
         throws IOException, PortAlreadyInUseException
     {
         Path specialSatLogDir = errorReporter.getLogDirectory().resolve(SATELLITE_LOG_DIRECTORY);
-        Path specialErrLogDir = specialSatLogDir.resolve(String.format(SATELLITE_ERR_LOG_DIRECTORY, port));
+        Path specialErrLogDir = specialSatLogDir.resolve(String.format("satellite-%d-logs", port));
 
         String option;
         switch (nodeType)
@@ -263,7 +261,7 @@ public class SpecialSatelliteProcessManager
         );
         pb.redirectErrorStream(true);
         File stltLog = errorReporter.getLogDirectory().resolve(
-            String.format(SATELLITE_OUT_FILE_FORMAT, port)
+            String.format(SATELLITE_LOG_DIRECTORY + "/satellite-%d.log", port)
         ).toFile();
         stltLog.getParentFile().mkdirs(); // just to be sure
         pb.redirectOutput(stltLog);

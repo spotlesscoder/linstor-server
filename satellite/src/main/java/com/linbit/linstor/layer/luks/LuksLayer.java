@@ -60,8 +60,6 @@ import java.util.Set;
 @Singleton
 public class LuksLayer implements DeviceLayer
 {
-    private static final String LUKS_IDENTIFIER_FORMAT = "%s_%05d";
-
     // always use DD as it keeps the resource thin in the beginning
     private static final Set<DeviceHandler.CloneStrategy> SUPPORTED_CLONE_STRATS = Collections.singleton(
         DeviceHandler.CloneStrategy.DD
@@ -432,7 +430,7 @@ public class LuksLayer implements DeviceLayer
         if (identifier == null)
         {
             identifier = String.format(
-                LUKS_IDENTIFIER_FORMAT,
+                "%s_%05d",
                 vlmData.getRscLayerObject().getSuffixedResourceName(),
                 vlmData.getVlmNr().value
             );

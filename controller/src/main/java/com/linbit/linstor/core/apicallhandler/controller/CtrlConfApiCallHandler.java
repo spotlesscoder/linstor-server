@@ -1229,7 +1229,6 @@ public class CtrlConfApiCallHandler
             }
 
             boolean abort = false;
-            final String missingKeyFormat = "NetComConnector '%s' is missing '%s' key.";
             if (!connectorsToCheck.isEmpty())
             {
                 @Nullable Props ctrlProps = systemConfRepository.getCtrlConfForChange(peerAccCtx.get())
@@ -1247,7 +1246,8 @@ public class CtrlConfApiCallHandler
                             {
                                 if (value == null)
                                 {
-                                    errorMessages.add(String.format(missingKeyFormat, connectorToCheck, missingKey));
+                                    errorMessages.add(String.format(
+                                        "NetComConnector '%s' is missing '%s' key.", connectorToCheck, missingKey));
                                 }
                             };
 

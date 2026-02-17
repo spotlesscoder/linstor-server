@@ -9,9 +9,6 @@ import java.util.UUID;
 
 public class RemoteName extends GenericName
 {
-    private static final String FORMAT_STLT_REMOTE = ".stlt;%s_%s_%s"; // ".stlt;$rscName_$snapName_$UUID"
-    private static final String FORMAT_EBS_REMOTE = ".ebs;%s"; // ".ebs;$nodeName"
-
     public RemoteName(String remoteNameRef) throws InvalidNameException
     {
         this(remoteNameRef, false);
@@ -59,11 +56,11 @@ public class RemoteName extends GenericName
 
     public static RemoteName createStltRemoteName(String rscNameRef, String snapshotNameRef, UUID uuidRef)
     {
-        return createInternal(String.format(FORMAT_STLT_REMOTE, rscNameRef, snapshotNameRef, uuidRef.toString()));
+        return createInternal(String.format(".stlt;%s_%s_%s", rscNameRef, snapshotNameRef, uuidRef.toString()));
     }
 
     public static RemoteName createEbsRemoteName(String ebsRemoteNameRef)
     {
-        return createInternal(String.format(FORMAT_EBS_REMOTE, ebsRemoteNameRef));
+        return createInternal(String.format(".ebs;%s", ebsRemoteNameRef));
     }
 }
