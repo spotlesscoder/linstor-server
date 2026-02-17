@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(
@@ -29,13 +28,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 @JsonSubTypes(
     {
-        @Type(value = CacheRscPojo.class, name = "cache"),
-        @Type(value = DrbdRscPojo.class, name = "drbd"),
-        @Type(value = LuksRscPojo.class, name = "luks"),
-        @Type(value = NvmeRscPojo.class, name = "nvme"),
-        @Type(value = StorageRscPojo.class, name = "storage"),
-        @Type(value = WritecacheRscPojo.class, name = "writecache"),
-        @Type(value = BCacheRscPojo.class, name = "bcache")
+        @JsonSubTypes.Type(value = CacheRscPojo.class, name = "cache"),
+        @JsonSubTypes.Type(value = DrbdRscPojo.class, name = "drbd"),
+        @JsonSubTypes.Type(value = LuksRscPojo.class, name = "luks"),
+        @JsonSubTypes.Type(value = NvmeRscPojo.class, name = "nvme"),
+        @JsonSubTypes.Type(value = StorageRscPojo.class, name = "storage"),
+        @JsonSubTypes.Type(value = WritecacheRscPojo.class, name = "writecache"),
+        @JsonSubTypes.Type(value = BCacheRscPojo.class, name = "bcache")
     // openflex not serialized (for now)
     }
 )

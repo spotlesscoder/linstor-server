@@ -6,7 +6,6 @@ import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.core.CoreModule;
 import com.linbit.linstor.core.objects.NetInterface;
 import com.linbit.linstor.core.objects.Node;
-import com.linbit.linstor.core.objects.Node.Type;
 import com.linbit.linstor.core.objects.Resource;
 import com.linbit.linstor.core.objects.Snapshot;
 import com.linbit.linstor.logging.ErrorReporter;
@@ -92,7 +91,7 @@ public class DbNumberPoolInitializer implements StartupInitializer
         {
             for (Node curNode : nodesMap.values())
             {
-                Type nodeType = curNode.getNodeType(initCtx);
+                Node.Type nodeType = curNode.getNodeType(initCtx);
                 if (nodeType.isSpecial())
                 {
                     try

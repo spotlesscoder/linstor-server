@@ -13,7 +13,6 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(
@@ -23,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 @JsonSubTypes(
     {
-        @Type(value = StorPoolPojo.class, name = "storPool")
+        @JsonSubTypes.Type(value = StorPoolPojo.class, name = "storPool")
     }
 )
 @JsonInclude(JsonInclude.Include.NON_NULL)

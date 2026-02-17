@@ -17,7 +17,6 @@ import com.linbit.linstor.core.identifier.NodeName;
 import com.linbit.linstor.core.identifier.StorPoolName;
 import com.linbit.linstor.core.objects.Node;
 import com.linbit.linstor.core.objects.StorPool;
-import com.linbit.linstor.core.objects.StorPool.Key;
 import com.linbit.linstor.core.repository.NodeRepository;
 import com.linbit.linstor.netcom.Peer;
 import com.linbit.linstor.netcom.PeerNotConnectedException;
@@ -206,7 +205,7 @@ public class FreeCapacityFetcherProto implements FreeCapacityFetcher
         Tuple2<NodeName, ByteArrayInputStream> freeSpaceAnswer
     )
     {
-        List<Tuple2<Key, Tuple2<SpaceInfo, List<ApiCallRc>>>> ret = new ArrayList<>();
+        List<Tuple2<StorPool.Key, Tuple2<SpaceInfo, List<ApiCallRc>>>> ret = new ArrayList<>();
         try
         {
             NodeName nodeName = freeSpaceAnswer.getT1();

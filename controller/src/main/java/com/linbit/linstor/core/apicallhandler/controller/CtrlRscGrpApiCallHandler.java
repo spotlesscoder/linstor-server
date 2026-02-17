@@ -56,7 +56,6 @@ import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.objects.ResourceGroup;
 import com.linbit.linstor.core.objects.ResourceGroupControllerFactory;
 import com.linbit.linstor.core.objects.StorPool;
-import com.linbit.linstor.core.objects.StorPool.Key;
 import com.linbit.linstor.core.objects.StorPoolDefinition;
 import com.linbit.linstor.core.objects.VolumeDefinition;
 import com.linbit.linstor.core.objects.VolumeGroup;
@@ -1362,7 +1361,7 @@ public class CtrlRscGrpApiCallHandler
     }
 
     private Flux<QueryAllSizeInfoResponsePojo> queryAllSizeInfoInTransaction(
-        Map<Key, Long> thinFreeCapacitiesRef,
+        Map<StorPool.Key, Long> thinFreeCapacitiesRef,
         QueryAllSizeInfoRequestPojo queryAllSizeInfoReqRef
     )
     {

@@ -23,7 +23,6 @@ import com.linbit.linstor.storage.kinds.DeviceProviderKind;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
@@ -36,21 +35,21 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 @JsonSubTypes(
     {
-        @Type(value = DisklessVlmPojo.class, name = "diskless"),
-        @Type(value = LvmVlmPojo.class, name = "lvm"),
-        @Type(value = SpdkVlmPojo.class, name = "spdk"),
-        @Type(value = LvmThinVlmPojo.class, name = "lvmThin"),
-        @Type(value = ZfsVlmPojo.class, name = "zfs"),
-        @Type(value = ZfsThinVlmPojo.class, name = "zfsThin"),
-        @Type(value = FileVlmPojo.class, name = "file"),
-        @Type(value = FileThinVlmPojo.class, name = "fileThin"),
-        @Type(value = CacheVlmPojo.class, name = "cache"),
-        @Type(value = DrbdVlmPojo.class, name = "drbd"),
-        @Type(value = LuksVlmPojo.class, name = "luks"),
-        @Type(value = NvmeVlmPojo.class, name = "nvme"),
-        @Type(value = WritecacheVlmPojo.class, name = "writecache"),
-        @Type(value = BCacheVlmPojo.class, name = "bcache"),
-        @Type(value = EbsVlmPojo.class, name = "ebs")
+        @JsonSubTypes.Type(value = DisklessVlmPojo.class, name = "diskless"),
+        @JsonSubTypes.Type(value = LvmVlmPojo.class, name = "lvm"),
+        @JsonSubTypes.Type(value = SpdkVlmPojo.class, name = "spdk"),
+        @JsonSubTypes.Type(value = LvmThinVlmPojo.class, name = "lvmThin"),
+        @JsonSubTypes.Type(value = ZfsVlmPojo.class, name = "zfs"),
+        @JsonSubTypes.Type(value = ZfsThinVlmPojo.class, name = "zfsThin"),
+        @JsonSubTypes.Type(value = FileVlmPojo.class, name = "file"),
+        @JsonSubTypes.Type(value = FileThinVlmPojo.class, name = "fileThin"),
+        @JsonSubTypes.Type(value = CacheVlmPojo.class, name = "cache"),
+        @JsonSubTypes.Type(value = DrbdVlmPojo.class, name = "drbd"),
+        @JsonSubTypes.Type(value = LuksVlmPojo.class, name = "luks"),
+        @JsonSubTypes.Type(value = NvmeVlmPojo.class, name = "nvme"),
+        @JsonSubTypes.Type(value = WritecacheVlmPojo.class, name = "writecache"),
+        @JsonSubTypes.Type(value = BCacheVlmPojo.class, name = "bcache"),
+        @JsonSubTypes.Type(value = EbsVlmPojo.class, name = "ebs")
     // remoteSPDK is missing as we cannot ship backups from it
     // since we have no direct access to the snapshots
     }

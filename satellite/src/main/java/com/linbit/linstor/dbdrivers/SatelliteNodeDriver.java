@@ -1,7 +1,6 @@
 package com.linbit.linstor.dbdrivers;
 
 import com.linbit.linstor.core.objects.Node;
-import com.linbit.linstor.core.objects.Node.Type;
 import com.linbit.linstor.dbdrivers.interfaces.NodeDatabaseDriver;
 import com.linbit.linstor.dbdrivers.interfaces.updater.SingleColumnDatabaseDriver;
 import com.linbit.linstor.stateflags.StateFlagsPersistence;
@@ -15,7 +14,7 @@ public class SatelliteNodeDriver
     implements NodeDatabaseDriver
 {
     private final StateFlagsPersistence<Node> stateFlagsDriver;
-    private final SingleColumnDatabaseDriver<Node, Type> nodeTypeDriver;
+    private final SingleColumnDatabaseDriver<Node, Node.Type> nodeTypeDriver;
 
     @Inject
     public SatelliteNodeDriver()

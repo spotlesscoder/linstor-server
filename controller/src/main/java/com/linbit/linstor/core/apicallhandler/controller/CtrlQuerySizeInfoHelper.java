@@ -15,7 +15,6 @@ import com.linbit.linstor.core.apicallhandler.controller.autoplacer.Autoplacer;
 import com.linbit.linstor.core.apicallhandler.controller.autoplacer.StorPoolFilter;
 import com.linbit.linstor.core.apis.StorPoolApi;
 import com.linbit.linstor.core.objects.StorPool;
-import com.linbit.linstor.core.objects.StorPool.Key;
 import com.linbit.linstor.core.repository.SystemConfRepository;
 import com.linbit.linstor.layer.storage.BlockSizeConsts;
 import com.linbit.linstor.logging.ErrorReporter;
@@ -76,7 +75,7 @@ public class CtrlQuerySizeInfoHelper
 
     public QuerySizeInfoResponsePojo queryMaxVlmSize(
         AutoSelectFilterPojo selectCfgRef,
-        Map<Key, Long> thinFreeCapacitiesRef
+        Map<StorPool.Key, Long> thinFreeCapacitiesRef
     )
         throws AccessDeniedException
     {
@@ -147,7 +146,7 @@ public class CtrlQuerySizeInfoHelper
 
     private long getMaxVlmSize(
         @Nullable Set<StorPool> selectedStorPoolSetRef,
-        @Nullable Map<Key, Long> thinFreeCapacitiesRef
+        @Nullable Map<StorPool.Key, Long> thinFreeCapacitiesRef
     )
     {
         Long maxVlmSize = null;
@@ -190,7 +189,7 @@ public class CtrlQuerySizeInfoHelper
         int placeCountRef,
         @Nullable Set<StorPool> selectedStorPoolSetRef,
         List<StorPool> availableStorPoolListRef,
-        @Nullable Map<Key, Long> thinFreeCapacitiesRef
+        @Nullable Map<StorPool.Key, Long> thinFreeCapacitiesRef
     )
     {
         long available;

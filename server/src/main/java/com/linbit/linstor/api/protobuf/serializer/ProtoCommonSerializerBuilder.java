@@ -78,7 +78,6 @@ import com.linbit.linstor.proto.common.DrbdRscOuterClass.DrbdRsc;
 import com.linbit.linstor.proto.common.DrbdRscOuterClass.DrbdRscDfn;
 import com.linbit.linstor.proto.common.DrbdRscOuterClass.DrbdVlm;
 import com.linbit.linstor.proto.common.DrbdRscOuterClass.DrbdVlmDfn;
-import com.linbit.linstor.proto.common.DrbdRscOuterClass.DrbdVlmDfn.Builder;
 import com.linbit.linstor.proto.common.ExternalToolsOuterClass.ExternalToolsInfo;
 import com.linbit.linstor.proto.common.ExternalToolsOuterClass.ExternalToolsInfo.ExternalTools;
 import com.linbit.linstor.proto.common.FilterOuterClass;
@@ -1789,7 +1788,7 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
 
         private static DrbdVlmDfn buildDrbdVlmDfnData(DrbdVlmDfnPojo drbdVlmDfnPojo)
         {
-            Builder builder = DrbdVlmDfn.newBuilder()
+            DrbdVlmDfn.Builder builder = DrbdVlmDfn.newBuilder()
                 .setRscNameSuffix(drbdVlmDfnPojo.getRscNameSuffix())
                 .setVlmNr(drbdVlmDfnPojo.getVlmNr());
             Integer minorNr = drbdVlmDfnPojo.getMinorNr();

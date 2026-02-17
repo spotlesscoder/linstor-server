@@ -61,7 +61,6 @@ import com.linbit.linstor.core.objects.ResourceGroupControllerFactory;
 import com.linbit.linstor.core.objects.SnapshotDefinition;
 import com.linbit.linstor.core.objects.SnapshotVolumeDefinition;
 import com.linbit.linstor.core.objects.StorPool;
-import com.linbit.linstor.core.objects.StorPool.Key;
 import com.linbit.linstor.core.objects.Volume;
 import com.linbit.linstor.core.objects.VolumeDefinition;
 import com.linbit.linstor.core.repository.ResourceDefinitionRepository;
@@ -1546,7 +1545,7 @@ public class CtrlRscDfnApiCallHandler
         return flux;
     }
 
-    private void checkFreeSpace(Resource rscRef, Map<Key, Long> thinFreeCapacitiesRef)
+    private void checkFreeSpace(Resource rscRef, Map<StorPool.Key, Long> thinFreeCapacitiesRef)
     {
         try
         {
