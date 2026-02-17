@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -116,7 +117,7 @@ public class DrbdResourceFileUtils
         {
             try (FileOutputStream resFileOut = new FileOutputStream(tmpResFile.toFile()))
             {
-                resFileOut.write(content.getBytes());
+                resFileOut.write(content.getBytes(StandardCharsets.UTF_8));
             }
             catch (IOException ioExc)
             {

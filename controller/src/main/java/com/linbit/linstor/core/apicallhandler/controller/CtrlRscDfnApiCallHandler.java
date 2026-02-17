@@ -112,6 +112,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -1260,7 +1261,7 @@ public class CtrlRscDfnApiCallHandler
     private void failIfNoName(@Nullable String clonedRscName, @Nullable byte[] clonedExtName)
     {
         if (StringUtils.isEmpty(clonedRscName) &&
-            (clonedExtName == null || StringUtils.isEmpty(new String(clonedExtName))))
+            (clonedExtName == null || StringUtils.isEmpty(new String(clonedExtName, StandardCharsets.UTF_8))))
         {
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(

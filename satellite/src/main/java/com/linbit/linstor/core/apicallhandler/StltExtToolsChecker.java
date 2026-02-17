@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -776,7 +777,7 @@ public class StltExtToolsChecker
             OutputData out = extCmdFactory.create().logExecution(false).exec(cmds);
             if (exitCodeTest.test(out.exitCode))
             {
-                ret = Either.left(new PairNonNull<>(new String(out.stdoutData), new String(out.stderrData)));
+                ret = Either.left(new PairNonNull<>(new String(out.stdoutData, StandardCharsets.UTF_8), new String(out.stderrData, StandardCharsets.UTF_8)));
             }
             else
             {
@@ -816,7 +817,7 @@ public class StltExtToolsChecker
         {
             errorReporter.logTrace("Caching /proc/modules");
             Matcher matcher = PROC_MODULES_NAME_PATTERN.matcher(
-                new String(Files.readAllBytes(Paths.get("/proc/modules")))
+                new String(Files.readAllBytes(Paths.get("/proc/modules")), StandardCharsets.UTF_8)
             );
             while (matcher.find())
             {

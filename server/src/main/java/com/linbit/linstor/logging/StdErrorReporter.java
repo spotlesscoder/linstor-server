@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -315,7 +316,7 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
                 errorTime,
                 nodeName,
                 dmModule,
-                renderedReport.getBytes()
+                renderedReport.getBytes(StandardCharsets.UTF_8)
             );
 
             logReport(reportNr, errorInfo, logLevel);
@@ -553,8 +554,8 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
                     // monthGroup in that case, but sb complains anyways...
                     if (fileName != null)
                     {
-                        fos.write(fileName.toString().getBytes());
-                        fos.write("\n".getBytes());
+                        fos.write(fileName.toString().getBytes(StandardCharsets.UTF_8));
+                        fos.write("\n".getBytes(StandardCharsets.UTF_8));
                     }
                 }
                 fos.close();

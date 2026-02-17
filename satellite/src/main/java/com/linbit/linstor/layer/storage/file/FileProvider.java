@@ -44,6 +44,7 @@ import javax.inject.Singleton;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -239,7 +240,7 @@ public class FileProvider extends AbsStorageProvider<FileInfo, FileData<Resource
                 extCmdFactory.create(),
                 backingFile
             )
-            .stdoutData).trim();
+            .stdoutData, StandardCharsets.UTF_8).trim();
 
         LOSETUP_DEVICES.put(loDev, backingFile.toString());
         fileData.setDevicePath(loDev);
@@ -693,7 +694,7 @@ public class FileProvider extends AbsStorageProvider<FileInfo, FileData<Resource
         File tmp = new File(tmpName);
         try (FileOutputStream fos = new FileOutputStream(tmp))
         {
-            fos.write(sb.toString().getBytes());
+            fos.write(sb.toString().getBytes(StandardCharsets.UTF_8));
         }
         catch (IOException exc)
         {

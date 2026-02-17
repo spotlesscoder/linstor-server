@@ -276,7 +276,7 @@ public class LinstorConfigTool
         @Override
         public Object call() throws Exception
         {
-            Reader input = sqlFile != null ? new FileReader(sqlFile) : new InputStreamReader(System.in);
+            Reader input = sqlFile != null ? new FileReader(sqlFile, StandardCharsets.UTF_8) : new InputStreamReader(System.in, StandardCharsets.UTF_8);
 
             try (PoolingDataSource<PoolableConnection> dataSource =
                      initConnectionProviderFromCfg(linstorTomlFile);
@@ -351,7 +351,7 @@ public class LinstorConfigTool
                     }
                     else
                     {
-                        FileWriter fileWriter = new FileWriter(tomlFile, true);
+                        FileWriter fileWriter = new FileWriter(tomlFile, StandardCharsets.UTF_8, true);
                         fileWriter.write(tomlDBEntry);
                         fileWriter.close();
 
@@ -370,7 +370,7 @@ public class LinstorConfigTool
             }
             else
             {
-                FileWriter fileWriter = new FileWriter(tomlFile);
+                FileWriter fileWriter = new FileWriter(tomlFile, StandardCharsets.UTF_8);
                 fileWriter.write(tomlDBEntry);
                 fileWriter.close();
 

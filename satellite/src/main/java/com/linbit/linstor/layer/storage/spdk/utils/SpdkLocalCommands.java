@@ -18,6 +18,8 @@ import static com.linbit.linstor.storage.utils.Commands.genericExecutor;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -407,7 +409,7 @@ public class SpdkLocalCommands implements SpdkCommands<OutputData>
                     boolean skip = false;
 
                     byte[] stdoutData = outData.stdoutData;
-                    String output = new String(stdoutData);
+                    String output = new String(stdoutData, StandardCharsets.UTF_8);
 
                     if (output.contains("Lvol store group \"" + volumeGroup + "\" not found"))
                     {
@@ -471,7 +473,7 @@ public class SpdkLocalCommands implements SpdkCommands<OutputData>
                     boolean skip = false;
 
                     byte[] stdoutData = outData.stdoutData;
-                    String output = new String(stdoutData);
+                    String output = new String(stdoutData, StandardCharsets.UTF_8);
 
                     if (output.contains("already exists"))
                     {

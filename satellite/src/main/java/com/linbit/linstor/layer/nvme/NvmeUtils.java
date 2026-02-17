@@ -55,6 +55,7 @@ import javax.inject.Singleton;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -184,7 +185,7 @@ public class NvmeUtils
                 Files.createDirectories(subsystemPath);
 
                 // allow any host to be connected
-                Files.write(subsystemPath.resolve("attr_allow_any_host"), "1".getBytes());
+                Files.write(subsystemPath.resolve("attr_allow_any_host"), "1".getBytes(StandardCharsets.UTF_8));
 
                 for (NvmeVlmData<Resource> nvmeVlmData : nvmeRscData.getVlmLayerObjects().values())
                 {
@@ -216,7 +217,7 @@ public class NvmeUtils
 
                     Path portsPath = Paths.get(NVME_PORTS_PATH + portIdx);
                     Files.createDirectories(portsPath);
-                    Files.write(portsPath.resolve("addr_traddr"), ipAddr.getAddress().getBytes());
+                    Files.write(portsPath.resolve("addr_traddr"), ipAddr.getAddress().getBytes(StandardCharsets.UTF_8));
 
                     // set the transport type and port
                     String transportType = nvmePrioProps.getProp(ApiConsts.KEY_TR_TYPE, ApiConsts.NAMESPC_NVME);
@@ -224,19 +225,19 @@ public class NvmeUtils
                     {
                         transportType = "rdma";
                     }
-                    Files.write(portsPath.resolve("addr_trtype"), transportType.getBytes());
+                    Files.write(portsPath.resolve("addr_trtype"), transportType.getBytes(StandardCharsets.UTF_8));
 
                     String port = nvmePrioProps.getProp(ApiConsts.KEY_PORT, ApiConsts.NAMESPC_NVME);
                     if (port == null)
                     {
                         port = Integer.toString(IANA_DEFAULT_PORT);
                     }
-                    Files.write(portsPath.resolve("addr_trsvcid"), port.getBytes());
+                    Files.write(portsPath.resolve("addr_trsvcid"), port.getBytes(StandardCharsets.UTF_8));
 
                     // set the address family of the port, either IPv4 or IPv6
                     Files.write(
                         portsPath.resolve("addr_adrfam"),
-                        ipAddr.getAddressType().toString().toLowerCase().getBytes()
+                        ipAddr.getAddressType().toString().toLowerCase().getBytes(StandardCharsets.UTF_8)
                     );
                 }
                 // create soft link
@@ -519,7 +520,7 @@ public class NvmeUtils
         {
             grepArg.setLength(grepArg.length() - 1);
             OutputData output = extCmdFactory.create().exec("/bin/bash", "-c", "mount | grep -Ew " + grepArg);
-            String outStr = new String(output.stdoutData);
+            String outStr = new String(output.stdoutData, StandardCharsets.UTF_8);
             mounted = !outStr.trim().isEmpty();
         }
         else
@@ -621,7 +622,7 @@ public class NvmeUtils
             else
             {
                 final int nvmeRscIdx = Integer.parseInt(
-                    (new String(output.stdoutData))
+                    (new String(output.stdoutData, StandardCharsets.UTF_8))
                         .substring(NVME_FABRICS_PATH.length(), NVME_FABRICS_PATH.length() + NVME_IDX_MAX_DIGITS)
                         .split(File.separatorChar == '\\' ? "\\\\" : File.separator)[0]
                 );
@@ -655,7 +656,7 @@ public class NvmeUtils
                     }
                     else
                     {
-                        String grepResult = new String(output.stdoutData);
+                        String grepResult = new String(output.stdoutData, StandardCharsets.UTF_8);
                         // grepResult looks something like
                         // /sys/devices/virtual/nvme-fabrics/ctl/nvme0/nvme0c1n1/nsid:1
                         // either with cY or without
@@ -719,12 +720,12 @@ public class NvmeUtils
         );
         if (!Files.exists(namespacePath))
         {
-            byte[] backingDevice = nvmeVlmData.getDataDevice().getBytes();
+            byte[] backingDevice = nvmeVlmData.getDataDevice().getBytes(StandardCharsets.UTF_8);
             errorReporter.logDebug("NVMe: creating namespace: " + namespacePath.getFileName());
             Files.createDirectories(namespacePath);
-            errorReporter.logDebug("NVMe: exposing device: " + new String(backingDevice));
+            errorReporter.logDebug("NVMe: exposing device: " + new String(backingDevice, StandardCharsets.UTF_8));
             Files.write(namespacePath.resolve("device_path"), backingDevice);
-            Files.write(namespacePath.resolve("enable"), "1".getBytes());
+            Files.write(namespacePath.resolve("enable"), "1".getBytes(StandardCharsets.UTF_8));
         }
         nvmeVlmData.setExists(true);
     }
@@ -745,7 +746,7 @@ public class NvmeUtils
         if (Files.exists(namespacePath))
         {
             errorReporter.logDebug("NVMe: deleting namespace: " + namespacePath.getFileName());
-            Files.write(namespacePath.resolve("enable"), "0".getBytes());
+            Files.write(namespacePath.resolve("enable"), "0".getBytes(StandardCharsets.UTF_8));
             OutputData output = extCmdFactory.create().exec("rmdir", namespacePath.toString());
             ExtCmdUtils.checkExitCode(
                 output,
@@ -902,7 +903,7 @@ public class NvmeUtils
             );
             ExtCmdUtils.checkExitCode(output, StorageException::new, "Failed to discover NVMe subsystems!");
 
-            for (String outputLine : (new String(output.stdoutData)).split("\n"))
+            for (String outputLine : (new String(output.stdoutData, StandardCharsets.UTF_8)).split("\n"))
             {
                 if (outputLine.contains("subnqn:"))
                 {
@@ -1042,7 +1043,7 @@ public class NvmeUtils
         String portIdx;
         if (output.exitCode == 0)
         {
-            String grepPortIdx = new String(output.stdoutData);
+            String grepPortIdx = new String(output.stdoutData, StandardCharsets.UTF_8);
             portIdx = grepPortIdx.substring(
                 NVME_PORTS_PATH.length(),
                 grepPortIdx.indexOf(File.separator, NVME_PORTS_PATH.length() + 1)

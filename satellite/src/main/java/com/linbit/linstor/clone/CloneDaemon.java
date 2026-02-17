@@ -9,6 +9,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.logging.ErrorReporter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Consumer;
@@ -99,12 +100,12 @@ public class CloneDaemon implements Runnable
                     event = deque.take();
                     if (event instanceof OutputProxy.StdOutEvent stdOutEvent)
                     {
-                        errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data));
+                        errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data, StandardCharsets.UTF_8));
                         // ignore for now...
                     }
                     else if (event instanceof OutputProxy.StdErrEvent stdErrEvent)
                     {
-                        String stdErr = new String(stdErrEvent.data);
+                        String stdErr = new String(stdErrEvent.data, StandardCharsets.UTF_8);
                         sbErr.append(stdErr);
                         errorReporter.logWarning("stdErr: %s", stdErr);
                     }

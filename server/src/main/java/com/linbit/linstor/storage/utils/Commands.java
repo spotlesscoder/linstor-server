@@ -15,6 +15,7 @@ import com.linbit.utils.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -222,7 +223,7 @@ public class Commands
             "Failed to get device size of " + devicePath,
             "Failed to get device size of " + devicePath
         );
-        String outRaw = new String(output.stdoutData);
+        String outRaw = new String(output.stdoutData, StandardCharsets.UTF_8);
         return Long.parseLong(outRaw.trim());
     }
 
@@ -238,7 +239,7 @@ public class Commands
             "Failed to get block size of " + devicePath,
             "Failed to get block size of " + devicePath
         );
-        String outRaw = new String(output.stdoutData);
+        String outRaw = new String(output.stdoutData, StandardCharsets.UTF_8);
         return SizeConv.convert(
             Long.parseLong(outRaw.trim()),
             SizeUnit.UNIT_B,

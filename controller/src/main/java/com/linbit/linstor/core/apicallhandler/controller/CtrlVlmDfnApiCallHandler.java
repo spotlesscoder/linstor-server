@@ -50,6 +50,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -348,7 +349,7 @@ class CtrlVlmDfnApiCallHandler
                 String vlmDfnKeyPlain = secretGen.generateSecretString(SECRET_KEY_BYTES);
                 ByteArrayCipher cipher = cryptoProvider.createCipherWithKey(masterKey);
 
-                byte[] encodedData = cryptoLenPad.conceal(vlmDfnKeyPlain.getBytes());
+                byte[] encodedData = cryptoLenPad.conceal(vlmDfnKeyPlain.getBytes(StandardCharsets.UTF_8));
                 byte[] encryptedVlmDfnKey = cipher.encrypt(encodedData);
 
                 propsMap.put(

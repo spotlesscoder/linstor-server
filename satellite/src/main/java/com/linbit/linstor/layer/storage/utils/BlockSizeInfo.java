@@ -12,6 +12,7 @@ import static com.linbit.linstor.layer.storage.BlockSizeConsts.MIN_PHY_IO_SIZE;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 public class BlockSizeInfo
@@ -84,7 +85,7 @@ public class BlockSizeInfo
                 final int readCount = fileIn.read(data);
                 if (readCount > 0)
                 {
-                    String numberStr = new String(data, 0, readCount);
+                    String numberStr = new String(data, 0, readCount, StandardCharsets.UTF_8);
                     numberStr = numberStr.trim();
                     try
                     {

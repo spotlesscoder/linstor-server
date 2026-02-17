@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -161,7 +162,7 @@ public abstract class LinStor
             {
                 Process process = new ProcessBuilder("hostname").start();
                 process.waitFor(1, TimeUnit.SECONDS);
-                BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
                 hostname = br.readLine().trim();
             }
             catch (IOException | InterruptedException ignored)
@@ -178,7 +179,7 @@ public abstract class LinStor
         {
             Process process = new ProcessBuilder("uname", param).start();
             process.waitFor(1, TimeUnit.SECONDS);
-            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
             uname = br.readLine().trim();
         }
         catch (IOException | InterruptedException ignored)

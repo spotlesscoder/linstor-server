@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -176,7 +177,8 @@ public class CtrlAuth implements ApiCall
         }
         else
         {
-            try (BufferedReader br = new BufferedReader(new FileReader("/etc/os-release")))
+            try (BufferedReader br = new BufferedReader(
+                new FileReader("/etc/os-release", StandardCharsets.UTF_8)))
             {
                 String line;
                 while ((line = br.readLine()) != null)

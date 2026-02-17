@@ -6,6 +6,7 @@ import com.linbit.linstor.storage.StorageUtils;
 import com.linbit.utils.ShellUtils;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class ParseUtils
 
         final Map<String, Long> result = new HashMap<>();
 
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
         final String[] lines = stdOut.split("\n");
 
         for (final String line : lines)

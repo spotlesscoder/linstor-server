@@ -11,6 +11,7 @@ import com.linbit.linstor.storage.utils.Commands;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
@@ -89,7 +90,7 @@ public class MdSuperblockBuffer
                     "Failed to get size of block device " + objPath + " please use at least WinDRBD 1.0.3",
                     "Failed to get size of block device " + objPath + " please use at least WinDRBD 1.0.3"
                 );
-                String num = new String(res.stdoutData).trim();
+                String num = new String(res.stdoutData, StandardCharsets.UTF_8).trim();
                 fileSize = StorageUtils.parseDecimalAsLong(num);
             }
             catch (StorageException | NumberFormatException exc)

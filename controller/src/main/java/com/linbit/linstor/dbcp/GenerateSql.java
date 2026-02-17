@@ -217,7 +217,7 @@ public class GenerateSql
                     String oldCode;
                     try
                     {
-                        oldCode = new String(Files.readAllBytes(path));
+                        oldCode = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
                     }
                     catch (IOException exc)
                     {
@@ -331,7 +331,7 @@ public class GenerateSql
     {
         Path path = buildJavaPath(gitRoot, prj, pkgNameRef).resolve(javaClazzNameRef + ".java");
         Files.createDirectories(path.getParent()); // ensure parent folder exists
-        Files.write(path, javaClazzContentRef.getBytes());
+        Files.write(path, javaClazzContentRef.getBytes(StandardCharsets.UTF_8));
     }
 
     private static void renderResourceFile(
@@ -346,7 +346,7 @@ public class GenerateSql
         // getParent can return null, but since we got the path by resolving it just previously the sb-warning is
         // unnecessary
         Files.createDirectories(path.getParent()); // ensure parent folder exists
-        Files.write(path, content.getBytes());
+        Files.write(path, content.getBytes(StandardCharsets.UTF_8));
     }
 
     private static Path buildJavaPath(String gitRootRef, String prj, String pkgNameRef)

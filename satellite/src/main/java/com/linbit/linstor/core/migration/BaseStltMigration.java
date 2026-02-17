@@ -11,6 +11,7 @@ import com.linbit.linstor.core.objects.Node;
 import com.linbit.utils.StringUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 public abstract class BaseStltMigration
@@ -43,7 +44,7 @@ public abstract class BaseStltMigration
         throws ChildProcessTimeoutException, IOException
     {
         OutputData out = extCmdCheckRetCodeZero(extCmdFactoryRef, cmd);
-        return new String(out.stdoutData);
+        return new String(out.stdoutData, StandardCharsets.UTF_8);
     }
 
     protected static OutputData extCmdAsOutputData(ExtCmdFactory extCmdFactoryRef, String... cmd)

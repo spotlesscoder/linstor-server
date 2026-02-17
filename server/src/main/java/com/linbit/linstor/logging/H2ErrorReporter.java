@@ -12,6 +12,7 @@ import com.linbit.utils.TimeUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -148,7 +149,7 @@ public class H2ErrorReporter
             {
                 stmt.setNull(fieldIdx++, Types.INTEGER);
             }
-            stmt.setClob(fieldIdx, new InputStreamReader(new ByteArrayInputStream(errorReportText)));
+            stmt.setClob(fieldIdx, new InputStreamReader(new ByteArrayInputStream(errorReportText), StandardCharsets.UTF_8));
 
             stmt.executeUpdate();
         }

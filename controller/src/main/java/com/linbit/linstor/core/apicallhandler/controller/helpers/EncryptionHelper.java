@@ -49,6 +49,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -350,7 +351,8 @@ public class EncryptionHelper
                                 decryptionHelper.decrypt(
                                     cryptKey,
                                     ebsRemote.getEncryptedAccessKey(apiCtx)
-                                )
+                                ),
+                                StandardCharsets.UTF_8
                             )
                         );
                         ebsRemote.setDecryptedSecretKey(
@@ -359,7 +361,8 @@ public class EncryptionHelper
                                 decryptionHelper.decrypt(
                                     cryptKey,
                                     ebsRemote.getEncryptedSecretKey(apiCtx)
-                                )
+                                ),
+                                StandardCharsets.UTF_8
                             )
                         );
                         anyEbsRemoteDecrypted = true;
@@ -391,7 +394,7 @@ public class EncryptionHelper
 
     public byte[] encrypt(String plainKey) throws LinStorException
     {
-        return encrypt(plainKey.getBytes());
+        return encrypt(plainKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public byte[] encrypt(byte[] plainKey) throws LinStorException

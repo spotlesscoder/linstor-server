@@ -38,6 +38,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -416,7 +417,7 @@ public class SysFsHandler
     {
         try
         {
-            Files.write(Paths.get(path), data.getBytes());
+            Files.write(Paths.get(path), data.getBytes(StandardCharsets.UTF_8));
             errorReporter.logTrace("SysFs: '%s' > %s", data, path);
         }
         catch (IOException exc)
@@ -493,7 +494,7 @@ public class SysFsHandler
                     }
                 }
             );
-            majMin = new String(outputData.stdoutData).trim();
+            majMin = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
             String[] split = majMin.split(":");
             String major = Integer.toString(Integer.parseInt(split[0], BASE_HEX));
             String minor = Long.toString(Long.parseLong(split[1], BASE_HEX));
@@ -514,7 +515,7 @@ public class SysFsHandler
             "Failed to query uevent of device '" + majMin + "'",
             "Failed to query uevent of device '" + majMin + "'"
         );
-        String outStr = new String(outputData.stdoutData);
+        String outStr = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         Map<String, String> ret = new LinkedHashMap<>();
 
         String[] lines = outStr.split("\n");
@@ -539,7 +540,7 @@ public class SysFsHandler
             "Failed to query device '" + block + "' for dax support",
             "Failed to query device '" + block + "' for dax support"
         );
-        String out = new String(outputData.stdoutData).trim();
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
         return out.equals("1");
     }
 

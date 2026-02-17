@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +79,7 @@ public class MkfsUtils
             ExtCmd.OutputData outData = extCmd.exec("blkid", "-o", "export", devicePath);
             if (outData.exitCode == 0)
             {
-                BufferedReader br = new BufferedReader(new InputStreamReader(outData.getStdoutStream()));
+                BufferedReader br = new BufferedReader(new InputStreamReader(outData.getStdoutStream(), StandardCharsets.UTF_8));
                 filesys = br.lines()
                     .filter(line -> line.startsWith("TYPE="))
                     .map(type -> type.substring("TYPE=".length()))
@@ -216,7 +217,7 @@ public class MkfsUtils
                                     Files.write(
                                         tempFile.toPath(),
                                         ("/generated/by/linstor 13 42 d--777 " + mkfsUID + " " + mkfsGID + "\n")
-                                            .getBytes()
+                                            .getBytes(StandardCharsets.UTF_8)
                                     );
 
                                     mkfsParametes += " -p " + tempFile.getAbsolutePath();
@@ -286,7 +287,7 @@ public class MkfsUtils
                     errMsg,
                     errMsg
                 );
-                ret = Long.parseLong(new String(outputData.stdoutData).trim());
+                ret = Long.parseLong(new String(outputData.stdoutData, StandardCharsets.UTF_8).trim());
             }
             catch (NumberFormatException nfe2)
             {

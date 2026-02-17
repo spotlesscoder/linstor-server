@@ -10,6 +10,7 @@ import com.linbit.linstor.storage.StorageException;
 import com.linbit.utils.ExceptionThrowingFunction;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -90,7 +91,7 @@ public class FileProviderUtils
         OutputData outputData = LosetupCommands.list(extCmd);
 
         final Map<String, FileInfo> ret = new HashMap<>();
-        final String stdOut = new String(outputData.stdoutData);
+        final String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         if (!stdOut.trim().isEmpty())
         {
             final String[] lines = stdOut.split("\n");
@@ -136,7 +137,7 @@ public class FileProviderUtils
     public static long getThinAllocatedSize(ExtCmd extCmd, String storagePath) throws StorageException
     {
         final OutputData outputData = FileCommands.getAllocatedThinSize(extCmd, storagePath);
-        final String stdOut = new String(outputData.stdoutData).trim();
+        final String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
 
         final String[] split = stdOut.split(" ");
         final long blockSize;
@@ -191,7 +192,7 @@ public class FileProviderUtils
 
     private static String parseSimpleDfOutputAsString(OutputData outputData)
     {
-        String outStr = new String(outputData.stdoutData);
+        String outStr = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         String data = outStr.split("\n")[1]; // [0] is the header
         return data.trim();
     }

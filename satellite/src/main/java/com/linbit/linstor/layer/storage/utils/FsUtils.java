@@ -3,6 +3,7 @@ package com.linbit.linstor.layer.storage.utils;
 import com.linbit.linstor.storage.StorageException;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -12,7 +13,7 @@ public class FsUtils
     {
         try
         {
-            return new String(Files.readAllBytes(path));
+            return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
         }
         catch (IOException ioExc)
         {

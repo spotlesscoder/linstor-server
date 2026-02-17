@@ -2,6 +2,7 @@ package com.linbit.linstor.storage.utils;
 
 import com.linbit.utils.Base64;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +88,7 @@ public class HttpHeader
         {
             map.put(
                 AUTH_KEY,
-                "Basic " + Base64.encode((userName + ":" + userPw).getBytes())
+                "Basic " + Base64.encode((userName + ":" + userPw).getBytes(StandardCharsets.UTF_8))
             );
             return this;
         }

@@ -14,6 +14,7 @@ import com.linbit.utils.StringUtils;
 import static com.linbit.linstor.storage.utils.Commands.genericExecutor;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -320,7 +321,7 @@ public class LvmCommands
                 {
                     boolean skip = false;
 
-                    String err = new String(outData.stderrData);
+                    String err = new String(outData.stderrData, StandardCharsets.UTF_8);
                     if (err.contains("Volume group \"" + volumeGroup + "\" not found"))
                     {
                         // well - resource is gone... with the whole volume-group

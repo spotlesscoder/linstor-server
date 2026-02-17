@@ -5,6 +5,8 @@ import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
 
+import java.nio.charset.StandardCharsets;
+
 public class SdparmUtils
 {
     /**
@@ -33,7 +35,7 @@ public class SdparmUtils
             "Failed to gather inquiry information for " + devPath + " while looking for the MAC address",
             "Failed to gather inquiry information for " + devPath + " while looking for the MAC address"
         );
-        String out = new String(outputData.stdoutData).trim();
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
 
         return getHexLine(1, out).substring(132, 149);
     }

@@ -34,6 +34,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -124,7 +125,7 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
             }
             else
             {
-                ret = new String(outputData.stdoutData).trim();
+                ret = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
             }
         }
         catch (ChildProcessTimeoutException | IOException exc)

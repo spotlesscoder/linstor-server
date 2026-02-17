@@ -3,6 +3,8 @@ package com.linbit.linstor.layer.storage.utils;
 import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.linstor.storage.utils.Commands;
 
+import java.nio.charset.StandardCharsets;
+
 public class RetryIfDeviceBusy implements Commands.RetryHandler
 {
     private static final int DEFAULT_RETRY_DELAY_IN_MS = 100;
@@ -27,7 +29,7 @@ public class RetryIfDeviceBusy implements Commands.RetryHandler
         boolean retry = countCurrent++ < countMax;
         if (retry)
         {
-            String stdErr = new String(outputData.stderrData);
+            String stdErr = new String(outputData.stderrData, StandardCharsets.UTF_8);
             if (!stdErr.contains("busy"))
             {
                 retry = false;

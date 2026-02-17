@@ -5,6 +5,7 @@ import com.linbit.extproc.ExtCmdFactoryStlt;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class MultipathUtils
             "Failed to query multipathd"
         );
 
-        String out = new String(outputData.stdoutData);
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         String[] rows = out.split("\n");
         // skip first row (headers)
         for (int idx = 1; idx < rows.length; idx++)

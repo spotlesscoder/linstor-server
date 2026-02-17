@@ -6,6 +6,7 @@ import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.storage.ProcCryptoEntry;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -112,7 +113,7 @@ public class ProcCryptoUtils
 
         if (Platform.isLinux())
         {
-            final String procCryptoContent = new String(Files.readAllBytes(Paths.get("/proc/crypto")));
+            final String procCryptoContent = new String(Files.readAllBytes(Paths.get("/proc/crypto")), StandardCharsets.UTF_8);
             cryptoEntries = parseProcCryptoString(errorReporterRef, procCryptoContent);
         }
         if (Platform.isWindows())

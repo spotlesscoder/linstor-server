@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -32,7 +33,7 @@ public final class AutoIndent
         // PrintStream catches IOExceptions internally, so they can be caught and ignored
         try
         {
-            streamIndentImpl(output, indent, text.getBytes());
+            streamIndentImpl(output, indent, text.getBytes(StandardCharsets.UTF_8));
         }
         catch (IOException ignored)
         {
@@ -46,12 +47,12 @@ public final class AutoIndent
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         try
         {
-            streamIndentImpl(output, indent, text.getBytes());
+            streamIndentImpl(output, indent, text.getBytes(StandardCharsets.UTF_8));
         }
         catch (IOException ignored)
         {
         }
-        return output.toString();
+        return output.toString(StandardCharsets.UTF_8);
     }
 
     private static void streamIndentImpl(

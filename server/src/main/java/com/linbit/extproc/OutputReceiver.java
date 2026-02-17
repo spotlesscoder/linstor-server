@@ -5,6 +5,7 @@ import com.linbit.linstor.logging.ErrorReporter;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.slf4j.MDC;
 
@@ -262,7 +263,7 @@ public class OutputReceiver implements OutputHandler
             {
                 if (data[idx] == '\n')
                 {
-                    String logString = new String(data, updLineOffset, idx - updLineOffset);
+                    String logString = new String(data, updLineOffset, idx - updLineOffset, StandardCharsets.UTF_8);
                     errLog.logTrace("%s", logString);
                     updLineOffset = idx + 1;
                 }

@@ -95,6 +95,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1152,7 +1153,7 @@ public class CtrlRscGrpApiCallHandler
                 String actualRscDfnName = rscDfn.getName().displayValue;
                 if (rscDfnExtNameRef != null)
                 {
-                    actualRscDfnName += "(" + new String(rscDfnExtNameRef) + ")";
+                    actualRscDfnName += "(" + new String(rscDfnExtNameRef, StandardCharsets.UTF_8) + ")";
                 }
 
                 deployedResources = Flux.<ApiCallRc>just(

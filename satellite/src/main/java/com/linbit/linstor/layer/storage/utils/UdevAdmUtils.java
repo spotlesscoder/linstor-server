@@ -5,6 +5,8 @@ import com.linbit.extproc.ExtCmdFactoryStlt;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
 
+import java.nio.charset.StandardCharsets;
+
 public class UdevAdmUtils
 {
     public static String getScsiIdentSerial(ExtCmdFactoryStlt extCmdFactoryRef, String devPathRef)
@@ -20,7 +22,7 @@ public class UdevAdmUtils
             "Failed to grep SCSI_IDENT_SERIAL from udevadm info",
             "Failed to grep SCSI_IDENT_SERIAL from udevadm info"
         );
-        String out = new String(outputData.stdoutData).trim();
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
 
         return out.split("=")[1];
     }

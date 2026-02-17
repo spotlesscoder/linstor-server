@@ -5,6 +5,7 @@ import com.linbit.extproc.ChildProcessHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +42,7 @@ public class CommandExec
             Files.write(
                 errFileRef.toPath(),
                 ("\n\nCommand did not terminate within " + ChildProcessHandler.dfltWaitTimeout + "ms. Command was: " +
-                    ShellUtils.joinShellQuote(commandRef)).getBytes(),
+                    ShellUtils.joinShellQuote(commandRef)).getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE,
                 StandardOpenOption.APPEND,
                 StandardOpenOption.WRITE

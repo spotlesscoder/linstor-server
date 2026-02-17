@@ -29,6 +29,7 @@ import static com.linbit.linstor.dbdrivers.GeneratedDatabaseTables.SecIdentities
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
 @Singleton
@@ -122,8 +123,8 @@ public class SecIdentityDbDriver extends AbsDatabaseDriver<SecIdentityDbObj, Voi
             case SQL ->
             {
                 // since the SqlEngine stores CHAR as String, we also need to load them as String
-                passHash = rawRef.<String, byte[], AccessDeniedException>build(PASS_HASH, str -> str.getBytes());
-                passSalt = rawRef.<String, byte[], AccessDeniedException>build(PASS_SALT, str -> str.getBytes());
+                passHash = rawRef.<String, byte[], AccessDeniedException>build(PASS_HASH, str -> str.getBytes(StandardCharsets.UTF_8));
+                passSalt = rawRef.<String, byte[], AccessDeniedException>build(PASS_SALT, str -> str.getBytes(StandardCharsets.UTF_8));
             }
             case K8S_CRD ->
             {

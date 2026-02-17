@@ -1,6 +1,7 @@
 package com.linbit.linstor.storage;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import com.linbit.ChildProcessTimeoutException;
@@ -48,7 +49,7 @@ public class LvsInfo extends VolumeInfo
             LvsInfo.getCommand(lvmLvsCommand, volumeGroup)
         );
 
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
         final HashMap<String, LvsInfo> infoByIdentifier = new HashMap<>();
 

@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -309,7 +310,7 @@ public class CryptSetupCommands implements Luks
                 Pattern.MULTILINE
             );
 
-            String stdOut = new String(outputData.stdoutData);
+            String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8);
             Matcher matcher = pattern.matcher(stdOut.trim());
             open = matcher.find();
         }

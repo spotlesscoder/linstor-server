@@ -72,6 +72,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -250,7 +251,7 @@ public class CtrlSosReportApiCallHandler
                 String reportName = errorReporter.reportError(exc);
                 append(
                     ctrlSosDir.resolve("dbexport.json.failed"),
-                    ("ErrorReport-" + reportName).getBytes(),
+                    ("ErrorReport-" + reportName).getBytes(StandardCharsets.UTF_8),
                     System.currentTimeMillis()
                 );
                 return Flux.empty();
@@ -405,7 +406,7 @@ public class CtrlSosReportApiCallHandler
             {
                 append(
                     sosDir.resolve("sos.err"),
-                    (msgSosReportListReply.getErrorMessage() + "\n").getBytes(),
+                    (msgSosReportListReply.getErrorMessage() + "\n").getBytes(StandardCharsets.UTF_8),
                     System.currentTimeMillis()
                 );
             }
@@ -616,7 +617,7 @@ public class CtrlSosReportApiCallHandler
         namesForTar.add(sosReportName + "/" + QUERY_FILE);
         append(
             tmpDir.resolve(sosReportName + "/" + QUERY_FILE),
-            (queryParams == null ? "<no query-params>" : queryParams).getBytes(),
+            (queryParams == null ? "<no query-params>" : queryParams).getBytes(StandardCharsets.UTF_8),
             System.currentTimeMillis()
         );
         createTar(tmpDir, fileName, namesForTar);
@@ -832,7 +833,7 @@ public class CtrlSosReportApiCallHandler
                     }
                 }
             }
-            Files.write(dirPath.resolve("extTools"), sb.toString().getBytes());
+            Files.write(dirPath.resolve("extTools"), sb.toString().getBytes(StandardCharsets.UTF_8));
         }
         catch (IOException exc)
         {
@@ -864,11 +865,11 @@ public class CtrlSosReportApiCallHandler
 
         Path sosCtrlDir = getCtrlSosDir(tmpDir, sosReportName);
         String infoContent = LinStor.linstorInfo() + "\n\nuname -a:           " + LinStor.getUname("-a");
-        append(sosCtrlDir.resolve("linstorInfo"), infoContent.getBytes(), nowMillis);
+        append(sosCtrlDir.resolve("linstorInfo"), infoContent.getBytes(StandardCharsets.UTF_8), nowMillis);
         String timeContent = "Local Time: " + TimeUtils.DTF_NO_SPACE.format(now) + "\nUTC Time:   " +
             TimeUtils.DTF_NO_SPACE
             .format(ZonedDateTime.of(now, ZoneOffset.UTC));
-        append(sosCtrlDir.resolve("timeInfo"), timeContent.getBytes(), nowMillis);
+        append(sosCtrlDir.resolve("timeInfo"), timeContent.getBytes(StandardCharsets.UTF_8), nowMillis);
 
         String tomlPath = ctrlCfg.getConfigDir() + LinstorConfig.LINSTOR_CTRL_CONFIG;
         CommandHelper[] commands = new CommandHelper[]
@@ -938,7 +939,7 @@ public class CtrlSosReportApiCallHandler
             }
             catch (IOException | InterruptedException exc)
             {
-                byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes();
+                byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes(StandardCharsets.UTF_8);
                 try
                 {
                     Path fileNameIoExc = sosCtrlDir.resolve(cmd.file.getFileName() + "io_exc");
@@ -1015,7 +1016,7 @@ public class CtrlSosReportApiCallHandler
             running = false;
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PrintWriter pw = new PrintWriter(baos);
+            PrintWriter pw = new PrintWriter(baos, false, StandardCharsets.UTF_8);
             exc.printStackTrace(pw);
             pw.flush();
             byte[] data = baos.toByteArray();
@@ -1052,7 +1053,7 @@ public class CtrlSosReportApiCallHandler
                     running = false;
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    PrintWriter pw = new PrintWriter(baos);
+                    PrintWriter pw = new PrintWriter(baos, false, StandardCharsets.UTF_8);
                     exceptionEvent.exc.printStackTrace(pw);
                     pw.flush();
                     data = baos.toByteArray();
@@ -1071,7 +1072,7 @@ public class CtrlSosReportApiCallHandler
             catch (InterruptedException exc)
             {
                 running = false;
-                data = "Interrupted".getBytes();
+                data = "Interrupted".getBytes(StandardCharsets.UTF_8);
                 file = outFile;
 
                 Thread.currentThread().interrupt();

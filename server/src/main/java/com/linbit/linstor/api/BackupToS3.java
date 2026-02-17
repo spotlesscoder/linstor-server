@@ -208,8 +208,9 @@ public class BackupToS3
         String bucket = remote.getBucket(accCtx);
         boolean reqPays = getRequesterPays(remote, accCtx, s3, bucket);
         ObjectMetadata meta = new ObjectMetadata();
-        meta.setContentLength(content.getBytes().length);
-        PutObjectRequest req = new PutObjectRequest(bucket, key, new ByteArrayInputStream(content.getBytes()), meta)
+        meta.setContentLength(content.getBytes(StandardCharsets.UTF_8).length);
+        PutObjectRequest req = new PutObjectRequest(
+            bucket, key, new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)), meta)
             .withRequesterPays(reqPays);
         s3.putObject(req);
     }
@@ -480,8 +481,8 @@ public class BackupToS3
         String secretKey;
         try
         {
-            accessKey = new String(decHelper.decrypt(masterKey, remote.getAccessKey(accCtx)));
-            secretKey = new String(decHelper.decrypt(masterKey, remote.getSecretKey(accCtx)));
+            accessKey = new String(decHelper.decrypt(masterKey, remote.getAccessKey(accCtx)), StandardCharsets.UTF_8);
+            secretKey = new String(decHelper.decrypt(masterKey, remote.getSecretKey(accCtx)), StandardCharsets.UTF_8);
         }
         catch (LinStorException exc)
         {

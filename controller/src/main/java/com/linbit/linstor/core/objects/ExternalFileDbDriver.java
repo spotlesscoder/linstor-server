@@ -36,6 +36,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
 @Singleton
@@ -76,7 +77,7 @@ public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<Exter
         setColumnSetter(CONTENT, extFile -> extFile.getContent(dbCtxRef));
         contentDriver = generateSingleColumnDriver(
             CONTENT,
-            extFile -> new String(extFile.getContent(dbCtxRef)),
+            extFile -> new String(extFile.getContent(dbCtxRef), StandardCharsets.UTF_8),
             Function.identity()
         );
 

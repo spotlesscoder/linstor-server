@@ -9,6 +9,8 @@ import com.linbit.utils.Base64;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
+
 @Singleton
 public class DecryptionHelper
 {
@@ -36,6 +38,6 @@ public class DecryptionHelper
     public String decryptB64ToString(byte[] masterKey, String encryptedKeyB64) throws LinStorException
     {
         byte[] encryptedKey = Base64.decode(encryptedKeyB64);
-        return new String(decrypt(masterKey, encryptedKey));
+        return new String(decrypt(masterKey, encryptedKey), StandardCharsets.UTF_8);
     }
 }

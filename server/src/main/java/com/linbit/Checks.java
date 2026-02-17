@@ -2,6 +2,7 @@ package com.linbit;
 
 import com.linbit.linstor.annotation.Nullable;
 
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 /**
@@ -54,7 +55,7 @@ public class Checks
            );
         }
 
-        byte[] nameBuffer = name.getBytes();
+        byte[] nameBuffer = name.getBytes(StandardCharsets.UTF_8);
 
         if (minLength < 1)
         {
@@ -206,7 +207,7 @@ public class Checks
             );
         }
 
-        byte[] nameBuffer = name.getBytes();
+        byte[] nameBuffer = name.getBytes(StandardCharsets.UTF_8);
 
         // Length check
         if (nameBuffer.length < HOSTNAME_MIN_LENGTH)

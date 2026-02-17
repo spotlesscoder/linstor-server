@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -118,7 +119,7 @@ public class StltSosReportApiCallHandler
         final Path targetPath = sosReportDirRef.resolve(reportRef.getFileName());
         try
         {
-            Files.write(targetPath, reportRef.getInfo().getBytes());
+            Files.write(targetPath, reportRef.getInfo().getBytes(StandardCharsets.UTF_8));
             fileListRef.add(
                 new FileInfoPojo(targetPath.toString(), targetPath.toFile().length(), reportRef.getTimestamp())
             );
@@ -187,7 +188,7 @@ public class StltSosReportApiCallHandler
         }
         catch (IOException exc)
         {
-            byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes();
+            byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes(StandardCharsets.UTF_8);
             try
             {
                 Path fileNameIoExc = sosReportDirRef.resolve(fileName + SUFFIX_IO_EXC);
@@ -249,7 +250,7 @@ public class StltSosReportApiCallHandler
         }
         catch (IOException | InterruptedException exc)
         {
-            byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes();
+            byte[] exceptionData = CommandExec.exceptionToString(exc).getBytes(StandardCharsets.UTF_8);
             try
             {
                 Path fileNameIoExc = sosReportDirRef.resolve(fileName + SUFFIX_IO_EXC);
@@ -322,7 +323,7 @@ public class StltSosReportApiCallHandler
                         new FilePojo(
                             fileName + errorSuffix,
                             now,
-                            CommandExec.exceptionToString(exc).getBytes(),
+                            CommandExec.exceptionToString(exc).getBytes(StandardCharsets.UTF_8),
                             0
                         )
                     );
@@ -467,7 +468,7 @@ public class StltSosReportApiCallHandler
             try
             {
                 String fileNameIoExc = "error_reports_list" + SUFFIX_IO_EXC;
-                byte[] exceptionData = CommandExec.exceptionToString(ioExc).getBytes();
+                byte[] exceptionData = CommandExec.exceptionToString(ioExc).getBytes(StandardCharsets.UTF_8);
                 Files.write(sosReportDir.resolve(fileNameIoExc), exceptionData);
                 reportTypes.add(new SosFileType(fileNameIoExc, false, now));
                 errorReporter.reportError(ioExc);

@@ -1,6 +1,7 @@
 package com.linbit.extproc;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import com.linbit.ChildProcessTimeoutException;
 import com.linbit.extproc.ExtCmd.OutputData;
@@ -61,8 +62,8 @@ public class ExtCmdFailedException extends LinStorException
                 "\n\n",
                 ShellUtils.joinShellQuote(command)
             ) +
-            EXCEPTION_STDOUT_DATA + "\n" + new String(outputData.stdoutData) + "\n\n" +
-            EXCEPTION_STDERR_DATA + "\n" + new String(outputData.stderrData) + "\n"
+            EXCEPTION_STDOUT_DATA + "\n" + new String(outputData.stdoutData, StandardCharsets.UTF_8) + "\n\n" +
+            EXCEPTION_STDERR_DATA + "\n" + new String(outputData.stderrData, StandardCharsets.UTF_8) + "\n"
         );
     }
 }

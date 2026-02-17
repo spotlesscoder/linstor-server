@@ -35,6 +35,7 @@ import javax.inject.Singleton;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -280,7 +281,7 @@ public class DrbdAdm
                 @Override
                 public boolean retry(OutputData outputDataRef)
                 {
-                    String errStr = new String(outputDataRef.stderrData);
+                    String errStr = new String(outputDataRef.stderrData, StandardCharsets.UTF_8);
                     boolean retryFlag = errStr.contains("Concurrent state changes detected and aborted") &&
                         retryCount > 0;
                     if (retryFlag)
@@ -455,7 +456,7 @@ public class DrbdAdm
         try
         {
             OutputData outputData = utilsCmd.exec(params);
-            ret = new String(outputData.stdoutData);
+            ret = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         }
         catch (ChildProcessTimeoutException timeoutExc)
         {
@@ -613,7 +614,7 @@ public class DrbdAdm
             OutputData outputData = utilsCmd.exec(cmd);
             if (outputData.exitCode == 0)
             {
-                String output = new String(outputData.stdoutData);
+                String output = new String(outputData.stdoutData, StandardCharsets.UTF_8);
                 var resLines = output.split("\n");
                 ret = Arrays.stream(resLines).map(String::toLowerCase).collect(Collectors.toList());
             }
@@ -669,9 +670,9 @@ public class DrbdAdm
             if (drbdStatusCmd.exitCode != 0)
             {
                 throw new StorageException(
-                    "Checking drbd state failed: " + new String(drbdStatusCmd.stderrData));
+                    "Checking drbd state failed: " + new String(drbdStatusCmd.stderrData, StandardCharsets.UTF_8));
             }
-            return new String(drbdStatusCmd.stdoutData);
+            return new String(drbdStatusCmd.stdoutData, StandardCharsets.UTF_8);
         }
         catch (ChildProcessTimeoutException | IOException exc)
         {

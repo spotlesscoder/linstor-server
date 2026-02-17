@@ -13,6 +13,7 @@ import com.linbit.utils.ShellUtils;
 
 import javax.inject.Inject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.TreeSet;
 
 public class UdevHandler
@@ -51,7 +52,7 @@ public class UdevHandler
                 "Failed to query symlinks of device " + devicePath,
                 "Failed to query symlinks of device " + devicePath
             );
-            String symLinksRaw = new String(outputData.stdoutData).trim();
+            String symLinksRaw = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
             ret = new TreeSet<>(ShellUtils.shellSplit(symLinksRaw));
         }
 

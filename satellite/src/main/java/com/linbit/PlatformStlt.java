@@ -10,6 +10,8 @@ import com.linbit.linstor.storage.StorageException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
+
 @Singleton
 public class PlatformStlt extends Platform
 {
@@ -71,7 +73,7 @@ public class PlatformStlt extends Platform
 
     private static void setWinDrbdRootWinPath(OutputData res)
     {
-        winDRBDRootWinPath = new String(res.stdoutData).trim();
+        winDRBDRootWinPath = new String(res.stdoutData, StandardCharsets.UTF_8).trim();
     }
 
     public String sysRootCygwin()
@@ -117,6 +119,6 @@ public class PlatformStlt extends Platform
 
     private static void setWinDrbdRoot(OutputData res)
     {
-        winDRBDRoot = new String(res.stdoutData).trim();
+        winDRBDRoot = new String(res.stdoutData, StandardCharsets.UTF_8).trim();
     }
 }

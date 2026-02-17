@@ -6,6 +6,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.core.CoreModule;
 import com.linbit.linstor.core.identifier.ResourceName;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class ExternalNameConverter
@@ -16,7 +17,7 @@ public class ExternalNameConverter
     private static final int ALPHABET_CHARS = 26;
     private static final int CASE_ALPHABET_CHARS = 2 * ALPHABET_CHARS;
     private static final byte REPLACE_CHAR = '_';
-    private static final byte[] REPLACEABLE_CHAR_LIST = " !@#$%^&*()+=[]{}:;\"'<>?,./~".getBytes();
+    private static final byte[] REPLACEABLE_CHAR_LIST = " !@#$%^&*()+=[]{}:;\"'<>?,./~".getBytes(StandardCharsets.UTF_8);
 
     private enum Mode
     {
@@ -49,13 +50,13 @@ public class ExternalNameConverter
             throw new InvalidNameException(
                 "Resource name generation failed, data input length of " + genInput.length + " bytes exceeds " +
                 "maximum length of " + MAX_INPUT_LENGTH + " bytes",
-                new String(genInput)
+                new String(genInput, StandardCharsets.UTF_8)
             );
         }
         else
         if (genInput.length > 0)
         {
-            String truncName = new String(genInput, 0, Math.min(genInput.length, ResourceName.MAX_LENGTH));
+            String truncName = new String(genInput, 0, Math.min(genInput.length, ResourceName.MAX_LENGTH), StandardCharsets.UTF_8);
             for (Mode genMode = Mode.PREFIX_UUID; rscName == null && genMode != Mode.FAIL; genMode = genMode.advance())
             {
                 switch (genMode)
@@ -132,7 +133,7 @@ public class ExternalNameConverter
         }
         try
         {
-            rscName = new ResourceName(new String(genOutput));
+            rscName = new ResourceName(new String(genOutput, StandardCharsets.UTF_8));
         }
         catch (InvalidNameException ignored)
         {

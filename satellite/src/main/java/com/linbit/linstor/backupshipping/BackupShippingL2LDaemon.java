@@ -12,6 +12,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.logging.ErrorReporter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
@@ -175,13 +176,13 @@ public class BackupShippingL2LDaemon implements Runnable, BackupShippingDaemon
                 event = deque.take();
                 if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data));
+                    errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data, StandardCharsets.UTF_8));
                     // ignore for now...
                 }
                 else
                 if (event instanceof StdErrEvent stdErrEvent)
                 {
-                    String stdErr = new String(stdErrEvent.data);
+                    String stdErr = new String(stdErrEvent.data, StandardCharsets.UTF_8);
                     Matcher mLog = SOCAT_LOG_NOTICE.matcher(stdErr);
                     if (!mLog.matches())
                     {

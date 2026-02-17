@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -232,7 +233,7 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
             "storage-pool",
             "list-available"}
         );
-        final String[] lines = new String(res.stdoutData).split("\n");
+        final String[] lines = new String(res.stdoutData, StandardCharsets.UTF_8).split("\n");
         for (String line: lines)
         {
             final String[] data = line.trim().split("\t");
@@ -286,7 +287,7 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
             "list",
             pattern }
         );
-        final String[] lines = new String(res.stdoutData).split("\n");
+        final String[] lines = new String(res.stdoutData, StandardCharsets.UTF_8).split("\n");
         for (String line: lines)
         {
             final String[] data = line.trim().split("\t");
@@ -461,7 +462,7 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
             poolName }
         );
 
-        String line = new String(res.stdoutData).trim();
+        String line = new String(res.stdoutData, StandardCharsets.UTF_8).trim();
         String[] arr = line.split(" ");
         try
         {

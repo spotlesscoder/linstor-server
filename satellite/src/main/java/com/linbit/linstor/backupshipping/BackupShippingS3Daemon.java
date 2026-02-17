@@ -19,6 +19,7 @@ import com.linbit.linstor.storage.StorageException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.BiConsumer;
@@ -245,12 +246,12 @@ public class BackupShippingS3Daemon implements Runnable, BackupShippingDaemon
                 event = deque.take();
                 if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data));
+                    errorReporter.logTrace("stdOut: %s", new String(stdOutEvent.data, StandardCharsets.UTF_8));
                     // should not exist when sending due to handler.setStdOutListener(false)
                 }
                 else if (event instanceof StdErrEvent stdErrEvent)
                 {
-                    String stdErr = new String(stdErrEvent.data);
+                    String stdErr = new String(stdErrEvent.data, StandardCharsets.UTF_8);
                     errorReporter.logWarning("stdErr: %s", stdErr);
                 }
                 else if (event instanceof ExceptionEvent exceptionEvent)

@@ -1,5 +1,6 @@
 package com.linbit.linstor.debug;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 @SuppressWarnings("checkstyle:magicnumber")
@@ -25,7 +26,7 @@ public class HexViewer
         {
             isDisplayChar[ch] = true;
         }
-        for (byte spec_char : DISPLAY_SPECIAL_CHARS.getBytes())
+        for (byte spec_char : DISPLAY_SPECIAL_CHARS.getBytes(StandardCharsets.UTF_8))
         {
             // -128 to 127
             int value = spec_char;

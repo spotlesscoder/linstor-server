@@ -21,6 +21,7 @@ import com.linbit.linstor.storage.utils.Commands;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -441,7 +442,8 @@ public class DevicePoolHandler
                     SpdkLocalCommands.nvmeBdevCreate(
                         extCmdFactory.create(),
                         pciAddress
-                    ).stdoutData
+                    ).stdoutData,
+                    StandardCharsets.UTF_8
                 ).trim();
                 nvmeBdevs.add(bdevName);
                 apiCallRc.addEntry(
@@ -502,7 +504,7 @@ public class DevicePoolHandler
             );
 
             if (new String(SpdkLocalCommands.listRaidBdevsAll(
-                extCmdFactory.create()).stdoutData).trim().matches("(.*)\\b" + poolName + "\\b(.*)"))
+                extCmdFactory.create()).stdoutData, StandardCharsets.UTF_8).trim().matches("(.*)\\b" + poolName + "\\b(.*)"))
             {
                 SpdkLocalCommands.nvmeRaidBdevRemove(extCmdFactory.create(), poolName);
                 apiCallRc.addEntry(

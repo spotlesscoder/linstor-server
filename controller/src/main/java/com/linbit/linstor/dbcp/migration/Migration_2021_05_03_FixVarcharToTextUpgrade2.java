@@ -3,6 +3,7 @@ package com.linbit.linstor.dbcp.migration;
 import com.linbit.linstor.DatabaseInfo.DbProduct;
 import com.linbit.linstor.utils.ByteUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,7 +83,8 @@ public class Migration_2021_05_03_FixVarcharToTextUpgrade2 extends LinstorMigrat
                                 if (str.startsWith("\\x"))
                                 {
                                     String actualStr = new String(
-                                        ByteUtils.hexToBytes(str.substring(2))// cut leading "\x"
+                                        ByteUtils.hexToBytes(str.substring(2)),// cut leading "\x"
+                                        StandardCharsets.UTF_8
                                     );
 
                                     // still try to parse this, just to make sure this is JSON

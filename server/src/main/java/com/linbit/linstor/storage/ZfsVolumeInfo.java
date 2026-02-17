@@ -2,6 +2,7 @@ package com.linbit.linstor.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import com.linbit.ChildProcessTimeoutException;
 import com.linbit.extproc.ExtCmd;
@@ -47,11 +48,11 @@ public class ZfsVolumeInfo extends VolumeInfo
                 throw new StorageException(
                     String.format("Command returned with exitCode %d and message %s: %s",
                         outputData.exitCode,
-                        new String(outputData.stderrData),
+                        new String(outputData.stderrData, StandardCharsets.UTF_8),
                         commandBuilder.toString()));
             }
 
-            String rawOut = new String(outputData.stdoutData);
+            String rawOut = new String(outputData.stdoutData, StandardCharsets.UTF_8);
             if (rawOut.contains("\n"))
             {
                 rawOut = rawOut.substring(0, rawOut.indexOf('\n'));

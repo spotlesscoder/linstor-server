@@ -8,6 +8,7 @@ import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.utils.ShellUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Consumer;
@@ -89,13 +90,13 @@ public class LineParserDaemon implements Runnable
                 event = deque.take();
                 if (event instanceof OutputProxy.StdOutEvent stdOutEvent)
                 {
-                    String line = new String(stdOutEvent.data);
+                    String line = new String(stdOutEvent.data, StandardCharsets.UTF_8);
                     consumer.accept(line);
                     errorReporter.logTrace(line);
                 }
                 else if (event instanceof OutputProxy.StdErrEvent stdErrEvent)
                 {
-                    String stdErrLine = new String(stdErrEvent.data);
+                    String stdErrLine = new String(stdErrEvent.data, StandardCharsets.UTF_8);
                     sbErr.append(stdErrLine);
                     errorReporter.logWarning("stdErr: %s", stdErrLine);
                 }

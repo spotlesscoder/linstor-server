@@ -37,6 +37,7 @@ import com.linbit.linstor.storage.kinds.DeviceProviderKind;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -178,13 +179,15 @@ public abstract class AbsEbsProvider<INFO> extends AbsStorageProvider<INFO, EbsD
                                             decHelper.decrypt(
                                                 masterKey,
                                                 remoteRef.getEncryptedAccessKey(storDriverAccCtx)
-                                            )
+                                            ),
+                                            StandardCharsets.UTF_8
                                         ),
                                         new String(
                                             decHelper.decrypt(
                                                 masterKey,
                                                 remoteRef.getEncryptedSecretKey(storDriverAccCtx)
-                                            )
+                                            ),
+                                            StandardCharsets.UTF_8
                                         )
                                     )
                                 )

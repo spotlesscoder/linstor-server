@@ -7,6 +7,7 @@ import com.linbit.ExhaustedPoolException;
 import com.linbit.linstor.annotation.Nullable;
 
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -1749,7 +1750,7 @@ public class BitmapPool implements NumberPool
                 digits[ELEM_BITS - index] = (byte) ((value & bitMask) == 0 ? '0' : '1');
                 bitMask <<= 1;
             }
-            return new String(digits);
+            return new String(digits, StandardCharsets.UTF_8);
         }
 
         private static void debugPrintIndent(PrintStream output, int curLevel)

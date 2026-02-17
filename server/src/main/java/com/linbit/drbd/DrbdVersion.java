@@ -16,6 +16,7 @@ import javax.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -129,7 +130,7 @@ public class DrbdVersion
     {
         Version ret = UNDETERMINED_VERSION;
         String value = null;
-        try (BufferedReader vsnReader = new BufferedReader(new InputStreamReader(cmdDataRef.getStdoutStream())))
+        try (BufferedReader vsnReader = new BufferedReader(new InputStreamReader(cmdDataRef.getStdoutStream(), StandardCharsets.UTF_8)))
         {
             String longKey = key + "=";
             for (String vsnLine = vsnReader.readLine(); vsnLine != null; vsnLine = vsnReader.readLine())
@@ -175,7 +176,7 @@ public class DrbdVersion
     {
         String ret = null;
 
-        try (BufferedReader vsnReader = new BufferedReader(new InputStreamReader(cmdDataRef.getStdoutStream())))
+        try (BufferedReader vsnReader = new BufferedReader(new InputStreamReader(cmdDataRef.getStdoutStream(), StandardCharsets.UTF_8)))
         {
             String longKey = key + "=";
             for (String vsnLine = vsnReader.readLine(); vsnLine != null; vsnLine = vsnReader.readLine())

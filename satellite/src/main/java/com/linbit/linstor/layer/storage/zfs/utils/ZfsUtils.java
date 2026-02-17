@@ -15,6 +15,7 @@ import com.linbit.linstor.storage.utils.Commands;
 import com.linbit.utils.StringUtils;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -117,7 +118,7 @@ public class ZfsUtils
         throws StorageException
     {
         final OutputData output = ZfsCommands.listThinPools(extCmd, datasets);
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
         final HashMap<String, ZfsInfo> infoByIdentifier = new HashMap<>();
 
@@ -210,7 +211,7 @@ public class ZfsUtils
         throws StorageException
     {
         final OutputData output = ZfsCommands.list(extCmd, datasets);
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
         final HashMap<String, ZfsInfo> infoByIdentifier = new HashMap<>();
         final HashMap<String, ArrayList<String>> unprocessedZvols = new HashMap<>();
@@ -378,7 +379,7 @@ public class ZfsUtils
     public static Set<String> getZPoolList(ExtCmd extCmd) throws StorageException
     {
         final OutputData output = ZfsCommands.listZpools(extCmd);
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
         return new TreeSet<>(Arrays.asList(stdOut.split("\n")));
     }
@@ -394,7 +395,7 @@ public class ZfsUtils
         final OutputData output = ZfsCommands.getUserProperty(extCmdRef, zfsPropRef, dataSetsRef);
         final HashMap<String, T> ret = new HashMap<>();
 
-        final String[] lines = new String(output.stdoutData).split("\n");
+        final String[] lines = new String(output.stdoutData, StandardCharsets.UTF_8).split("\n");
         final int expectedColCount = 2;
         for (final String line : lines)
         {
@@ -458,7 +459,7 @@ public class ZfsUtils
 
         long ret;
 
-        String dryrunOutput = new String(outputData.stdoutData).trim();
+        String dryrunOutput = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
         Matcher matcher = ZFS_CREATE_DRYRUN_OUTPUT_PATTERN.matcher(dryrunOutput);
         if (matcher.find())
         {
@@ -471,7 +472,7 @@ public class ZfsUtils
                 "Unexpected output of '" + StringUtils.join(" ", outputData.executedCommand) +
                     "'. Could not find pattern: '" + ZFS_CREATE_DRYRUN_OUTPUT_PATTERN.pattern() +
                     "'.\nStandard out: \n" + dryrunOutput +
-                    "\n\nStandard error: \n" + new String(outputData.stderrData)
+                    "\n\nStandard error: \n" + new String(outputData.stderrData, StandardCharsets.UTF_8)
             );
         }
 
@@ -483,7 +484,8 @@ public class ZfsUtils
         return ParseUtils.parseDecimalAsLong(
             new String(
                 ZfsCommands.getExtentSize(extCmd, poolName, identifier)
-                    .stdoutData
+                    .stdoutData,
+                StandardCharsets.UTF_8
             ).trim()
         );
     }
@@ -541,7 +543,7 @@ public class ZfsUtils
         List<String> devices = new ArrayList<>();
 
         OutputData out = ZfsCommands.getPhysicalDevices(extCmd, zPoolRef);
-        String outStr = new String(out.stdoutData);
+        String outStr = new String(out.stdoutData, StandardCharsets.UTF_8);
         String[] lines = outStr.split("\n");
         // first line is only the name of the zpool
         for (int idx = 1; idx < lines.length; ++idx)
@@ -577,7 +579,7 @@ public class ZfsUtils
                 @Override
                 public boolean skip(OutputData outDataRef)
                 {
-                    String stdErr = new String(outDataRef.stderrData);
+                    String stdErr = new String(outDataRef.stderrData, StandardCharsets.UTF_8);
                     return stdErr.contains("dataset does not exist") ||
                         stdErr.contains("could not find any snapshots to destroy; check snapshot names.");
                 }

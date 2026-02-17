@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -105,14 +106,14 @@ public class DrbdEventService implements SystemService, Runnable, DrbdStateStore
                 event = eventDeque.take();
                 if (event instanceof StdOutEvent stdOutEvent)
                 {
-                    eventsMonitor.receiveEvent(new String(stdOutEvent.data));
+                    eventsMonitor.receiveEvent(new String(stdOutEvent.data, StandardCharsets.UTF_8));
                 }
                 else
                 if (event instanceof StdErrEvent stdErrEvent)
                 {
                     errorReporter.logWarning(
                         "DRBD 'events2' returned error: %n%s",
-                        new String(stdErrEvent.data)
+                        new String(stdErrEvent.data, StandardCharsets.UTF_8)
                     );
                     restartEvents2Stream(RESTART_EVENTS2_STREAM_TIMEOUT);
                 }

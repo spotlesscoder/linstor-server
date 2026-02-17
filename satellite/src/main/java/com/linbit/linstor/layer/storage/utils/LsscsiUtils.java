@@ -10,6 +10,7 @@ import com.linbit.linstor.storage.utils.Commands;
 import static com.linbit.linstor.storage.utils.Commands.genericExecutor;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class LsscsiUtils
                 {
                     rescanPath = String.format(RESCAN_PATH_FORMAT, host);
                     errReporter.logTrace("rescanning %s using filter: %s", rescanPath, filter);
-                    Files.write(Paths.get(rescanPath), filter.getBytes());
+                    Files.write(Paths.get(rescanPath), filter.getBytes(StandardCharsets.UTF_8));
                 }
             }
             catch (IOException exc)
@@ -123,7 +124,7 @@ public class LsscsiUtils
                     Commands.SKIP_EXIT_CODE_CHECK
                 );
                 List<LsscsiRow> lsscsiRows = new ArrayList<>();
-                String stdout = new String(exec.stdoutData);
+                String stdout = new String(exec.stdoutData, StandardCharsets.UTF_8);
 
                 String[] lines = stdout.split("\n");
                 for (String line : lines)

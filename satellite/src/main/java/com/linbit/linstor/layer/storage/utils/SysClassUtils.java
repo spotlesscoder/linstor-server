@@ -5,6 +5,7 @@ import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class SysClassUtils
             "Failed to query local sas_address"
         );
 
-        String out = new String(outputData.stdoutData);
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         for (String line : out.split("\n"))
         {
             ret.add(line.substring(2)); // cut the leading "0x"
@@ -49,7 +50,7 @@ public class SysClassUtils
             "Failed to query target sas_address"
         );
 
-        String out = new String(outputData.stdoutData);
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
 
         for (String line : out.split("\n"))
         {

@@ -31,6 +31,7 @@ import javax.inject.Singleton;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import reactor.core.publisher.Flux;
@@ -132,7 +133,7 @@ public class CtrlAuthenticator
                             .authMessage(
                                 node.getUuid(),
                                 node.getName().getDisplayName(),
-                                "Hello, LinStor!".getBytes(),
+                                "Hello, LinStor!".getBytes(StandardCharsets.UTF_8),
                                 UUID.fromString(
                                     systemConfRepository.getCtrlConfForView(apiCtx)
                                         .getProp(

@@ -22,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -72,7 +73,7 @@ public class DebugCommand implements ApiCall
             if (dbgConsole != null)
             {
                 MsgDebugCommand msgDbgCmd = MsgDebugCommand.parseDelimitedFrom(msgDataIn);
-                ByteArrayInputStream cmdIn = new ByteArrayInputStream(msgDbgCmd.getCmdLine().getBytes());
+                ByteArrayInputStream cmdIn = new ByteArrayInputStream(msgDbgCmd.getCmdLine().getBytes(StandardCharsets.UTF_8));
 
                 ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
                 dbgConsole.streamsConsole(
@@ -131,7 +132,7 @@ public class DebugCommand implements ApiCall
         {
             if (text[idx] == '\n')
             {
-                debugOutLines.add(new String(text, offset, idx - offset));
+                debugOutLines.add(new String(text, offset, idx - offset, StandardCharsets.UTF_8));
                 offset = idx + 1;
             }
         }

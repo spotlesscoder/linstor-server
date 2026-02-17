@@ -9,6 +9,7 @@ import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -75,7 +76,7 @@ public class BCacheUtils
 
     private static @Nullable UUID findUuid(OutputData outputData, Pattern pattern)
     {
-        String out = new String(outputData.stdoutData);
+        String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         UUID ret = null;
         for (String line : out.trim().split(System.lineSeparator()))
         {
@@ -158,7 +159,7 @@ public class BCacheUtils
         write(
             errorReporterRef,
             writebackPercentPath,
-            new String(writebackPercent),
+            new String(writebackPercent, StandardCharsets.UTF_8),
             "Failed to restore set writeback_percent for " + writebackPercentPath
         );
     }
@@ -259,7 +260,7 @@ public class BCacheUtils
         try
         {
             errorReporterRef.logTrace("echo %s > %s", content, path.toString());
-            Files.write(path, content.getBytes());
+            Files.write(path, content.getBytes(StandardCharsets.UTF_8));
         }
         catch (IOException exc)
         {
@@ -297,10 +298,10 @@ public class BCacheUtils
         String ret = null;
         if (outputData.exitCode == 0)
         {
-            Matcher matcher = PATTERN_GREP_SYS_BLOCK_BCACHE.matcher(new String(outputData.stdoutData));
+            Matcher matcher = PATTERN_GREP_SYS_BLOCK_BCACHE.matcher(new String(outputData.stdoutData, StandardCharsets.UTF_8));
             if (!matcher.find())
             {
-                throw new StorageException("Found path does not match pattern: " + new String(outputData.stdoutData));
+                throw new StorageException("Found path does not match pattern: " + new String(outputData.stdoutData, StandardCharsets.UTF_8));
             }
             ret = matcher.group(1);
         }

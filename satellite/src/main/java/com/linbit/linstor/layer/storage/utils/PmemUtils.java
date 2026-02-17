@@ -6,6 +6,7 @@ import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -44,7 +45,7 @@ public class PmemUtils
                 "Failed to list non-volatile memory devices",
                 "Failed to list non-volatile memory devices"
             );
-            String out = new String(outputData.stdoutData).trim();
+            String out = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
             List<String> daxDevices = getDaxSupportingDevices(out);
 
             boolean allDevsSupportDax = true;

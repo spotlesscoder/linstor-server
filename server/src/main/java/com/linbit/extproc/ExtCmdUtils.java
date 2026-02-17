@@ -5,6 +5,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.utils.ShellUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,8 +82,8 @@ public class ExtCmdUtils
                         "%n",
                     ShellUtils.joinShellQuote(output.executedCommand),
                     output.exitCode,
-                    new String(output.stdoutData),
-                    new String(output.stderrData)
+                    new String(output.stdoutData, StandardCharsets.UTF_8),
+                    new String(output.stderrData, StandardCharsets.UTF_8)
                 )
             );
         }

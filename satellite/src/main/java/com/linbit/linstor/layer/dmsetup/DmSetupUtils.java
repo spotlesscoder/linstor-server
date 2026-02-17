@@ -17,6 +17,7 @@ import com.linbit.utils.ExceptionThrowingConsumer;
 import com.linbit.utils.StringUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -134,7 +135,7 @@ public class DmSetupUtils
             {
                 throw new ExtCmdFailedException(cmd, outputData);
             }
-            isSuspended = new String(outputData.stdoutData).contains("s"); // "s" in "attr" column means "suspended"
+            isSuspended = new String(outputData.stdoutData, StandardCharsets.UTF_8).contains("s"); // "s" in "attr" column means "suspended"
         }
         catch (ChildProcessTimeoutException timeoutExc)
         {
@@ -166,7 +167,7 @@ public class DmSetupUtils
             {
                 throw new ExtCmdFailedException(cmd, outputData);
             }
-            ret = Long.parseLong(new String(outputData.stdoutData).trim());
+            ret = Long.parseLong(new String(outputData.stdoutData, StandardCharsets.UTF_8).trim());
         }
         catch (ChildProcessTimeoutException timeoutExc)
         {
@@ -198,7 +199,7 @@ public class DmSetupUtils
                 "listing devices from dmsetup ls failed "
             );
 
-            String stdOut = new String(outputData.stdoutData);
+            String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8);
             Matcher matcher = DM_SETUP_LS_PATTERN.matcher(stdOut);
             while (matcher.find())
             {
@@ -427,7 +428,7 @@ public class DmSetupUtils
             "Failed to suspend device " + device
         );
 
-        String stdOut = new String(outputData.stdoutData);
+        String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         return stdOut.trim().equalsIgnoreCase("suspended");
     }
 
@@ -541,7 +542,7 @@ public class DmSetupUtils
             "'dmsetup status " + device + "' failed with unexpected exit code",
             "'dmsetup status " + device + "' failed"
         );
-        String stdOut = new String(outputData.stdoutData).trim();
+        String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
         String[] parts = stdOut.split(" ");
         // safety-check:
         if (!DM_SETUP_TYPE_CACHE.equals(parts[2]))

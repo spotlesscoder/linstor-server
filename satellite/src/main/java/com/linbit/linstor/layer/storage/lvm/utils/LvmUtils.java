@@ -26,6 +26,7 @@ import static com.linbit.linstor.layer.storage.lvm.utils.LvmCommands.VGS_COL_VG_
 import com.linbit.utils.ShellUtils;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -351,7 +352,7 @@ public class LvmUtils
             volumeGroups,
             config -> LvmCommands.lvs(ecf.create(), volumeGroups, config)
         );
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
 
         final String[] lines = stdOut.split("\n");
@@ -497,7 +498,7 @@ public class LvmUtils
                 LvmCommands.vgsThin(ecf.create(), volumeGroups, config) :
                 LvmCommands.vgsThick(ecf.create(), volumeGroups, config)
         );
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
         final String[] lines = stdOut.split("\n");
         final int expectedColCount = thinRef ? LvmCommands.VGS_THIN_COLUMN_COUNT : LvmCommands.VGS_THICK_COLUMN_COUNT;
@@ -691,7 +692,7 @@ public class LvmUtils
         // endless-recursion!
 
         final OutputData output = LvmCommands.listPhysicalVolumes(extCmdFactory.create(), volumeGroup, "");
-        final String stdOut = new String(output.stdoutData);
+        final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
         final List<String> pvs = new ArrayList<>();
         final String[] lines = stdOut.split("\n");
         for (String line : lines)

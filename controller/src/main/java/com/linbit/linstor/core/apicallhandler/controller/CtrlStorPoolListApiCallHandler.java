@@ -37,6 +37,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -164,7 +165,7 @@ public class CtrlStorPoolListApiCallHandler
                     try
                     {
                         byte[] decryptedKey = decryptionHelper.decrypt(masterKey, sedByteEncPassword);
-                        String sedPassword = new String(decryptedKey);
+                        String sedPassword = new String(decryptedKey, StandardCharsets.UTF_8);
                         props.put(key, sedPassword);
                     }
                     catch (LinStorException linExc)
