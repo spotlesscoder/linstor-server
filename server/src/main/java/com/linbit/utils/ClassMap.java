@@ -22,7 +22,7 @@ public class ClassMap<T>
         return (VAL) map.put(((Class<T>) value.getClass()), value);
     }
 
-    public <T> T get(Class<T> clazz)
+    public <V> V get(Class<V> clazz)
     {
         return clazz.cast(map.get(clazz));
     }
