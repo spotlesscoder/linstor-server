@@ -10,6 +10,7 @@ import com.linbit.linstor.propscon.ReadOnlyProps;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.storage.StorageConstants;
 import com.linbit.linstor.storage.StorageException;
+import com.linbit.utils.StringUtils;
 
 
 public class SpdkConfigReader
@@ -27,7 +28,7 @@ public class SpdkConfigReader
         String volumeGroup;
         try
         {
-            volumeGroup = propsRef.getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY).split("/")[0];
+            volumeGroup = StringUtils.split(propsRef.getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY), "/")[0];
         }
         catch (InvalidKeyException exc)
         {

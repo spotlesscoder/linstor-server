@@ -10,6 +10,7 @@ import com.linbit.linstor.propscon.InvalidKeyException;
 import com.linbit.linstor.propscon.ReadOnlyProps;
 import com.linbit.linstor.storage.StorageConstants;
 import com.linbit.linstor.storage.StorageException;
+import com.linbit.utils.StringUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,7 +29,7 @@ public class StorageConfigReader
         String volumeGroup;
         try
         {
-            volumeGroup = props.getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY).split("/")[0];
+            volumeGroup = StringUtils.split(props.getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY), "/")[0];
         }
         catch (InvalidKeyException exc)
         {
@@ -77,7 +78,7 @@ public class StorageConfigReader
         try
         {
             String prop = props.getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY);
-            String[] split = prop.split("/");
+            String[] split = StringUtils.split(prop, "/");
             if (split.length != 2)
             {
                 throw new StorageException(

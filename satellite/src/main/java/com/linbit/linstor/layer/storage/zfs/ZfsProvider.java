@@ -44,6 +44,7 @@ import com.linbit.linstor.storage.kinds.ExtTools;
 import com.linbit.linstor.storage.kinds.ExtToolsInfo;
 import com.linbit.linstor.storage.utils.ZfsPropsUtils;
 import com.linbit.utils.ShellUtils;
+import com.linbit.utils.StringUtils;
 import com.linbit.utils.TimeUtils;
 
 import javax.inject.Inject;
@@ -454,7 +455,7 @@ public class ZfsProvider
             switch (zfsTypeRef)
             {
                 case SNAPSHOT:
-                    String[] split = oldId.split("@");
+                    String[] split = StringUtils.split(oldId, "@");
                     newId = split[0] + "@" + ZFS_DELETED_PREFIX + split[1] + "_" + TimeUtils.getZfsRenameTime();
                     break;
                 case VOLUME:

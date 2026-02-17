@@ -66,6 +66,7 @@ import com.linbit.linstor.storage.utils.MkfsUtils;
 import com.linbit.linstor.storage.utils.VolumeUtils;
 import com.linbit.linstor.utils.layer.DrbdLayerUtils;
 import com.linbit.linstor.utils.layer.LayerRscUtils;
+import com.linbit.utils.StringUtils;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -1815,7 +1816,7 @@ public class DrbdLayer implements DeviceLayer
                         externalMd ? "flex-external" : "internal"
                     );
                 }
-                String currentGiFromMetaData = allGisFromMetaData.split(":")[0];
+                String currentGiFromMetaData = StringUtils.split(allGisFromMetaData, ":")[0];
                 isMetadataNew = currentGiFromVlmDfn.equalsIgnoreCase(currentGiFromMetaData) ||
                     currentGiFromMetaData.equals(DRBD_NEW_GI);
             }

@@ -39,6 +39,7 @@ import com.linbit.locks.LockGuardFactory;
 import com.linbit.locks.LockGuardFactory.LockObj;
 import com.linbit.locks.LockGuardFactory.LockType;
 import com.linbit.utils.PairNonNull;
+import com.linbit.utils.StringUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -261,7 +262,7 @@ public class ScheduleBackupService implements SystemService
                 Entry<String, String> prop : prioProps.renderRelativeMap(InternalApiConsts.NAMESPC_SCHEDULE).entrySet()
             )
             {
-                String[] keyParts = prop.getKey().split(ReadOnlyProps.PATH_SEPARATOR);
+                String[] keyParts = StringUtils.split(prop.getKey(), ReadOnlyProps.PATH_SEPARATOR);
                 // key for activating scheduled shipping is {remoteName}/{scheduleName}/Enabled
                 if (
                     keyParts.length == 3 && keyParts[2].equals(InternalApiConsts.KEY_TRIPLE_ENABLED) &&
@@ -860,7 +861,7 @@ public class ScheduleBackupService implements SystemService
             for (String propKey : copySet)
             {
                 // key for activating scheduled shipping is namespace/{remoteName}/{scheduleName}/Enabled
-                String[] splitKey = propKey.split(ReadOnlyProps.PATH_SEPARATOR);
+                String[] splitKey = StringUtils.split(propKey, ReadOnlyProps.PATH_SEPARATOR);
                 if (splitKey.length == expectedKeyLength && (
                     (remoteName != null && splitKey[1].equals(remoteName)) ||
                     (scheduleName != null && splitKey[2].equals(scheduleName)))

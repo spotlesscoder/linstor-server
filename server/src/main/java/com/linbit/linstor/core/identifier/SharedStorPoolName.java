@@ -3,6 +3,7 @@ package com.linbit.linstor.core.identifier;
 import com.linbit.Checks;
 import com.linbit.GenericName;
 import com.linbit.InvalidNameException;
+import com.linbit.utils.StringUtils;
 
 /**
  * Valid name of a linstor free space manager
@@ -44,7 +45,7 @@ public class SharedStorPoolName extends GenericName
         }
         else
         {
-            String[] parts = sharedStorPoolNameStr.split(RESERVED_CONNECTOR);
+            String[] parts = StringUtils.split(sharedStorPoolNameStr, RESERVED_CONNECTOR);
             if (parts.length != 2)
             {
                 throw new InvalidNameException("Reserved name has incorrect number of parts", sharedStorPoolNameStr);

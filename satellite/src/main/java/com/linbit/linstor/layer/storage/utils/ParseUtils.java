@@ -4,6 +4,7 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.StorageUtils;
 import com.linbit.utils.ShellUtils;
+import com.linbit.utils.StringUtils;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -52,11 +53,11 @@ public class ParseUtils
         final Map<String, Long> result = new HashMap<>();
 
         final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut.trim(), "\n");
 
         for (final String line : lines)
         {
-            final String[] data = line.trim().split(delimiter);
+            final String[] data = StringUtils.split(line.trim(), delimiter);
             if (data.length >= requiredColumns)
             {
                 try

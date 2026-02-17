@@ -4,6 +4,7 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 
@@ -61,7 +62,7 @@ public class SdparmUtils
     {
         StringBuilder ret = new StringBuilder();
 
-        String[] lines = out.split("\n");
+        String[] lines = StringUtils.split(out, "\n");
         // ignore the first line
         for (int idx = skipFirstLines; idx < lines.length; idx++)
         {

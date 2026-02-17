@@ -29,6 +29,7 @@ import com.linbit.linstor.storage.data.provider.lvm.LvmData;
 import com.linbit.linstor.storage.data.provider.lvm.LvmThinData;
 import com.linbit.linstor.storage.kinds.DeviceProviderKind;
 import com.linbit.utils.ShellUtils;
+import com.linbit.utils.StringUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -446,7 +447,7 @@ public class LvmThinProvider extends LvmProvider
                         StorageConstants.CONFIG_LVM_THIN_POOL_KEY, thinPool));
             }
 
-            thinPool = thinPool.split("/")[1];
+            thinPool = StringUtils.split(thinPool, "/")[1];
         }
         catch (InvalidKeyException exc)
         {

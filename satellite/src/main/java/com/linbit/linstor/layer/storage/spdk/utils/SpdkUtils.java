@@ -8,6 +8,7 @@ import com.linbit.linstor.layer.storage.spdk.SpdkCommands;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -105,7 +106,7 @@ public class SpdkUtils
                         pathAlias = alias.asText();
                     }
 
-                    final String identifier = pathAlias.split("/")[1]; // 0 is Volume Group, 1 is Logical Volume
+                    final String identifier = StringUtils.split(pathAlias, "/")[1]; // 0 is Volume Group, 1 is Logical Volume
                     final String path = String.format(SPDK_PATH_PREFIX + "%s/%s", vgStr, identifier);
                     final long size = element.path(SPDK_BLOCK_SIZE).asLong() * element.path(SPDK_NUM_BLOCKS).asLong();
                     final float dataPercent = SPDK_DEFAULT_DATA_PERCENT;
@@ -320,13 +321,13 @@ public class SpdkUtils
     static List<String> parseNvmeDrivesAddresses(String lspciOutput)
     {
         ArrayList<String> lspciEntries = new ArrayList<>();
-        for (String line : lspciOutput.split("\n"))
+        for (String line : StringUtils.split(lspciOutput, "\n"))
         {
             // Matching NVMe Drives - PCI devices with Class 01, Subclass 08, ProgIf 02
             if (line.trim().matches("(.*)\"0108\"+(.*)-p02+(.*)"))
             {
                 // Extracting PCI address
-                lspciEntries.add(line.trim().split(" ")[0]);
+                lspciEntries.add(StringUtils.split(line.trim(), " ")[0]);
             }
         }
         return lspciEntries;

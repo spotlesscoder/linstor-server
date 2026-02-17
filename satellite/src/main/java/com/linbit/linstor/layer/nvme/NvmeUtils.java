@@ -45,6 +45,7 @@ import com.linbit.linstor.storage.kinds.DeviceLayerKind;
 import com.linbit.linstor.utils.layer.LayerRscUtils;
 import com.linbit.linstor.utils.layer.LayerVlmUtils;
 import com.linbit.utils.ExceptionThrowingBiConsumer;
+import com.linbit.utils.StringUtils;
 
 import static com.linbit.linstor.api.ApiConsts.KEY_PREF_NIC;
 import static com.linbit.linstor.layer.storage.spdk.utils.SpdkUtils.SPDK_PATH_PREFIX;
@@ -622,9 +623,9 @@ public class NvmeUtils
             else
             {
                 final int nvmeRscIdx = Integer.parseInt(
-                    new String(output.stdoutData, StandardCharsets.UTF_8)
-                        .substring(NVME_FABRICS_PATH.length(), NVME_FABRICS_PATH.length() + NVME_IDX_MAX_DIGITS)
-                        .split(File.separatorChar == '\\' ? "\\\\" : File.separator)[0]
+                    StringUtils.split(new String(output.stdoutData, StandardCharsets.UTF_8)
+                        .substring(NVME_FABRICS_PATH.length(), NVME_FABRICS_PATH.length() + NVME_IDX_MAX_DIGITS),
+                        File.separatorChar == '\\' ? "\\\\" : File.separator)[0]
                 );
                 final String nvmeFabricsVlmPath = NVME_FABRICS_PATH + nvmeRscIdx + "/nvme" + nvmeRscIdx;
 
@@ -661,7 +662,7 @@ public class NvmeUtils
                         // /sys/devices/virtual/nvme-fabrics/ctl/nvme0/nvme0c1n1/nsid:1
                         // either with cY or without
 
-                        String[] nvmePathParts = grepResult.split(File.separatorChar == '\\' ? "\\\\" : File.separator);
+                        String[] nvmePathParts = StringUtils.split(grepResult, File.separatorChar == '\\' ? "\\\\" : File.separator);
                         // should now only contain "nvme0(c1)?n1"
                         String nvmeNamespacePart = nvmePathParts[nvmePathParts.length - 2];
 
@@ -780,7 +781,7 @@ public class NvmeUtils
 
             errorReporter.logDebug("NVMe: exposing device: " + spdkPath);
 
-            spdkCommands.nvmfSubsystemAddNs(subsystemName, spdkPath.split(SPDK_PATH_PREFIX)[1]);
+            spdkCommands.nvmfSubsystemAddNs(subsystemName, StringUtils.split(spdkPath, SPDK_PATH_PREFIX)[1]);
         }
         nvmeVlmData.setExists(true);
     }
@@ -903,7 +904,7 @@ public class NvmeUtils
             );
             ExtCmdUtils.checkExitCode(output, StorageException::new, "Failed to discover NVMe subsystems!");
 
-            for (String outputLine : new String(output.stdoutData, StandardCharsets.UTF_8).split("\n"))
+            for (String outputLine : StringUtils.split(new String(output.stdoutData, StandardCharsets.UTF_8), "\n"))
             {
                 if (outputLine.contains("subnqn:"))
                 {

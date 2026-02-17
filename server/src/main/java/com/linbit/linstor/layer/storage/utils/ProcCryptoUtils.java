@@ -4,6 +4,7 @@ import com.linbit.Platform;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.storage.ProcCryptoEntry;
+import com.linbit.utils.StringUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +33,7 @@ public class ProcCryptoUtils
         int priority = 0;
         String type = "";
 
-        for (String line : cryptoOutput.split("\n"))
+        for (String line : StringUtils.split(cryptoOutput, "\n"))
         {
             if (!line.trim().isEmpty())
             {

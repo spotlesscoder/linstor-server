@@ -4,6 +4,7 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
@@ -31,7 +32,7 @@ public class SysClassUtils
         );
 
         String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
-        for (String line : out.split("\n"))
+        for (String line : StringUtils.split(out, "\n"))
         {
             ret.add(line.substring(2)); // cut the leading "0x"
         }
@@ -52,7 +53,7 @@ public class SysClassUtils
 
         String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
 
-        for (String line : out.split("\n"))
+        for (String line : StringUtils.split(out, "\n"))
         {
             ret.add(line.substring(2)); // cut the leading "0x"
         }

@@ -38,6 +38,7 @@ import com.linbit.linstor.storage.data.provider.StorageRscData;
 import com.linbit.linstor.storage.data.provider.spdk.SpdkData;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject.Size;
 import com.linbit.linstor.storage.kinds.DeviceProviderKind;
+import com.linbit.utils.StringUtils;
 
 import static com.linbit.linstor.layer.storage.spdk.utils.SpdkUtils.SPDK_PATH_PREFIX;
 
@@ -360,10 +361,10 @@ public abstract class AbsSpdkProvider<T> extends AbsStorageProvider<LvsInfo, Spd
         String volumeGroup;
         try
         {
-            volumeGroup = DeviceLayerUtils.getNamespaceStorDriver(
+            volumeGroup = StringUtils.split(DeviceLayerUtils.getNamespaceStorDriver(
                 storPool.getReadOnlyProps(storDriverAccCtx)
             )
-                .getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY).split("/")[0];
+                .getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY), "/")[0];
         }
         catch (InvalidKeyException | AccessDeniedException exc)
         {
@@ -448,7 +449,7 @@ public abstract class AbsSpdkProvider<T> extends AbsStorageProvider<LvsInfo, Spd
         {
             return SpdkUtils.getBlockSizeByName(
                 spdkCommands,
-                vlmDataRef.getSpdkPath().split(SPDK_PATH_PREFIX)[1]
+                StringUtils.split(vlmDataRef.getSpdkPath(), SPDK_PATH_PREFIX)[1]
             );
         }
         catch (AccessDeniedException exc)

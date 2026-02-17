@@ -8,6 +8,7 @@ import com.linbit.ChildProcessTimeoutException;
 import com.linbit.extproc.ExtCmd;
 import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.utils.ShellUtils;
+import com.linbit.utils.StringUtils;
 
 /**
  * Holds information about LVM logical volumes obtained from the lvs command.
@@ -53,10 +54,10 @@ public class LvsInfo extends VolumeInfo
 
         final HashMap<String, LvsInfo> infoByIdentifier = new HashMap<>();
 
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut, "\n");
         for (final String line : lines)
         {
-            final String[] data = line.trim().split(StorageUtils.DELIMITER);
+            final String[] data = StringUtils.split(line.trim(), StorageUtils.DELIMITER);
             final int expectedColCount = 3;
             if (data.length >= expectedColCount)
             {

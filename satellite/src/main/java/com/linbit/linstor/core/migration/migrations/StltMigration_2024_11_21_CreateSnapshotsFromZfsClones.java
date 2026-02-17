@@ -7,6 +7,7 @@ import com.linbit.linstor.core.migration.SatelliteMigrations;
 import com.linbit.linstor.core.migration.StltMigration;
 import com.linbit.linstor.core.migration.StltMigrationHandler.StltMigrationResult;
 import com.linbit.linstor.core.objects.Node;
+import com.linbit.utils.StringUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -53,7 +54,7 @@ public class StltMigration_2024_11_21_CreateSnapshotsFromZfsClones extends BaseS
             if (!entry.getValue().isEmpty())
             {
                 String zfsId = entry.getKey();
-                String[] zfsIdParts = zfsId.split("@");
+                String[] zfsIdParts = StringUtils.split(zfsId, "@");
                 // entry must be a snapshot since we filtered for "-t snapshot"
                 String snapName = zfsIdParts[1];
                 if (snapName.toLowerCase().startsWith(CLONE_FROM_PREFIX))
@@ -68,10 +69,10 @@ public class StltMigration_2024_11_21_CreateSnapshotsFromZfsClones extends BaseS
     private Map<String, Set<String>> split(String stdOutRef)
     {
         Map<String, Set<String>> ret = new HashMap<>();
-        String[] lines = stdOutRef.split("\n");
+        String[] lines = StringUtils.split(stdOutRef, "\n");
         for (String line : lines)
         {
-            String[] columns = line.split("\\s+");
+            String[] columns = StringUtils.split(line, "\\s+");
             String snapId = columns[0];
             Set<String> clones = new HashSet<>();
             if (columns.length == 2)

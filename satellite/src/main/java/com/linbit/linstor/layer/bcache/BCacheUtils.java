@@ -7,6 +7,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -78,7 +79,7 @@ public class BCacheUtils
     {
         String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         UUID ret = null;
-        for (String line : out.trim().split(System.lineSeparator()))
+        for (String line : StringUtils.split(out.trim(), System.lineSeparator()))
         {
             Matcher mtc = pattern.matcher(line);
             if (mtc.find())

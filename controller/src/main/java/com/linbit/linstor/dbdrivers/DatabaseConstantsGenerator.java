@@ -4,6 +4,7 @@ import com.linbit.ImplementationError;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.storage.kinds.ExtToolsInfo.Version;
 import com.linbit.utils.PairNonNull;
+import com.linbit.utils.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -1011,7 +1012,7 @@ public final class DatabaseConstantsGenerator
 
         // we need to skip the first lines like "package" and "import" and unnecessary empty lines
         boolean copy = false;
-        String[] lines = genDbTablesJavaCodeRef.split("\n");
+        String[] lines = StringUtils.split(genDbTablesJavaCodeRef, "\n");
         for (String line : lines)
         {
             if (!copy && !line.startsWith("package") && !line.startsWith("import") && !line.isBlank())

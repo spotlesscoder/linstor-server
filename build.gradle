@@ -251,6 +251,7 @@ project(':satellite') {
         implementation project(':server'), project(':jclcrypto')
 
         testImplementation(platform('org.junit:junit-bom:5.13.0'))
+        testImplementation 'junit:junit:4.13.2'
     }
 
     sourceSets {

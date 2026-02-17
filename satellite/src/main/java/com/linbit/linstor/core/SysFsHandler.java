@@ -29,6 +29,7 @@ import com.linbit.linstor.storage.utils.Commands;
 import com.linbit.linstor.storage.utils.Commands.RetryHandler;
 import com.linbit.linstor.utils.layer.LayerVlmUtils;
 import com.linbit.utils.ExceptionThrowingBiFunction;
+import com.linbit.utils.StringUtils;
 
 import static com.linbit.linstor.layer.storage.spdk.utils.SpdkLocalCommands.SPDK_RPC_SCRIPT;
 import static com.linbit.linstor.layer.storage.spdk.utils.SpdkUtils.SPDK_PATH_PREFIX;
@@ -440,7 +441,7 @@ public class SysFsHandler
                 {
                     SPDK_RPC_SCRIPT,
                     "set_bdev_qos_limit",
-                    path.split(SPDK_PATH_PREFIX)[1],
+                    StringUtils.split(path, SPDK_PATH_PREFIX)[1],
                     parameter,
                     // convert String to long, bytes to megabytes and back to String
                     Long.toString(SizeConv.convert(Long.valueOf(data), SizeUnit.UNIT_B, SizeUnit.UNIT_MiB))
@@ -495,7 +496,7 @@ public class SysFsHandler
                 }
             );
             majMin = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
-            String[] split = majMin.split(":");
+            String[] split = StringUtils.split(majMin, ":");
             String major = Integer.toString(Integer.parseInt(split[0], BASE_HEX));
             String minor = Long.toString(Long.parseLong(split[1], BASE_HEX));
             majMin = major + ":" + minor;
@@ -518,10 +519,10 @@ public class SysFsHandler
         String outStr = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         Map<String, String> ret = new LinkedHashMap<>();
 
-        String[] lines = outStr.split("\n");
+        String[] lines = StringUtils.split(outStr, "\n");
         for (String line : lines)
         {
-            String[] parts = line.trim().split("=");
+            String[] parts = StringUtils.split(line.trim(), "=");
             ret.put(parts[0], parts[1]);
         }
 

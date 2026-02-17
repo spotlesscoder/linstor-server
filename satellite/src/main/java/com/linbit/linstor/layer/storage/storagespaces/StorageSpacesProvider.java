@@ -28,6 +28,7 @@ import com.linbit.linstor.storage.data.provider.AbsStorageVlmData;
 import com.linbit.linstor.storage.data.provider.storagespaces.StorageSpacesData;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject.Size;
 import com.linbit.linstor.storage.kinds.DeviceProviderKind;
+import com.linbit.utils.StringUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -233,10 +234,10 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
             "storage-pool",
             "list-available"}
         );
-        final String[] lines = new String(res.stdoutData, StandardCharsets.UTF_8).split("\n");
+        final String[] lines = StringUtils.split(new String(res.stdoutData, StandardCharsets.UTF_8), "\n");
         for (String line: lines)
         {
-            final String[] data = line.trim().split("\t");
+            final String[] data = StringUtils.split(line.trim(), "\t");
 
             if (data.length != 3)
             {
@@ -287,10 +288,10 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
             "list",
             pattern }
         );
-        final String[] lines = new String(res.stdoutData, StandardCharsets.UTF_8).split("\n");
+        final String[] lines = StringUtils.split(new String(res.stdoutData, StandardCharsets.UTF_8), "\n");
         for (String line: lines)
         {
-            final String[] data = line.trim().split("\t");
+            final String[] data = StringUtils.split(line.trim(), "\t");
 
             if (data.length != 5)
             {       /* not created by LINSTOR, no partition 2, ignore */
@@ -352,7 +353,7 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
                     /* arg to split is a regexp and seperator usually
                      * backslash (\) so we need to quote it.
                      */
-                String[] arr = volume.split("\\" + File.separator);
+                String[] arr = StringUtils.split(volume, "\\" + File.separator);
                 String pattern = arr[1];
                 infoListCache.remove(volume);
 
@@ -429,10 +430,10 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
         String name;
         try
         {
-            name = DeviceLayerUtils.getNamespaceStorDriver(
+            name = StringUtils.split(DeviceLayerUtils.getNamespaceStorDriver(
                     storPool.getProps(storDriverAccCtx)
                 )
-                .getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY).split("/")[0];
+                .getProp(StorageConstants.CONFIG_LVM_VOLUME_GROUP_KEY), "/")[0];
         }
         catch (InvalidKeyException | AccessDeniedException exc)
         {
@@ -463,7 +464,7 @@ public class StorageSpacesProvider extends AbsStorageProvider<StorageSpacesInfo,
         );
 
         String line = new String(res.stdoutData, StandardCharsets.UTF_8).trim();
-        String[] arr = line.split(" ");
+        String[] arr = StringUtils.split(line, " ");
         try
         {
             totalSize = Long.parseLong(arr[0]) / 1024L;

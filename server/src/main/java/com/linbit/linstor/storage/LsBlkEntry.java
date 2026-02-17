@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.linbit.utils.StringUtils;
+
 public class LsBlkEntry
 {
     // all fields are present as at least "" in the lsblk-output, so to prevent sb from complaining set that as default
@@ -125,7 +127,7 @@ public class LsBlkEntry
             {
                 if (value != null && !value.isEmpty())
                 {
-                    String[] majmin = value.split(":");
+                    String[] majmin = StringUtils.split(value, ":");
                     major = Integer.parseInt(majmin[0]);
                     minor = Integer.parseInt(majmin[1]);
                 }

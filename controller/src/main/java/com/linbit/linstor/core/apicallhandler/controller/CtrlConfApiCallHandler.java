@@ -1177,7 +1177,7 @@ public class CtrlConfApiCallHandler
                 Entry<String, String> overrideProp = overrideIterator.next();
                 currentKey = overrideProp.getKey();
                 currentValue = overrideProp.getValue();
-                String[] splitByNamespaces = currentKey.split("/");
+                String[] splitByNamespaces = StringUtils.split(currentKey, "/");
                 if (currentKey.startsWith(ApiConsts.NAMESPC_NETCOM) && splitByNamespaces.length == 3)
                 {
                     String normalized = whitelistProps.normalize(LinStorObject.CTRL, currentKey, currentValue);
@@ -1197,7 +1197,7 @@ public class CtrlConfApiCallHandler
             while (deletePropIterator.hasNext())
             {
                 currentKey = deletePropIterator.next();
-                String[] splitByNamespaces = currentKey.split("/");
+                String[] splitByNamespaces = StringUtils.split(currentKey, "/");
                 if (currentKey.startsWith(ApiConsts.NAMESPC_NETCOM) && splitByNamespaces.length == 3)
                 {
                     systemConfRepository.removeCtrlProp(peerAccCtx.get(), currentKey, null);
@@ -1210,7 +1210,7 @@ public class CtrlConfApiCallHandler
             while (deleteNamespaceIterator.hasNext())
             {
                 currentKey = deleteNamespaceIterator.next();
-                String[] splitByNamespaces = currentKey.split("/");
+                String[] splitByNamespaces = StringUtils.split(currentKey, "/");
                 if (currentKey.startsWith(ApiConsts.NAMESPC_NETCOM) && splitByNamespaces.length == 2)
                 {
                     @Nullable Props optNamespace = systemConfRepository.getCtrlConfForChange(peerAccCtx.get())

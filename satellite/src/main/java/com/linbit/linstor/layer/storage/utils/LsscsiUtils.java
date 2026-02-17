@@ -6,6 +6,7 @@ import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import static com.linbit.linstor.storage.utils.Commands.genericExecutor;
 
@@ -126,10 +127,10 @@ public class LsscsiUtils
                 List<LsscsiRow> lsscsiRows = new ArrayList<>();
                 String stdout = new String(exec.stdoutData, StandardCharsets.UTF_8);
 
-                String[] lines = stdout.split("\n");
+                String[] lines = StringUtils.split(stdout, "\n");
                 for (String line : lines)
                 {
-                    String[] columns = line.split("\\s+");
+                    String[] columns = StringUtils.split(line, "\\s+");
                     if (columns.length == 6)
                     {
                         lsscsiRows.add(

@@ -454,8 +454,8 @@ public class ConfFileBuilder
                                     {
                                         // iterate through nodes (should be exactly 2)
                                         Iterator<String> nodesIterator = ncEntryNamespace.keysIterator();
-                                        String firstNodeName = nodesIterator.next().split("/")[2];
-                                        String secondNodeName = nodesIterator.next().split("/")[2];
+                                        String firstNodeName = StringUtils.split(nodesIterator.next(), "/")[2];
+                                        String secondNodeName = StringUtils.split(nodesIterator.next(), "/")[2];
 
                                         // keep order of nodes correct
                                         if (firstNode.getName().value.equalsIgnoreCase(secondNodeName) &&

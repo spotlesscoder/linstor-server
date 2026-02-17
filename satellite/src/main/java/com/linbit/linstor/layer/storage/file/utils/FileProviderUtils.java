@@ -8,6 +8,7 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.utils.ExceptionThrowingFunction;
+import com.linbit.utils.StringUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -94,12 +95,12 @@ public class FileProviderUtils
         final String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8);
         if (!stdOut.trim().isEmpty())
         {
-            final String[] lines = stdOut.split("\n");
+            final String[] lines = StringUtils.split(stdOut, "\n");
             // idx starts at 1 so we can skip the HEADER row "NAME BACK-FILE"
             for (int idx = 1; idx < lines.length; ++idx)
             {
                 final String line = lines[idx];
-                final String[] data = line.trim().split("\\s+");
+                final String[] data = StringUtils.split(line.trim(), "\\s+");
                 if (!data[LosetupCommands.LOSETUP_LIST_BACK_FILE_IDX].equals("BACK_FILE"))
                 {
                     ret.put(
@@ -139,7 +140,7 @@ public class FileProviderUtils
         final OutputData outputData = FileCommands.getAllocatedThinSize(extCmd, storagePath);
         final String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
 
-        final String[] split = stdOut.split(" ");
+        final String[] split = StringUtils.split(stdOut, " ");
         final long blockSize;
         final long allocatedBlocks;
         try
@@ -193,7 +194,7 @@ public class FileProviderUtils
     private static String parseSimpleDfOutputAsString(OutputData outputData)
     {
         String outStr = new String(outputData.stdoutData, StandardCharsets.UTF_8);
-        String data = outStr.split("\n")[1]; // [0] is the header
+        String data = StringUtils.split(outStr, "\n")[1]; // [0] is the header
         return data.trim();
     }
 }

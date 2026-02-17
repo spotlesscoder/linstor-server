@@ -122,13 +122,13 @@ public class ZfsUtils
 
         final HashMap<String, ZfsInfo> infoByIdentifier = new HashMap<>();
 
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut, "\n");
         final int expectedColCount = 3;
         for (final String line : lines)
         {
             try
             {
-                final String[] data = line.trim().split(DELIMITER);
+                final String[] data = StringUtils.split(line.trim(), DELIMITER);
                 if (data.length == expectedColCount)
                 {
                     final String identifier = data[ZFS_LIST_FILESYSTEMS_COL_IDENTIFIER];
@@ -216,11 +216,11 @@ public class ZfsUtils
         final HashMap<String, ZfsInfo> infoByIdentifier = new HashMap<>();
         final HashMap<String, ArrayList<String>> unprocessedZvols = new HashMap<>();
 
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut, "\n");
         final int expectedColCount = 7;
         for (final String line : lines)
         {
-            final String[] data = line.trim().split(DELIMITER);
+            final String[] data = StringUtils.split(line.trim(), DELIMITER);
             try
             {
                 // older ZFS versions (< v2.0.5) do not show "-" on the "clones" column of snapshots if the snapshot
@@ -395,11 +395,11 @@ public class ZfsUtils
         final OutputData output = ZfsCommands.getUserProperty(extCmdRef, zfsPropRef, dataSetsRef);
         final HashMap<String, T> ret = new HashMap<>();
 
-        final String[] lines = new String(output.stdoutData, StandardCharsets.UTF_8).split("\n");
+        final String[] lines = StringUtils.split(new String(output.stdoutData, StandardCharsets.UTF_8), "\n");
         final int expectedColCount = 2;
         for (final String line : lines)
         {
-            final String[] data = line.trim().split(DELIMITER);
+            final String[] data = StringUtils.split(line.trim(), DELIMITER);
             if (data.length == expectedColCount)
             {
                 final String identifier = data[ZFS_GET_COL_NAME];
@@ -544,12 +544,12 @@ public class ZfsUtils
 
         OutputData out = ZfsCommands.getPhysicalDevices(extCmd, zPoolRef);
         String outStr = new String(out.stdoutData, StandardCharsets.UTF_8);
-        String[] lines = outStr.split("\n");
+        String[] lines = StringUtils.split(outStr, "\n");
         // first line is only the name of the zpool
         for (int idx = 1; idx < lines.length; ++idx)
         {
             String line = lines[idx].trim();
-            String[] subColumns = line.split("\t");
+            String[] subColumns = StringUtils.split(line, "\t");
             devices.add(subColumns[0]);
         }
         return devices;

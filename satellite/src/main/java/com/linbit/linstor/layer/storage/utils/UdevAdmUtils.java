@@ -4,6 +4,7 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.extproc.ExtCmdFactoryStlt;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 
@@ -24,7 +25,7 @@ public class UdevAdmUtils
         );
         String out = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
 
-        return out.split("=")[1];
+        return StringUtils.split(out, "=")[1];
     }
 
 }

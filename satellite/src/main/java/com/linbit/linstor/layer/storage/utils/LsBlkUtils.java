@@ -67,7 +67,7 @@ public class LsBlkUtils
     static List<LsBlkEntry> parseLsblkOutput(String lsblkOutput)
     {
         ArrayList<LsBlkEntry> lsBlkEntries = new ArrayList<>();
-        for (String line : lsblkOutput.split("\n"))
+        for (String line : StringUtils.split(lsblkOutput, "\n"))
         {
             LsBlkEntry entry = parseLsblkLine(line);
             if (!entry.getName().isEmpty())

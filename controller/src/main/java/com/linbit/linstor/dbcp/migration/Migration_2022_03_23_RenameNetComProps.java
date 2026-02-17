@@ -1,6 +1,7 @@
 package com.linbit.linstor.dbcp.migration;
 
 import com.linbit.linstor.DatabaseInfo.DbProduct;
+import com.linbit.utils.StringUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -75,14 +76,14 @@ public class Migration_2022_03_23_RenameNetComProps extends LinstorMigration
 
     public static String getNewKey(String oldKey)
     {
-        String[] parts = oldKey.split("/");
+        String[] parts = StringUtils.split(oldKey, "/");
         String keyNew = NETCOM_NAMESPACE_NEW + "/" + parts[1] + "/" + KEY_RENAME_MAP.get(parts[2]);
         return keyNew;
     }
 
     public static String getNewValue(String oldKey, String oldValue)
     {
-        String[] parts = oldKey.split("/");
+        String[] parts = StringUtils.split(oldKey, "/");
         String value = oldValue;
         if ("type".equals(parts[2]))
         {

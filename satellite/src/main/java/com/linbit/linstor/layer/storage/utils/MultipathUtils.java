@@ -4,6 +4,7 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.extproc.ExtCmdFactoryStlt;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.utils.Commands;
+import com.linbit.utils.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -64,12 +65,12 @@ public class MultipathUtils
         );
 
         String out = new String(outputData.stdoutData, StandardCharsets.UTF_8);
-        String[] rows = out.split("\n");
+        String[] rows = StringUtils.split(out, "\n");
         // skip first row (headers)
         for (int idx = 1; idx < rows.length; idx++)
         {
             String line = rows[idx];
-            String[] parts = line.trim().split("\\s+");
+            String[] parts = StringUtils.split(line.trim(), "\\s+");
 
             String hcil = parts[0];
             String dev = parts[1];

@@ -43,6 +43,7 @@ import com.linbit.linstor.transaction.manager.TransactionMgr;
 import com.linbit.utils.MathUtils;
 import com.linbit.utils.Pair;
 import com.linbit.utils.PairNonNull;
+import com.linbit.utils.StringUtils;
 
 import javax.inject.Provider;
 
@@ -697,7 +698,7 @@ public class VolumeDefinition extends AbsCoreObj<VolumeDefinition> implements Pr
             }
             else
             {
-                String[] split = string.split(",");
+                String[] split = StringUtils.split(string, ",");
                 flags = new Flags[split.length];
 
                 for (int idx = 0; idx < split.length; idx++)

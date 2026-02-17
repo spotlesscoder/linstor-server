@@ -239,6 +239,16 @@ public class StringUtils
         }
     }
 
+    /**
+     * Splits a string by the given regex, preserving trailing empty strings.
+     * Unlike {@link String#split(String)}, this method uses a limit of -1 so
+     * trailing empty strings are not discarded.
+     */
+    public static String[] split(String str, String regex)
+    {
+        return str.split(regex, -1);
+    }
+
     private StringUtils()
     {
     }

@@ -518,7 +518,7 @@ public class CtrlScheduleApiCallHandler
                     for (Entry<String, String> prop : props.entrySet())
                     {
                         // key is {remoteName}/{scheduleName}
-                        String[] parts = prop.getKey().split(ReadOnlyProps.PATH_SEPARATOR);
+                        String[] parts = StringUtils.split(prop.getKey(), ReadOnlyProps.PATH_SEPARATOR);
                         if (parts.length == 3 && parts[2].equals(InternalApiConsts.KEY_TRIPLE_ENABLED))
                         {
                             if (prop.getValue().equals(ApiConsts.VAL_FALSE))
@@ -714,7 +714,7 @@ public class CtrlScheduleApiCallHandler
                 .renderConflictingMap(InternalApiConsts.NAMESPC_SCHEDULE, false);
             for (Entry<String, MultiResult> prop : propsMap.entrySet())
             {
-                String[] splitKey = prop.getKey().split(ReadOnlyProps.PATH_SEPARATOR);
+                String[] splitKey = StringUtils.split(prop.getKey(), ReadOnlyProps.PATH_SEPARATOR);
                 if (splitKey.length == 3 && splitKey[2].equals(InternalApiConsts.KEY_TRIPLE_ENABLED))
                 {
                     String remote = splitKey[0];

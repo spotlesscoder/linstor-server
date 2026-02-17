@@ -543,7 +543,7 @@ public class DmSetupUtils
             "'dmsetup status " + device + "' failed"
         );
         String stdOut = new String(outputData.stdoutData, StandardCharsets.UTF_8).trim();
-        String[] parts = stdOut.split(" ");
+        String[] parts = StringUtils.split(stdOut, " ");
         // safety-check:
         if (!DM_SETUP_TYPE_CACHE.equals(parts[2]))
         {

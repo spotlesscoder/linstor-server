@@ -7,6 +7,7 @@ import com.linbit.linstor.core.cfg.CtrlConfig;
 import com.linbit.linstor.dbdrivers.DatabaseDriverInfo;
 import com.linbit.linstor.dbdrivers.DatabaseException;
 import com.linbit.linstor.logging.ErrorReporter;
+import com.linbit.utils.StringUtils;
 
 import static com.linbit.linstor.dbdrivers.derby.DbConstants.TBL_SEC_CONFIGURATION;
 
@@ -120,7 +121,7 @@ public class DbConnectionPoolInitializer implements DbInitializer
         throws InitializationException
     {
         String dbType;
-        String[] connectionUrlParts = connectionUrl.split(":");
+        String[] connectionUrlParts = StringUtils.split(connectionUrl, ":");
         if (connectionUrlParts.length > 1)
         {
             dbType = connectionUrlParts[1];

@@ -281,10 +281,10 @@ public class DbMigrater
 
             if (dbProductMinVersion.length > 0)
             {
-                final String[] versionNumberSplit = dbProductVersion.split("\\s");
+                final String[] versionNumberSplit = StringUtils.split(dbProductVersion, "\\s");
                 if (versionNumberSplit.length > 0)
                 {
-                    String[] currVersionSplit = versionNumberSplit[0].split("\\.");
+                    String[] currVersionSplit = StringUtils.split(versionNumberSplit[0], "\\.");
                     int currVersionMajor = Integer.parseInt(currVersionSplit[0]);
                     int currVersionMinor = Integer.parseInt(currVersionSplit[1]);
                     int minVersionMajor = dbProductMinVersion[0];

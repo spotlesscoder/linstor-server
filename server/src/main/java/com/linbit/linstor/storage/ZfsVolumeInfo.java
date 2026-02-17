@@ -8,6 +8,7 @@ import com.linbit.ChildProcessTimeoutException;
 import com.linbit.extproc.ExtCmd;
 import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.utils.ShellUtils;
+import com.linbit.utils.StringUtils;
 
 public class ZfsVolumeInfo extends VolumeInfo
 {
@@ -57,7 +58,7 @@ public class ZfsVolumeInfo extends VolumeInfo
             {
                 rawOut = rawOut.substring(0, rawOut.indexOf('\n'));
             }
-            String[] parts = rawOut.split("\t");
+            String[] parts = StringUtils.split(rawOut, "\t");
             if (parts.length < 2)
             {
                 throw new StorageException(

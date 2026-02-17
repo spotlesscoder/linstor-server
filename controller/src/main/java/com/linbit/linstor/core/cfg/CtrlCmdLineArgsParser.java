@@ -5,6 +5,7 @@ import com.linbit.linstor.LinStorRuntimeException;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.core.LinStor;
 import com.linbit.utils.Pair;
+import com.linbit.utils.StringUtils;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -119,7 +120,7 @@ class CtrlCmdLineArgsParser
 
         if (linArgParser.memoryDB != null)
         {
-            String[] memopts = linArgParser.memoryDB.split(";");
+            String[] memopts = StringUtils.split(linArgParser.memoryDB, ";");
             if (memopts.length > 0)
             {
                 linstorCfgRef.setDbInMemory(memopts[0]);

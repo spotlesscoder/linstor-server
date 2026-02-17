@@ -24,6 +24,7 @@ import static com.linbit.linstor.layer.storage.lvm.utils.LvmCommands.LVS_COL_STR
 import static com.linbit.linstor.layer.storage.lvm.utils.LvmCommands.LVS_COL_VG;
 import static com.linbit.linstor.layer.storage.lvm.utils.LvmCommands.VGS_COL_VG_NAME;
 import com.linbit.utils.ShellUtils;
+import com.linbit.utils.StringUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -355,11 +356,11 @@ public class LvmUtils
         final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
 
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut, "\n");
         final int expectedColCount = LvmCommands.LVS_COLUMN_COUNT;
         for (final String line : lines)
         {
-            final String[] data = line.trim().split(DELIMITER);
+            final String[] data = StringUtils.split(line.trim(), DELIMITER);
             if (data.length == expectedColCount)
             {
                 final String identifier = data[LVS_COL_IDENTIFIER];
@@ -500,11 +501,11 @@ public class LvmUtils
         );
         final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
 
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut, "\n");
         final int expectedColCount = thinRef ? LvmCommands.VGS_THIN_COLUMN_COUNT : LvmCommands.VGS_THICK_COLUMN_COUNT;
         for (final String line : lines)
         {
-            final String[] data = line.trim().split(DELIMITER);
+            final String[] data = StringUtils.split(line.trim(), DELIMITER);
             if (data.length == expectedColCount)
             {
                 final String vgName = data[VGS_COL_VG_NAME];
@@ -694,7 +695,7 @@ public class LvmUtils
         final OutputData output = LvmCommands.listPhysicalVolumes(extCmdFactory.create(), volumeGroup, "");
         final String stdOut = new String(output.stdoutData, StandardCharsets.UTF_8);
         final List<String> pvs = new ArrayList<>();
-        final String[] lines = stdOut.split("\n");
+        final String[] lines = StringUtils.split(stdOut, "\n");
         for (String line : lines)
         {
             String trimmedLine = line.trim();
