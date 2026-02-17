@@ -122,6 +122,7 @@ public abstract class AbsRemote extends AbsCoreObj<AbsRemote> implements Compara
         }
     }
 
+    @SuppressWarnings("ImmutableEnumChecker") // maps are effectively immutable
     public enum RemoteType
     {
         S3(BackupConsts.S3_REQ_EXT_TOOLS, BackupConsts.S3_OPT_EXT_TOOLS),

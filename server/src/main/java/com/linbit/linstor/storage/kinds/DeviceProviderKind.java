@@ -17,6 +17,7 @@ import com.linbit.linstor.storage.ZfsDriverKind;
 import com.linbit.linstor.storage.ZfsThinDriverKind;
 import com.linbit.linstor.storage.kinds.ExtToolsInfo.Version;
 
+@SuppressWarnings("ImmutableEnumChecker") // array and legacy StorageDriverKind are effectively immutable
 public enum DeviceProviderKind
 {
     DISKLESS(

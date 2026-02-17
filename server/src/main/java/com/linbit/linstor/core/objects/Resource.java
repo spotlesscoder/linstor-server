@@ -746,7 +746,7 @@ public class Resource extends AbsResource<Resource>
         AUTO_DISKFUL("auto-diskful"),
         MAKE_AVAILABLE("make-available");
 
-        private String value;
+        private final String value;
 
         DiskfulBy(String valueRef)
         {

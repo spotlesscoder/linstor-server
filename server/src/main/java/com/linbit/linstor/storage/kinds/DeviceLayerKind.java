@@ -2,6 +2,7 @@ package com.linbit.linstor.storage.kinds;
 
 import java.util.List;
 
+@SuppressWarnings("ImmutableEnumChecker") // startupVerifications array is effectively immutable
 public enum DeviceLayerKind
 {
     DRBD(
@@ -51,9 +52,9 @@ public enum DeviceLayerKind
     STORAGE(10, true, true);
     private final ExtTools[] startupVerifications;
 
-    private int order;
-    private boolean localOnly;
-    private boolean isShrinkingSupported;
+    private final int order;
+    private final boolean localOnly;
+    private final boolean isShrinkingSupported;
 
     DeviceLayerKind(
         int orderRef,

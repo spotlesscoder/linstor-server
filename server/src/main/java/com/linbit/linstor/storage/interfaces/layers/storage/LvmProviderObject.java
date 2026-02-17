@@ -12,7 +12,7 @@ public interface LvmProviderObject<RSC extends AbsResource<RSC>>
         EXISTS(1L << 0),
         FAILED(1L << 1);
 
-        private long flagValue;
+        private final long flagValue;
 
         LvmFlags(long flagValueRef)
         {

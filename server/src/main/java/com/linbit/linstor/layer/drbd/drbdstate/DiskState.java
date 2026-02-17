@@ -13,7 +13,7 @@ public enum DiskState
     CONSISTENT(Consts.DS_LABEL_CONSISTENT),
     UP_TO_DATE(Consts.DS_LABEL_UP_TO_DATE);
 
-    private String diskLabel;
+    private final String diskLabel;
 
     DiskState(String label)
     {

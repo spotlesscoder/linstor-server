@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class MigrationUtils_SplitSnapProps
 {
 
+    @SuppressWarnings("ImmutableEnumChecker") // list is populated once during init
     public enum InstanceType
     {
         // CTRL and STLT do not need a trailing "/"

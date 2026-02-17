@@ -225,7 +225,7 @@ public class ExternalFile extends AbsCoreObj<ExternalFile> implements ProtectedO
     {
         DELETE(1L);
 
-        public long flagValue;
+        public final long flagValue;
 
         Flags(long valueRef)
         {

@@ -5,6 +5,7 @@ import com.linbit.linstor.propscon.PropsContainer;
 
 public interface Property
 {
+    @SuppressWarnings("ImmutableEnumChecker") // alternativeNames array is effectively immutable
     enum PropertyType
     {
         REGEX,
@@ -19,7 +20,7 @@ public interface Property
         NUMERIC_OR_SYMBOL,
         LONG;
 
-        private String[] alternativeNames;
+        private final String[] alternativeNames;
 
         PropertyType(String... alternativeNamesRef)
         {

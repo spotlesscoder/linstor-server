@@ -11,7 +11,7 @@ public interface SpdkProviderObject<RSC extends AbsResource<RSC>> extends VlmPro
         EXISTS(1L << 0),
         FAILED(1L << 1);
 
-        private long flagValue;
+        private final long flagValue;
 
         SpdkFlags(long flagValueRef)
         {

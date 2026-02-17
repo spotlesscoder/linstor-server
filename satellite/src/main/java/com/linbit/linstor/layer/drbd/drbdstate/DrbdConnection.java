@@ -45,7 +45,7 @@ public class DrbdConnection
         CONNECTED(CS_LABEL_CONNECTED),
         UNKNOWN(CS_LABEL_UNKNOWN);
 
-        private String stateLabel;
+        private final String stateLabel;
 
         State(String label)
         {

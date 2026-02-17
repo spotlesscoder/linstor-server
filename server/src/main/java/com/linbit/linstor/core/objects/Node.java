@@ -1039,6 +1039,7 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
         }
     }
 
+    @SuppressWarnings("ImmutableEnumChecker") // list is wrapped with Collections.unmodifiableList
     public enum Type implements com.linbit.linstor.stateflags.Flags
     {
         CONTROLLER(
@@ -1105,7 +1106,7 @@ public class Node extends AbsCoreObj<Node> implements ProtectedObject, NodeInfo
 
         private final int flag;
         private final List<DeviceProviderKind> allowedKindClasses;
-        private boolean isSpecial;
+        private final boolean isSpecial;
 
         Type(int flagValue, List<DeviceProviderKind> allowedKindClassesRef, boolean isSpecialRef)
         {
