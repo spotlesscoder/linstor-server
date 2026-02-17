@@ -108,6 +108,6 @@ public class Migration_03_v1_17_0_ChangeKeysFromBase32ToSha256 extends BaseK8sCr
         LinstorSpec<?, ?> spec
     )
     {
-        return GenCrdV1_17_0.specToCrd((SPEC) (spec));
+        return GenCrdV1_17_0.specToCrd((SPEC) spec);
     }
 }

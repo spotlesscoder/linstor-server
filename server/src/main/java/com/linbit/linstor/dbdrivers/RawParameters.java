@@ -166,11 +166,11 @@ public class RawParameters
                 int colSqlType = col.getSqlType();
                 if (colSqlType == Types.VARCHAR || colSqlType == Types.CLOB)
                 {
-                    ret = (OBJ_MAPPER.readValue((String) value, typeRef));
+                    ret = OBJ_MAPPER.readValue((String) value, typeRef);
                 }
                 else if (colSqlType == Types.BLOB)
                 {
-                    ret = (OBJ_MAPPER.readValue((byte[]) value, typeRef));
+                    ret = OBJ_MAPPER.readValue((byte[]) value, typeRef);
                 }
                 else
                 {

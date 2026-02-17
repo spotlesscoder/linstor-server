@@ -81,7 +81,7 @@ public class TransactionSet<PARENT, VALUE>
     @Override
     protected void commitImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("commit"));
+        assert TransactionMgr.isCalledFromTransactionMgr("commit");
         oldValues.clear();
         isDirty = false;
     }
@@ -89,7 +89,7 @@ public class TransactionSet<PARENT, VALUE>
     @Override
     protected void rollbackImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("rollback"));
+        assert TransactionMgr.isCalledFromTransactionMgr("rollback");
         backingSet.clear();
         backingSet.addAll(oldValues);
         oldValues.clear();

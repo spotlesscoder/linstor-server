@@ -78,7 +78,7 @@ public class TransactionList<PARENT, VALUE>
     @Override
     protected void commitImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("commit"));
+        assert TransactionMgr.isCalledFromTransactionMgr("commit");
         synchronized (oldValues)
         {
             oldValues.clear();
@@ -89,7 +89,7 @@ public class TransactionList<PARENT, VALUE>
     @Override
     protected void rollbackImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("rollback"));
+        assert TransactionMgr.isCalledFromTransactionMgr("rollback");
         synchronized (oldValues)
         {
             backingList.clear();

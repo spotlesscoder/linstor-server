@@ -1605,7 +1605,7 @@ public class ProtoCtrlStltSerializerBuilder extends ProtoCommonSerializerBuilder
                 .setAvailabilityZone(ebsremote.getAvailabilityZone(serializerCtx))
                 .setRegion(ebsremote.getRegion(serializerCtx))
                 .setAccessKey(ByteString.copyFrom(ebsremote.getEncryptedAccessKey(serializerCtx)))
-                .setSecretKey(ByteString.copyFrom(ebsremote.getEncryptedSecretKey((serializerCtx))));
+                .setSecretKey(ByteString.copyFrom(ebsremote.getEncryptedSecretKey(serializerCtx)));
             return builder
                 .build();
         }

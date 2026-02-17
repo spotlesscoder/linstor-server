@@ -221,8 +221,8 @@ public class CoreModule extends AbstractModule
             int idx = 0;
             while (idx < cmpLength && result == 0)
             {
-                final int unsigned1st = (data1st[idx]) & UNSIGNED_BYTE_MAX;
-                final int unsigned2nd = (data2nd[idx]) & UNSIGNED_BYTE_MAX;
+                final int unsigned1st = data1st[idx] & UNSIGNED_BYTE_MAX;
+                final int unsigned2nd = data2nd[idx] & UNSIGNED_BYTE_MAX;
 
                 if (unsigned1st < unsigned2nd)
                 {

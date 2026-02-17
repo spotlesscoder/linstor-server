@@ -123,7 +123,7 @@ public class MdSuperblockBuffer
         clear();
         String name = Platform.toBlockDeviceName(objPath);
 
-        try (RandomAccessFile file = ( new RandomAccessFile(name, "r") ))
+        try (RandomAccessFile file = new RandomAccessFile(name, "r"))
         {
             FileChannel inChan = file.getChannel();
             long fileSize = getFileSize(extCmdFactory, objPath, inChan);
@@ -190,7 +190,7 @@ public class MdSuperblockBuffer
             {
                 String name = Platform.toBlockDeviceName(objPath);
 
-                try (RandomAccessFile file = ( new RandomAccessFile(name, "rws") ))
+                try (RandomAccessFile file = new RandomAccessFile(name, "rws"))
                 {
                     FileChannel inChan = file.getChannel();
                     long fileSize = getFileSize(extCmdFactory, objPath, inChan);

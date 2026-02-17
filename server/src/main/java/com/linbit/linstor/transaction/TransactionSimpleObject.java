@@ -90,7 +90,7 @@ public class TransactionSimpleObject<PARENT, ELEMENT> extends AbsTransactionObje
     @Override
     public void commitImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("commit"));
+        assert TransactionMgr.isCalledFromTransactionMgr("commit");
         cachedObject = object;
         dirty = false;
     }
@@ -98,7 +98,7 @@ public class TransactionSimpleObject<PARENT, ELEMENT> extends AbsTransactionObje
     @Override
     public void rollbackImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("rollback"));
+        assert TransactionMgr.isCalledFromTransactionMgr("rollback");
         object = cachedObject;
         dirty = false;
     }

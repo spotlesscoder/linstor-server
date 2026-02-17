@@ -70,14 +70,14 @@ public class TransactionMap<PARENT, KEY, VALUE>
     @Override
     public void commitImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("commit"));
+        assert TransactionMgr.isCalledFromTransactionMgr("commit");
         oldValues.clear();
     }
 
     @Override
     public void rollbackImpl()
     {
-        assert (TransactionMgr.isCalledFromTransactionMgr("rollback"));
+        assert TransactionMgr.isCalledFromTransactionMgr("rollback");
         for (Entry<KEY, VALUE> entry : oldValues.entrySet())
         {
             KEY key = entry.getKey();

@@ -241,7 +241,7 @@ public class DrbdStateTracker
                     {
                         observers[bitToSlot(eventId)].add(obs);
                     }
-                    safeEventMask &= (~scanMask);
+                    safeEventMask &= ~scanMask;
                 }
             }
         }
@@ -262,7 +262,7 @@ public class DrbdStateTracker
                     {
                         observers[bitToSlot(eventId)].remove(obs);
                     }
-                    eventMask &= (~scanMask);
+                    eventMask &= ~scanMask;
                 }
             }
             obsMaskMap.remove(obs);

@@ -88,7 +88,7 @@ public final class PrivilegeSet implements Cloneable
     public boolean hasPrivileges(Privilege... privList)
     {
         long privMask = getPrivMask(privList);
-        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~(0L);
+        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~0L;
         return (privileges & limitMask & privMask) == privMask;
     }
 
@@ -101,7 +101,7 @@ public final class PrivilegeSet implements Cloneable
     public boolean hasSomePrivilege(Privilege... privList)
     {
         long privMask = getPrivMask(privList);
-        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~(0L);
+        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~0L;
         return (privileges & limitMask & privMask) != 0L;
     }
 
@@ -242,7 +242,7 @@ public final class PrivilegeSet implements Cloneable
     public @Nullable AccessType toMacAccess()
     {
         AccessType result = null;
-        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~(0L);
+        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~0L;
         long privs = privileges & limitMask;
         if ((privs & Privilege.PRIV_MAC_OVRD.id) == Privilege.PRIV_MAC_OVRD.id)
         {
@@ -260,7 +260,7 @@ public final class PrivilegeSet implements Cloneable
     public @Nullable AccessType toRbacAccess()
     {
         AccessType result = null;
-        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~(0L);
+        long limitMask = limitPrivs != null ? limitPrivs.privileges : ~0L;
         long privs = privileges & limitMask;
         if ((privs & Privilege.PRIV_OBJ_CONTROL.id) == Privilege.PRIV_OBJ_CONTROL.id ||
             (privs & Privilege.PRIV_OBJ_OWNER.id) == Privilege.PRIV_OBJ_OWNER.id)

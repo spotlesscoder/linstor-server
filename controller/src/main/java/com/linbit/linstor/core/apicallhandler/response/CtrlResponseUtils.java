@@ -98,14 +98,14 @@ public class CtrlResponseUtils
                         messageFormatThese : messageFormatOthers;
                     if (messageFormat != null)
                     {
-                        ApiCallRc apiCallRc = ApiCallRcImpl.singletonApiCallRc((ApiCallRcImpl.simpleEntry(
+                        ApiCallRc apiCallRc = ApiCallRcImpl.singletonApiCallRc(ApiCallRcImpl.simpleEntry(
                             ApiConsts.MODIFIED,
                             MessageFormat.format(
                                 messageFormat,
                                 "'" + nodeName + "'",
                                 "'" + rscName + "'"
                             )
-                        )));
+                        ));
                         extraResponses = Flux.just(apiCallRc);
                     }
                     else

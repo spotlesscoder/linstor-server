@@ -92,7 +92,7 @@ public class ProcCryptoEntry
     @Override
     public boolean equals(Object obj)
     {
-        return obj instanceof ProcCryptoEntry procCryptoEntry && (driver.equals(procCryptoEntry.driver));
+        return obj instanceof ProcCryptoEntry procCryptoEntry && driver.equals(procCryptoEntry.driver);
     }
 
     @Override

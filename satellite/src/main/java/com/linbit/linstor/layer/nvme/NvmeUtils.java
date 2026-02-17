@@ -310,7 +310,7 @@ public class NvmeUtils
                     );
                 }
 
-                if (!(new File(NVME_PORTS_PATH + portIdx + "/subsystems/" + subsystemName).delete()))
+                if (!new File(NVME_PORTS_PATH + portIdx + "/subsystems/" + subsystemName).delete())
                 {
                     throw new StorageException("Failed to remove symbolic link!");
                 }
@@ -319,7 +319,7 @@ public class NvmeUtils
                 File subsysDir = new File(NVME_PORTS_PATH + portIdx + "/subsystems");
                 if (!subsysDir.exists())
                 {
-                    if (!(new File(NVME_PORTS_PATH + portIdx).delete()))
+                    if (!new File(NVME_PORTS_PATH + portIdx).delete())
                     {
                         throw new StorageException("Failed to delete ports directory!");
                     }
@@ -332,7 +332,7 @@ public class NvmeUtils
                 }
 
                 // delete subsystem directory
-                if (!(new File(subsystemDirectory).delete()))
+                if (!new File(subsystemDirectory).delete())
                 {
                     throw new StorageException("Failed to delete subsystem directory!");
                 }
@@ -622,7 +622,7 @@ public class NvmeUtils
             else
             {
                 final int nvmeRscIdx = Integer.parseInt(
-                    (new String(output.stdoutData, StandardCharsets.UTF_8))
+                    new String(output.stdoutData, StandardCharsets.UTF_8)
                         .substring(NVME_FABRICS_PATH.length(), NVME_FABRICS_PATH.length() + NVME_IDX_MAX_DIGITS)
                         .split(File.separatorChar == '\\' ? "\\\\" : File.separator)[0]
                 );
@@ -903,7 +903,7 @@ public class NvmeUtils
             );
             ExtCmdUtils.checkExitCode(output, StorageException::new, "Failed to discover NVMe subsystems!");
 
-            for (String outputLine : (new String(output.stdoutData, StandardCharsets.UTF_8)).split("\n"))
+            for (String outputLine : new String(output.stdoutData, StandardCharsets.UTF_8).split("\n"))
             {
                 if (outputLine.contains("subnqn:"))
                 {

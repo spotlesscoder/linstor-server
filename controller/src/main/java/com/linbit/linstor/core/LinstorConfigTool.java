@@ -471,7 +471,7 @@ public class LinstorConfigTool
                 "Migrates to the latest version if this option is omitted"
         ) private @Nullable String toVersion;
 
-        @CommandLine.Unmatched()
+        @CommandLine.Unmatched
         private String[] args = new String[0];
         @Override
         public Object call() throws Exception
@@ -496,7 +496,7 @@ public class LinstorConfigTool
     @CommandLine.Command(name = "all-migrations-applied", description = "checks whether the database needs migrating")
     private static class CmdAllMigrationsApplied implements Callable<Integer>
     {
-        @CommandLine.Unmatched()
+        @CommandLine.Unmatched
         private String[] args = new String[0];
 
         @Override

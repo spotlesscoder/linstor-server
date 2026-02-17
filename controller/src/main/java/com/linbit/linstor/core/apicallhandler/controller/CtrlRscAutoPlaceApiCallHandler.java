@@ -221,7 +221,7 @@ public class CtrlRscAutoPlaceApiCallHandler
             int replCt = replCtInteger == null ? 0 : replCtInteger;
             if (disklessType == null || disklessType.isEmpty())
             {
-                additionalPlaceCount = replCt - (alreadyPlacedDiskfulNotDeleting.size());
+                additionalPlaceCount = replCt - alreadyPlacedDiskfulNotDeleting.size();
             }
             else
             {
