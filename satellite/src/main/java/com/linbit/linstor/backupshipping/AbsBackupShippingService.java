@@ -41,7 +41,6 @@ import com.linbit.locks.LockGuardFactory.LockType;
 import com.linbit.utils.PairNonNull;
 import com.linbit.utils.TimeUtils;
 
-import javax.inject.Inject;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -80,7 +79,6 @@ public abstract class AbsBackupShippingService implements SystemService
     protected StltSecurityObjects stltSecObj;
     protected StltConfigAccessor stltConfigAccessor;
 
-    @Inject
     public AbsBackupShippingService(
         ErrorReporter errorReporterRef,
         String serviceNameRef,
