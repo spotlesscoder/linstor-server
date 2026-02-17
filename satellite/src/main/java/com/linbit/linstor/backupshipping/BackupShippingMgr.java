@@ -1,13 +1,10 @@
 package com.linbit.linstor.backupshipping;
 
 import com.linbit.linstor.annotation.Nullable;
-import com.linbit.linstor.annotation.SystemContext;
-import com.linbit.linstor.core.CoreModule.RemoteMap;
 import com.linbit.linstor.core.objects.Snapshot;
 import com.linbit.linstor.core.objects.SnapshotVolume;
 import com.linbit.linstor.core.objects.remotes.AbsRemote;
 import com.linbit.linstor.core.objects.remotes.AbsRemote.RemoteType;
-import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject;
 
@@ -23,20 +20,14 @@ import java.util.Set;
 @Singleton
 public class BackupShippingMgr
 {
-    private final AccessContext accCtx;
-    private final RemoteMap remoteMap;
     private final Map<RemoteType, AbsBackupShippingService> services;
 
     @Inject
     public BackupShippingMgr(
-        @SystemContext AccessContext accCtxRef,
-        RemoteMap remoteMapRef,
         BackupShippingS3Service backupShippingS3Ref,
         BackupShippingL2LService backupShippingL2LRef
     )
     {
-        accCtx = accCtxRef;
-        remoteMap = remoteMapRef;
         services = new HashMap<>();
 
         services.put(RemoteType.S3, backupShippingS3Ref);

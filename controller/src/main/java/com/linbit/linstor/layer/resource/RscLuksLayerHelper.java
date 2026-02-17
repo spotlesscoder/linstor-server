@@ -11,7 +11,6 @@ import com.linbit.linstor.annotation.ApiContext;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiConsts;
-import com.linbit.linstor.api.DecryptionHelper;
 import com.linbit.linstor.core.CoreModule.RemoteMap;
 import com.linbit.linstor.core.CtrlSecurityObjects;
 import com.linbit.linstor.core.SharedResourceManager;
@@ -74,7 +73,6 @@ class RscLuksLayerHelper extends AbsRscLayerHelper<
 
     ModularCryptoProvider cryptoProvider;
     private final EncryptionHelper encryptionHelper;
-    private final DecryptionHelper decryptionHelper;
 
     private final RemoteMap remoteMap;
 
@@ -90,7 +88,6 @@ class RscLuksLayerHelper extends AbsRscLayerHelper<
         Provider<RscNvmeLayerHelper> nvmeHelperProviderRef,
         SharedResourceManager sharedRscMgrRef,
         EncryptionHelper encryptionHelperRef,
-        DecryptionHelper decryptionHelperRef,
         RemoteMap remoteMapRef
     )
     {
@@ -111,7 +108,6 @@ class RscLuksLayerHelper extends AbsRscLayerHelper<
         nvmeHelperProvider = nvmeHelperProviderRef;
         sharedRscMgr = sharedRscMgrRef;
         encryptionHelper = encryptionHelperRef;
-        decryptionHelper = decryptionHelperRef;
         remoteMap = remoteMapRef;
     }
 

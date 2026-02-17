@@ -238,9 +238,7 @@ public class DeviceHandlerImpl implements DeviceHandler
                 failedRscs
             );
             processClone(
-                resources,
-                rscListNotifyApplied,
-                failedRscs
+                resources
             );
 
             notifyResourcesApplied(rscListNotifyApplied);
@@ -889,10 +887,7 @@ public class DeviceHandlerImpl implements DeviceHandler
     }
 
     private void processClone(
-        Collection<Resource> resourceList,
-        List<Resource> rscListNotifyApplied,
-        HashMap<Resource, ApiCallRcImpl> failedRscs
-
+        Collection<Resource> resourceList
     )
         throws ImplementationError
     {

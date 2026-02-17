@@ -64,7 +64,6 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
     private static final int TOLERANCE_FACTOR = 3;
     private static final ArrayList<String> AVAILABLE_LETTERS_COMMON = new ArrayList<>();
     private static final ArrayList<String> AVAILABLE_LETTERS_HVM = new ArrayList<>();
-    private static final ArrayList<String> AVAILABLE_LETTERS_PV = new ArrayList<>();
 
     /** Map<StorageName + "/" + LvId, Pair<EBS-vol-id, devicePath>> */
     private final Map<String, Pair<String, String>> lookupTable = new HashMap<>();
@@ -92,16 +91,6 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
             }
         }
 
-        /*
-         * PV specific device letters
-         */
-        for (char firstCh = 'z'; firstCh >= 'a'; firstCh--)
-        {
-            for (int secondCh = 15; secondCh >= 1; secondCh--)
-            {
-                AVAILABLE_LETTERS_HVM.add(firstCh + "" + secondCh);
-            }
-        }
     }
 
     @Inject
@@ -294,7 +283,7 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
 
         if (findDeviceRef)
         {
-            String actualDevice = waitForDevice(lsblkPreConnect, deviceLettersForAttach, initiatorVlmDataRef);
+            String actualDevice = waitForDevice(lsblkPreConnect, initiatorVlmDataRef);
 
             initiatorVlmDataRef.setDevicePath(actualDevice);
             lookupTable.put(
@@ -313,7 +302,6 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
 
     private String waitForDevice(
         List<LsBlkEntry> lsblkPreConnect,
-        String deviceLettersForAttach,
         EbsData<Resource> vlmDataRef
     )
         throws StorageException, AccessDeniedException, DatabaseException
@@ -328,8 +316,7 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
             {
                 actualDevice = findAttachedDevice(
                     lsblkPreConnect,
-                    lsblkPostConnect,
-                    deviceLettersForAttach
+                    lsblkPostConnect
                 );
             }
             catch (TooManyDevicesException exc)
@@ -408,8 +395,7 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
      */
     private @Nullable String findAttachedDevice(
         List<LsBlkEntry> lsblkPreConnectRef,
-        List<LsBlkEntry> lsblkPostConnectRef,
-        String deviceForAttachRef
+        List<LsBlkEntry> lsblkPostConnectRef
     )
         throws TooManyDevicesException
     {

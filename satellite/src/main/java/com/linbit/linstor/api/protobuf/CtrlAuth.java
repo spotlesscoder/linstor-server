@@ -1,6 +1,5 @@
 package com.linbit.linstor.api.protobuf;
 
-import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCall;
@@ -45,7 +44,6 @@ public class CtrlAuth implements ApiCall
     private final CommonSerializer commonSerializer;
     private final UpdateMonitor updateMonitor;
     private final Provider<Peer> controllerPeerProvider;
-    private final ExtCmdFactory extCmdFactory;
     private final StltConfig stltConfig;
     private final WhitelistProps whitelistProps;
 
@@ -57,7 +55,6 @@ public class CtrlAuth implements ApiCall
         CommonSerializer commonSerializerRef,
         UpdateMonitor updateMonitorRef,
         Provider<Peer> controllerPeerProviderRef,
-        ExtCmdFactory extCmdFactoryRef,
         StltConfig stltConfigRef,
         WhitelistProps whitelistPropsRef
     )
@@ -68,7 +65,6 @@ public class CtrlAuth implements ApiCall
         commonSerializer = commonSerializerRef;
         updateMonitor = updateMonitorRef;
         controllerPeerProvider = controllerPeerProviderRef;
-        extCmdFactory = extCmdFactoryRef;
         stltConfig = stltConfigRef;
         whitelistProps = whitelistPropsRef;
     }

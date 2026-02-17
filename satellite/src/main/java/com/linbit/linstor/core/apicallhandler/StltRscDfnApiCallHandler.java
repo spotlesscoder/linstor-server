@@ -12,13 +12,11 @@ import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
-import com.linbit.linstor.transaction.manager.TransactionMgr;
 
 import java.util.UUID;
 import org.slf4j.event.Level;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Singleton
@@ -29,7 +27,6 @@ class StltRscDfnApiCallHandler
     private final DeviceManager deviceManager;
     private final ControllerPeerConnector controllerPeerConnector;
     private final CoreModule.ResourceDefinitionMap rscDfnMap;
-    private final Provider<TransactionMgr> transMgrProvider;
 
     @Inject
     StltRscDfnApiCallHandler(
@@ -37,8 +34,7 @@ class StltRscDfnApiCallHandler
         @ApiContext AccessContext apiCtxRef,
         DeviceManager deviceManagerRef,
         ControllerPeerConnector controllerPeerConnectorRef,
-        CoreModule.ResourceDefinitionMap rscDfnMapRef,
-        Provider<TransactionMgr> transMgrProviderRef
+        CoreModule.ResourceDefinitionMap rscDfnMapRef
     )
     {
         errorReporter = errorReporterRef;
@@ -46,7 +42,6 @@ class StltRscDfnApiCallHandler
         deviceManager = deviceManagerRef;
         controllerPeerConnector = controllerPeerConnectorRef;
         rscDfnMap = rscDfnMapRef;
-        transMgrProvider = transMgrProviderRef;
     }
 
     public void primaryResource(

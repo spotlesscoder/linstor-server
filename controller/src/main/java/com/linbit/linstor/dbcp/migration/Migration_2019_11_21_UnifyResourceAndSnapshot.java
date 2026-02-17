@@ -64,8 +64,6 @@ public class Migration_2019_11_21_UnifyResourceAndSnapshot extends LinstorMigrat
 
     private static final String CHK_RD_DSP_NAME = "CHK_RD_DSP_NAME";
 
-    private static final String UNQ_LDVD_MINOR = "UNQ_LDVD_MINOR";
-
     private static final String TBL_NODES = "NODES";
     private static final String TBL_RSC_DFN = "RESOURCE_DEFINITIONS";
     private static final String TBL_RSC = "RESOURCES";

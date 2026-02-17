@@ -54,7 +54,6 @@ public final class SnapshotVolumeDefinitionDbDriver
             Map<Pair<ResourceName, VolumeNumber>, VolumeDefinition>>>
     implements SnapshotVolumeDefinitionCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final Provider<TransactionMgr> transMgrProvider;
     private final PropsContainerFactory propsContainerFactory;
     private final TransactionObjectFactory transObjFactory;
@@ -74,7 +73,6 @@ public final class SnapshotVolumeDefinitionDbDriver
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.VOLUME_DEFINITIONS, dbEngineRef, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

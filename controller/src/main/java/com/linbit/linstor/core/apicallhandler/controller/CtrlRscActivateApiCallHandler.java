@@ -274,8 +274,7 @@ public class CtrlRscActivateApiCallHandler
                 createLockGuard(),
                 () -> completeActivationInTransaction(
                     nodeName,
-                    rscName,
-                    context
+                    rscName
                 )
             )
             .transform(responses -> responseConverter.reportingExceptions(context, responses));
@@ -283,8 +282,7 @@ public class CtrlRscActivateApiCallHandler
 
     private Flux<ApiCallRc> completeActivationInTransaction(
         String nodeNameRef,
-        String rscNameRef,
-        ResponseContext contextRef
+        String rscNameRef
     )
     {
         Resource rsc = ctrlApiDataLoader.loadRsc(nodeNameRef, rscNameRef, true);

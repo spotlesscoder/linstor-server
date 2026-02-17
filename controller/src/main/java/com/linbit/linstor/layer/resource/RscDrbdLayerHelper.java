@@ -6,7 +6,6 @@ import com.linbit.InvalidNameException;
 import com.linbit.ValueInUseException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.crypto.SecretGenerator;
-import com.linbit.linstor.CtrlStorPoolResolveHelper;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.LinStorException;
 import com.linbit.linstor.NodeIdAlloc;
@@ -102,7 +101,6 @@ public class RscDrbdLayerHelper extends
     private final ModularCryptoProvider cryptoProvider;
 
     private final Provider<RscNvmeLayerHelper> nvmeHelperProvider;
-    private final CtrlStorPoolResolveHelper storPoolResolveHelper;
     private final RemoteMap remoteMap;
     private final CtrlRscLayerDataMerger ctrlRscLayerDataMerger;
 
@@ -116,7 +114,6 @@ public class RscDrbdLayerHelper extends
         @Named(NumberPoolModule.LAYER_RSC_ID_POOL) DynamicNumberPool layerRscIdPool,
         Provider<CtrlRscLayerDataFactory> rscLayerDataFactory,
         Provider<RscNvmeLayerHelper> nvmeHelperProviderRef,
-        CtrlStorPoolResolveHelper storPoolResolveHelperRef,
         ModularCryptoProvider cryptoProviderRef,
         RemoteMap remoteMapRef,
         CtrlRscLayerDataMerger ctrlRscLayerDataMergerRef
@@ -137,7 +134,6 @@ public class RscDrbdLayerHelper extends
         rscDfnMap = rscDfnMapRef;
         stltConf = stltConfRef;
         nvmeHelperProvider = nvmeHelperProviderRef;
-        storPoolResolveHelper = storPoolResolveHelperRef;
         cryptoProvider = cryptoProviderRef;
         remoteMap = remoteMapRef;
         ctrlRscLayerDataMerger = ctrlRscLayerDataMergerRef;

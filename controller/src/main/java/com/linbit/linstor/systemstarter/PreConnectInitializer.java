@@ -8,17 +8,14 @@ import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.LinStorScope;
 import com.linbit.linstor.backupshipping.BackupShippingUtils;
-import com.linbit.linstor.core.apicallhandler.controller.CtrlSnapshotDeleteApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlTransactionHelper;
 import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.objects.SnapshotDefinition;
 import com.linbit.linstor.core.repository.ResourceDefinitionRepository;
 import com.linbit.linstor.dbdrivers.DatabaseException;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.propscon.Props;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
-import com.linbit.linstor.tasks.RetryResourcesTask;
 import com.linbit.linstor.transaction.manager.TransactionMgrGenerator;
 import com.linbit.linstor.transaction.manager.TransactionMgrUtil;
 
@@ -30,35 +27,26 @@ import java.util.Iterator;
 @Singleton
 public class PreConnectInitializer implements StartupInitializer
 {
-    private final ErrorReporter errorReporter;
     private final ResourceDefinitionRepository rscDfnRepo;
     private final CtrlTransactionHelper ctrlTransactionHelper;
     private final AccessContext sysCtx;
     private final LinStorScope apiCallScope;
     private final TransactionMgrGenerator transactionMgrGenerator;
-    private final CtrlSnapshotDeleteApiCallHandler snapDelApiCallHandler;
-    private final RetryResourcesTask retryResourceTask;
 
     @Inject
     public PreConnectInitializer(
-        ErrorReporter errorReporterRef,
         @SystemContext AccessContext sysCtxRef,
         ResourceDefinitionRepository rscDfnRepoRef,
         CtrlTransactionHelper ctrlTransactionHelperRef,
         LinStorScope apiCallScopeRef,
-        TransactionMgrGenerator transactionMgrGeneratorRef,
-        CtrlSnapshotDeleteApiCallHandler snapDelApiCallHandlerRef,
-        RetryResourcesTask retryResourceTaskRef
+        TransactionMgrGenerator transactionMgrGeneratorRef
     )
     {
-        errorReporter = errorReporterRef;
         sysCtx = sysCtxRef;
         rscDfnRepo = rscDfnRepoRef;
         ctrlTransactionHelper = ctrlTransactionHelperRef;
         apiCallScope = apiCallScopeRef;
         transactionMgrGenerator = transactionMgrGeneratorRef;
-        snapDelApiCallHandler = snapDelApiCallHandlerRef;
-        retryResourceTask = retryResourceTaskRef;
     }
 
     @Override

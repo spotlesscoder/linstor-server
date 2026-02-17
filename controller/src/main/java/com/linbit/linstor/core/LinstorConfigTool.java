@@ -65,11 +65,6 @@ public class LinstorConfigTool
 {
     private static @Nullable CommandLine commandLine;
 
-    private static final String DB_USER = "linstor";
-    private static final String DB_PASSWORD = "linstor";
-
-    private static final List<String> supportedDbs = Arrays.asList("h2", "postgresql");
-
     private static final String DB_CFG = """
         [db]
           user = "%s"
@@ -628,7 +623,7 @@ public class LinstorConfigTool
                     private final DbK8sCrd dbK8sCrd = new DbK8sCrd(
                         reporter,
                         cfg,
-                        new ControllerK8sCrdTransactionMgrGenerator(this, cfg),
+                        new ControllerK8sCrdTransactionMgrGenerator(this),
                         this
                     );
                     @Override

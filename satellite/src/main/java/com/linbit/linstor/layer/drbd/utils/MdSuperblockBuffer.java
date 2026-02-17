@@ -169,7 +169,7 @@ public class MdSuperblockBuffer
         {
             try
             {
-                OutputData res = Commands.genericExecutor(
+                Commands.genericExecutor(
                     extCmdFactory.create(),
                     new String[] {
                         /* TODO: external meta data? */

@@ -4,7 +4,6 @@ import com.linbit.linstor.LinStorDBRuntimeException;
 import com.linbit.linstor.LinStorException;
 import com.linbit.linstor.core.CoreModule;
 import com.linbit.linstor.core.repository.SystemConfRepository;
-import com.linbit.linstor.dbcp.DbConnectionPool;
 import com.linbit.linstor.propscon.InvalidKeyException;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.transaction.manager.TransactionMgr;
@@ -39,14 +38,12 @@ public class CmdDeleteConfValue extends BaseDebugCmd
         );
     }
 
-    private final DbConnectionPool dbConnectionPool;
     private final Lock confWrLock;
     private final SystemConfRepository systemConfRepository;
     private final Provider<TransactionMgr> trnActProvider;
 
     @Inject
     public CmdDeleteConfValue(
-        DbConnectionPool dbConnectionPoolRef,
         @Named(CoreModule.CTRL_CONF_LOCK) ReadWriteLock confLockRef,
         SystemConfRepository systemConfRepositoryRef,
         Provider<TransactionMgr> trnActProviderRef
@@ -63,7 +60,6 @@ public class CmdDeleteConfValue extends BaseDebugCmd
             null
         );
 
-        dbConnectionPool = dbConnectionPoolRef;
         confWrLock = confLockRef.writeLock();
         systemConfRepository = systemConfRepositoryRef;
         trnActProvider = trnActProviderRef;

@@ -56,8 +56,6 @@ import reactor.util.function.Tuple2;
 @Singleton
 public class CtrlRscAutoRePlaceRscHelper implements AutoHelper
 {
-    private static final String STATUS_CONNECTED = "Connected";
-
     private final Provider<AccessContext> peerAccCtxProvider;
     private final SystemConfRepository systemConfRepo;
     private final HashSet<ResourceDefinition> needRePlaceRsc = new HashSet<>();

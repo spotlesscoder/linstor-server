@@ -121,9 +121,8 @@ public class CtrlScheduledBackupsApiCallHandler
         boolean forceSkip
     ) throws InvalidKeyException, AccessDeniedException
     {
-        boolean lastBackupIncremental = false;
         String namespace = BackupShippingUtils.BACKUP_SOURCE_PROPS_NAMESPC + "/" + remote.getName().displayValue;
-        lastBackupIncremental = snapDfn.getSnapDfnProps(peerAccCtx.get())
+        boolean lastBackupIncremental = snapDfn.getSnapDfnProps(peerAccCtx.get())
             .getProp(InternalApiConsts.KEY_BACKUP_LAST_SNAPSHOT, namespace) != null;
         String backupTimeRaw = snapDfn.getSnapDfnProps(peerAccCtx.get())
             .getProp(InternalApiConsts.KEY_BACKUP_START_TIMESTAMP, namespace);

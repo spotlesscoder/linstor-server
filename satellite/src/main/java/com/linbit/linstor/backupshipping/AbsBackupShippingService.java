@@ -261,7 +261,6 @@ public abstract class AbsBackupShippingService implements SystemService
                 if (startDaemon)
                 {
                     startDaemon(
-                        cmdRef,
                         new String[]
                         {
                             "timeout",
@@ -327,7 +326,6 @@ public abstract class AbsBackupShippingService implements SystemService
 
                 String backupName = getBackupNameForRestore(snapVlmData);
                 startDaemon(
-                    cmdRef,
                     new String[]
                     {
                         "timeout",
@@ -395,7 +393,6 @@ public abstract class AbsBackupShippingService implements SystemService
 
                             if (uploadId != null)
                             {
-                                SnapshotDefinition snapDfn = snap.getSnapshotDefinition();
                                 controllerPeerConnector.getControllerPeer()
                                     .sendMessage(
                                         interComSerializer
@@ -428,7 +425,6 @@ public abstract class AbsBackupShippingService implements SystemService
     }
 
     private void startDaemon(
-        String sendRecvCommand,
         String[] fullCommand,
         String backupNameRef,
         AbsRemote s3orStltRemote,

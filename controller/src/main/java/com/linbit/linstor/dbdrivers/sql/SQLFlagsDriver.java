@@ -22,7 +22,6 @@ class SQLFlagsDriver<DATA, FLAG extends Enum<FLAG> & Flags> implements StateFlag
     private final ErrorReporter errorReporter;
     private final SQLEngine sqlEngine;
     private final Map<Column, ExceptionThrowingFunction<DATA, Object, AccessDeniedException>> setters;
-    private final Column flagColumn;
     private final DataToString<DATA> dataToString;
 
     private final DatabaseTable table;
@@ -45,7 +44,6 @@ class SQLFlagsDriver<DATA, FLAG extends Enum<FLAG> & Flags> implements StateFlag
         updateStatement = sqlEngineRef.generateUpdateStatement(flagColumnRef);
 
         table = flagColumnRef.getTable();
-        flagColumn = flagColumnRef;
         flagsClass = flagsClassRef;
     }
 

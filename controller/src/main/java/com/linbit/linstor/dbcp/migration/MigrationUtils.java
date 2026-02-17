@@ -13,14 +13,11 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Pattern;
 
 import com.google.common.io.Resources;
 
 public class MigrationUtils
 {
-    private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+))");
-
     public static final String META_COL_TABLE_NAME = "TABLE_NAME";
     public static final String META_COL_COLUMN_NAME = "COLUMN_NAME";
 

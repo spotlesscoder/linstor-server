@@ -7,7 +7,6 @@ import com.linbit.drbd.md.MdException;
 import com.linbit.drbd.md.MetaData;
 import com.linbit.linstor.LinStorDataAlreadyExistsException;
 import com.linbit.linstor.LinStorException;
-import com.linbit.linstor.annotation.ApiContext;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiConsts;
@@ -30,16 +29,13 @@ import javax.inject.Singleton;
 @Singleton
 public class CtrlVlmDfnCrtApiHelper
 {
-    private final AccessContext apiCtx;
     private final VolumeDefinitionControllerFactory volumeDefinitionFactory;
 
     @Inject
     CtrlVlmDfnCrtApiHelper(
-        @ApiContext AccessContext apiCtxRef,
         VolumeDefinitionControllerFactory volumeDefinitionFactoryRef
     )
     {
-        apiCtx = apiCtxRef;
         volumeDefinitionFactory = volumeDefinitionFactoryRef;
     }
 

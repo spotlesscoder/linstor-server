@@ -18,19 +18,18 @@ public class ConfFileBuilderAutoRules
     public ConfFileBuilderAutoRules(AccessContext accCtx, DrbdVlmData<Resource> drbdVlmData)
         throws AccessDeniedException
     {
-        appendRules(accCtx, drbdVlmData.getRscLayerObject());
+        appendRules();
         appendRules(accCtx, drbdVlmData);
     }
 
     public ConfFileBuilderAutoRules(AccessContext accCtx, DrbdRscData<Resource> drbdRscData)
         throws AccessDeniedException
     {
-        appendRules(accCtx, drbdRscData);
+        appendRules();
     }
 
-    private void appendRules(AccessContext accCtxRef, DrbdRscData<Resource> drbdRscDataRef) throws AccessDeniedException
+    private void appendRules()
     {
-
     }
 
     private void appendRules(AccessContext accCtxRef, DrbdVlmData<Resource> drbdVlmDataRef) throws AccessDeniedException

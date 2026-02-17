@@ -43,8 +43,6 @@ import com.linbit.linstor.core.objects.Snapshot;
 import com.linbit.linstor.core.objects.StorPool;
 import com.linbit.linstor.core.objects.Volume;
 import com.linbit.linstor.core.objects.VolumeDefinition;
-import com.linbit.linstor.core.repository.NodeRepository;
-import com.linbit.linstor.core.repository.ResourceDefinitionRepository;
 import com.linbit.linstor.dbdrivers.DatabaseException;
 import com.linbit.linstor.event.EventWaiter;
 import com.linbit.linstor.event.ObjectIdentifier;
@@ -140,10 +138,8 @@ public class CtrlRscCrtApiHelper
     private final LockGuardFactory lockGuardFactory;
     private final Provider<CtrlRscDfnApiCallHandler> ctrlRscDfnApiCallHandler;
     private final AllocationGranularityHelper allocationGranularityHelper;
-    private final NodeRepository nodeRepository;
     private final CtrlRscStateHelper rscStateHelper;
     private final CtrlMinIoSizeHelper minIoSizeHelper;
-    private final ResourceDefinitionRepository rscDfnRepo;
 
     @Inject
     CtrlRscCrtApiHelper(
@@ -171,10 +167,8 @@ public class CtrlRscCrtApiHelper
         LockGuardFactory lockGuardFactoryRef,
         Provider<CtrlRscDfnApiCallHandler> ctrlRscDfnApiCallHandlerRef,
         AllocationGranularityHelper allocationGranularityHelperRef,
-        NodeRepository nodeRepositoryRef,
         CtrlRscStateHelper rscStateHelperRef,
-        CtrlMinIoSizeHelper minIoSizeHelperRef,
-        ResourceDefinitionRepository rscDfnRepoRef
+        CtrlMinIoSizeHelper minIoSizeHelperRef
     )
     {
         apiCtx = apiCtxRef;
@@ -201,9 +195,7 @@ public class CtrlRscCrtApiHelper
         lockGuardFactory = lockGuardFactoryRef;
         ctrlRscDfnApiCallHandler = ctrlRscDfnApiCallHandlerRef;
         allocationGranularityHelper = allocationGranularityHelperRef;
-        nodeRepository = nodeRepositoryRef;
         rscStateHelper = rscStateHelperRef;
-        rscDfnRepo = rscDfnRepoRef;
         minIoSizeHelper = minIoSizeHelperRef;
     }
 
@@ -534,7 +526,7 @@ public class CtrlRscCrtApiHelper
                 }
             }
 
-            rscMinIoSizeCheck(rsc, layerStack, responses, canChangeMinIo);
+            rscMinIoSizeCheck(rsc, layerStack, canChangeMinIo);
             resourceCreateCheck.checkCreatedResource(rsc);
         }
 
@@ -560,7 +552,6 @@ public class CtrlRscCrtApiHelper
     private void rscMinIoSizeCheck(
         final Resource rsc,
         final List<DeviceLayerKind> layerStack,
-        final ApiCallRcImpl responses,
         final boolean canChangeMinIo
     )
     {

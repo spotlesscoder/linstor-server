@@ -34,7 +34,6 @@ import com.linbit.linstor.core.objects.StorPool;
 import com.linbit.linstor.core.objects.VolumeDefinition;
 import com.linbit.linstor.event.EventStreamClosedException;
 import com.linbit.linstor.event.EventStreamTimeoutException;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.storage.kinds.DeviceLayerKind;
@@ -68,7 +67,6 @@ import reactor.core.publisher.Flux;
 @Singleton
 public class CtrlRscAutoPlaceApiCallHandler
 {
-    private final ErrorReporter errorReporter;
     private final AccessContext apiCtx;
     private final ScopeRunner scopeRunner;
     private final Autoplacer autoplacer;
@@ -85,7 +83,6 @@ public class CtrlRscAutoPlaceApiCallHandler
 
     @Inject
     public CtrlRscAutoPlaceApiCallHandler(
-        ErrorReporter errorReporterRef,
         @ApiContext AccessContext apiCtxRef,
         ScopeRunner scopeRunnerRef,
         Autoplacer autoplacerRef,
@@ -101,7 +98,6 @@ public class CtrlRscAutoPlaceApiCallHandler
         CopySnapsHelper copySnapHelperRef
     )
     {
-        errorReporter = errorReporterRef;
         apiCtx = apiCtxRef;
         scopeRunner = scopeRunnerRef;
         autoplacer = autoplacerRef;

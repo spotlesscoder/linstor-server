@@ -70,7 +70,7 @@ public class CtrlRscAutoDrbdProxyHelper implements AutoHelper
 
                         if (siteB != null && !siteA.equals(siteB))
                         {
-                            if (isAutoDrbdProxyBeEnabled(firstRsc, secondRsc, ctx.responses))
+                            if (isAutoDrbdProxyBeEnabled(firstRsc, secondRsc))
                             {
                                 enableDrbdProxyIfNotEnabledYet(firstRsc, secondRsc, ctx.responses);
                                 // we do not disable proxy automatically. never.
@@ -145,8 +145,7 @@ public class CtrlRscAutoDrbdProxyHelper implements AutoHelper
 
     private boolean isAutoDrbdProxyBeEnabled(
         Resource firstRscRef,
-        Resource secondRscRef,
-        ApiCallRcImpl apiCallRcImplRef
+        Resource secondRscRef
     )
         throws AccessDeniedException
     {

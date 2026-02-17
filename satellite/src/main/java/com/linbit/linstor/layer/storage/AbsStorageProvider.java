@@ -454,7 +454,7 @@ public abstract class AbsStorageProvider<
             }
         }
 
-        createCloneSnapshots(vlmsToSnapshotClone, apiCallRc);
+        createCloneSnapshots(vlmsToSnapshotClone);
         createVolumes(vlmsToCreate, apiCallRc);
         resizeVolumes(vlmsToResize, apiCallRc);
         deleteVolumes(vlmsToDelete, apiCallRc);
@@ -632,8 +632,7 @@ public abstract class AbsStorageProvider<
     }
 
     private void createCloneSnapshots(
-        List<LAYER_DATA> vlmsToSnapshot,
-        ApiCallRcImpl apiCallRc
+        List<LAYER_DATA> vlmsToSnapshot
     )
         throws StorageException, AccessDeniedException, DatabaseException
     {

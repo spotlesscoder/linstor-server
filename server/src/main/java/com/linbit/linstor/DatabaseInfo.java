@@ -82,7 +82,6 @@ public class DatabaseInfo
     private static final String ID_DB2      = "DB2";
     private static final String ID_PGSQL    = "POSTGRESQL";
     private static final String ID_MYSQL    = "MYSQL";
-    private static final String ID_ETCD     = "ETCD";
 
     private static final String SUB_ID_MARIADB = "MARIADB";
 

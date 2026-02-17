@@ -21,8 +21,6 @@ public class DevMgrModule extends AbstractModule
     public static final String STLT_CONF_LOCK = "stltConfLock";
     public static final String DRBD_CONFIG_PATH = "DrbdConfigPath";
 
-    private static final String DB_SATELLITE_PROPSCON_INSTANCE_NAME = "STLTCFG";
-
     @Override
     protected void configure()
     {

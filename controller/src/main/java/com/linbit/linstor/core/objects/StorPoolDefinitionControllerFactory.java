@@ -51,9 +51,7 @@ public class StorPoolDefinitionControllerFactory
     )
         throws AccessDeniedException, DatabaseException, LinStorDataAlreadyExistsException
     {
-        StorPoolDefinition storPoolDfn = null;
-
-        storPoolDfn = storPoolDefinitionRepository.get(accCtx, storPoolName);
+        StorPoolDefinition storPoolDfn = storPoolDefinitionRepository.get(accCtx, storPoolName);
 
         if (storPoolDfn != null)
         {

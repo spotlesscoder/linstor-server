@@ -34,8 +34,6 @@ public class PropertyBuilder
 
     public Property build()
     {
-        Property prop = null;
-
         if (type == null)
         {
             throw new ImplementationError("property type has not been set before building");
@@ -48,7 +46,7 @@ public class PropertyBuilder
         {
             throw new ImplementationError("property key has not been set before building");
         }
-        prop = switch (type)
+        Property prop = switch (type)
         {
             case REGEX ->
             {

@@ -4,7 +4,6 @@ import com.linbit.extproc.ExtCmd.OutputData;
 import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.core.apicallhandler.StltExtToolsChecker;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.storage.StorageException;
 import com.linbit.linstor.storage.kinds.ExtTools;
 import com.linbit.linstor.storage.kinds.ExtToolsInfo;
@@ -18,18 +17,15 @@ import java.util.TreeSet;
 
 public class UdevHandler
 {
-    private final ErrorReporter errorReporter;
     private final ExtCmdFactory extCmdFactory;
     private final StltExtToolsChecker extTools;
 
     @Inject
     public UdevHandler(
-        ErrorReporter errorReporterRef,
         ExtCmdFactory extCmdFactoryRef,
         StltExtToolsChecker extToolsRef
     )
     {
-        errorReporter = errorReporterRef;
         extCmdFactory = extCmdFactoryRef;
         extTools = extToolsRef;
     }

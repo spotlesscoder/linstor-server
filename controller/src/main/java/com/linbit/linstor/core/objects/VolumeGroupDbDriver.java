@@ -38,7 +38,6 @@ public final class VolumeGroupDbDriver
     extends AbsProtectedDatabaseDriver<VolumeGroup, Void, Map<ResourceGroupName, ? extends ResourceGroup>>
     implements VolumeGroupCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final StateFlagsPersistence<VolumeGroup> flagsDriver;
     private final Provider<TransactionMgr> transMgrProvider;
     private final PropsContainerFactory propsContainerFactory;
@@ -56,7 +55,6 @@ public final class VolumeGroupDbDriver
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.VOLUME_GROUPS, dbEngineRef, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

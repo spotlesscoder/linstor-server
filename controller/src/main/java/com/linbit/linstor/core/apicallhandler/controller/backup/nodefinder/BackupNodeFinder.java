@@ -58,7 +58,6 @@ public class BackupNodeFinder
 {
     private static final CategorySameNode CATEGORY_SAME_NODE = new CategorySameNode();
     private static final Version VERSION_THIN_SEND_RECV = new ExtToolsInfo.Version(0, 24);
-    private static final Version VERSION_UTIL_LINUX = new ExtToolsInfo.Version(2, 24);
 
     private final Provider<AccessContext> peerAccCtx;
     private final CtrlApiDataLoader ctrlApiDataLoader;

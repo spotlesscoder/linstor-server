@@ -113,15 +113,14 @@ public class SpdkRemoteCommands implements SpdkCommands<JsonNode>
     )
         throws StorageException, AccessDeniedException
     {
-        return create(volumeGroup, vlmId, size, false, additionalParameters);
+        return create(volumeGroup, vlmId, size, false);
     }
 
     private JsonNode create(
         String volumeGroup,
         String vlmId,
         long size,
-        boolean thin,
-        String... additionalParameters
+        boolean thin
     )
         throws StorageException, AccessDeniedException
     {

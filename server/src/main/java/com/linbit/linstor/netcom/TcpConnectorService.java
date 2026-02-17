@@ -523,8 +523,7 @@ public class TcpConnectorService implements Runnable, TcpConnector
                         keysIter.remove();
 
                         // Skip all operations if determining ready operations fails
-                        int ops = 0;
-                        ops = currentKey.readyOps();
+                        int ops = currentKey.readyOps();
 
                         if ((ops & OP_READ) != 0)
                         {
@@ -608,7 +607,7 @@ public class TcpConnectorService implements Runnable, TcpConnector
                         {
                             try
                             {
-                                acceptConnection(currentKey);
+                                acceptConnection();
                             }
                             catch (ClosedChannelException closeExc)
                             {
@@ -778,7 +777,7 @@ public class TcpConnectorService implements Runnable, TcpConnector
         }
     }
 
-    private void acceptConnection(SelectionKey currentKey)
+    private void acceptConnection()
         throws IOException
     {
         // Configure the socket for the accepted connection

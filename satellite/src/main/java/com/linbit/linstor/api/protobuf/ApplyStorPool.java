@@ -3,7 +3,6 @@ package com.linbit.linstor.api.protobuf;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.api.ApiCall;
 import com.linbit.linstor.api.pojo.StorPoolPojo;
-import com.linbit.linstor.core.ControllerPeerConnector;
 import com.linbit.linstor.core.LinStor;
 import com.linbit.linstor.core.apicallhandler.StltApiCallHandler;
 import com.linbit.linstor.proto.common.StorPoolDfnOuterClass;
@@ -27,16 +26,13 @@ import java.util.Optional;
 public class ApplyStorPool implements ApiCall
 {
     private final StltApiCallHandler apiCallHandler;
-    private final ControllerPeerConnector controllerPeerConnector;
 
     @Inject
     public ApplyStorPool(
-        StltApiCallHandler apiCallHandlerRef,
-        ControllerPeerConnector controllerPeerConnectorRef
+        StltApiCallHandler apiCallHandlerRef
     )
     {
         apiCallHandler = apiCallHandlerRef;
-        controllerPeerConnector = controllerPeerConnectorRef;
     }
 
     @Override

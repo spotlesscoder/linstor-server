@@ -447,7 +447,6 @@ class StltStorPoolApiCallHandler
 
     private boolean mergeProps(Props storPoolPropsRef, Map<String, String> storPoolApiPropsRef)
     {
-        boolean propsChanged = false;
         HashMap<String, String> oldProps = new HashMap<>(storPoolPropsRef.map());
         // just copy the map so we can compare the filtered props for changes
         HashMap<String, String> newProps = new HashMap<>(storPoolApiPropsRef);
@@ -456,7 +455,7 @@ class StltStorPoolApiCallHandler
             oldProps.remove(keyThatShouldNotCountAsChange);
             newProps.remove(keyThatShouldNotCountAsChange);
         }
-        propsChanged = !oldProps.equals(newProps);
+        boolean propsChanged = !oldProps.equals(newProps);
 
         // even if the "changes" should not count as such (i.e. should not cause a DevMgrRun),
         // we still need to apply them.

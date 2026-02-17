@@ -249,13 +249,12 @@ public class BackupShippingUtils
     public static boolean isAnyShippingInProgress(SnapshotDefinition snapDfn, AccessContext accCtx)
         throws AccessDeniedException
     {
-        boolean ret = false;
         // first check if the snapDfn is a backup-target in progress, since this is faster
         ReadOnlyProps snapDfnTarget = snapDfn.getSnapDfnProps(accCtx)
             .getNamespaceOrEmpty(BACKUP_TARGET_PROPS_NAMESPC);
         @Nullable String targetStatus = snapDfnTarget
             .getProp(InternalApiConsts.KEY_SHIPPING_STATUS);
-        ret = InternalApiConsts.VALUE_SHIPPING.equals(targetStatus);
+        boolean ret = InternalApiConsts.VALUE_SHIPPING.equals(targetStatus);
         if (!ret)
         {
             // since we don't have an in-progress target, check for any in-progress source
@@ -277,13 +276,12 @@ public class BackupShippingUtils
     public static boolean isAnyAbortInProgress(SnapshotDefinition snapDfn, AccessContext accCtx)
         throws AccessDeniedException
     {
-        boolean ret = false;
         // first check if the snapDfn is a backup-target in progress, since this is faster
         ReadOnlyProps snapDfnTarget = snapDfn.getSnapDfnProps(accCtx)
             .getNamespaceOrEmpty(BACKUP_TARGET_PROPS_NAMESPC);
         @Nullable String targetStatus = snapDfnTarget
             .getProp(InternalApiConsts.KEY_SHIPPING_STATUS);
-        ret = InternalApiConsts.VALUE_ABORTING.equals(targetStatus);
+        boolean ret = InternalApiConsts.VALUE_ABORTING.equals(targetStatus);
         if (!ret)
         {
             // since we don't have an in-progress target, check for any in-progress source

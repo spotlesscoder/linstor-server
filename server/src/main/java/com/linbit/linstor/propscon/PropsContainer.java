@@ -402,7 +402,6 @@ public class PropsContainer extends AbsTransactionObject implements Props
      */
     public boolean retainAllProps(Set<String> selection, @Nullable String namespace) throws DatabaseException
     {
-        boolean changed = false;
         Set<String> removeSet = new TreeSet<>();
         Iterator<String> keysIter = keysIterator();
         while (keysIter.hasNext())
@@ -413,8 +412,7 @@ public class PropsContainer extends AbsTransactionObject implements Props
                 removeSet.add(key);
             }
         }
-        changed = removeAllProps(removeSet, namespace);
-        return changed;
+        return removeAllProps(removeSet, namespace);
     }
 
     @Override

@@ -38,12 +38,15 @@ class StltCmdLineArgsParser
     private @Nullable String logLevelLinstor;
 
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(names = {"-v", "--version"}, versionHelp = true, description = "Show the version number")
     private @Nullable Boolean versionInfoRequested;
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message")
     private @Nullable Boolean usageHelpRequested;
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(
         names = {"-k", "--keep-res"},
         description =
@@ -56,11 +59,13 @@ class StltCmdLineArgsParser
     @CommandLine.Option(names = {"--port"}, description = "overrides the plain port")
     private @Nullable Integer plainPort;
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(names = {"-s", "--skip-hostname-check"},
         description = "deprecated. this argument will be silently ignored")
     @Deprecated
     private @Nullable Boolean skipHostNameCheck;
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(names = {"--skip-drbd-check"},
                         description = "deprecated. this argument will be silently ignored.")
     @Deprecated

@@ -5,16 +5,13 @@ import com.linbit.InvalidIpAddressException;
 import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.linstor.annotation.ApiContext;
-import com.linbit.linstor.api.interfaces.RscLayerDataApi;
 import com.linbit.linstor.api.pojo.RscPojo;
 import com.linbit.linstor.api.pojo.RscPojo.OtherNodeNetInterfacePojo;
 import com.linbit.linstor.api.pojo.RscPojo.OtherRscPojo;
 import com.linbit.linstor.core.ControllerPeerConnector;
 import com.linbit.linstor.core.CoreModule;
-import com.linbit.linstor.core.CoreModule.StorPoolDefinitionMap;
 import com.linbit.linstor.core.CriticalError;
 import com.linbit.linstor.core.DeviceManager;
-import com.linbit.linstor.core.StltSecurityObjects;
 import com.linbit.linstor.core.apis.ResourceConnectionApi;
 import com.linbit.linstor.core.apis.VolumeApi;
 import com.linbit.linstor.core.apis.VolumeDefinitionApi;
@@ -23,7 +20,6 @@ import com.linbit.linstor.core.identifier.NodeName;
 import com.linbit.linstor.core.identifier.ResourceGroupName;
 import com.linbit.linstor.core.identifier.ResourceName;
 import com.linbit.linstor.core.identifier.VolumeNumber;
-import com.linbit.linstor.core.objects.FreeSpaceMgrSatelliteFactory;
 import com.linbit.linstor.core.objects.NetInterface;
 import com.linbit.linstor.core.objects.NetInterfaceFactory;
 import com.linbit.linstor.core.objects.Node;
@@ -35,8 +31,6 @@ import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.objects.ResourceDefinitionSatelliteFactory;
 import com.linbit.linstor.core.objects.ResourceGroup;
 import com.linbit.linstor.core.objects.ResourceSatelliteFactory;
-import com.linbit.linstor.core.objects.StorPoolDefinitionSatelliteFactory;
-import com.linbit.linstor.core.objects.StorPoolSatelliteFactory;
 import com.linbit.linstor.core.objects.Volume;
 import com.linbit.linstor.core.objects.VolumeDefinition;
 import com.linbit.linstor.core.objects.VolumeDefinitionSatelliteFactory;
@@ -77,22 +71,16 @@ class StltRscApiCallHandler
     private final AccessContext apiCtx;
     private final DeviceManager deviceManager;
     private final ControllerPeerConnector controllerPeerConnector;
-    private final CoreModule.NodesMap nodesMap;
     private final CoreModule.ResourceGroupMap rscGrpMap;
     private final CoreModule.ResourceDefinitionMap rscDfnMap;
-    private final StorPoolDefinitionMap storPoolDfnMap;
     private final ResourceDefinitionSatelliteFactory resourceDefinitionFactory;
     private final VolumeDefinitionSatelliteFactory volumeDefinitionFactory;
     private final NodeSatelliteFactory nodeFactory;
     private final NetInterfaceFactory netInterfaceFactory;
     private final ResourceSatelliteFactory resourceFactory;
-    private final StorPoolDefinitionSatelliteFactory storPoolDefinitionFactory;
-    private final StorPoolSatelliteFactory storPoolFactory;
     private final VolumeFactory volumeFactory;
     private final ResourceConnectionSatelliteFactory resourceConnectionFactory;
     private final Provider<TransactionMgr> transMgrProvider;
-    private final StltSecurityObjects stltSecObjs;
-    private final FreeSpaceMgrSatelliteFactory freeSpaceMgrFactory;
     private final StltRscGrpApiCallHelper rscGrpApiCallHelper;
     private final StltLayerRscDataMerger layerRscDataMerger;
     private final StltCryptApiCallHelper cryptHelper;
@@ -103,22 +91,16 @@ class StltRscApiCallHandler
         @ApiContext AccessContext apiCtxRef,
         DeviceManager deviceManagerRef,
         ControllerPeerConnector controllerPeerConnectorRef,
-        CoreModule.NodesMap nodesMapRef,
         CoreModule.ResourceGroupMap rscGrpMapRef,
         CoreModule.ResourceDefinitionMap rscDfnMapRef,
-        StorPoolDefinitionMap storPoolDfnMapRef,
         ResourceDefinitionSatelliteFactory resourceDefinitionFactoryRef,
         VolumeDefinitionSatelliteFactory volumeDefinitionFactoryRef,
         NodeSatelliteFactory nodeFactoryRef,
         NetInterfaceFactory netInterfaceFactoryRef,
         ResourceSatelliteFactory resourceFactoryRef,
-        StorPoolDefinitionSatelliteFactory storPoolDefinitionFactoryRef,
-        StorPoolSatelliteFactory storPoolFactoryRef,
         VolumeFactory volumeFactoryRef,
         Provider<TransactionMgr> transMgrProviderRef,
-        StltSecurityObjects stltSecObjsRef,
         ResourceConnectionSatelliteFactory resourceConnectionFactoryRef,
-        FreeSpaceMgrSatelliteFactory freeSpaceMgrFactoryRef,
         StltRscGrpApiCallHelper rscGrpApiCallHelperRef,
         StltLayerRscDataMerger layerRscDataMergerRef,
         StltCryptApiCallHelper cryptHelperRef
@@ -128,22 +110,16 @@ class StltRscApiCallHandler
         apiCtx = apiCtxRef;
         deviceManager = deviceManagerRef;
         controllerPeerConnector = controllerPeerConnectorRef;
-        nodesMap = nodesMapRef;
         rscGrpMap = rscGrpMapRef;
         rscDfnMap = rscDfnMapRef;
-        storPoolDfnMap = storPoolDfnMapRef;
         resourceDefinitionFactory = resourceDefinitionFactoryRef;
         volumeDefinitionFactory = volumeDefinitionFactoryRef;
         nodeFactory = nodeFactoryRef;
         netInterfaceFactory = netInterfaceFactoryRef;
         resourceFactory = resourceFactoryRef;
-        storPoolDefinitionFactory = storPoolDefinitionFactoryRef;
-        storPoolFactory = storPoolFactoryRef;
         volumeFactory = volumeFactoryRef;
         transMgrProvider = transMgrProviderRef;
-        stltSecObjs = stltSecObjsRef;
         resourceConnectionFactory = resourceConnectionFactoryRef;
-        freeSpaceMgrFactory = freeSpaceMgrFactoryRef;
         rscGrpApiCallHelper = rscGrpApiCallHelperRef;
         layerRscDataMerger = layerRscDataMergerRef;
         cryptHelper = cryptHelperRef;
@@ -333,9 +309,7 @@ class StltRscApiCallHandler
                     rscDfn,
                     Resource.Flags.restoreFlags(rscRawData.getFlags()),
                     rscRawData.getProps(),
-                    (List<VolumeApi>) rscRawData.getVlmList(),
-                    false,
-                    rscRawData.getLayerData()
+                    (List<VolumeApi>) rscRawData.getVlmList()
                 );
 
                 errorReporter.logTrace(
@@ -356,9 +330,7 @@ class StltRscApiCallHandler
                         rscDfn,
                         Resource.Flags.restoreFlags(otherRscRaw.getRscFlags()),
                         otherRscRaw.getRscProps(),
-                        otherRscRaw.getVlms(),
-                        true,
-                        otherRscRaw.getRscLayerDataPojo()
+                        otherRscRaw.getVlms()
                     );
 
                     errorReporter.logTrace(
@@ -419,7 +391,7 @@ class StltRscApiCallHandler
                         }
                         else
                         {
-                            createVlm(vlmApi, localRsc, false);
+                            createVlm(vlmApi, localRsc);
                         }
                     }
                 }
@@ -491,9 +463,7 @@ class StltRscApiCallHandler
                             rscDfn,
                             Resource.Flags.restoreFlags(otherRsc.getRscFlags()),
                             otherRsc.getRscProps(),
-                            otherRsc.getVlms(),
-                            true,
-                            otherRsc.getRscLayerDataPojo()
+                            otherRsc.getVlms()
                         );
 
                         createdRscSet.add(new Resource.ResourceKey(remoteRsc));
@@ -529,7 +499,7 @@ class StltRscApiCallHandler
                                 Volume remoteVlm = remoteRsc.getVolume(new VolumeNumber(remoteVlmApi.getVlmNr()));
                                 if (remoteVlm == null)
                                 {
-                                    createVlm(remoteVlmApi, remoteRsc, true);
+                                    createVlm(remoteVlmApi, remoteRsc);
                                 }
                                 else
                                 {
@@ -742,9 +712,7 @@ class StltRscApiCallHandler
         ResourceDefinition rscDfn,
         Resource.Flags[] flags,
         Map<String, String> rscProps,
-        List<VolumeApi> vlms,
-        boolean remoteRsc,
-        RscLayerDataApi rscLayerDataApi
+        List<VolumeApi> vlms
     )
         throws AccessDeniedException, ValueOutOfRangeException, InvalidNameException,
             DatabaseException
@@ -771,7 +739,7 @@ class StltRscApiCallHandler
 
         for (VolumeApi vlmRaw : vlms)
         {
-            createVlm(vlmRaw, rsc, remoteRsc);
+            createVlm(vlmRaw, rsc);
         }
 
         return rsc;
@@ -779,8 +747,7 @@ class StltRscApiCallHandler
 
     private void createVlm(
         VolumeApi vlmApi,
-        Resource rsc,
-        boolean remoteRsc
+        Resource rsc
     )
         throws AccessDeniedException, InvalidNameException, ValueOutOfRangeException,
         DatabaseException

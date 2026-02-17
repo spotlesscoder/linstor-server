@@ -252,9 +252,7 @@ public class TcpConnectorPeer implements Peer
     @Override
     public ServiceName getConnectorInstanceName()
     {
-        ServiceName connInstName = null;
-        connInstName = connector.getInstanceName();
-        return connInstName;
+        return connector.getInstanceName();
     }
 
     @Override

@@ -263,7 +263,6 @@ public class UnicodeConversion
 
         ConversionState state = ConversionState.FIRST_UNIT;
         int inIdx = 0;
-        int codePoint = 0;
         while (inIdx < input.length)
         {
             char curChar = input[inIdx];
@@ -275,7 +274,6 @@ public class UnicodeConversion
                     if (ctrlSeq == 0xD800)
                     {
                         // High surrogate
-                        codePoint = (curChar & 0x3FF) << 10;
                         state = ConversionState.CONT_UNIT;
                     }
                     else
@@ -315,7 +313,6 @@ public class UnicodeConversion
                     if (ctrlSeq == 0xDC00)
                     {
                         // Low surrogate
-                        codePoint |= curChar & 0x3FF;
                         converted[convIdx] = (byte) (0xF0 | ((curChar >>> 18) & 0x7));
                         ++convIdx;
                         converted[convIdx] = (byte) (0x80 | ((curChar >>> 12) & 0x3F));

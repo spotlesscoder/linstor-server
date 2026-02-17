@@ -72,7 +72,7 @@ public class Migration_2021_05_03_FixVarcharToTextUpgrade2 extends LinstorMigrat
                             try
                             {
                                 // test if it is already expected type.
-                                List<String> jsonList = objMapper.readValue(
+                                objMapper.readValue(
                                     rs.getString(col),
                                     List.class
                                 );

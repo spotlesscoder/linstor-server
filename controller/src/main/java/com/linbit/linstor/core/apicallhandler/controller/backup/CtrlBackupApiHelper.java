@@ -179,8 +179,7 @@ public class CtrlBackupApiHelper
                 )
             );
         }
-        AbsRemote remote = null;
-        remote = remoteRepo.get(peerAccCtx.get(), new RemoteName(remoteName, true));
+        AbsRemote remote = remoteRepo.get(peerAccCtx.get(), new RemoteName(remoteName, true));
         if (remote == null)
         {
             throw new ApiRcException(

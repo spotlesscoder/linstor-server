@@ -30,7 +30,6 @@ public class K8sCrdTransaction
     private final Map<DatabaseTable, Supplier<K8sResourceClient<?>>> crdClientLut;
     private final MixedOperation<RollbackCrd, KubernetesResourceList<RollbackCrd>, Resource<RollbackCrd>> rollbackClient;
     private final MixedOperation<LinstorVersionCrd, KubernetesResourceList<LinstorVersionCrd>, Resource<LinstorVersionCrd>> linstorVersionClient;
-    private final String crdVersion;
 
     final HashMap<DatabaseTable, HashMap<String, LinstorCrd<?>>> rscsToCreate;
     final HashMap<DatabaseTable, HashMap<String, LinstorCrd<?>>> rscsToReplace;
@@ -47,7 +46,6 @@ public class K8sCrdTransaction
         crdClientLut = crdClientLutRef;
         rollbackClient = rollbackClientRef;
         linstorVersionClient = linstorVersionClientRef;
-        crdVersion = crdVersionRef;
 
         rscsToCreate = new HashMap<>();
         rscsToReplace = new HashMap<>();
@@ -156,7 +154,7 @@ public class K8sCrdTransaction
         String key = k8sRsc.getK8sKey();
 
         boolean isCreated = lazyRemove(rscsToCreate, dbTable, key);
-        boolean isReplaced = lazyRemove(rscsToReplace, dbTable, key);
+        lazyRemove(rscsToReplace, dbTable, key);
         boolean isDeleted = lazyRemove(rscsToDelete, dbTable, key);
 
         if (isDeleted)
@@ -183,8 +181,8 @@ public class K8sCrdTransaction
         String key = k8sRsc.getK8sKey();
 
         boolean isCreated = lazyRemove(rscsToCreate, dbTable, key);
-        boolean isReplaced = lazyRemove(rscsToReplace, dbTable, key);
-        boolean isDeleted = lazyRemove(rscsToDelete, dbTable, key);
+        lazyRemove(rscsToReplace, dbTable, key);
+        lazyRemove(rscsToDelete, dbTable, key);
 
         // NB: deleting the same object multiple times is fine. As an example, properties might be deleted from multiple
         // sources.

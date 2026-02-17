@@ -41,7 +41,6 @@ public class StorPoolDefinitionDbDriver
     extends AbsProtectedDatabaseDriver<StorPoolDefinition, StorPoolDefinition.InitMaps, Void>
     implements StorPoolDefinitionCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final Provider<TransactionMgr> transMgrProvider;
     private final PropsContainerFactory propsContainerFactory;
     private final TransactionObjectFactory transObjFactory;
@@ -66,7 +65,6 @@ public class StorPoolDefinitionDbDriver
             dbEngineRef,
             objProtFactoryRef
         );
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;

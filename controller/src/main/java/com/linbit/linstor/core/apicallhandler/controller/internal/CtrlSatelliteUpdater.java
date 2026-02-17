@@ -3,7 +3,6 @@ package com.linbit.linstor.core.apicallhandler.controller.internal;
 import com.linbit.ImplementationError;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.annotation.ApiContext;
-import com.linbit.linstor.annotation.PeerContext;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.interfaces.serializer.CtrlStltSerializer;
@@ -13,14 +12,12 @@ import com.linbit.linstor.core.objects.Node;
 import com.linbit.linstor.core.objects.Resource;
 import com.linbit.linstor.core.objects.ResourceDefinition;
 import com.linbit.linstor.core.objects.StorPool;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.netcom.Peer;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.storage.interfaces.categories.resource.VlmProviderObject;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -39,11 +36,8 @@ public class CtrlSatelliteUpdater
 
     @Inject
     private CtrlSatelliteUpdater(
-        ErrorReporter errorReporterRef,
         @ApiContext AccessContext apiCtxRef,
-        CtrlStltSerializer serializerRef,
-        @PeerContext Provider<AccessContext> peerAccCtxRef,
-        Provider<Peer> peerRef
+        CtrlStltSerializer serializerRef
     )
     {
         apiCtx = apiCtxRef;

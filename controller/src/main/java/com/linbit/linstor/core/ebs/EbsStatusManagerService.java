@@ -102,8 +102,6 @@ public class EbsStatusManagerService implements SystemService
 
     private final Object syncQueueAndThread = new Object();
     private final ArrayBlockingQueue<PollStatus> queue = new ArrayBlockingQueue<>(2);
-    private final PollConfig defaultCfg = new PollConfig();
-
     private final Map<EbsRemote, EbsRemoteIds> idsByRemote = new HashMap<>();
 
     private final ErrorReporter errorReporter;
@@ -271,17 +269,14 @@ public class EbsStatusManagerService implements SystemService
 
     public void pollAsync()
     {
-        offer(defaultCfg);
+        offer();
     }
 
-    private PollStatus offer(final PollConfig pollCfg)
+    private PollStatus offer()
     {
         PollStatus ret;
         synchronized (syncQueueAndThread)
         {
-            // "found" looks unnecessary right now, but the plan is that PollConfig might get more complex in the future
-            // and then we might want to implement something like "is a same pollConfig already in the queue? if so, we
-            // just want to add ourself to its notify-list
             boolean found = !queue.isEmpty();
             if (found)
             {
@@ -289,7 +284,7 @@ public class EbsStatusManagerService implements SystemService
             }
             else
             {
-                ret = new PollStatus(pollCfg);
+                ret = new PollStatus();
                 queue.add(ret);
             }
         }
@@ -301,7 +296,7 @@ public class EbsStatusManagerService implements SystemService
         final PollStatus pollStatus;
         synchronized (syncQueueAndThread)
         {
-            pollStatus = offer(new PollConfig());
+            pollStatus = offer();
 
             long start = System.currentTimeMillis();
             long remainingTimeout = timeoutInMs;
@@ -338,7 +333,7 @@ public class EbsStatusManagerService implements SystemService
             {
                 try
                 {
-                    pollEbsStatus(pollStatus.pollCfg);
+                    pollEbsStatus();
 
                     synchronized (pollStatus)
                     {
@@ -411,7 +406,7 @@ public class EbsStatusManagerService implements SystemService
         }
     }
 
-    private void pollEbsStatus(PollConfig pollConfigRef)
+    private void pollEbsStatus()
     {
         // check if we have master passphrase
         if (secObjs.areAllSet())
@@ -689,18 +684,12 @@ public class EbsStatusManagerService implements SystemService
     {
     }
 
-    private static class PollConfig
-    {
-    }
-
     private static class PollStatus
     {
         boolean answerReceived = false;
-        PollConfig pollCfg;
 
-        PollStatus(PollConfig pollCfgRef)
+        PollStatus()
         {
-            pollCfg = pollCfgRef;
         }
     }
 

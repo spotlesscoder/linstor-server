@@ -11,7 +11,6 @@ import com.linbit.linstor.api.pojo.S3RemotePojo;
 import com.linbit.linstor.api.pojo.SnapshotPojo;
 import com.linbit.linstor.api.pojo.StorPoolPojo;
 import com.linbit.linstor.api.protobuf.serializer.ProtoCtrlStltSerializerBuilder;
-import com.linbit.linstor.core.ControllerPeerConnector;
 import com.linbit.linstor.core.apicallhandler.StltApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.StltApiCallHandlerUtils;
 import com.linbit.linstor.core.apicallhandler.response.ApiRcException;
@@ -59,7 +58,6 @@ public class FullSync implements ApiCall
     private final StltApiCallHandler apiCallHandler;
     private final StltApiCallHandlerUtils apiCallHandlerUtils;
     private final ApiCallAnswerer apiCallAnswerer;
-    private final ControllerPeerConnector controllerPeerConnector;
     private final Provider<Peer> controllerPeerProvider;
     private final ErrorReporter errorReporter;
 
@@ -68,7 +66,6 @@ public class FullSync implements ApiCall
         StltApiCallHandler apiCallHandlerRef,
         StltApiCallHandlerUtils apiCallHandlerUtilsRef,
         ApiCallAnswerer apiCallAnswererRef,
-        ControllerPeerConnector controllerPeerConnectorRef,
         Provider<Peer> controllerPeerProviderRef,
         ErrorReporter errorReporterRef
     )
@@ -76,7 +73,6 @@ public class FullSync implements ApiCall
         apiCallHandler = apiCallHandlerRef;
         apiCallHandlerUtils = apiCallHandlerUtilsRef;
         apiCallAnswerer = apiCallAnswererRef;
-        controllerPeerConnector = controllerPeerConnectorRef;
         controllerPeerProvider = controllerPeerProviderRef;
         errorReporter = errorReporterRef;
     }

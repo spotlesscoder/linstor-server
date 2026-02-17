@@ -32,7 +32,6 @@ import com.linbit.linstor.core.UpdateMonitor;
 import com.linbit.linstor.core.apicallhandler.StltApiCallHandlerUtils;
 import com.linbit.linstor.core.apicallhandler.StltNodeApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.StltSnapshotApiCallHandler;
-import com.linbit.linstor.core.cfg.StltConfig;
 import com.linbit.linstor.core.devmgr.StltReadOnlyInfo.ReadOnlyStorPool;
 import com.linbit.linstor.core.identifier.ExternalFileName;
 import com.linbit.linstor.core.identifier.NodeName;
@@ -59,7 +58,6 @@ import com.linbit.linstor.interfaces.StorPoolInfo;
 import com.linbit.linstor.layer.DeviceLayer;
 import com.linbit.linstor.layer.DeviceLayer.NotificationListener;
 import com.linbit.linstor.layer.drbd.drbdstate.DrbdEventService;
-import com.linbit.linstor.layer.storage.DeviceProviderMapper;
 import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.netcom.Peer;
 import com.linbit.linstor.propscon.Props;
@@ -131,9 +129,6 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
     private final ReadWriteLock storPoolDfnMapLock;
     private final ReadWriteLock extFileMapLock;
     private final ReadWriteLock remoteMapLock;
-
-    private final CoreModule.StorPoolDefinitionMap storPoolDfnMap;
-    private final DeviceProviderMapper deviceProviderMapper;
 
     private final StltUpdateRequester stltUpdateRequester;
     private final ControllerPeerConnector controllerPeerConnector;
@@ -230,8 +225,6 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
     private HashSet<ExtCmdFactoryStlt> sharedExtCmdFactories;
     private final StltExternalFileHandler extFileHandler;
 
-    private final StltConfig stltCfg;
-
     /**
      * A read-only copy of the storage pools that is required for various API call (like fetch-free-spaces) that are
      * allowed to run parallel to the device-manager. This variable is atomically reconstructed at the beginning of
@@ -274,10 +267,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
         DrbdVersion drbdVersionRef,
         ExtCmdFactory extCmdFactoryRef,
         BackupShippingMgr backupServiceMgrRef,
-        StltExternalFileHandler extFileHandlerRef,
-        StltConfig stltCfgRef,
-        CoreModule.StorPoolDefinitionMap storPoolDfnMapRef,
-        DeviceProviderMapper deviceProviderMapperRef
+        StltExternalFileHandler extFileHandlerRef
     )
     {
         wrkCtx = wrkCtxRef;
@@ -307,9 +297,6 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
         extCmdFactory = extCmdFactoryRef;
         backupServiceMgr = backupServiceMgrRef;
         extFileHandler = extFileHandlerRef;
-        stltCfg = stltCfgRef;
-        storPoolDfnMap = storPoolDfnMapRef;
-        deviceProviderMapper = deviceProviderMapperRef;
 
         updTracker = new StltUpdateTrackerImpl(sched, scheduler);
         svcThr = null;
@@ -334,8 +321,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
      */
     private void dispatchResources(
         Set<Resource> resourcesToDispatch,
-        Set<Snapshot> snapshotsToDispatch,
-        SyncPoint phaseLock
+        Set<Snapshot> snapshotsToDispatch
     )
     {
          devHandler.dispatchResources(resourcesToDispatch, snapshotsToDispatch);
@@ -1146,7 +1132,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
 
                 checkIfAllRequestSharedLocksAquired(resourcesToDispatch, snapshotsToDispatch);
 
-                dispatchResources(resourcesToDispatch, snapshotsToDispatch, phaseLock);
+                dispatchResources(resourcesToDispatch, snapshotsToDispatch);
 
                 if (abortDevHndFlag)
                 {

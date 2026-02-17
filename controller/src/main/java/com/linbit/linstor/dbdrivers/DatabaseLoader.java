@@ -717,7 +717,6 @@ public class DatabaseLoader implements DatabaseDriver
 
         Set<Resource> resourcesWithLayerData = loadLayerData(
             parentObjects,
-            tmpStorPoolMapWithInitMapsRef,
             rli ->
             {
                 // snamshotName != null means this is a snapshot, not a resource.
@@ -731,7 +730,6 @@ public class DatabaseLoader implements DatabaseDriver
         // value can be safely ignored
         loadLayerData(
             parentObjects,
-            tmpStorPoolMapWithInitMapsRef,
             rli ->
             {
                 Snapshot snap = null;
@@ -810,7 +808,6 @@ public class DatabaseLoader implements DatabaseDriver
 
     private <RSC extends AbsResource<RSC>> Set<RSC> loadLayerData(
         ParentObjects parentObjectsRef,
-        Map<PairNonNull<NodeName, StorPoolName>, PairNonNull<StorPool, StorPool.InitMaps>> tmpStorPoolMapWithInitMapsRef,
         ExceptionThrowingFunction<AbsRscLayerObject<?>, RSC, AccessDeniedException> getter
     )
         throws DatabaseException, AccessDeniedException, ImplementationError, InvalidNameException,

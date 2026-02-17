@@ -192,7 +192,6 @@ public class CtrlBackupL2LDstApiCallHandler
                 // good case, continue
                 // search for incremental base
                 Snapshot incrementalBaseSnap = null;
-                boolean resetData = false;
                 ResourceDefinition targetRscDfn = ctrlApiDataLoader.loadRscDfn(dstRscName, false);
                 if (targetRscDfn != null)
                 {
@@ -203,7 +202,7 @@ public class CtrlBackupL2LDstApiCallHandler
                         rc
                     );
                 }
-                resetData = targetRscDfn == null || targetRscDfn.getResourceCount() == 0;
+                boolean resetData = targetRscDfn == null || targetRscDfn.getResourceCount() == 0;
                 // if baseSnap not null => incremental sync
                 if (incrementalBaseSnap != null)
                 {
@@ -831,13 +830,10 @@ public class CtrlBackupL2LDstApiCallHandler
     static class BackupShippingStartInfo
     {
         private final ApiCallRcWith<Snapshot> apiCallRcWithSnapshot;
-        @Nullable
-        private final Snapshot incrBaseSnapshot;
 
-        BackupShippingStartInfo(ApiCallRcWith<Snapshot> apiCallRcWithSnapshotRef, Snapshot incrBaseSnapshotRef)
+        BackupShippingStartInfo(ApiCallRcWith<Snapshot> apiCallRcWithSnapshotRef)
         {
             apiCallRcWithSnapshot = apiCallRcWithSnapshotRef;
-            incrBaseSnapshot = incrBaseSnapshotRef;
         }
     }
 

@@ -73,9 +73,7 @@ public class StorPoolControllerFactory
     {
         node.getObjProt().requireAccess(accCtx, AccessType.USE);
         storPoolDef.getObjProt().requireAccess(accCtx, AccessType.USE);
-        StorPool storPool = null;
-
-        storPool = node.getStorPool(accCtx, storPoolDef.getName());
+        StorPool storPool = node.getStorPool(accCtx, storPoolDef.getName());
 
         if (storPool != null)
         {

@@ -30,7 +30,6 @@ public class CtrlAuthentication<CTRL_DB_TYPE extends ControllerDatabase>
     private final CTRL_DB_TYPE ctrlDb;
     private final DbAccessor<CTRL_DB_TYPE> dbDriver;
     private final ErrorReporter errorLog;
-    private final AccessContext publicCtx;
     private final AccessContext sysCtx;
 
     private CtrlConfig ctrlCfg;
@@ -58,7 +57,6 @@ public class CtrlAuthentication<CTRL_DB_TYPE extends ControllerDatabase>
         ctrlDb = ctrlDbRef;
         errorLog = errorLogRef;
         sysCtx = sysCtxRef;
-        publicCtx = publicCtxRef;
 
         ctrlCfg = ctrlCfgRef;
 

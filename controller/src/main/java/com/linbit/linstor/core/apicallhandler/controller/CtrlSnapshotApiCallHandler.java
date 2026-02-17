@@ -9,7 +9,6 @@ import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.prop.LinStorObject;
 import com.linbit.linstor.core.apicallhandler.ScopeRunner;
-import com.linbit.linstor.core.apicallhandler.controller.helpers.PropsChangedListenerBuilder;
 import com.linbit.linstor.core.apicallhandler.controller.internal.CtrlSatelliteUpdateCaller;
 import com.linbit.linstor.core.apicallhandler.response.ApiOperation;
 import com.linbit.linstor.core.apicallhandler.response.ApiRcException;
@@ -65,7 +64,6 @@ public class CtrlSnapshotApiCallHandler
     private final LockGuardFactory lockGuardFactory;
     private final ResponseConverter responseConverter;
     private final CtrlPropsHelper ctrlPropsHelper;
-    private final Provider<PropsChangedListenerBuilder> propsChangeListenerBuilder;
     private final Provider<Peer> peer;
 
     @Inject
@@ -78,8 +76,7 @@ public class CtrlSnapshotApiCallHandler
         LockGuardFactory lockGuardFactoryRef,
         ResponseConverter responseConverterRef,
         CtrlPropsHelper ctrlPropsHelperRef,
-        Provider<Peer> peerRef,
-        Provider<PropsChangedListenerBuilder> propsChangeListenerBuilderRef
+        Provider<Peer> peerRef
     )
     {
         resourceDefinitionRepository = resourceDefinitionRepositoryRef;
@@ -91,7 +88,6 @@ public class CtrlSnapshotApiCallHandler
         responseConverter = responseConverterRef;
         ctrlPropsHelper = ctrlPropsHelperRef;
         peer = peerRef;
-        propsChangeListenerBuilder = propsChangeListenerBuilderRef;
     }
 
     private boolean shouldIncludeSnapshot(

@@ -57,9 +57,11 @@ class CtrlCmdLineArgsParser
     )
     private @Nullable String restBindAddressSecure;
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(names = {"-v", "--version"}, versionHelp = true, description = "Show the version number")
     private @Nullable Boolean versionInfoRequested;
 
+    @SuppressWarnings("UnusedVariable")
     @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message")
     private @Nullable Boolean usageHelpRequested;
 

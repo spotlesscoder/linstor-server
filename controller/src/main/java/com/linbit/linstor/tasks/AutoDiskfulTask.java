@@ -507,8 +507,6 @@ public class AutoDiskfulTask implements TaskScheduleService.Task
      */
     private @Nullable Resource getExcessRsc(Resource rscRef) throws InvalidKeyException, AccessDeniedException
     {
-        @Nullable Resource excessRsc = null;
-
         Set<Resource> fixedResources = new HashSet<>();
         fixedResources.add(rscRef);
 
@@ -537,9 +535,7 @@ public class AutoDiskfulTask implements TaskScheduleService.Task
             }
         }
 
-        excessRsc = autoUnplacer.unplace(rscDfn, fixedResources);
-
-        return excessRsc;
+        return autoUnplacer.unplace(rscDfn, fixedResources);
     }
 
     private long getSize(ResourceDefinition rscDfnRef) throws AccessDeniedException

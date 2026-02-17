@@ -2,7 +2,6 @@ package com.linbit.linstor.security;
 
 import com.linbit.linstor.InitializationException;
 import com.linbit.linstor.annotation.SystemContext;
-import com.linbit.linstor.api.LinStorScope;
 import com.linbit.linstor.core.repository.ExternalFileProtectionRepository;
 import com.linbit.linstor.core.repository.FreeSpaceMgrProtectionRepository;
 import com.linbit.linstor.core.repository.KeyValueStoreProtectionRepository;
@@ -16,7 +15,6 @@ import com.linbit.linstor.core.repository.SystemConfProtectionRepository;
 import com.linbit.linstor.systemstarter.StartupInitializer;
 import com.linbit.linstor.transaction.TransactionException;
 import com.linbit.linstor.transaction.manager.TransactionMgr;
-import com.linbit.linstor.transaction.manager.TransactionMgrGenerator;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -25,7 +23,6 @@ public class DbCoreObjProtInitializer implements StartupInitializer
 {
     private final AccessContext initCtx;
     private final ObjectProtectionFactory objectProtectionFactory;
-    private final LinStorScope initScope;
     private final NodeProtectionRepository nodesProtectionRepository;
     private final ResourceDefinitionProtectionRepository resourceDefinitionProtectionRepository;
     private final ResourceGroupProtectionRepository resourceGroupProtectionRepository;
@@ -37,14 +34,12 @@ public class DbCoreObjProtInitializer implements StartupInitializer
     private final RemoteProtectionRepository remoteProtectionRepository;
     private final ScheduleProtectionRepository scheduleProtectionRepository;
     private final ShutdownProtHolder shutdownProtHolder;
-    private final TransactionMgrGenerator transactionMgrGenerator;
     private final Provider<TransactionMgr> transMgrProvider;
 
     @Inject
     public DbCoreObjProtInitializer(
         @SystemContext AccessContext initCtxRef,
         ObjectProtectionFactory objectProtectionFactoryRef,
-        LinStorScope initScopeRef,
         NodeProtectionRepository nodesProtectionRepositoryRef,
         ResourceDefinitionProtectionRepository resourceDefinitionProtectionRepositoryRef,
         ResourceGroupProtectionRepository resourceGroupProtectionRepositoryRef,
@@ -56,13 +51,11 @@ public class DbCoreObjProtInitializer implements StartupInitializer
         RemoteProtectionRepository remoteProtectionRepositoryRef,
         ScheduleProtectionRepository scheduleProtectionRepositoryRef,
         ShutdownProtHolder shutdownProtHolderRef,
-        TransactionMgrGenerator transactionMgrGeneratorRef,
         Provider<TransactionMgr> transMgrProviderRef
     )
     {
         initCtx = initCtxRef;
         objectProtectionFactory = objectProtectionFactoryRef;
-        initScope = initScopeRef;
         nodesProtectionRepository = nodesProtectionRepositoryRef;
         resourceDefinitionProtectionRepository = resourceDefinitionProtectionRepositoryRef;
         resourceGroupProtectionRepository = resourceGroupProtectionRepositoryRef;
@@ -74,7 +67,6 @@ public class DbCoreObjProtInitializer implements StartupInitializer
         remoteProtectionRepository = remoteProtectionRepositoryRef;
         scheduleProtectionRepository = scheduleProtectionRepositoryRef;
         shutdownProtHolder = shutdownProtHolderRef;
-        transactionMgrGenerator = transactionMgrGeneratorRef;
         transMgrProvider = transMgrProviderRef;
     }
 

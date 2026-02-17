@@ -76,9 +76,8 @@ public class VolumeControllerFactory
         MaxSizeException, StorageException
     {
         rsc.getObjProt().requireAccess(accCtx, AccessType.USE);
-        Volume volData = null;
 
-        volData = rsc.getVolume(vlmDfn.getVolumeNumber());
+        Volume volData = rsc.getVolume(vlmDfn.getVolumeNumber());
 
         if (volData != null)
         {

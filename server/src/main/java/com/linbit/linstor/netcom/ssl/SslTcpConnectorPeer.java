@@ -293,7 +293,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
 
             if (DEBUG_NET_DATA)
             {
-                debugLogBufferContent("read: buffer data:", encryptedReadBuffer, encryptedReadBuffer.limit());
+                debugLogBufferContent("read: buffer data:", encryptedReadBuffer);
             }
 
             SSLEngineResult.Status trafficStatus = null;
@@ -364,7 +364,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
             SSLEngineResult sslStatus = sslEngine.unwrap(encryptedReadBuffer, plainReadBuffer);
             if (DEBUG_PLAIN_DATA)
             {
-                debugLogBufferContent("sslInbound: buffer data:", plainReadBuffer, plainReadBuffer.position());
+                debugLogBufferContent("sslInbound: buffer data:", plainReadBuffer);
             }
             trafficStatus = sslStatus.getStatus();
             if (DEBUG_SSL_STATE)
@@ -491,7 +491,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
         encryptedWriteBuffer.flip();
         if (DEBUG_NET_DATA)
         {
-            debugLogBufferContent("write: buffer data:", encryptedWriteBuffer, encryptedWriteBuffer.limit());
+            debugLogBufferContent("write: buffer data:", encryptedWriteBuffer);
         }
         final int writeSize = outChannel.write(encryptedWriteBuffer);
         if (DEBUG_IO)
@@ -584,7 +584,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                         {
                             debugLogBufferContent(
                                 "sslOutbound: wrap: buffer data:",
-                                headerBuffer, headerBuffer.limit()
+                                headerBuffer
                             );
                         }
                         sslStatus = sslEngine.wrap(headerBuffer, encryptedWriteBuffer);
@@ -604,7 +604,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                         {
                             debugLogBufferContent(
                                 "sslOutbound: wrap: buffer data:",
-                                dataBuffer, dataBuffer.limit()
+                                dataBuffer
                             );
                         }
                         sslStatus = sslEngine.wrap(dataBuffer, encryptedWriteBuffer);
@@ -619,11 +619,11 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                                 final ByteBuffer headerBuffer = msgOut.getHeaderBuffer();
                                 debugLogBufferContent(
                                     "sslOutbound: Message processed, message header:",
-                                    headerBuffer, headerBuffer.limit()
+                                    headerBuffer
                                 );
                                 debugLogBufferContent(
                                     "sslOutbound: Message processed, message data:",
-                                    dataBuffer, dataBuffer.limit()
+                                    dataBuffer
                                 );
                             }
                             currentWritePhase = Phase.HEADER;
@@ -898,11 +898,11 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                             final ByteBuffer headerBuffer = msgIn.getHeaderBuffer();
                             debugLogBufferContent(
                                 "extractMessages: Message processed, message header:",
-                                headerBuffer, headerBuffer.limit()
+                                headerBuffer
                             );
                             debugLogBufferContent(
                                 "extractMessages: Message processed, message data:",
-                                dataBuffer, dataBuffer.limit()
+                                dataBuffer
                             );
                         }
                         currentReadPhase = currentReadPhase.getNextPhase();
@@ -1085,12 +1085,10 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                             }
                             finally
                             {
-                                boolean tasksComplete = false;
-                                boolean tasksCanceled = false;
                                 sslTaskLock.lock();
                                 --activeTaskCount;
-                                tasksComplete = activeTaskCount <= 0;
-                                tasksCanceled = sslTasksCanceled;
+                                boolean tasksComplete = activeTaskCount <= 0;
+                                boolean tasksCanceled = sslTasksCanceled;
                                 if (DEBUG_SSL_TASKS)
                                 {
                                     // Change getId to threadId in Java 19+
@@ -1205,12 +1203,11 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
     }
 
     /**
-     * Generates a hex dump of the content of a ByteBuffer, with the specified length, from the zero position
+     * Generates a hex dump of the content of a ByteBuffer from the zero position
      */
     private void debugLogBufferContent(
         final String        logMsg,
-        final ByteBuffer    buffer,
-        final int           length
+        final ByteBuffer    buffer
     )
     {
         final ErrorReporter debugLog = this.getErrorReporter();
@@ -1236,16 +1233,6 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
             // Restore original buffer position and limit
             buffer.position(savedPosition);
             buffer.limit(savedLimit);
-        }
-        final int safeLength = data.length > length ? length : data.length;
-        if (data.length == safeLength)
-        {
-            final byte[] dumpData = data;
-        }
-        else
-        {
-            final byte[] dumpData = new byte[safeLength];
-            System.arraycopy(data, 0, dumpData, 0, safeLength);
         }
         final String hexDump = HexViewer.binaryToHexDump(data);
         debugLog.logInfo("%s\n%s", getClass().getName() + ": DEBUG: " + logMsg, hexDump);

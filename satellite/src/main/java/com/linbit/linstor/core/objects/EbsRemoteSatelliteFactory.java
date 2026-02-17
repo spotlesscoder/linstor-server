@@ -10,7 +10,6 @@ import com.linbit.linstor.core.objects.remotes.EbsRemote;
 import com.linbit.linstor.core.objects.remotes.S3Remote;
 import com.linbit.linstor.dbdrivers.DatabaseException;
 import com.linbit.linstor.dbdrivers.interfaces.remotes.EbsRemoteDatabaseDriver;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.ObjectProtectionFactory;
 import com.linbit.linstor.transaction.TransactionObjectFactory;
@@ -24,7 +23,6 @@ import java.util.UUID;
 
 public class EbsRemoteSatelliteFactory
 {
-    private final ErrorReporter errorReporter;
     private final EbsRemoteDatabaseDriver driver;
     private final TransactionObjectFactory transObjFactory;
     private final Provider<TransactionMgr> transMgrProvider;
@@ -33,7 +31,6 @@ public class EbsRemoteSatelliteFactory
 
     @Inject
     public EbsRemoteSatelliteFactory(
-        ErrorReporter errorReporterRef,
         CoreModule.RemoteMap remoteMapRef,
         EbsRemoteDatabaseDriver driverRef,
         ObjectProtectionFactory objectProtectionFactoryRef,
@@ -41,7 +38,6 @@ public class EbsRemoteSatelliteFactory
         Provider<TransactionMgr> transMgrProviderRef
     )
     {
-        errorReporter = errorReporterRef;
         remoteMap = remoteMapRef;
         driver = driverRef;
         objectProtectionFactory = objectProtectionFactoryRef;

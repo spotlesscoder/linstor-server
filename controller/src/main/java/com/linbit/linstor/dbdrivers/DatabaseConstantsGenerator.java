@@ -906,7 +906,7 @@ public final class DatabaseConstantsGenerator
             for (Table tbl : tbls.values())
             {
                 appendEmptyLine();
-                renderCrdTableClass(tbl, currentVersionRef, clazzName);
+                renderCrdTableClass(tbl, clazzName);
             }
 
             appendEmptyLine();
@@ -944,7 +944,7 @@ public final class DatabaseConstantsGenerator
                 appendLine("return sha;");
             }
 
-            renderResolver("CrdResolver", "LinstorCrd<?>", "crdClass", "");
+            renderResolver();
             // renderResolver("SpecResolver", "LinstorSpec", "specClass", "Spec");
             if (genDbTablesJavaCodeRef != null)
             {
@@ -953,7 +953,7 @@ public final class DatabaseConstantsGenerator
         }
     }
 
-    private void renderResolver(String className, String baseClass, String varName, String typeSuffix)
+    private void renderResolver()
     {
         appendEmptyLine();
         appendLine("public static class JsonTypeResolver extends TypeIdResolverBase");
@@ -1060,7 +1060,7 @@ public final class DatabaseConstantsGenerator
         );
     }
 
-    private void renderCrdTableClass(Table tbl, String crdVersion, String clazzNameRef)
+    private void renderCrdTableClass(Table tbl, String clazzNameRef)
     {
         String tblNameCamelCase = toUpperCamelCase(tbl.name);
         String specClassName = tblNameCamelCase + "Spec";

@@ -37,7 +37,6 @@ import com.linbit.linstor.core.apicallhandler.ScopeRunner;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlApiDataLoader;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlRemoteApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlRscCrtApiCallHandler;
-import com.linbit.linstor.core.apicallhandler.controller.CtrlRscDeleteApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlRscDfnApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlRscDfnTruncateApiCallHandler;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlSnapshotApiCallHandler;
@@ -173,7 +172,6 @@ public class CtrlBackupRestoreApiCallHandler
     private final BackupShippingRestClient backupShippingRestClient;
     private final LayerSizeHelper layerSizeHelper;
     private final SystemConfRepository systemConfRepository;
-    private final CtrlRscDeleteApiCallHandler ctrlRscDelApiCallHandler;
     private final CtrlRscCrtApiCallHandler ctrlRscCrtApiCallHandler;
     private final CtrlRemoteApiCallHandler ctrlRemoteApiCallHandler;
 
@@ -208,7 +206,6 @@ public class CtrlBackupRestoreApiCallHandler
         BackupShippingRestClient backupShippingRestClientRef,
         LayerSizeHelper layerSizeHelperRef,
         SystemConfRepository systemConfRepositoryRef,
-        CtrlRscDeleteApiCallHandler ctrlRscDelApiCallHandlerRef,
         CtrlRscCrtApiCallHandler ctrlRscCrtApiCallHandlerRef,
         CtrlRemoteApiCallHandler ctrlRemoteApiCallHandlerRef
     )
@@ -242,7 +239,6 @@ public class CtrlBackupRestoreApiCallHandler
         backupShippingRestClient = backupShippingRestClientRef;
         layerSizeHelper = layerSizeHelperRef;
         systemConfRepository = systemConfRepositoryRef;
-        ctrlRscDelApiCallHandler = ctrlRscDelApiCallHandlerRef;
         ctrlRscCrtApiCallHandler = ctrlRscCrtApiCallHandlerRef;
         ctrlRemoteApiCallHandler = ctrlRemoteApiCallHandlerRef;
     }
@@ -749,7 +745,6 @@ public class CtrlBackupRestoreApiCallHandler
         SnapshotName snapName = LinstorParsingUtils.asSnapshotName(metafileNameInfo.snapName);
         ResourceDefinition rscDfn = getRscDfnForBackupRestore(
             targetRscName,
-            snapName,
             metadata,
             resetData,
             dstRscGrpRef,
@@ -1180,7 +1175,6 @@ public class CtrlBackupRestoreApiCallHandler
      */
     private ResourceDefinition getRscDfnForBackupRestore(
         String targetRscName,
-        SnapshotName snapName,
         BackupMetaDataPojo metadata,
         boolean resetData,
         @Nullable String dstRscGrpRef,
@@ -1305,7 +1299,6 @@ public class CtrlBackupRestoreApiCallHandler
             @Nullable String dstRscGrp = data.getDstRscGrp();
             ResourceDefinition rscDfn = getRscDfnForBackupRestore(
                 data.getDstRscName(),
-                data.getSnapName(),
                 data.getMetaData(),
                 data.isResetData(),
                 dstRscGrp,
@@ -1560,8 +1553,7 @@ public class CtrlBackupRestoreApiCallHandler
                             .thenMany(
                                 Flux.just(
                                     new BackupShippingStartInfo(
-                                        new ApiCallRcWith<>(responses, snap),
-                                        incrementalBaseSnap
+                                        new ApiCallRcWith<>(responses, snap)
                                     )
                                 )
                             )
@@ -1945,8 +1937,6 @@ public class CtrlBackupRestoreApiCallHandler
 
                 NodeName nodeName = peerProvider.get().getNode().getName();
                 @Nullable Snapshot snap = snapDfn.getSnapshot(peerCtx, nodeName);
-                boolean deletingSnap = false;
-
                 Props snapDfnProps = snapDfn.getSnapDfnProps(peerAccCtx.get());
                 String propsNamespc = BackupShippingUtils.BACKUP_TARGET_PROPS_NAMESPC;
                 @Nullable Props backupTargetProps = snapDfnProps.getNamespace(propsNamespc);
@@ -2218,7 +2208,6 @@ public class CtrlBackupRestoreApiCallHandler
                             }
                             // no need to remove the BACKUP_TARGET flag if we are deleting the snap anyways in the next
                             // flux step
-                            deletingSnap = true;
                             keepGoing = false; // last backup failed.
                         }
                     }

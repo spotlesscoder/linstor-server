@@ -1650,7 +1650,6 @@ public class CtrlRscDfnApiCallHandler
             throw new ImplementationError("Resource name must not be null!");
         }
 
-        boolean generatedRscName = false;
         ResourceName rscName = null;
         byte[] extName = extNamePrm;
         if (!rscNameStr.isEmpty())
@@ -1666,7 +1665,6 @@ public class CtrlRscDfnApiCallHandler
         }
         else
         {
-            generatedRscName = true;
             // The zero-length resource name was specified, the resource name will be generated
             // depending on the contents of the specified external name
             if (extName != null)

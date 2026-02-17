@@ -14,10 +14,6 @@ import javax.inject.Singleton;
 @Singleton
 public class StorageSpacesThinProvider extends StorageSpacesProvider
 {
-        /* Those are in bytes. */
-        /* One thin volume uses that much bytes at least: */
-    private final Long MINIMAL_THIN_SIZE_ON_DISK = 256L*1024L*1024L;
-
     @Inject
     public StorageSpacesThinProvider(AbsStorageProviderInit superInitRef)
     {

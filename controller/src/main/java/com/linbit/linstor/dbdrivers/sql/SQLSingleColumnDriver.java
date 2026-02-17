@@ -25,7 +25,6 @@ class SQLSingleColumnDriver<DATA, INPUT_TYPE, DB_TYPE> implements SingleColumnDa
     private final Column colToUpdate;
     private final DataToString<DATA> dataToString;
     private final ExceptionThrowingFunction<DATA, String, AccessDeniedException> dataValueToString;
-    private final Function<INPUT_TYPE, DB_TYPE> mapper;
 
     private final DatabaseTable table;
     private final String updateStatement;
@@ -49,7 +48,6 @@ class SQLSingleColumnDriver<DATA, INPUT_TYPE, DB_TYPE> implements SingleColumnDa
         colToUpdate = colToUpdateRef;
         dataToString = dataToStringRef;
         dataValueToString = dataValueToStringRef;
-        mapper = mapperRef;
         inputToStringFct = inputToStringRef;
 
         table = colToUpdateRef.getTable();

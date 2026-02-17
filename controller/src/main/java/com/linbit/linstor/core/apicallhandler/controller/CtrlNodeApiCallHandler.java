@@ -129,7 +129,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.MDC;
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Scheduler;
 import reactor.util.function.Tuple2;
 
 @Singleton
@@ -151,7 +150,6 @@ public class CtrlNodeApiCallHandler
     private final DynamicNumberPool specStltPortPool;
     private final SpecialSatelliteProcessManager specStltProcMgr;
     private final ReconnectorTask reconnectorTask;
-    private final Scheduler scheduler;
     private final ScopeRunner scopeRunner;
     private final LockGuardFactory lockGuardFactory;
     private final CtrlStltSerializer stltComSerializer;
@@ -191,7 +189,6 @@ public class CtrlNodeApiCallHandler
         @Named(NumberPoolModule.SPECIAL_SATELLTE_PORT_POOL) DynamicNumberPool specStltTargetPortPoolRef,
         SpecialSatelliteProcessManager specStltTargetProcMgrRef,
         ReconnectorTask reconnectorTaskRef,
-        Scheduler schedulerRef,
         ScopeRunner scopeRunnerRef,
         LockGuardFactory lockGuardFactoryRef,
         CtrlStltSerializer stltComSerializerRef,
@@ -230,7 +227,6 @@ public class CtrlNodeApiCallHandler
         specStltPortPool = specStltTargetPortPoolRef;
         specStltProcMgr = specStltTargetProcMgrRef;
         reconnectorTask = reconnectorTaskRef;
-        scheduler = schedulerRef;
         scopeRunner = scopeRunnerRef;
         lockGuardFactory = lockGuardFactoryRef;
         stltComSerializer = stltComSerializerRef;

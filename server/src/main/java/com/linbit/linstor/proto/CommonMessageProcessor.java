@@ -134,7 +134,7 @@ public class CommonMessageProcessor implements MessageProcessor
             if (apiDscr != null)
             {
                 apiCallMap.put(apiName,
-                    new ApiEntry(apiCall, apiDscr, apiDscr.requiresAuth(), apiDscr.transactional()));
+                    new ApiEntry(apiCall, apiDscr));
             }
             else
             {
@@ -756,21 +756,17 @@ public class CommonMessageProcessor implements MessageProcessor
     private static class ApiEntry
     {
         final BaseApiCall apiCall;
-        final ApiCallDescriptor descriptor;
         final boolean reqAuth;
         final boolean transactional;
 
         ApiEntry(
             final BaseApiCall apiCallRef,
-            final ApiCallDescriptor descriptorRef,
-            final boolean reqAuthFlag,
-            boolean transactionalRef
+            final ApiCallDescriptor apiCallDescriptorRef
         )
         {
             apiCall = apiCallRef;
-            descriptor = descriptorRef;
-            reqAuth = reqAuthFlag;
-            transactional = transactionalRef;
+            reqAuth = apiCallDescriptorRef.requiresAuth();
+            transactional = apiCallDescriptorRef.transactional();
         }
     }
 

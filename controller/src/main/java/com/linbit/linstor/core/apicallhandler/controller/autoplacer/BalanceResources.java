@@ -61,7 +61,6 @@ public class BalanceResources
     private final AtomicBoolean isRunning = new AtomicBoolean(false);
     private final AccessContext sysCtx;
     private final ErrorReporter log;
-    private final Autoplacer autoplacer;
     private final AutoUnplacer autoUnplacer;
     private final SystemConfRepository systemConfRepository;
     private final ResourceDefinitionRepository rscDfnRepo;
@@ -80,7 +79,6 @@ public class BalanceResources
         ErrorReporter errorReporterRef,
         SystemConfRepository systemConfRepositoryRef,
         ResourceDefinitionRepository rscDfnRepoRef,
-        Autoplacer autoplacerRef,
         AutoUnplacer autoUnplacerRef,
         ResourceStateEvent resourceStateEventRef,
         EventWaiter eventWaiterRef,
@@ -95,7 +93,6 @@ public class BalanceResources
         log = errorReporterRef;
         systemConfRepository = systemConfRepositoryRef;
         rscDfnRepo = rscDfnRepoRef;
-        autoplacer = autoplacerRef;
         autoUnplacer = autoUnplacerRef;
         resourceStateEvent = resourceStateEventRef;
         eventWaiter = eventWaiterRef;

@@ -84,7 +84,6 @@ public class CtrlApiCallHandler
     private final CtrlVlmApiCallHandler vlmApiCallHandler;
     private final CtrlStorPoolDfnApiCallHandler storPoolDfnApiCallHandler;
     private final CtrlStorPoolApiCallHandler storPoolApiCallHandler;
-    private final CtrlNodeConnectionApiCallHandler nodeConnApiCallHandler;
     private final CtrlRscConnectionApiCallHandler rscConnApiCallHandler;
     private final CtrlVlmConnectionApiCallHandler vlmConnApiCallHandler;
     private final CtrlNetIfApiCallHandler netIfApiCallHandler;
@@ -114,7 +113,6 @@ public class CtrlApiCallHandler
         CtrlVlmApiCallHandler vlmApiCallHandlerRef,
         CtrlStorPoolDfnApiCallHandler storPoolDfnApiCallHandlerRef,
         CtrlStorPoolApiCallHandler storPoolApiCallHandlerRef,
-        CtrlNodeConnectionApiCallHandler nodeConnApiCallHandlerRef,
         CtrlRscConnectionApiCallHandler rscConnApiCallHandlerRef,
         CtrlVlmConnectionApiCallHandler vlmConnApiCallHandlerRef,
         CtrlNetIfApiCallHandler netIfApiCallHandlerRef,
@@ -142,7 +140,6 @@ public class CtrlApiCallHandler
         vlmApiCallHandler = vlmApiCallHandlerRef;
         storPoolDfnApiCallHandler = storPoolDfnApiCallHandlerRef;
         storPoolApiCallHandler = storPoolApiCallHandlerRef;
-        nodeConnApiCallHandler = nodeConnApiCallHandlerRef;
         rscConnApiCallHandler = rscConnApiCallHandlerRef;
         vlmConnApiCallHandler = vlmConnApiCallHandlerRef;
         netIfApiCallHandler = netIfApiCallHandlerRef;

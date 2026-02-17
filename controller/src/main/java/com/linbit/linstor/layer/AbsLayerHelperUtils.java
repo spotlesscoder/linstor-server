@@ -56,7 +56,7 @@ public class AbsLayerHelperUtils
         @Nullable ApiCallRc apiCallRc
     ) throws AccessDeniedException, InvalidNameException
     {
-        StorPool storPool = null;
+        StorPool storPool;
         String renamedStorPool;
         VlmProviderObject<RSC> vlmProviderObject = rscLayerData.getVlmProviderObject(absVlmRef.getVolumeNumber());
         // if we are in the process of creating vlmProviderObject, it will be null here - which means exists is

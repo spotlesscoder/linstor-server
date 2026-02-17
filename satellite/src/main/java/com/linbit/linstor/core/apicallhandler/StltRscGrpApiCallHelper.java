@@ -5,9 +5,7 @@ import com.linbit.InvalidNameException;
 import com.linbit.ValueOutOfRangeException;
 import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.api.interfaces.AutoSelectFilterApi;
-import com.linbit.linstor.core.ControllerPeerConnector;
 import com.linbit.linstor.core.CoreModule;
-import com.linbit.linstor.core.DeviceManager;
 import com.linbit.linstor.core.apis.ResourceGroupApi;
 import com.linbit.linstor.core.apis.VolumeGroupApi;
 import com.linbit.linstor.core.identifier.ResourceGroupName;
@@ -18,14 +16,11 @@ import com.linbit.linstor.core.objects.ResourceGroupSatelliteFactory;
 import com.linbit.linstor.core.objects.VolumeGroup;
 import com.linbit.linstor.core.objects.VolumeGroupSatelliteFactory;
 import com.linbit.linstor.dbdrivers.DatabaseException;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.propscon.Props;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
-import com.linbit.linstor.transaction.manager.TransactionMgr;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import java.util.Map;
@@ -34,35 +29,23 @@ import java.util.TreeMap;
 @Singleton
 class StltRscGrpApiCallHelper
 {
-    private final ErrorReporter errorReporter;
     private final AccessContext apiCtx;
-    private final DeviceManager deviceManager;
-    private final ControllerPeerConnector controllerPeerConnector;
     private final CoreModule.ResourceGroupMap rscGrpMap;
     private final ResourceGroupSatelliteFactory resourceGroupFactory;
     private final VolumeGroupSatelliteFactory volumeGroupFactory;
-    private final Provider<TransactionMgr> transMgrProvider;
 
     @Inject
      StltRscGrpApiCallHelper(
-        ErrorReporter errorReporterRef,
         @SystemContext AccessContext apiCtxRef,
-        DeviceManager deviceManagerRef,
-        ControllerPeerConnector controllerPeerConnectorRef,
         CoreModule.ResourceGroupMap rscGrpMapRef,
         ResourceGroupSatelliteFactory resourceGroupFactoryRef,
-        VolumeGroupSatelliteFactory volumeGroupFactoryRef,
-        Provider<TransactionMgr> transMgrProviderRef
+        VolumeGroupSatelliteFactory volumeGroupFactoryRef
     )
     {
-        errorReporter = errorReporterRef;
         apiCtx = apiCtxRef;
-        deviceManager = deviceManagerRef;
-        controllerPeerConnector = controllerPeerConnectorRef;
         rscGrpMap = rscGrpMapRef;
         resourceGroupFactory = resourceGroupFactoryRef;
         volumeGroupFactory = volumeGroupFactoryRef;
-        transMgrProvider = transMgrProviderRef;
     }
 
     public ResourceGroup mergeResourceGroup(ResourceGroupApi rscGrpApiRef)

@@ -108,7 +108,7 @@ public class ProtoLayerUtils
 
                         for (DrbdVlm protoDrbdVlm : protoDrbdRsc.getDrbdVlmsList())
                         {
-                            drbdRscPojo.getVolumeList().add(extractDrbdVlm(protoDrbdVlm, fullSyncId, updateId));
+                            drbdRscPojo.getVolumeList().add(extractDrbdVlm(protoDrbdVlm));
                         }
 
                         ret = drbdRscPojo;
@@ -189,7 +189,7 @@ public class ProtoLayerUtils
                     );
                     for (NvmeVlm protoVlm : protoRscData.getNvme().getNvmeVlmsList())
                     {
-                        nvmeRscPojo.getVolumeList().add(extractNvmeVlm(protoVlm, fullSyncId, updateId));
+                        nvmeRscPojo.getVolumeList().add(extractNvmeVlm(protoVlm));
                     }
 
                     ret = nvmeRscPojo;
@@ -215,7 +215,7 @@ public class ProtoLayerUtils
                     List<WritecacheVlmPojo> volumeList = writecacheRscPojo.getVolumeList();
                     for (WritecacheVlm protoVlm : protoRscData.getWritecache().getVlmsList())
                     {
-                        volumeList.add(extractWritecacheVlm(protoVlm, fullSyncId, updateId));
+                        volumeList.add(extractWritecacheVlm(protoVlm));
                     }
                     ret = writecacheRscPojo;
                 }
@@ -240,7 +240,7 @@ public class ProtoLayerUtils
                     List<CacheVlmPojo> volumeList = cacheRscPojo.getVolumeList();
                     for (CacheVlm protoVlm : protoRscData.getCache().getVlmsList())
                     {
-                        volumeList.add(extractCacheVlm(protoVlm, fullSyncId, updateId));
+                        volumeList.add(extractCacheVlm(protoVlm));
                     }
                     ret = cacheRscPojo;
                 }
@@ -265,7 +265,7 @@ public class ProtoLayerUtils
                 List<BCacheVlmPojo> volumeList = bcacheRscPojo.getVolumeList();
                 for (BCacheVlm protoVlm : protoRscData.getBcache().getVlmsList())
                 {
-                    volumeList.add(extractBCacheVlm(protoVlm, fullSyncId, updateId));
+                    volumeList.add(extractBCacheVlm(protoVlm));
                 }
                 ret = bcacheRscPojo;
             }
@@ -428,7 +428,7 @@ public class ProtoLayerUtils
         return drbdRscDfnPojo;
     }
 
-    private static DrbdVlmPojo extractDrbdVlm(DrbdVlm protoDrbdVlm, long fullSyncId, long updateId)
+    private static DrbdVlmPojo extractDrbdVlm(DrbdVlm protoDrbdVlm)
     {
         DrbdVlmDfn protoDrbdVlmDfn = protoDrbdVlm.getDrbdVlmDfn();
         return new DrbdVlmPojo(
@@ -707,7 +707,7 @@ public class ProtoLayerUtils
         return vlmDfnApi;
     }
 
-    private static NvmeVlmPojo extractNvmeVlm(NvmeVlm protoNvmeVlm, long fullSyncId, long updateId)
+    private static NvmeVlmPojo extractNvmeVlm(NvmeVlm protoNvmeVlm)
     {
         return new NvmeVlmPojo(
             protoNvmeVlm.getVlmNr(),
@@ -721,7 +721,7 @@ public class ProtoLayerUtils
         );
     }
 
-    private static WritecacheVlmPojo extractWritecacheVlm(WritecacheVlm protoVlm, long fullSyncId, long updateId)
+    private static WritecacheVlmPojo extractWritecacheVlm(WritecacheVlm protoVlm)
     {
         return new WritecacheVlmPojo(
             protoVlm.getVlmNr(),
@@ -737,7 +737,7 @@ public class ProtoLayerUtils
         );
     }
 
-    private static CacheVlmPojo extractCacheVlm(CacheVlm protoVlm, long fullSyncId, long updateId)
+    private static CacheVlmPojo extractCacheVlm(CacheVlm protoVlm)
     {
         return new CacheVlmPojo(
             protoVlm.getVlmNr(),
@@ -755,7 +755,7 @@ public class ProtoLayerUtils
         );
     }
 
-    private static BCacheVlmPojo extractBCacheVlm(BCacheVlm protoVlm, long fullSyncId, long updateId)
+    private static BCacheVlmPojo extractBCacheVlm(BCacheVlm protoVlm)
     {
         UUID uuid = null;
         if (!protoVlm.getDeviceUuid().isEmpty())

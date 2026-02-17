@@ -772,12 +772,12 @@ class CtrlRscAutoTieBreakerHelper implements CtrlRscAutoHelper.AutoHelper
             .fluxInTransactionalScope(
                 "Setting tiebreaker flag",
                 LockGuard.createDeferred(nodesMapLock.writeLock(), rscDfnMapLock.writeLock()),
-                () -> setTiebreakerFlagInTransaction(tiebreaker, context)
+                () -> setTiebreakerFlagInTransaction(tiebreaker)
             )
             .transform(responses -> responseConverter.reportingExceptions(context, responses));
     }
 
-    private Flux<ApiCallRc> setTiebreakerFlagInTransaction(Resource tiebreakerRef, ResponseContext contextRef)
+    private Flux<ApiCallRc> setTiebreakerFlagInTransaction(Resource tiebreakerRef)
     {
         try
         {

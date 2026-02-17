@@ -399,7 +399,7 @@ public class DebugConsoleImpl implements DebugConsole
         // TODO: Help for 'Find commands', '?' command
         if (cmdName.isEmpty() || cmdName.equalsIgnoreCase(HELP_COMMAND))
         {
-            helpForHelp(debugOut, debugErr);
+            helpForHelp(debugOut);
         }
         else
         {
@@ -407,7 +407,7 @@ public class DebugConsoleImpl implements DebugConsole
             CommonDebugCmd debugCmd = commandMap.get(uCaseCmdName);
             if (debugCmd != null)
             {
-                helpForCommand(debugCmd, debugOut, debugErr, cmdName, uCaseCmdName);
+                helpForCommand(debugCmd, debugOut, uCaseCmdName);
             }
             else
             {
@@ -449,8 +449,7 @@ public class DebugConsoleImpl implements DebugConsole
     }
 
     private void helpForHelp(
-        final PrintStream debugOut,
-        final PrintStream debugErr
+        final PrintStream debugOut
     )
     {
         debugOut.println(
@@ -473,8 +472,6 @@ public class DebugConsoleImpl implements DebugConsole
     private void helpForCommand(
         final CommonDebugCmd debugCmd,
         final PrintStream debugOut,
-        final PrintStream debugErr,
-        final String cmdName,
         final String uCaseCmdName
     )
     {

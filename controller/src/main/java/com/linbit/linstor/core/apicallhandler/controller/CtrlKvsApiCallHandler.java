@@ -19,7 +19,6 @@ import com.linbit.linstor.core.objects.KeyValueStore;
 import com.linbit.linstor.core.objects.KeyValueStoreControllerFactory;
 import com.linbit.linstor.core.repository.KeyValueStoreRepository;
 import com.linbit.linstor.dbdrivers.DatabaseException;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.propscon.InvalidKeyException;
 import com.linbit.linstor.propscon.InvalidValueException;
 import com.linbit.linstor.security.AccessContext;
@@ -42,7 +41,6 @@ import com.google.inject.Provider;
 @Singleton
 public class CtrlKvsApiCallHandler
 {
-    private final ErrorReporter errorReporter;
     private final CtrlTransactionHelper ctrlTransactionHelper;
     private final Provider<AccessContext> peerAccCtx;
     private final Provider<AccessContext> apiCtx;
@@ -53,7 +51,6 @@ public class CtrlKvsApiCallHandler
 
     @Inject
     public CtrlKvsApiCallHandler(
-        ErrorReporter errorReporterRef,
         CtrlTransactionHelper ctrlTransactionHelperRef,
         @PeerContext Provider<AccessContext> peerAccCtxRef,
         @ApiContext Provider<AccessContext> apiCtxRef,
@@ -63,7 +60,6 @@ public class CtrlKvsApiCallHandler
         CtrlPropsHelper ctrlPropsHelperRef
     )
     {
-        errorReporter = errorReporterRef;
         ctrlTransactionHelper = ctrlTransactionHelperRef;
         peerAccCtx = peerAccCtxRef;
         apiCtx = apiCtxRef;

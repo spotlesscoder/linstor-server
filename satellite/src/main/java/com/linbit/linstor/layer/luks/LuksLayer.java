@@ -13,7 +13,6 @@ import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.DecryptionHelper;
 import com.linbit.linstor.core.StltConfigAccessor;
 import com.linbit.linstor.core.StltSecurityObjects;
-import com.linbit.linstor.core.apicallhandler.StltExtToolsChecker;
 import com.linbit.linstor.core.devmgr.DeviceHandler;
 import com.linbit.linstor.core.devmgr.DeviceHandler.CloneStrategy;
 import com.linbit.linstor.core.devmgr.exceptions.ResourceException;
@@ -84,7 +83,6 @@ public class LuksLayer implements DeviceLayer
         ExtCmdFactory extCmdFactoryRef,
         Provider<DeviceHandler> resourceProcessorRef,
         ErrorReporter errorReporterRef,
-        StltExtToolsChecker extToolsCheckerRef,
         StltSecurityObjects secObjsRef,
         DecryptionHelper decryptionHelperRef,
         StltConfigAccessor stltConfigAccessorRef

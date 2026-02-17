@@ -9,7 +9,6 @@ import com.linbit.linstor.api.rest.v1.serializer.JsonGenTypes;
 import com.linbit.linstor.api.rest.v1.serializer.JsonGenTypes.ExternalFile;
 import com.linbit.linstor.api.rest.v1.utils.ApiCallRcRestUtils;
 import com.linbit.linstor.core.apicallhandler.controller.CtrlExternalFilesApiCallHandler;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.utils.Base64;
 
 import javax.inject.Inject;
@@ -44,19 +43,16 @@ public class ExternalFiles
 {
     private final RequestHelper requestHelper;
     private final ObjectMapper objectMapper;
-    private final ErrorReporter errorReporter;
 
     private final CtrlExternalFilesApiCallHandler extFilesHandler;
 
     @Inject
     ExternalFiles(
         RequestHelper requestHelperRef,
-        ErrorReporter errorReporterRef,
         CtrlExternalFilesApiCallHandler extFilesHandlerRef
     )
     {
         requestHelper = requestHelperRef;
-        errorReporter = errorReporterRef;
         extFilesHandler = extFilesHandlerRef;
         objectMapper = new ObjectMapper();
     }

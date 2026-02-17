@@ -54,9 +54,6 @@ public class Volume extends AbsVolume<Resource>
 
     private static final String TO_STRING_FORMAT = "Node: '%s', Rsc: '%s', VlmNr: '%s'";
 
-    // Reference to the resource definition that defines the resource this volume belongs to
-    private final ResourceDefinition resourceDfn;
-
     // Reference to the volume definition that defines this volume
     private final VolumeDefinition volumeDfn;
 
@@ -99,7 +96,6 @@ public class Volume extends AbsVolume<Resource>
             transObjFactory,
             transMgrProviderRef
         );
-        resourceDfn = rscRef.getResourceDefinition();
         volumeDfn = vlmDfnRef;
         devicePath = transObjFactory.createTransactionSimpleObject(this, null, null);
         dbDriver = dbDriverRef;

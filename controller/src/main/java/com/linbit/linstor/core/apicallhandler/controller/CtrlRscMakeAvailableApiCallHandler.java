@@ -89,7 +89,6 @@ public class CtrlRscMakeAvailableApiCallHandler
     private final CtrlSatelliteUpdateCaller stltUpdateCaller;
     private final CtrlRscToggleDiskApiCallHandler toggleDiskHandler;
     private final SharedResourceManager sharedRscMgr;
-    private final CtrlPropsHelper ctrlPropsHelper;
     private final CtrlRscLayerDataFactory ctrlRscLayerDataFactory;
     private final CtrlRscActivateApiCallHandler ctrlRscActivateApiCallHandler;
     private final RemoteMap remoteMap;
@@ -109,7 +108,6 @@ public class CtrlRscMakeAvailableApiCallHandler
         CtrlSatelliteUpdateCaller stltUpdateCallerRef,
         CtrlRscToggleDiskApiCallHandler toggleDiskHandlerRef,
         SharedResourceManager sharedRscMgrRef,
-        CtrlPropsHelper ctrlPropsHelperRef,
         CtrlRscLayerDataFactory ctrlRscLayerDataFactoryRef,
         CtrlRscActivateApiCallHandler ctrlRscActivateApiCallHandlerRef,
         RemoteMap remoteMapRef
@@ -128,7 +126,6 @@ public class CtrlRscMakeAvailableApiCallHandler
         stltUpdateCaller = stltUpdateCallerRef;
         toggleDiskHandler = toggleDiskHandlerRef;
         sharedRscMgr = sharedRscMgrRef;
-        ctrlPropsHelper = ctrlPropsHelperRef;
         ctrlRscLayerDataFactory = ctrlRscLayerDataFactoryRef;
         ctrlRscActivateApiCallHandler = ctrlRscActivateApiCallHandlerRef;
         remoteMap = remoteMapRef;
@@ -160,9 +157,8 @@ public class CtrlRscMakeAvailableApiCallHandler
                     layerStackRef,
                     diskfulRef,
                     drbdTcpPortsRef,
-                copyAllSnapsRef,
-                snapNamesToCopyRef,
-                    context
+                    copyAllSnapsRef,
+                    snapNamesToCopyRef
                 )
             )
             .transform(responses -> responseConverter.reportingExceptions(context, responses));
@@ -175,8 +171,7 @@ public class CtrlRscMakeAvailableApiCallHandler
         boolean diskfulRequestedRef,
         @Nullable List<Integer> drbdTcpPortsRef,
         boolean copyAllSnapsRef,
-        List<String> snapNamesToCopyRef,
-        ResponseContext contextRef
+        List<String> snapNamesToCopyRef
     )
     {
         Flux<ApiCallRc> flux;

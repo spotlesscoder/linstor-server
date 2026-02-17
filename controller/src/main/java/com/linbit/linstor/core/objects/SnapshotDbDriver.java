@@ -54,7 +54,6 @@ public final class SnapshotDbDriver extends
     Map<Pair<ResourceName, SnapshotName>, SnapshotDefinition>>>
     implements SnapshotCtrlDatabaseDriver
 {
-    private final AccessContext dbCtx;
     private final Provider<TransactionMgr> transMgrProvider;
     private final PropsContainerFactory propsContainerFactory;
     private final TransactionObjectFactory transObjFactory;
@@ -74,7 +73,6 @@ public final class SnapshotDbDriver extends
     )
     {
         super(dbCtxRef, errorReporterRef, GeneratedDatabaseTables.RESOURCES, dbEngineRef, objProtFactoryRef);
-        dbCtx = dbCtxRef;
         transMgrProvider = transMgrProviderRef;
         propsContainerFactory = propsContainerFactoryRef;
         transObjFactory = transObjFactoryRef;
@@ -144,13 +142,12 @@ public final class SnapshotDbDriver extends
         }
         else
         {
-            Long createTimestamp = null;
             final Map<VolumeNumber, SnapshotVolume> snapshotVlmMap = new TreeMap<>();
 
             final long flags;
 
             flags = raw.get(RESOURCE_FLAGS);
-            createTimestamp = raw.get(CREATE_TIMESTAMP);
+            Long createTimestamp = raw.get(CREATE_TIMESTAMP);
 
             ret = new Pair<>(
                 new Snapshot(

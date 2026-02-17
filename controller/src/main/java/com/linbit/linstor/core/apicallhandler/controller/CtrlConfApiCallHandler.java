@@ -8,7 +8,6 @@ import com.linbit.linstor.LinStorException;
 import com.linbit.linstor.LinstorParsingUtils;
 import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.annotation.PeerContext;
-import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiCallRcImpl.ApiCallRcEntry;
@@ -172,7 +171,6 @@ public class CtrlConfApiCallHandler
         @Named(
             NumberPoolModule.BACKUP_SHIPPING_PORT_POOL
         ) DynamicNumberPool backupShipPortPoolRef,
-        @SystemContext AccessContext sysCtxRef,
         @PeerContext Provider<AccessContext> peerAccCtxRef,
         Provider<Peer> peerProviderRef,
         Provider<TransactionMgr> transMgrProviderRef,

@@ -55,7 +55,6 @@ import com.linbit.linstor.numberpool.NumberPoolModule;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.AccessDeniedException;
 import com.linbit.linstor.security.ControllerSecurityModule;
-import com.linbit.linstor.security.DbCoreObjProtInitializer;
 import com.linbit.linstor.security.Privilege;
 import com.linbit.linstor.security.SecurityModule;
 import com.linbit.linstor.systemstarter.ConnectNodesInitializer;
@@ -113,7 +112,6 @@ import org.slf4j.event.Level;
  */
 public final class Controller
 {
-    private static final String PROPSCON_KEY_NETCOM = "netcom";
     public static final String SPC_TRK_MODULE_NAME = "com.linbit.linstor.spacetracking.ControllerSpaceTrackingModule";
     public static final String SPC_TRK_MODULE_NAME_NOOP = "com.linbit.linstor.spacetracking.DefaultSpaceTrackingModule";
 
@@ -138,7 +136,6 @@ public final class Controller
     private final ControllerDatabase controllerDb;
 
     private final DbInitializer dbInitializer;
-    private final DbCoreObjProtInitializer dbCoreObjProtInitializer;
     private final DbDataInitializer dbDataInitializer;
     private final DbNumberPoolInitializer dbNumberPoolInitializer;
 
@@ -185,7 +182,6 @@ public final class Controller
         Map<ServiceName, SystemService> systemServicesMapRef,
         ControllerDatabase controllerDatabaseRef,
         DbInitializer dbConnectionPoolInitializerRef,
-        DbCoreObjProtInitializer dbCoreObjProtInitializerRef,
         DbDataInitializer dbDataInitializerRef,
         DbNumberPoolInitializer dbNumberPoolInitializerRef,
         ApplicationLifecycleManager applicationLifecycleManagerRef,
@@ -219,7 +215,6 @@ public final class Controller
         systemServicesMap = systemServicesMapRef;
         controllerDb = controllerDatabaseRef;
         dbInitializer = dbConnectionPoolInitializerRef;
-        dbCoreObjProtInitializer = dbCoreObjProtInitializerRef;
         dbDataInitializer = dbDataInitializerRef;
         dbNumberPoolInitializer = dbNumberPoolInitializerRef;
         applicationLifecycleManager = applicationLifecycleManagerRef;

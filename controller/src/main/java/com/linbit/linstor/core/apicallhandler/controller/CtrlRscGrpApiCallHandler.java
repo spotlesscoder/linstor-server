@@ -34,7 +34,6 @@ import com.linbit.linstor.core.apicallhandler.controller.CtrlPropsHelper.Propert
 import com.linbit.linstor.core.apicallhandler.controller.helpers.EncryptionHelper;
 import com.linbit.linstor.core.apicallhandler.controller.helpers.PropsChangedListenerBuilder;
 import com.linbit.linstor.core.apicallhandler.controller.internal.CtrlSatelliteUpdateCaller;
-import com.linbit.linstor.core.apicallhandler.controller.internal.CtrlSatelliteUpdater;
 import com.linbit.linstor.core.apicallhandler.controller.utils.ResourceDefinitionUtils;
 import com.linbit.linstor.core.apicallhandler.response.ApiAccessDeniedException;
 import com.linbit.linstor.core.apicallhandler.response.ApiDatabaseException;
@@ -128,7 +127,6 @@ public class CtrlRscGrpApiCallHandler
     private final CtrlApiDataLoader ctrlApiDataLoader;
     private final ResponseConverter responseConverter;
     private final CtrlVlmGrpApiCallHandler ctrlVlmGrpApiCallHandler;
-    private final CtrlSatelliteUpdater ctrlSatelliteUpdater;
     private final CtrlSatelliteUpdateCaller ctrlSatelliteUpdateCaller;
     private final FreeCapacityFetcher freeCapacityFetcher;
     private final CtrlQueryMaxVlmSizeHelper qmvsHelper;
@@ -159,7 +157,6 @@ public class CtrlRscGrpApiCallHandler
         CtrlApiDataLoader ctrlApiDataLoaderRef,
         ResponseConverter responseConverterRef,
         CtrlVlmGrpApiCallHandler ctrlVlmGrpApiCallHandlerRef,
-        CtrlSatelliteUpdater ctrlSatelliteUpdaterRef,
         CtrlSatelliteUpdateCaller ctrlSatelliteUpdateCallerRef,
         CtrlRscDfnApiCallHandler ctrlRscDfnApiCallHandlerRef,
         CtrlRscAutoPlaceApiCallHandler ctrlRscAutoPlaceApiCallHandlerRef,
@@ -189,7 +186,6 @@ public class CtrlRscGrpApiCallHandler
         ctrlApiDataLoader = ctrlApiDataLoaderRef;
         responseConverter = responseConverterRef;
         ctrlVlmGrpApiCallHandler = ctrlVlmGrpApiCallHandlerRef;
-        ctrlSatelliteUpdater = ctrlSatelliteUpdaterRef;
         ctrlSatelliteUpdateCaller = ctrlSatelliteUpdateCallerRef;
         ctrlRscDfnApiCallHandler = ctrlRscDfnApiCallHandlerRef;
         ctrlRscAutoPlaceApiCallHandler = ctrlRscAutoPlaceApiCallHandlerRef;

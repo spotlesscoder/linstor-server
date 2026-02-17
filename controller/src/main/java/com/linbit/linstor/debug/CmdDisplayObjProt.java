@@ -161,7 +161,7 @@ public class CmdDisplayObjProt extends BaseDebugCmd
                     case CLS_RSCDFN -> printRscDfnProt(debugOut, debugErr, accCtx, objPath);
                     case CLS_RSC -> printRscProt(debugOut, debugErr, accCtx, objPath);
                     case CLS_STORPOOLDFN -> printStorPoolDfnProt(debugOut, debugErr, accCtx, objPath);
-                    case CLS_SYSOBJ -> printSysObjProt(debugOut, debugErr, accCtx, objPath);
+                    case CLS_SYSOBJ -> printSysObjProt(debugOut, objPath);
                     default -> printError(
                         debugErr,
                         "",
@@ -206,8 +206,6 @@ public class CmdDisplayObjProt extends BaseDebugCmd
 
     private void printSysObjProt(
         final PrintStream debugOut,
-        final PrintStream debugErr,
-        final AccessContext accCtx,
         final String objPath
     )
         throws InvalidNameException, AccessDeniedException
@@ -250,7 +248,7 @@ public class CmdDisplayObjProt extends BaseDebugCmd
 
         printSectionSeparator(debugOut);
         debugOut.println("Object protection for " + label);
-        printObjProt(debugOut, debugErr, objProt);
+        printObjProt(debugOut, objProt);
         printSectionSeparator(debugOut);
     }
 
@@ -274,7 +272,7 @@ public class CmdDisplayObjProt extends BaseDebugCmd
                 debugOut.println(
                     "Object protection for node '" + nodeObjName.displayValue + "'"
                 );
-                printObjProt(debugOut, debugErr, nodeObj.getObjProt());
+                printObjProt(debugOut, nodeObj.getObjProt());
                 printSectionSeparator(debugOut);
             }
             else
@@ -318,7 +316,7 @@ public class CmdDisplayObjProt extends BaseDebugCmd
                 debugOut.println(
                     "Object protection for resource definition '" + rscName.displayValue + "'"
                 );
-                printObjProt(debugOut, debugErr, rscDfn.getObjProt());
+                printObjProt(debugOut, rscDfn.getObjProt());
                 printSectionSeparator(debugOut);
             }
             else
@@ -373,7 +371,7 @@ public class CmdDisplayObjProt extends BaseDebugCmd
                             "Object protection for resource '" + rscName.displayValue + "' on node '" +
                             nodeObjName.displayValue + "'"
                         );
-                        printObjProt(debugOut, debugErr, rsc.getObjProt());
+                        printObjProt(debugOut, rsc.getObjProt());
                         printSectionSeparator(debugOut);
                     }
                     else
@@ -453,7 +451,7 @@ public class CmdDisplayObjProt extends BaseDebugCmd
                 debugOut.println(
                     "Object protection for storage pool definition '" + spName.displayValue + "'"
                 );
-                printObjProt(debugOut, debugErr, storPoolObj.getObjProt());
+                printObjProt(debugOut, storPoolObj.getObjProt());
                 printSectionSeparator(debugOut);
             }
             else
@@ -480,7 +478,6 @@ public class CmdDisplayObjProt extends BaseDebugCmd
 
     private void printObjProt(
         PrintStream debugOut,
-        PrintStream debugErr,
         ObjectProtection objProt
     )
     {

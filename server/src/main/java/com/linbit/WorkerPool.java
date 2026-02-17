@@ -19,7 +19,6 @@ public class WorkerPool implements WorkQueue
     private AtomicInteger unfinishedTasks;
 
     private int workQueueSize;
-    private final String threadNamePrefix;
 
     private ErrorReporter errorLog;
     private @Nullable ControllerDatabase controllerDatabase;
@@ -28,7 +27,6 @@ public class WorkerPool implements WorkQueue
         int parallelism,
         int queueSize,
         boolean fair,
-        String namePrefix,
         ErrorReporter errorLogRef,
         @Nullable ControllerDatabase controllerDatabaseRef
     )
@@ -39,7 +37,6 @@ public class WorkerPool implements WorkQueue
         terminate = false;
         unfinishedTasks = new AtomicInteger();
         workQueueSize = queueSize;
-        threadNamePrefix = namePrefix;
         errorLog = errorLogRef;
         controllerDatabase = controllerDatabaseRef;
     }
@@ -53,7 +50,7 @@ public class WorkerPool implements WorkQueue
         @Nullable ControllerDatabase controllerDatabase
     )
     {
-        WorkerPool pool = new WorkerPool(parallelism, queueSize, fair, namePrefix, errorLogRef, controllerDatabase);
+        WorkerPool pool = new WorkerPool(parallelism, queueSize, fair, errorLogRef, controllerDatabase);
 
         for (int threadIndex = 0; threadIndex < parallelism; ++threadIndex)
         {

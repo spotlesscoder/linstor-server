@@ -50,9 +50,7 @@ public class NetInterfaceFactory
     {
         node.getObjProt().requireAccess(accCtx, AccessType.CHANGE);
 
-        NetInterface netData = null;
-
-        netData = node.getNetInterface(accCtx, netName);
+        NetInterface netData = node.getNetInterface(accCtx, netName);
 
         if (netData != null)
         {

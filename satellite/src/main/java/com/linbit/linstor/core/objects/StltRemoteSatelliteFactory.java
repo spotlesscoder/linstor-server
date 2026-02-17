@@ -10,7 +10,6 @@ import com.linbit.linstor.core.objects.remotes.AbsRemote;
 import com.linbit.linstor.core.objects.remotes.StltRemote;
 import com.linbit.linstor.dbdrivers.DatabaseException;
 import com.linbit.linstor.dbdrivers.noop.NoOpFlagDriver;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.security.AccessContext;
 import com.linbit.linstor.security.ObjectProtectionFactory;
 import com.linbit.linstor.stateflags.StateFlagsPersistence;
@@ -25,7 +24,6 @@ import java.util.UUID;
 
 public class StltRemoteSatelliteFactory
 {
-    private final ErrorReporter errorReporter;
     private final TransactionObjectFactory transObjFactory;
     private final Provider<TransactionMgr> transMgrProvider;
     private final ObjectProtectionFactory objectProtectionFactory;
@@ -34,14 +32,12 @@ public class StltRemoteSatelliteFactory
 
     @Inject
     public StltRemoteSatelliteFactory(
-        ErrorReporter errorReporterRef,
         CoreModule.RemoteMap remoteMapRef,
         ObjectProtectionFactory objectProtectionFactoryRef,
         TransactionObjectFactory transObjFactoryRef,
         Provider<TransactionMgr> transMgrProviderRef
     )
     {
-        errorReporter = errorReporterRef;
         remoteMap = remoteMapRef;
         objectProtectionFactory = objectProtectionFactoryRef;
         transObjFactory = transObjFactoryRef;

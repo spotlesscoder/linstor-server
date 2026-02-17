@@ -27,7 +27,6 @@ import com.linbit.linstor.layer.DeviceLayer;
 import com.linbit.linstor.layer.storage.utils.LsBlkUtils;
 import com.linbit.linstor.layer.storage.utils.SEDUtils;
 import com.linbit.linstor.layer.storage.utils.SharedStorageUtils;
-import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.propscon.Props;
 import com.linbit.linstor.propscon.ReadOnlyProps;
 import com.linbit.linstor.security.AccessContext;
@@ -66,7 +65,6 @@ public class StorageLayer implements DeviceLayer
     private final ExtCmdFactory extCmdFactory;
     private final Provider<DeviceHandler> resourceProcessorProvider;
     private final StltSecurityObjects secObjs;
-    private final ErrorReporter errorReporter;
 
     @Inject
     public StorageLayer(
@@ -74,8 +72,7 @@ public class StorageLayer implements DeviceLayer
         DeviceProviderMapper deviceProviderMapperRef,
         ExtCmdFactory extCmdFactoryRef,
         Provider<DeviceHandler> resourceProcessorProviderRef,
-        StltSecurityObjects secObjsRef,
-        ErrorReporter errorReporterRef
+        StltSecurityObjects secObjsRef
     )
     {
         storDriverAccCtx = storDriverAccCtxRef;
@@ -83,7 +80,6 @@ public class StorageLayer implements DeviceLayer
         extCmdFactory = extCmdFactoryRef;
         resourceProcessorProvider = resourceProcessorProviderRef;
         secObjs = secObjsRef;
-        errorReporter = errorReporterRef;
     }
 
     @Override

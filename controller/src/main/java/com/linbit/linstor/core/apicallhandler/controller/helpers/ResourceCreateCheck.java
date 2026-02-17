@@ -57,7 +57,6 @@ public class ResourceCreateCheck
             ResourceDefinition rscDfn = rsc.getResourceDefinition();
 
             boolean rdHasNvmeTarget = false;
-            boolean rdHasNvmeInitiator = false;
             boolean rdHasDrbd = !rscDfn.getLayerData(apiCtx, DeviceLayerKind.DRBD).isEmpty();
 
             Iterator<Resource> rscIt = rscDfn.iterateResource(apiCtx);
@@ -69,11 +68,7 @@ public class ResourceCreateCheck
                     List<DeviceLayerKind> layerStack = LayerRscUtils.getLayerStack(otherRsc, apiCtx);
                     if (layerStack.contains(DeviceLayerKind.NVME))
                     {
-                        if (otherRsc.isNvmeInitiator(apiCtx))
-                        {
-                            rdHasNvmeInitiator = true;
-                        }
-                        else
+                        if (!otherRsc.isNvmeInitiator(apiCtx))
                         {
                             rdHasNvmeTarget = true;
                         }

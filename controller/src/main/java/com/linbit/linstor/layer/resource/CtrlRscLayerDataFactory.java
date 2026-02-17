@@ -162,9 +162,9 @@ public class CtrlRscLayerDataFactory
                 throw new ImplementationError("Cannot create resource with empty layer list");
             }
 
-            AbsRscLayerObject<Resource> rootObj = null;
-
-            rootObj = ensureDataRec(rscRef, payload, layerList, new ChildResourceData(""), null);
+            AbsRscLayerObject<Resource> rootObj = ensureDataRec(
+                rscRef, payload, layerList, new ChildResourceData(""), null
+            );
 
             rscRef.setLayerData(apiCtx, rootObj);
             recalculateVolatileRscData(rscRef);

@@ -115,7 +115,7 @@ public class DbK8sCrd implements ControllerK8sCrdDatabase
     {
         try
         {
-            migrate(dbTypeRef, DbUtils.parseVersionAsInt(versionRef));
+            migrate(DbUtils.parseVersionAsInt(versionRef));
         }
         catch (InitializationException exc)
         {
@@ -126,10 +126,10 @@ public class DbK8sCrd implements ControllerK8sCrdDatabase
     @Override
     public void migrate(String dbTypeRef) throws InitializationException
     {
-        migrate(dbTypeRef, MIGRATE_TO_MAX_VERSION);
+        migrate(MIGRATE_TO_MAX_VERSION);
     }
 
-    private void migrate(String dbTypeRef, int targetVersionRef) throws InitializationException
+    private void migrate(int targetVersionRef) throws InitializationException
     {
         ControllerK8sCrdTransactionMgr currentTx = k8sTxGenerator.startTransaction();
         currentTx.rollbackIfNeeded();

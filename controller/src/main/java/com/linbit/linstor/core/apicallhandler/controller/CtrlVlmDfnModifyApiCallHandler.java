@@ -245,7 +245,7 @@ public class CtrlVlmDfnModifyApiCallHandler implements CtrlSatelliteConnectionLi
         List<String> prefixesIgnoringWhitelistCheck = new ArrayList<>();
         prefixesIgnoringWhitelistCheck.add(ApiConsts.NAMESPC_EBS + "/" + ApiConsts.NAMESPC_TAGS + "/");
 
-        boolean changedEbsPropsWithAction = propChangeCausingEbsAction(vlmDfnProps, overrideProps, deletePropKeys);
+        boolean changedEbsPropsWithAction = propChangeCausingEbsAction(vlmDfnProps, overrideProps);
 
         List<Flux<ApiCallRc>> specialPropFluxes = new ArrayList<>();
         Map<String, PropertyChangedListener> propsChangedListeners = propsChangeListenerBuilder.get()
@@ -512,8 +512,7 @@ public class CtrlVlmDfnModifyApiCallHandler implements CtrlSatelliteConnectionLi
 
     private boolean propChangeCausingEbsAction(
         ReadOnlyProps vlmDfnPropsRef,
-        Map<String, String> overridePropsRef,
-        Set<String> deletePropKeysRef
+        Map<String, String> overridePropsRef
     )
     {
         boolean ret = false;

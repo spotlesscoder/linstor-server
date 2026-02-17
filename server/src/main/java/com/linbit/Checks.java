@@ -3,7 +3,6 @@ package com.linbit;
 import com.linbit.linstor.annotation.Nullable;
 
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Pattern;
 
 /**
  * Universal validity checks
@@ -12,12 +11,6 @@ import java.util.regex.Pattern;
  */
 public class Checks
 {
-    // Naming convention exception: IPv4 capitalization
-    @SuppressWarnings("checkstyle:constantname")
-    private static final Pattern IPv4_PATTERN = Pattern.compile(
-        "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$"
-    );
-
     public static final int HOSTNAME_MIN_LENGTH = 2;
     public static final int HOSTNAME_MAX_LENGTH = 255;
     public static final int HOSTNAME_LABEL_MAX_LENGTH = 63;
