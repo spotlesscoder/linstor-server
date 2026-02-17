@@ -140,7 +140,7 @@ public class DrbdStateTracker
         resList = new TreeMap<>();
 
         // Initialize mask for valid event IDs
-        validEventsMask = (1 << obsSlotCount) - 1;
+        validEventsMask = (1L << obsSlotCount) - 1;
 
         multiplexer = new ResObsMux(this);
 
