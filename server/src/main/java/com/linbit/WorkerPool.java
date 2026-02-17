@@ -155,7 +155,7 @@ public class WorkerPool implements WorkQueue
 
     private static class WorkerThread extends Thread
     {
-        WorkerPool pool;
+        final WorkerPool pool;
 
         WorkerThread(WorkerPool poolRef)
         {
