@@ -11,7 +11,6 @@ import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.rest.v1.utils.ApiCallRcRestUtils;
 import com.linbit.linstor.core.apicallhandler.response.ApiRcException;
-import com.linbit.linstor.core.cfg.CtrlConfig;
 import com.linbit.linstor.core.cfg.LinstorConfig;
 import com.linbit.linstor.core.cfg.LinstorConfig.RestAccessLogMode;
 import com.linbit.linstor.core.repository.SystemConfRepository;
@@ -92,7 +91,7 @@ public class GrizzlyHttpService implements SystemService
         Path trustStoreFileRef,
         String trustStorePasswordRef,
         String restAccessLogPathRef,
-        CtrlConfig.RestAccessLogMode restAccessLogModeRef,
+        RestAccessLogMode restAccessLogModeRef,
         String webUiDirectoryRef
     )
     {
