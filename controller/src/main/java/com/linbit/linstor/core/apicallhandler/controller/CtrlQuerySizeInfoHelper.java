@@ -343,7 +343,7 @@ public class CtrlQuerySizeInfoHelper
             if (cacheEntry != null)
             {
                 long now = System.currentTimeMillis();
-                if (cacheEntry.cacheTimestampInMs + ignoreCacheOlderThanSecRef * SEC_TO_MS > now)
+                if (cacheEntry.cacheTimestampInMs + (long) ignoreCacheOlderThanSecRef * SEC_TO_MS > now)
                 {
                     ret = new PairNonNull<>(cacheEntry.obj, (now - cacheEntry.cacheTimestampInMs) * 1.0 / SEC_TO_MS);
                 }
