@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.dbcp2.ConnectionFactory;
@@ -309,9 +310,12 @@ public class GenerateSql
         Set<String> ret;
         if (Files.isDirectory(path))
         {
-            ret = Files.list(path)
-                .map(pathtmp -> pathtmp.getFileName().toString())
-                .collect(Collectors.toSet());
+            try (Stream<Path> paths = Files.list(path))
+            {
+                ret = paths
+                    .map(pathtmp -> pathtmp.getFileName().toString())
+                    .collect(Collectors.toSet());
+            }
         }
         else
         {
