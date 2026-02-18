@@ -114,7 +114,7 @@ public class PrometheusBuilder
         StringBuilder sb = new StringBuilder();
         for (ApiConsts.ConnectionStatus conStat : ApiConsts.ConnectionStatus.values())
         {
-            sb.append(conStat.ordinal()).append("=\"").append(conStat.name()).append("\", ");
+            sb.append(conStat.getValue()).append("=\"").append(conStat.name()).append("\", ");
         }
         NODE_STATE_HELP = sb.toString();
     }

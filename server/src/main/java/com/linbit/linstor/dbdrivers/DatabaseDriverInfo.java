@@ -42,7 +42,7 @@ public interface DatabaseDriverInfo
                 case SQL -> "SQL";
                 case K8S_CRD -> "Kubernetes-CRD";
                 default -> throw new ImplementationError(
-                    "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
+                    "Missing case statement for enum " + name() + " in class " +
                     getClass().getCanonicalName()
                 );
             };

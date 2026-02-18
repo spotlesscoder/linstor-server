@@ -39,7 +39,7 @@ public class DatabaseInfo
                 case INFORMIX -> "IBM Informix";
                 case ASE -> "SAP Adaptive Server Enterprise (Sybase)";
                 default -> throw new ImplementationError(
-                    "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
+                    "Missing case statement for enum " + name() + " in class " +
                     getClass().getCanonicalName()
                 );
             };
@@ -63,7 +63,7 @@ public class DatabaseInfo
                 case INFORMIX -> "informix";
                 case ASE -> "sybase";
                 default -> throw new ImplementationError(
-                    "Missing case statement for enum " + name() + " (" + ordinal() + ") in class " +
+                    "Missing case statement for enum " + name() + " in class " +
                         getClass().getCanonicalName()
                 );
             };
