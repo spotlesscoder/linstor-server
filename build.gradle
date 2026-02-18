@@ -139,8 +139,6 @@ project(':server') {
         api group: 'io.fabric8', name: 'kubernetes-client', version: '7.3.1'
 
         api group: 'com.github.spotbugs', name: 'spotbugs-annotations', version: '4.8.4'
-
-        testImplementation(platform('org.junit:junit-bom:5.13.0'))
     }
 
     sourceSets {
@@ -250,7 +248,6 @@ project(':satellite') {
     dependencies {
         implementation project(':server'), project(':jclcrypto')
 
-        testImplementation(platform('org.junit:junit-bom:5.13.0'))
         testImplementation 'junit:junit:4.13.2'
     }
 
@@ -492,7 +489,7 @@ dependencies {
     testImplementation group: 'com.google.protobuf', name: 'protobuf-java', version: '4.' + protobufVersion
 
     def powerMockVersion = '2.0.9'
-    testImplementation(platform('org.junit:junit-bom:5.13.0'))
+
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.28.2'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '2.28.2'
     // TODO get rid of unsupported powermock
