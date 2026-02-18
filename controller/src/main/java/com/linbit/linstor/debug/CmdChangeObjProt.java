@@ -501,7 +501,7 @@ public class CmdChangeObjProt extends BaseDebugCmd
             catch (AccessDeniedException accExc)
             {
                 responseMsg.append("WARNING: The MAC privilege ");
-                responseMsg.append(Privilege.PRIV_MAC_OVRD);
+                responseMsg.append(Privilege.PRIV_MAC_OVRD.name);
                 responseMsg.append(" could not be enabled\n");
             }
         }

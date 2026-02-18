@@ -370,7 +370,7 @@ public class GenerateSql
         int rc = proc.waitFor();
         if (rc != 0)
         {
-            throw new RuntimeException("git base path checking failed:" + pb.toString());
+            throw new RuntimeException("git base path checking failed:" + pb.command());
         }
         return new BufferedReader(new InputStreamReader(proc.getInputStream(), StandardCharsets.UTF_8))
             .lines()
