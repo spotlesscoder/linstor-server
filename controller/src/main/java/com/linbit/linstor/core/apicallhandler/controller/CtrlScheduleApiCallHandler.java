@@ -623,7 +623,7 @@ public class CtrlScheduleApiCallHandler
             else
             {
                 lastSnapTimeLong = -1;
-                lastSnap = ZonedDateTime.now();
+                lastSnap = ZonedDateTime.now(ZoneId.systemDefault());
             }
             String lastSnapInc = conf.rscDfn.getProps(peerAccCtx.get()).getProp(
                 conf.remote.getName().displayValue + ReadOnlyProps.PATH_SEPARATOR + conf.schedule.getName().displayValue

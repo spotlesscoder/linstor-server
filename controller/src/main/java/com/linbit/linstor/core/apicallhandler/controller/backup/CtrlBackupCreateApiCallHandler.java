@@ -73,6 +73,7 @@ import javax.inject.Singleton;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -162,7 +163,7 @@ public class CtrlBackupCreateApiCallHandler
                 remoteNameRef,
                 nodeNameRef,
                 snapNameRef,
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.systemDefault()),
                 incremental,
                 RemoteType.S3,
                 scheduleNameRef,

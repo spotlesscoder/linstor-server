@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.event.Level;
@@ -132,7 +133,7 @@ public class StderrErrorReporter extends BaseErrorReporter implements ErrorRepor
     {
         PrintStream output = System.err;
         String logName = null;
-        final LocalDateTime errorTime = LocalDateTime.now();
+        final LocalDateTime errorTime = LocalDateTime.now(ZoneOffset.UTC);
         try
         {
             long reportNr = errorNr.getAndIncrement();

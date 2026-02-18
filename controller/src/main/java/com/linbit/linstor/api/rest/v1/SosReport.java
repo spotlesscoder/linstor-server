@@ -24,6 +24,8 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.List;
@@ -84,7 +86,7 @@ public class SosReport
             }
             final LocalDateTime sinceDate = since != null ?
                 TimeUtils.millisToDate(since) :
-                LocalDateTime.now().minus(DEFAULT_DAYS, ChronoUnit.DAYS);
+                LocalDateTime.now(ZoneId.systemDefault()).minus(DEFAULT_DAYS, ChronoUnit.DAYS);
 
             Mono<Response> flux = ctrlSosReportApiCallHandler
                 .getSosReport(filterNodes, filterRscs, filterExclude, sinceDate, includeCtrl, request.getQueryString())
@@ -156,7 +158,7 @@ public class SosReport
             }
             final LocalDateTime sinceDate = since != null ?
                 TimeUtils.millisToDate(since) :
-                LocalDateTime.now().minus(DEFAULT_DAYS, ChronoUnit.DAYS);
+                LocalDateTime.now(ZoneOffset.UTC).minus(DEFAULT_DAYS, ChronoUnit.DAYS);
 
             Mono<Response> flux = ctrlSosReportApiCallHandler
                 .getSosReport(filterNodes, filterRscs, filterExclude, sinceDate, includeCtrl, request.getQueryString())

@@ -3,6 +3,7 @@ package com.linbit.utils;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
@@ -40,7 +41,7 @@ public class TimeUtils
 
     public static String getZfsRenameTime()
     {
-        return getZfsRenameTime(LocalDateTime.now());
+        return getZfsRenameTime(LocalDateTime.now(ZoneOffset.systemDefault()));
     }
 
     public static String getZfsRenameTime(LocalDateTime nowRef)

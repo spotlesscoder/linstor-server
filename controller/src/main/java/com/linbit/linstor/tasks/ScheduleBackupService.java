@@ -432,7 +432,7 @@ public class ScheduleBackupService implements SystemService
                         )
                     );
                 }
-                ZonedDateTime now = ZonedDateTime.now();
+                ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
                 PairNonNull<Long, Boolean> infoPair = getTimeoutAndType(
                     schedule,
                     accCtx,
@@ -540,7 +540,7 @@ public class ScheduleBackupService implements SystemService
                 Set<ScheduledShippingConfig> configSet = scheduleLookupMap.get(scheduleRef);
                 if (configSet != null)
                 {
-                    ZonedDateTime now = ZonedDateTime.now();
+                    ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
                     for (ScheduledShippingConfig config : configSet)
                     {
                         if (config.task == null)

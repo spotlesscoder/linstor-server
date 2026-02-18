@@ -47,6 +47,7 @@ import com.linbit.utils.StringUtils;
 import com.linbit.utils.TimeUtils;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,7 +116,7 @@ public class ConfFileBuilder
             .append(localRscData.getAbsResource().getNode().getProps(accCtx).getProp(InternalApiConsts.NODE_UNAME));
 
         sb.append("\n# File generated at: \n#   Local time      : ")
-            .append(TimeUtils.JOURNALCTL_DF.format(LocalDateTime.now()))
+            .append(TimeUtils.JOURNALCTL_DF.format(LocalDateTime.now(ZoneId.systemDefault())))
             .append("\n#   UTC             : ")
             .append(TimeUtils.JOURNALCTL_DF.format(LocalDateTime.now(ZoneOffset.UTC)));
 

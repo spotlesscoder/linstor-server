@@ -36,6 +36,7 @@ import javax.ws.rs.core.Response;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -399,7 +400,7 @@ public class Controller
             if (backupPath == null)
             {
                 backupPath = DB_BACKUP_BASE_DIR + "linstordb-backup-" + TimeUtils.DTF_NO_SPACE.format(
-                    LocalDateTime.now()
+                    LocalDateTime.now(ZoneOffset.UTC)
                 ) + ".zip";
             }
             else
@@ -437,7 +438,7 @@ public class Controller
             if (backupPath == null)
             {
                 backupPath = DB_BACKUP_BASE_DIR + "linstordb-backup-" + TimeUtils.DTF_NO_SPACE.format(
-                    LocalDateTime.now()
+                    LocalDateTime.now(ZoneOffset.UTC)
                 ) + ".json";
             }
             else

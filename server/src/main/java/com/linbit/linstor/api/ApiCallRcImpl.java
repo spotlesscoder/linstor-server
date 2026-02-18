@@ -5,6 +5,7 @@ import com.linbit.linstor.LinStorException;
 import com.linbit.linstor.annotation.Nullable;
 
 import java.io.IOException;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.AbstractMap;
@@ -209,7 +210,7 @@ public class ApiCallRcImpl implements ApiCallRc
 
         public ApiCallRcEntry()
         {
-            createdAt = ZonedDateTime.now();
+            createdAt = ZonedDateTime.now(ZoneOffset.UTC);
         }
 
         @Override

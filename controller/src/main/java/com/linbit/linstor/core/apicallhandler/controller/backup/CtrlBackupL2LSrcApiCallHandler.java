@@ -73,6 +73,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -327,7 +328,7 @@ public class CtrlBackupL2LSrcApiCallHandler
                 ApiConsts.FAIL_ACC_DENIED_RSC_DFN
             );
         }
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
         String backupName = snapDfnToShip == null ? BackupShippingUtils.generateBackupName(now) : srcSnapNameRef;
         Map<String, String> storPoolRenameMap = new HashMap<>();
         if (storPoolRenameRef != null)

@@ -30,6 +30,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
@@ -282,7 +283,7 @@ public final class StdErrorReporter extends BaseErrorReporter implements ErrorRe
         @Nullable PrintStream output = null;
         long reportNr = errorNr.getAndIncrement();
         final String logName = getLogName(reportNr);
-        final LocalDateTime errorTime = LocalDateTime.now();
+        final LocalDateTime errorTime = LocalDateTime.now(ZoneOffset.UTC);
         try
         {
             output = openReportFile(logName);
