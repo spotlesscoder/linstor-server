@@ -8,7 +8,6 @@ import com.linbit.SystemServiceStartException;
 import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.InternalApiConsts;
 import com.linbit.linstor.annotation.Nullable;
-import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.interfaces.serializer.CtrlStltSerializer;
 import com.linbit.linstor.api.pojo.backups.BackupMetaInfoPojo;
@@ -86,7 +85,7 @@ public abstract class AbsBackupShippingService implements SystemService
         ExtCmdFactory extCmdFactoryRef,
         ControllerPeerConnector controllerPeerConnectorRef,
         CtrlStltSerializer interComSerializerRef,
-        @SystemContext AccessContext accCtxRef,
+        AccessContext accCtxRef,
         StltSecurityObjects stltSecObjRef,
         StltConfigAccessor stltConfigAccessorRef,
         StltConnTracker stltConnTracker,

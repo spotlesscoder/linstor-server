@@ -9,7 +9,6 @@ import com.linbit.ValueOutOfRangeException;
 import com.linbit.drbd.md.MdException;
 import com.linbit.linstor.LinStorDBRuntimeException;
 import com.linbit.linstor.annotation.Nullable;
-import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.dbdrivers.DatabaseDriverInfo.DatabaseType;
 import com.linbit.linstor.dbdrivers.DatabaseTable.Column;
 import com.linbit.linstor.dbdrivers.DbEngine.DataToString;
@@ -68,7 +67,7 @@ public abstract class AbsDatabaseDriver<DATA extends Comparable<? super DATA>, I
     private final Map<Column, ExceptionThrowingFunction<DATA, Object, AccessDeniedException>> setters;
 
     protected AbsDatabaseDriver(
-        @SystemContext AccessContext dbCtxRef,
+        AccessContext dbCtxRef,
         ErrorReporter errorReporterRef,
         @Nullable DatabaseTable tableRef,
         DbEngine dbEngineRef

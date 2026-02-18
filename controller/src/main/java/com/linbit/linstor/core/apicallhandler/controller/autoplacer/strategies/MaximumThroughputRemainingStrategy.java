@@ -1,7 +1,6 @@
 package com.linbit.linstor.core.apicallhandler.controller.autoplacer.strategies;
 
 import com.linbit.linstor.PriorityProps;
-import com.linbit.linstor.annotation.ApiContext;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.core.apicallhandler.controller.autoplacer.AutoplaceStrategy;
 import com.linbit.linstor.core.apicallhandler.response.ApiException;
@@ -24,7 +23,7 @@ public class MaximumThroughputRemainingStrategy implements AutoplaceStrategy
     private final SystemConfRepository sysCfgRepo;
 
     public MaximumThroughputRemainingStrategy(
-        @ApiContext AccessContext apiCtxRef,
+        AccessContext apiCtxRef,
         SystemConfRepository sysCfgRepoRef
     )
     {

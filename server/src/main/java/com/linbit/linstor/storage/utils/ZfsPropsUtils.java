@@ -3,7 +3,6 @@ package com.linbit.linstor.storage.utils;
 import com.linbit.SizeConv;
 import com.linbit.SizeConv.SizeUnit;
 import com.linbit.linstor.PriorityProps;
-import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.core.objects.AbsVolume;
 import com.linbit.linstor.core.objects.Resource;
@@ -36,7 +35,7 @@ public class ZfsPropsUtils
 
     public static long extractZfsVolBlockSizePrivileged(
         ZfsData<?> vlmDataRef,
-        @SystemContext AccessContext sysCtx,
+        AccessContext sysCtx,
         ReadOnlyProps stltProps
     )
         throws AccessDeniedException, StorageException

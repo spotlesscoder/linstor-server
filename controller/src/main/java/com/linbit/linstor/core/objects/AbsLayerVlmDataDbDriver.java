@@ -1,7 +1,6 @@
 package com.linbit.linstor.core.objects;
 
 import com.linbit.linstor.annotation.Nullable;
-import com.linbit.linstor.annotation.SystemContext;
 import com.linbit.linstor.core.identifier.NodeName;
 import com.linbit.linstor.core.identifier.StorPoolName;
 import com.linbit.linstor.core.identifier.VolumeNumber;
@@ -67,7 +66,7 @@ public abstract class AbsLayerVlmDataDbDriver<
     }
 
     AbsLayerVlmDataDbDriver(
-        @SystemContext AccessContext dbCtxRef,
+        AccessContext dbCtxRef,
         ErrorReporter errorReporterRef,
         @Nullable DatabaseTable tableRef,
         DbEngine dbEngineRef
