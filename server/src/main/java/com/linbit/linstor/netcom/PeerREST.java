@@ -28,7 +28,18 @@ public class PeerREST implements Peer
 {
     private final String peerId;
     private final String userAgent;
-    static ServiceName serviceName;
+    static final ServiceName serviceName;
+    static
+    {
+        try
+        {
+            serviceName = new ServiceName("PeerREST");
+        }
+        catch (InvalidNameException exc)
+        {
+            throw new ExceptionInInitializerError(exc);
+        }
+    }
 
     private AccessContext accessContext;
     private final ExtToolsManager extToolsMgr;
@@ -43,14 +54,6 @@ public class PeerREST implements Peer
         userAgent = userAgentRef;
         accessContext = defaultCtx;
         extToolsMgr = new ExtToolsManager();
-
-        try
-        {
-            serviceName = new ServiceName("PeerREST");
-        }
-        catch (InvalidNameException ignored)
-        {
-        }
     }
 
     @Override

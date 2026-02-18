@@ -29,7 +29,18 @@ public class PeerTask implements Peer
 {
     private final String peerId;
     private AccessContext accCtx;
-    static ServiceName serviceName;
+    static final ServiceName serviceName;
+    static
+    {
+        try
+        {
+            serviceName = new ServiceName("PeerTask");
+        }
+        catch (InvalidNameException exc)
+        {
+            throw new ExceptionInInitializerError(exc);
+        }
+    }
     private final ExtToolsManager extToolsMgr;
 
     public PeerTask(
@@ -40,14 +51,6 @@ public class PeerTask implements Peer
         peerId = peerIdRef;
         accCtx = defaultCtx;
         extToolsMgr = new ExtToolsManager();
-
-        try
-        {
-            serviceName = new ServiceName("PeerTask");
-        }
-        catch (InvalidNameException ignored)
-        {
-        }
     }
 
     @Override
