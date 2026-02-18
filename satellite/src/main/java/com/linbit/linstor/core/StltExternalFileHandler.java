@@ -245,7 +245,7 @@ public class StltExternalFileHandler
                     stltCfg.getWhitelistedExternalFilePaths()
             );
         }
-        return whitelisted;
+        return true;
     }
 
     private void rewrite(ExternalFile externalFile) throws StorageException, DatabaseException

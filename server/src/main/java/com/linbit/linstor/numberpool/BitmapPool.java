@@ -1218,7 +1218,7 @@ public class BitmapPool implements NumberPool
             {
                 nextImBm = new IntermediateBitmap(
                     levelSubElem[qAllocLevel], false,
-                    subLevelsAligned || qAllocLevel <= maxUnalignedLevel
+                    qAllocLevel <= maxUnalignedLevel
                 );
             }
             curImBm.subElem[subIdx] = nextImBm;
@@ -1284,7 +1284,7 @@ public class BitmapPool implements NumberPool
             {
                 nextImBm = new IntermediateBitmap(
                     levelSubElem[qAllocLevel], true,
-                    subLevelsAligned || qAllocLevel <= maxUnalignedLevel
+                    qAllocLevel <= maxUnalignedLevel
                 );
             }
             curImBm.subElem[subIdx] = nextImBm;

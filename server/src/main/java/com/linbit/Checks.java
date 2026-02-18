@@ -250,7 +250,7 @@ public class Checks
                     if (!((letter >= 'a' && letter <= 'z') ||
                         (letter >= 'A' && letter <= 'Z') ||
                         (letter >= '0' && letter <= '9') ||
-                        (letter == '.' || letter == '-')))
+                        letter == '-'))
                     {
                         throw new InvalidNameException(
                             String.format(
