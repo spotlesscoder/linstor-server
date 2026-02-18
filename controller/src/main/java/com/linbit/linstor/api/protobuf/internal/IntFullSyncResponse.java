@@ -359,7 +359,7 @@ public class IntFullSyncResponse implements ApiCallReactive
                                         final Props rscProps = rsc.getProps(apiCtx);
                                         rscProps.setProp(
                                             InternalApiConsts.MIN_IO_SIZE_RESTART_DRBD,
-                                            Boolean.TRUE.toString()
+                                            "true"
                                         );
                                     }
                                     rscDfnsToUpdate.add(rscDfn);

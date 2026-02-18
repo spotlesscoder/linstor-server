@@ -178,7 +178,7 @@ public class Resource extends AbsResource<Resource>
         {
             rscProps.setProp(
                 InternalApiConsts.MIN_IO_SIZE_RESTART_DRBD,
-                Boolean.TRUE.toString()
+                "true"
             );
         }
         catch (InvalidValueException valueExc)

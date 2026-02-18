@@ -76,7 +76,7 @@ public class CtrlMinIoSizeHelper
         final String autoFlagStr = prioProps.getProp(
             ApiConsts.KEY_DRBD_AUTO_BLOCK_SIZE,
             ApiConsts.NAMESPC_LINSTOR_DRBD,
-            Boolean.TRUE.toString()
+            "true"
         );
         return Boolean.parseBoolean(autoFlagStr);
     }

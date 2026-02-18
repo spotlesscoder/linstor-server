@@ -309,7 +309,7 @@ public class DrbdLayer implements DeviceLayer
         {
             final String restartReqStr = rscPropsMap.getOrDefault(
                 InternalApiConsts.MIN_IO_SIZE_RESTART_DRBD,
-                Boolean.FALSE.toString()
+                "false"
             );
             final boolean restartReq = Boolean.parseBoolean(restartReqStr);
             errorReporter.logDebug(
@@ -380,7 +380,7 @@ public class DrbdLayer implements DeviceLayer
                             InternalApiConsts.MIN_IO_SIZE_RESTART_DRBD,
                             false
                         );
-                        rscPropsMap.put(InternalApiConsts.MIN_IO_SIZE_RESTART_DRBD, Boolean.FALSE.toString());
+                        rscPropsMap.put(InternalApiConsts.MIN_IO_SIZE_RESTART_DRBD, "false");
                     }
                     catch (InterruptedException ignored)
                     {
