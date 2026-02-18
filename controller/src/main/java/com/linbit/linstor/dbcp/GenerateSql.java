@@ -90,7 +90,7 @@ public class GenerateSql
     }
 
     private static void initJclCrypto()
-        throws URISyntaxException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
+        throws URISyntaxException, IOException, ClassNotFoundException, ReflectiveOperationException
     {
         Path jclPrjPath = Paths.get(GenerateSql.class.getProtectionDomain().getCodeSource().getLocation().toURI())
             .getParent() // undo "main"
@@ -108,7 +108,7 @@ public class GenerateSql
         )
         {
             Class<?> jclCryptoProviderCls = cl.loadClass("com.linbit.linstor.modularcrypto.JclCryptoProvider");
-            ModularCryptoProvider jclCryptoProvider = (ModularCryptoProvider) jclCryptoProviderCls.newInstance();
+            ModularCryptoProvider jclCryptoProvider = (ModularCryptoProvider) jclCryptoProviderCls.getDeclaredConstructor().newInstance();
 
             AbsMigration.setModularCryptoProvider(jclCryptoProvider);
         }

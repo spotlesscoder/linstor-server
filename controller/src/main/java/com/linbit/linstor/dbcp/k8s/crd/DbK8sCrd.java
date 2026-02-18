@@ -251,7 +251,7 @@ public class DbK8sCrd implements ControllerK8sCrdDatabase
         {
             for (Class<? extends BaseK8sCrdMigration> k8sMigrationClass : k8sMigrationClasses)
             {
-                BaseK8sCrdMigration migration = k8sMigrationClass.newInstance();
+                BaseK8sCrdMigration migration = k8sMigrationClass.getDeclaredConstructor().newInstance();
                 int version = migration.getVersion();
                 if (migrations.containsKey(version))
                 {
@@ -268,7 +268,7 @@ public class DbK8sCrd implements ControllerK8sCrdDatabase
 
             checkIfAllMigrationsLinked(migrations);
         }
-        catch (InstantiationException | IllegalAccessException exc)
+        catch (ReflectiveOperationException exc)
         {
             throw new ImplementationError("Failed to migrate", exc);
         }
