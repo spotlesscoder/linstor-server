@@ -45,14 +45,14 @@ import java.util.function.Function;
 public final class LinstorRemoteDbDriver extends AbsProtectedDatabaseDriver<LinstorRemote, LinstorRemote.InitMaps, Void>
     implements LinstorRemoteCtrlDatabaseDriver
 {
-    protected final PropsContainerFactory propsContainerFactory;
-    protected final TransactionObjectFactory transObjFactory;
-    protected final Provider<? extends TransactionMgr> transMgrProvider;
+    final PropsContainerFactory propsContainerFactory;
+    final TransactionObjectFactory transObjFactory;
+    final Provider<? extends TransactionMgr> transMgrProvider;
 
-    protected final SingleColumnDatabaseDriver<LinstorRemote, URL> urlDriver;
-    protected final SingleColumnDatabaseDriver<LinstorRemote, byte[]> encryptedPassphraseDriver;
-    protected final StateFlagsPersistence<LinstorRemote> flagsDriver;
-    protected final SingleColumnDatabaseDriver<LinstorRemote, UUID> clusterIdDriver;
+    final SingleColumnDatabaseDriver<LinstorRemote, URL> urlDriver;
+    final SingleColumnDatabaseDriver<LinstorRemote, byte[]> encryptedPassphraseDriver;
+    final StateFlagsPersistence<LinstorRemote> flagsDriver;
+    final SingleColumnDatabaseDriver<LinstorRemote, UUID> clusterIdDriver;
 
     @Inject
     public LinstorRemoteDbDriver(

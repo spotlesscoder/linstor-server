@@ -47,16 +47,16 @@ import java.util.function.Function;
 public final class EbsRemoteDbDriver extends AbsProtectedDatabaseDriver<EbsRemote, EbsRemote.InitMaps, Void>
     implements EbsRemoteCtrlDatabaseDriver
 {
-    protected final PropsContainerFactory propsContainerFactory;
-    protected final TransactionObjectFactory transObjFactory;
-    protected final Provider<? extends TransactionMgr> transMgrProvider;
+    final PropsContainerFactory propsContainerFactory;
+    final TransactionObjectFactory transObjFactory;
+    final Provider<? extends TransactionMgr> transMgrProvider;
 
-    protected final SingleColumnDatabaseDriver<EbsRemote, URL> urlDriver;
-    protected final SingleColumnDatabaseDriver<EbsRemote, String> availabilityZoneDriver;
-    protected final SingleColumnDatabaseDriver<EbsRemote, String> regionDriver;
-    protected final SingleColumnDatabaseDriver<EbsRemote, byte[]> encryptedSecretKeyDriver;
-    protected final SingleColumnDatabaseDriver<EbsRemote, byte[]> encryptedAccessKeyDriver;
-    protected final StateFlagsPersistence<EbsRemote> flagsDriver;
+    final SingleColumnDatabaseDriver<EbsRemote, URL> urlDriver;
+    final SingleColumnDatabaseDriver<EbsRemote, String> availabilityZoneDriver;
+    final SingleColumnDatabaseDriver<EbsRemote, String> regionDriver;
+    final SingleColumnDatabaseDriver<EbsRemote, byte[]> encryptedSecretKeyDriver;
+    final SingleColumnDatabaseDriver<EbsRemote, byte[]> encryptedAccessKeyDriver;
+    final StateFlagsPersistence<EbsRemote> flagsDriver;
 
     @Inject
     public EbsRemoteDbDriver(

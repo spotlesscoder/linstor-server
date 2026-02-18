@@ -45,12 +45,12 @@ import java.util.TreeMap;
 public final class NodeDbDriver extends AbsProtectedDatabaseDriver<Node, Node.InitMaps, Void>
     implements NodeCtrlDatabaseDriver
 {
-    protected final PropsContainerFactory propsContainerFactory;
-    protected final TransactionObjectFactory transObjFactory;
-    protected final Provider<? extends TransactionMgr> transMgrProvider;
+    final PropsContainerFactory propsContainerFactory;
+    final TransactionObjectFactory transObjFactory;
+    final Provider<? extends TransactionMgr> transMgrProvider;
 
-    protected final StateFlagsPersistence<Node> flagsDriver;
-    protected final SingleColumnDatabaseDriver<Node, Node.Type> nodeTypeDriver;
+    final StateFlagsPersistence<Node> flagsDriver;
+    final SingleColumnDatabaseDriver<Node, Node.Type> nodeTypeDriver;
     private ReadOnlyProps ctrlConf;
 
     @Inject

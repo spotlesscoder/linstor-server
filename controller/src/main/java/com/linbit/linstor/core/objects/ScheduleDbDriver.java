@@ -52,17 +52,17 @@ import com.cronutils.parser.CronParser;
 public final class ScheduleDbDriver extends AbsProtectedDatabaseDriver<Schedule, Schedule.InitMaps, Void>
     implements ScheduleCtrlDatabaseDriver
 {
-    protected final PropsContainerFactory propsContainerFactory;
-    protected final TransactionObjectFactory transObjFactory;
-    protected final Provider<? extends TransactionMgr> transMgrProvider;
+    final PropsContainerFactory propsContainerFactory;
+    final TransactionObjectFactory transObjFactory;
+    final Provider<? extends TransactionMgr> transMgrProvider;
 
-    protected final SingleColumnDatabaseDriver<Schedule, Cron> fullCronDriver;
-    protected final SingleColumnDatabaseDriver<Schedule, Cron> incCronDriver;
-    protected final SingleColumnDatabaseDriver<Schedule, Integer> keepLocalDriver;
-    protected final SingleColumnDatabaseDriver<Schedule, Integer> keepRemoteDriver;
-    protected final SingleColumnDatabaseDriver<Schedule, OnFailure> onFailureDriver;
-    protected final SingleColumnDatabaseDriver<Schedule, Integer> maxRetriesDriver;
-    protected final StateFlagsPersistence<Schedule> flagsDriver;
+    final SingleColumnDatabaseDriver<Schedule, Cron> fullCronDriver;
+    final SingleColumnDatabaseDriver<Schedule, Cron> incCronDriver;
+    final SingleColumnDatabaseDriver<Schedule, Integer> keepLocalDriver;
+    final SingleColumnDatabaseDriver<Schedule, Integer> keepRemoteDriver;
+    final SingleColumnDatabaseDriver<Schedule, OnFailure> onFailureDriver;
+    final SingleColumnDatabaseDriver<Schedule, Integer> maxRetriesDriver;
+    final StateFlagsPersistence<Schedule> flagsDriver;
 
     @Inject
     public ScheduleDbDriver(

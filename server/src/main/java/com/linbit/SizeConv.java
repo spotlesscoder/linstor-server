@@ -34,7 +34,7 @@ public class SizeConv
         UNIT_ZB,
         UNIT_YB;
 
-        protected BigInteger getFactor()
+        BigInteger getFactor()
         {
             return switch (this)
             {

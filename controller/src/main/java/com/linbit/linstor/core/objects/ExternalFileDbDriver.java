@@ -43,13 +43,13 @@ import java.util.function.Function;
 public final class ExternalFileDbDriver extends AbsProtectedDatabaseDriver<ExternalFile, ExternalFile.InitMaps, Void>
     implements ExternalFileCtrlDatabaseDriver
 {
-    protected final PropsContainerFactory propsContainerFactory;
-    protected final TransactionObjectFactory transObjFactory;
-    protected final Provider<? extends TransactionMgr> transMgrProvider;
+    final PropsContainerFactory propsContainerFactory;
+    final TransactionObjectFactory transObjFactory;
+    final Provider<? extends TransactionMgr> transMgrProvider;
 
-    protected final SingleColumnDatabaseDriver<ExternalFile, byte[]> contentDriver;
-    protected final SingleColumnDatabaseDriver<ExternalFile, byte[]> contentChecksumDriver;
-    protected final StateFlagsPersistence<ExternalFile> flagsDriver;
+    final SingleColumnDatabaseDriver<ExternalFile, byte[]> contentDriver;
+    final SingleColumnDatabaseDriver<ExternalFile, byte[]> contentChecksumDriver;
+    final StateFlagsPersistence<ExternalFile> flagsDriver;
 
     @Inject
     public ExternalFileDbDriver(

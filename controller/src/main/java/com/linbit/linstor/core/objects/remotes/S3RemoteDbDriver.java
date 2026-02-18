@@ -45,16 +45,16 @@ import java.util.function.Function;
 public final class S3RemoteDbDriver extends AbsProtectedDatabaseDriver<S3Remote, S3Remote.InitMaps, Void>
     implements S3RemoteCtrlDatabaseDriver
 {
-    protected final PropsContainerFactory propsContainerFactory;
-    protected final TransactionObjectFactory transObjFactory;
-    protected final Provider<? extends TransactionMgr> transMgrProvider;
+    final PropsContainerFactory propsContainerFactory;
+    final TransactionObjectFactory transObjFactory;
+    final Provider<? extends TransactionMgr> transMgrProvider;
 
-    protected final SingleColumnDatabaseDriver<S3Remote, String> endpointDriver;
-    protected final SingleColumnDatabaseDriver<S3Remote, String> bucketDriver;
-    protected final SingleColumnDatabaseDriver<S3Remote, String> regionDriver;
-    protected final SingleColumnDatabaseDriver<S3Remote, byte[]> accessKeyDriver;
-    protected final SingleColumnDatabaseDriver<S3Remote, byte[]> secretKeyDriver;
-    protected final StateFlagsPersistence<S3Remote> flagsDriver;
+    final SingleColumnDatabaseDriver<S3Remote, String> endpointDriver;
+    final SingleColumnDatabaseDriver<S3Remote, String> bucketDriver;
+    final SingleColumnDatabaseDriver<S3Remote, String> regionDriver;
+    final SingleColumnDatabaseDriver<S3Remote, byte[]> accessKeyDriver;
+    final SingleColumnDatabaseDriver<S3Remote, byte[]> secretKeyDriver;
+    final StateFlagsPersistence<S3Remote> flagsDriver;
 
     @Inject
     public S3RemoteDbDriver(
