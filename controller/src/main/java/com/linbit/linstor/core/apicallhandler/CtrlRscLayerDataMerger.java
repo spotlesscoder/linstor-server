@@ -710,6 +710,7 @@ public class CtrlRscLayerDataMerger extends AbsLayerRscDataMerger<Resource>
      * @return Iff we are aware that we just threw away some old RscLayerData but a satellite might still refer to that.
      */
     @Override
+    @SuppressWarnings("NullableOptional")
     protected MismatchIdMergeStrategy getMismatchRscLayerIdMergeStrategy(
         AbsRscLayerObject<Resource> rscDataRef,
         RscLayerDataApi rscDataPojoRef
