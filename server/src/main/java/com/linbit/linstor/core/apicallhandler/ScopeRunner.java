@@ -104,6 +104,7 @@ public class ScopeRunner
             .checkpoint(scopeDescription);
     }
 
+    @SuppressWarnings("Finally")
     private <T> Flux<T> doInScope(
         ContextView subscriberContext,
         String scopeDescription,
