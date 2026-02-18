@@ -378,6 +378,7 @@ public class GrizzlyHttpService implements SystemService
         }
     }
 
+    @SuppressWarnings("FutureReturnValueIgnored") // shutdown() already blocks for the given timeout
     @Override
     public void awaitShutdown(long timeout)
     {
