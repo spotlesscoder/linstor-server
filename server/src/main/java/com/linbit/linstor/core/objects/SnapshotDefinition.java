@@ -382,7 +382,7 @@ public class SnapshotDefinition extends AbsCoreObj<SnapshotDefinition> implement
     /**
      * Returns a single RscDfnLayerObject matching the kind as well as the resourceNameSuffix.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     public <T extends RscDfnLayerObject> @Nullable T getLayerData(
         AccessContext accCtx,
         DeviceLayerKind kind,

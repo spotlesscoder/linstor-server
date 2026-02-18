@@ -437,7 +437,7 @@ public class VolumeDefinition extends AbsCoreObj<VolumeDefinition> implements Pr
         return ret;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     public <T extends VlmDfnLayerObject> @Nullable T getLayerData(
         AccessContext accCtx,
         DeviceLayerKind kind,

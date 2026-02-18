@@ -190,6 +190,7 @@ public interface AbsRscLayerObject<RSC extends AbsResource<RSC>>
         return getVlmLayerObjects().values().stream();
     }
 
+    @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     default <T extends VlmProviderObject<RSC>> T getVlmProviderObject(VolumeNumber volumeNumber)
     {
         return (T) getVlmLayerObjects().get(volumeNumber);

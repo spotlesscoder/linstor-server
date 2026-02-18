@@ -837,7 +837,7 @@ public abstract class AbsLayerRscDataMerger<RSC extends AbsResource<RSC>>
         );
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     private <T extends AbsRscLayerObject<RSC>> @Nullable T findChild(AbsRscLayerObject<RSC> parent, int id)
     {
         AbsRscLayerObject<RSC> matchingChild = null;

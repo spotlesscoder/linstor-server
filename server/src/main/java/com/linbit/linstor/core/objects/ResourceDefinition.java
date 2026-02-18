@@ -573,7 +573,7 @@ public class ResourceDefinition extends AbsCoreObj<ResourceDefinition> implement
     /**
      * Returns a single RscDfnLayerObject matching the kind as well as the resourceNameSuffix.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     public @Nullable <T extends RscDfnLayerObject> T getLayerData(
         AccessContext accCtx,
         DeviceLayerKind kind,

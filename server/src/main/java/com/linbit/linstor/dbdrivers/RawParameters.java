@@ -34,7 +34,7 @@ public class RawParameters
         rawDataMap = rawDataMapRef;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     public <T> @Nullable T get(Column col)
     {
         return (T) rawDataMap.get(col.getName());
