@@ -309,7 +309,7 @@ public class PrometheusBuilder
             {
                 tf.writeSample(
                     nodeExport(node),
-                    node.getReconnectAttemptCount()
+                    (double) node.getReconnectAttemptCount()
                 );
             }
         }
@@ -335,7 +335,7 @@ public class PrometheusBuilder
             {
                 for (var vlmDfn : rscDfn.getVlmDfnList())
                 {
-                    tf.writeSample(volumeDfnLabels(rscDfn, vlmDfn), vlmDfn.getSize() * 1024);
+                    tf.writeSample(volumeDfnLabels(rscDfn, vlmDfn), (double) (vlmDfn.getSize() * 1024));
                 }
             }
         }
@@ -396,7 +396,7 @@ public class PrometheusBuilder
             for (StorPoolApi storPoolApi : storagePoolList)
             {
                 tf.writeSample(storagePoolExport(storPoolApi),
-                    storPoolApi.getReports().stream()
+                    (double) storPoolApi.getReports().stream()
                         .filter(ApiCallRc.RcEntry::isError).count()
                 );
             }
@@ -405,7 +405,7 @@ public class PrometheusBuilder
         if (errorReports != null)
         {
             tf.startGauge("linstor_error_reports_count");
-            tf.writeSample(null, errorReports.getTotalCount());
+            tf.writeSample(null, (double) errorReports.getTotalCount());
             for (Map.Entry<Pair<String, String>, Long> entry : errorReports.getNodeCounts().entrySet())
             {
                 HashMap<String, String> errMap = new HashMap<>();
@@ -421,7 +421,7 @@ public class PrometheusBuilder
         );
 
         tf.startCounter("linstor_scrape_requests_count");
-        tf.writeSample(scrapeRequestCount);
+        tf.writeSample((double) scrapeRequestCount);
 
         tf.startGauge("linstor_scrape_duration_seconds");
         tf.writeSample((System.currentTimeMillis() - scrapeStartMillis) / 1000.0);
