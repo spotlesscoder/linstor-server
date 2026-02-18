@@ -93,7 +93,7 @@ public enum ReplState
         float result;
         try
         {
-            result = MathUtils.<Float>bounds((float) 0, Float.parseFloat(donePerc), (float) 100);
+            result = MathUtils.<Float>bounds(0f, Float.parseFloat(donePerc), 100f);
         }
         catch (NumberFormatException ignored)
         {
