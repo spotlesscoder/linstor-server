@@ -54,7 +54,7 @@ public class StorPoolPojo implements Comparable<StorPoolPojo>, StorPoolApi
     @JsonIgnore
     private final @Nullable Boolean isPmem;
     @JsonIgnore
-    private final @Nullable boolean externalLocking;
+    private final boolean externalLocking;
 
     public StorPoolPojo(
         final @Nullable UUID storPoolUuidRef,
@@ -268,7 +268,7 @@ public class StorPoolPojo implements Comparable<StorPoolPojo>, StorPoolApi
     }
 
     @Override
-    public @Nullable boolean isExternalLocking()
+    public boolean isExternalLocking()
     {
         return externalLocking;
     }
