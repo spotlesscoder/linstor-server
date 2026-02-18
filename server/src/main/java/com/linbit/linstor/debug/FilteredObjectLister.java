@@ -69,7 +69,7 @@ public class FilteredObjectLister<SearchType>
                         }
                         else
                         {
-                            debugOut.printf("The " + objectTypeName + " '%s' does not exist\n", prmName);
+                            debugOut.printf("The %s '%s' does not exist\n", objectTypeName, prmName);
                         }
                     }
                 }

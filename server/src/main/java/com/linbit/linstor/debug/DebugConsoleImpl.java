@@ -307,10 +307,13 @@ public class DebugConsoleImpl implements DebugConsole
                     {
                         String reportId = errorReporter.reportError(exc);
                         debugErr.printf(
-                            "DebugConsole: An unhandled exception was encountered when attempting to enter or exit " +
-                                "the injector scope (" + LinStorScope.class.getSimpleName() + ").\n" +
-                                "Some commands may not work as a result of this problem.\n" +
-                                "The report ID of the error report is %s\n",
+                                """
+                                DebugConsole: An unhandled exception was encountered when attempting to enter or exit \
+                                the injector scope (%s).
+                                Some commands may not work as a result of this problem.
+                                The report ID of the error report is %s
+                                """,
+                            LinStorScope.class.getSimpleName(),
                             reportId
                         );
                     }
