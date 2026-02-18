@@ -218,7 +218,7 @@ public class Migration_2022_10_03_CleanupOrphanedSnapAndSnapVlmProps extends Lin
             {
                 ret = Objects.equals(nodeName, other.nodeName) &&
                     Objects.equals(rscName, other.rscName) &&
-                    Objects.equals(vlmNr, other.vlmNr) &&
+                    vlmNr == other.vlmNr &&
                     Objects.equals(snapName, other.snapName);
             }
             return ret;

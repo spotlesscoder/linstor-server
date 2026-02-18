@@ -328,7 +328,7 @@ public abstract class AbsRscData<RSC extends AbsResource<RSC>, VLM_TYPE extends 
         {
             AbsRscData<?, ?> other = (AbsRscData<?, ?>) obj;
             ret = Objects.equals(rscSuffix, other.rscSuffix) &&
-                Objects.equals(rscLayerId, other.rscLayerId);
+                rscLayerId == other.rscLayerId;
         }
         return ret;
     }

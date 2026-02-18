@@ -56,7 +56,7 @@ public abstract class SosReportType
         if (obj instanceof SosReportType other)
         {
             eq = Objects.equals(fileName, other.fileName) &&
-                Objects.equals(timestamp, other.timestamp);
+                timestamp == other.timestamp;
         }
         return eq;
     }

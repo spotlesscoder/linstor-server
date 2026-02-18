@@ -183,7 +183,7 @@ public abstract class AbsVlmData<RSC extends AbsResource<RSC>, RSC_DATA extends 
         }
         else if (obj instanceof AbsVlmData<?, ?> other)
         {
-            ret = Objects.equals(rscData.getRscLayerId(), other.rscData.getRscLayerId()) &&
+            ret = rscData.getRscLayerId() == other.rscData.getRscLayerId() &&
                 Objects.equals(vlm.getVolumeNumber(), other.vlm.getVolumeNumber());
         }
         return ret;
