@@ -213,6 +213,7 @@ public class CreateMultiSnapRequest
         return Objects.hash(snapshots);
     }
 
+    @SuppressWarnings("UndefinedEquals")
     @Override
     public boolean equals(Object obj)
     {
