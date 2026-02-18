@@ -52,7 +52,6 @@ import javax.inject.Singleton;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -302,22 +301,16 @@ public class EncryptionHelper
                 // before updating satellites, we need to recalculate rscLayerData (i.e. to update ignoreReasons)
                 CtrlRscLayerDataFactory ctrlRscLayerDataFactory = rscLayerDataFactoryProvider.get();
 
-                ArrayList<ResourceDefinition> rscDfnToUpdate = new ArrayList<>();
-
                 for (ResourceDefinition rscDfn : rscDfnMap.values())
                 {
                     Iterator<Resource> rscIt = rscDfn.iterateResource(apiCtx);
                     while (rscIt.hasNext())
                     {
                         Resource rsc = rscIt.next();
-                        boolean changed = ResourceDataUtils.recalculateVolatileRscData(
+                        ResourceDataUtils.recalculateVolatileRscData(
                             ctrlRscLayerDataFactory,
                             rsc
                         );
-                        if (changed)
-                        {
-                            rscDfnToUpdate.add(rscDfn);
-                        }
                     }
                     if (updateSatellites)
                     {

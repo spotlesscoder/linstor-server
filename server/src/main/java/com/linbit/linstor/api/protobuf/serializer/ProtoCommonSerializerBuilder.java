@@ -479,6 +479,7 @@ public class ProtoCommonSerializerBuilder implements CommonSerializer.CommonSeri
                 }
                 default -> throw new ImplementationError("Unknown property type: " + prop.getType());
             }
+            protoProps.add(builder.build());
         }
         return protoProps;
     }
