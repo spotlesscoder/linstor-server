@@ -282,9 +282,9 @@ public class CloneService implements SystemService
     private void cleanupDevices(CloneInfo cloneInfo)
     {
         Lock writeLock = reconfigurationLock.writeLock();
+        writeLock.lock();
         try
         {
-            writeLock.lock();
             VlmProviderObject<Resource> srcVlmData = cloneInfo.srcVlmData;
             VlmProviderObject<Resource> tgtVlmData = cloneInfo.dstVlmData;
             AbsRscLayerObject<Resource> srcRscData = srcVlmData.getRscLayerObject();

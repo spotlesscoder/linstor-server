@@ -191,9 +191,9 @@ public class ApplicationLifecycleManager
         {
             if (!shutdownInitialized)
             {
+                reconfigurationLock.writeLock().lock();
                 try
                 {
-                    reconfigurationLock.writeLock().lock();
                     ret = new ArrayList<>(CollectionUtils.nonNullOrEmptyList(services));
 
                     // Shutdown service threads

@@ -87,10 +87,9 @@ public class CmdSetSecLevel extends BaseDebugCmd
     )
         throws Exception
     {
+        reconfigurationLock.writeLock().lock();
         try
         {
-            reconfigurationLock.writeLock().lock();
-
             String secLevelText = parameters.get(PRM_SECLVL_NAME);
             if (secLevelText != null)
             {

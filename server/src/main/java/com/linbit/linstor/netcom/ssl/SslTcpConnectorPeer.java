@@ -1085,20 +1085,28 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
                             }
                             finally
                             {
+                                boolean tasksComplete;
+                                boolean tasksCanceled;
                                 sslTaskLock.lock();
-                                --activeTaskCount;
-                                boolean tasksComplete = activeTaskCount <= 0;
-                                boolean tasksCanceled = sslTasksCanceled;
-                                if (DEBUG_SSL_TASKS)
+                                try
                                 {
-                                    // Change getId to threadId in Java 19+
-                                    debugLog(
-                                        "Delegated SSL task, thread ID == " +
-                                        Thread.currentThread().getId() +
-                                        ": remaining activeTaskCount == " + activeTaskCount
-                                    );
+                                    --activeTaskCount;
+                                    tasksComplete = activeTaskCount <= 0;
+                                    tasksCanceled = sslTasksCanceled;
+                                    if (DEBUG_SSL_TASKS)
+                                    {
+                                        // Change getId to threadId in Java 19+
+                                        debugLog(
+                                            "Delegated SSL task, thread ID == " +
+                                            Thread.currentThread().getId() +
+                                            ": remaining activeTaskCount == " + activeTaskCount
+                                        );
+                                    }
                                 }
-                                sslTaskLock.unlock();
+                                finally
+                                {
+                                    sslTaskLock.unlock();
+                                }
 
                                 if (DEBUG_SSL_TASKS)
                                 {
@@ -1154,12 +1162,12 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
     protected void cancelSslTasks()
     {
         sslTaskLock.lock();
-        if (DEBUG_SSL_STATE)
-        {
-            debugLog("cancelSslTasks: activeTaskCount == " + activeTaskCount);
-        }
         try
         {
+            if (DEBUG_SSL_STATE)
+            {
+                debugLog("cancelSslTasks: activeTaskCount == " + activeTaskCount);
+            }
             sslTasksCanceled = true;
         }
         finally

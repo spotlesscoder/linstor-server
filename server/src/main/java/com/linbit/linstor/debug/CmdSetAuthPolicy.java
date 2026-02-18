@@ -84,9 +84,9 @@ public class CmdSetAuthPolicy extends BaseDebugCmd
         String reqAuthText = parameters.get(PRM_REQAUTH_NAME);
         if (reqAuthText != null)
         {
+            rcfgWrLock.lock();
             try
             {
-                rcfgWrLock.lock();
                 if (PRM_DISABLED.equalsIgnoreCase(reqAuthText))
                 {
                     authSetter.setAuthRequired(accCtx, false);

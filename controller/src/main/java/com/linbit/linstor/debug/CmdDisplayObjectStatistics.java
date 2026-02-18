@@ -181,9 +181,9 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
                 {
                     Lock confRdLock = confLock.readLock();
                     int count = 0;
+                    confRdLock.lock();
                     try
                     {
-                        confRdLock.lock();
                         count = conf.size();
                     }
                     finally
@@ -201,9 +201,9 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
                 {
                     int storPoolDfnCount = 0;
                     Lock storPoolRdLock = storPoolDfnMapLock.readLock();
+                    storPoolRdLock.lock();
                     try
                     {
-                        storPoolRdLock.lock();
                         storPoolDfnCount = storPoolDfnMap.size();
                     }
                     finally
@@ -214,9 +214,9 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
                     int nodesCount = 0;
                     long rscCount = 0;
                     Lock nodesRdLock = nodesMapLock.readLock();
+                    nodesRdLock.lock();
                     try
                     {
-                        nodesRdLock.lock();
                         nodesCount = nodesMap.size();
                         for (Node curNode : nodesMap.values())
                         {
@@ -230,9 +230,9 @@ public class CmdDisplayObjectStatistics extends BaseDebugCmd
 
                     int rscDfnCount = 0;
                     Lock rscDfnRdLock = rscDfnMapLock.readLock();
+                    rscDfnRdLock.lock();
                     try
                     {
-                        rscDfnRdLock.lock();
                         rscDfnCount = rscDfnMap.size();
                     }
                     finally

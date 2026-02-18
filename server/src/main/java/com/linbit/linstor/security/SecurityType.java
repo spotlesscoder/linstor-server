@@ -63,10 +63,9 @@ public final class SecurityType implements Comparable<SecurityType>
     {
         Lock writeLock = GLOBAL_TYPE_MAP_LOCK.writeLock();
 
+        writeLock.lock();
         try
         {
-            writeLock.lock();
-
             if (!GLOBAL_TYPE_MAP.containsKey(SYSTEM_TYPE.name))
             {
                 GLOBAL_TYPE_MAP.put(SYSTEM_TYPE.name, SYSTEM_TYPE);
@@ -90,9 +89,9 @@ public final class SecurityType implements Comparable<SecurityType>
         Lock writeLock = GLOBAL_TYPE_MAP_LOCK.writeLock();
 
         SecurityType secTypeObj;
+        writeLock.lock();
         try
         {
-            writeLock.lock();
             secTypeObj = GLOBAL_TYPE_MAP.get(typeName);
             if (secTypeObj == null)
             {
@@ -112,9 +111,9 @@ public final class SecurityType implements Comparable<SecurityType>
         Lock readLock = GLOBAL_TYPE_MAP_LOCK.readLock();
 
         SecurityType secTypeObj;
+        readLock.lock();
         try
         {
-            readLock.lock();
             secTypeObj = GLOBAL_TYPE_MAP.get(typeName);
         }
         finally
@@ -129,9 +128,9 @@ public final class SecurityType implements Comparable<SecurityType>
         Lock readLock = GLOBAL_TYPE_MAP_LOCK.readLock();
 
         Set<SecurityType> result = new TreeSet<>();
+        readLock.lock();
         try
         {
-            readLock.lock();
             result.addAll(GLOBAL_TYPE_MAP.values());
         }
         finally
@@ -145,9 +144,9 @@ public final class SecurityType implements Comparable<SecurityType>
     {
         int count = 0;
         Lock readLock = GLOBAL_TYPE_MAP_LOCK.readLock();
+        readLock.lock();
         try
         {
-            readLock.lock();
             count = GLOBAL_TYPE_MAP.size();
         }
         finally
@@ -161,9 +160,9 @@ public final class SecurityType implements Comparable<SecurityType>
     {
         long count = 0;
         Lock readLock = GLOBAL_TYPE_MAP_LOCK.readLock();
+        readLock.lock();
         try
         {
-            readLock.lock();
             for (SecurityType secType : GLOBAL_TYPE_MAP.values())
             {
                 count += secType.rules.size();
@@ -183,9 +182,9 @@ public final class SecurityType implements Comparable<SecurityType>
         throws DatabaseException
     {
         Lock writeLock = GLOBAL_TYPE_MAP_LOCK.writeLock();
+        writeLock.lock();
         try
         {
-            writeLock.lock();
             GLOBAL_TYPE_MAP.clear();
 
             for (SecurityType loadedST : loadedSecTypeSet)

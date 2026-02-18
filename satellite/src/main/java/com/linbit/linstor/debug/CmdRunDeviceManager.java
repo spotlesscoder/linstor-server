@@ -131,9 +131,9 @@ public class CmdRunDeviceManager extends BaseDebugCmd
                 }
 
                 Map<ResourceName, UUID> slctRsc = new TreeMap<>();
+                rscDfnRdLock.lock();
                 try
                 {
-                    rscDfnRdLock.lock();
                     if (nameMatcher == null)
                     {
                         // Select all resources
@@ -198,9 +198,9 @@ public class CmdRunDeviceManager extends BaseDebugCmd
                 {
                     // Schedule a single resource
                     ResourceDefinition rscDfn = null;
+                    rscDfnRdLock.lock();
                     try
                     {
-                        rscDfnRdLock.lock();
                         rscDfn = rscDfnMap.get(new ResourceName(prmRsc));
                     }
                     catch (InvalidNameException nameExc)

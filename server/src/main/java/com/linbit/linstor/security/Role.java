@@ -64,10 +64,9 @@ public final class Role implements Comparable<Role>
     {
         Lock writeLock = GLOBAL_ROLE_MAP_LOCK.writeLock();
 
+        writeLock.lock();
         try
         {
-            writeLock.lock();
-
             if (!GLOBAL_ROLE_MAP.containsKey(SYSTEM_ROLE.name))
             {
                 GLOBAL_ROLE_MAP.put(SYSTEM_ROLE.name, SYSTEM_ROLE);
@@ -96,9 +95,9 @@ public final class Role implements Comparable<Role>
         Lock writeLock = GLOBAL_ROLE_MAP_LOCK.writeLock();
 
         Role roleObj;
+        writeLock.lock();
         try
         {
-            writeLock.lock();
             roleObj = GLOBAL_ROLE_MAP.get(roleName);
             if (roleObj == null)
             {
@@ -125,9 +124,9 @@ public final class Role implements Comparable<Role>
         Lock readLock = GLOBAL_ROLE_MAP_LOCK.readLock();
 
         Role roleObj;
+        readLock.lock();
         try
         {
-            readLock.lock();
             roleObj = GLOBAL_ROLE_MAP.get(rlName);
         }
         finally
@@ -142,9 +141,9 @@ public final class Role implements Comparable<Role>
         Lock readLock = GLOBAL_ROLE_MAP_LOCK.readLock();
 
         Set<Role> result = new TreeSet<>();
+        readLock.lock();
         try
         {
-            readLock.lock();
             result.addAll(GLOBAL_ROLE_MAP.values());
         }
         finally
@@ -159,9 +158,9 @@ public final class Role implements Comparable<Role>
         int count = 0;
 
         Lock readLock = GLOBAL_ROLE_MAP_LOCK.readLock();
+        readLock.lock();
         try
         {
-            readLock.lock();
             count = GLOBAL_ROLE_MAP.size();
         }
         finally

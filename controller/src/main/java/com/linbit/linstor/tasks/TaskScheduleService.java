@@ -170,9 +170,9 @@ public class TaskScheduleService implements SystemService, Runnable
     public void start() throws SystemServiceStartException
     {
         boolean needStart;
+        tasksLock.lock();
         try
         {
-            tasksLock.lock();
             needStart = !running;
             running = true;
             shutdown = false;
@@ -198,9 +198,9 @@ public class TaskScheduleService implements SystemService, Runnable
     @Override
     public void shutdown(boolean ignoredJvmShutdownRef)
     {
+        tasksLock.lock();
         try
         {
-            tasksLock.lock();
             shutdown = true;
             tasksCond.signal();
         }
@@ -221,9 +221,9 @@ public class TaskScheduleService implements SystemService, Runnable
 
     public void addTask(Task task)
     {
+        tasksLock.lock();
         try
         {
-            tasksLock.lock();
             newTasks.add(task);
             tasksCond.signal();
         }
@@ -358,9 +358,9 @@ public class TaskScheduleService implements SystemService, Runnable
             // add the task to the existing task list; otherwise, register
             // a new task list for the calculated target time and
             // add the task to the newly registered task list
+            tasksLock.lock();
             try
             {
-                tasksLock.lock();
                 List<Task> taskList = tasks.get(delay);
                 if (taskList == null)
                 {
@@ -386,9 +386,9 @@ public class TaskScheduleService implements SystemService, Runnable
      */
     public void rescheduleAt(Task task, long newDelay)
     {
+        tasksLock.lock();
         try
         {
-            tasksLock.lock();
             Long deleteEntry = null;
             for (Entry<Long, List<Task>> entry : tasks.entrySet())
             {

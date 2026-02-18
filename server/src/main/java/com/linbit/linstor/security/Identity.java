@@ -58,9 +58,9 @@ public final class Identity implements Comparable<Identity>
         Lock writeLock = GLOBAL_IDENTITY_MAP_LOCK.writeLock();
 
         Identity idObj;
+        writeLock.lock();
         try
         {
-            writeLock.lock();
             idObj = GLOBAL_IDENTITY_MAP.get(idName);
             if (idObj == null)
             {
@@ -80,9 +80,9 @@ public final class Identity implements Comparable<Identity>
         Lock readLock = GLOBAL_IDENTITY_MAP_LOCK.readLock();
 
         Identity idObj;
+        readLock.lock();
         try
         {
-            readLock.lock();
             idObj = GLOBAL_IDENTITY_MAP.get(idName);
         }
         finally
@@ -97,9 +97,9 @@ public final class Identity implements Comparable<Identity>
         Lock readLock = GLOBAL_IDENTITY_MAP_LOCK.readLock();
 
         Set<Identity> result = new TreeSet<>();
+        readLock.lock();
         try
         {
-            readLock.lock();
             result.addAll(GLOBAL_IDENTITY_MAP.values());
         }
         finally
@@ -114,9 +114,9 @@ public final class Identity implements Comparable<Identity>
         Lock readLock = GLOBAL_IDENTITY_MAP_LOCK.readLock();
 
         int count = 0;
+        readLock.lock();
         try
         {
-            readLock.lock();
             count = GLOBAL_IDENTITY_MAP.size();
         }
         finally
@@ -130,10 +130,9 @@ public final class Identity implements Comparable<Identity>
     {
         Lock writeLock = GLOBAL_IDENTITY_MAP_LOCK.writeLock();
 
+        writeLock.lock();
         try
         {
-            writeLock.lock();
-
             if (!GLOBAL_IDENTITY_MAP.containsKey(SYSTEM_ID.name))
             {
                 GLOBAL_IDENTITY_MAP.put(SYSTEM_ID.name, SYSTEM_ID);

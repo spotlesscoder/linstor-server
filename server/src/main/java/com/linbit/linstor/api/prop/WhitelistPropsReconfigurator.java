@@ -43,10 +43,9 @@ public class WhitelistPropsReconfigurator
 
     public void reconfigure()
     {
+        reconfigurationLock.writeLock().lock();
         try
         {
-            reconfigurationLock.writeLock().lock();
-
             whitelistProps.reconfigure(LinStorObject.CTRL);
 
             if (drbdVersion.hasDrbd9())
