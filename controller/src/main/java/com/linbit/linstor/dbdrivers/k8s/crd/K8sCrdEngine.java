@@ -75,6 +75,7 @@ public class K8sCrdEngine implements DbEngine
         return DatabaseType.K8S_CRD;
     }
 
+    @SuppressWarnings("InlineMeSuggester")
     @Override
     @Deprecated(since = "v1.34.0")
     public ApiCallRc backupDb(String backupPath) throws DatabaseException
