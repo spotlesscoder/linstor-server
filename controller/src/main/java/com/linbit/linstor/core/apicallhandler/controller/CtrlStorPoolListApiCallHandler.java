@@ -149,28 +149,27 @@ public class CtrlStorPoolListApiCallHandler
      */
     private void patchStorPoolProps(Map<String, String> props)
     {
-        for (String key : props.keySet())
+        for (Map.Entry<String, String> entry : props.entrySet())
         {
-            if (key.startsWith(ApiConsts.NAMESPC_SED + ReadOnlyProps.PATH_SEPARATOR))
+            if (entry.getKey().startsWith(ApiConsts.NAMESPC_SED + ReadOnlyProps.PATH_SEPARATOR))
             {
                 byte[] masterKey = secObjs.getCryptKey();
                 if (masterKey == null)
                 {
-                    props.put(key, "***MASTER-PASSPHRASE-REQUIRED***");
+                    entry.setValue("***MASTER-PASSPHRASE-REQUIRED***");
                 }
                 else
                 {
-                    String sedEncPassword = props.get(key);
-                    byte[] sedByteEncPassword = Base64.decode(sedEncPassword);
+                    byte[] sedByteEncPassword = Base64.decode(entry.getValue());
                     try
                     {
                         byte[] decryptedKey = decryptionHelper.decrypt(masterKey, sedByteEncPassword);
                         String sedPassword = new String(decryptedKey, StandardCharsets.UTF_8);
-                        props.put(key, sedPassword);
+                        entry.setValue(sedPassword);
                     }
                     catch (LinStorException linExc)
                     {
-                        props.put(key, "***ERROR-DECRYPTING-PASSWORD***");
+                        entry.setValue("***ERROR-DECRYPTING-PASSWORD***");
                     }
                 }
             }

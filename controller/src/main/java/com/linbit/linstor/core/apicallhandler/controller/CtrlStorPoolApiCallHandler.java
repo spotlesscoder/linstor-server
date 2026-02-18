@@ -223,8 +223,7 @@ public class CtrlStorPoolApiCallHandler
 
                     // on the fly encrypt new SED password
                     byte[] sedEncBytePassword = encryptionHelper.encrypt(entry.getValue());
-                    overrideProps.put(entry.getKey(),
-                        Base64.encode(sedEncBytePassword));
+                    entry.setValue(Base64.encode(sedEncBytePassword));
                 }
             }
 
