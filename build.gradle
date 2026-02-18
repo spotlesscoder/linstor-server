@@ -67,6 +67,22 @@ subprojects {
 
     compileJava {
         options.release = 21
+        if (!rootProject.hasProperty('disableErrorProne'))
+        {
+            options.errorprone {
+                disableWarningsInGeneratedCode = true
+                excludedPaths = ".*/generated-(dbdrivers|src)/.*"
+                disable("SameNameButDifferent")
+                disable("EmptyCatch")
+                disable("NonApiType")
+                disable("DoNotCallSuggester")
+                disable("MutablePublicArray")
+                disable("NullableTypeParameter")
+                disable("StringCaseLocaleUsage")
+                disable("AnnotateFormatMethod")
+                disable("DeprecatedVariable")
+            }
+        }
     }
 
     repositories {
