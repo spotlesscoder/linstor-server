@@ -15,6 +15,7 @@ public class GuiceResourceConfig extends ResourceConfig
     {
         register(new ContainerLifecycleListener()
         {
+            @Override
             public void onStartup(Container container)
             {
                 InjectionManager im = container.getApplicationHandler().getInjectionManager();
@@ -23,9 +24,11 @@ public class GuiceResourceConfig extends ResourceConfig
                 GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
                 guiceBridge.bridgeGuiceInjector(injector);
             }
+            @Override
             public void onReload(Container container)
             {
             }
+            @Override
             public void onShutdown(Container container)
             {
             }
