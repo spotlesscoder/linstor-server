@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - ETCD database support is now removed, please convert to SQL or CRD DB, before upgrade
+- WinDRBD specific patches regarding missing sha1 and hmac crypto algorithms
 
 ### Fixed
 
