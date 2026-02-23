@@ -2,7 +2,10 @@ package com.linbit.linstor.api.protobuf;
 
 import com.linbit.extproc.ExtCmdFactory;
 import com.linbit.linstor.InternalApiConsts;
+import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCall;
+import com.linbit.linstor.api.ApiCallRcImpl;
+import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.interfaces.serializer.CommonSerializer;
 import com.linbit.linstor.api.prop.WhitelistProps;
 import com.linbit.linstor.core.LinStor;
@@ -72,15 +75,36 @@ public class CtrlAuth implements ApiCall
         // get the host uname for the drbd config
         String nodeUname = LinStor.getHostName();
 
-        // TODO: implement authentication
-        MsgIntAuth auth = MsgIntAuth.parseDelimitedFrom(msgDataIn);
-        String nodeName = auth.getNodeName();
-        UUID nodeUuid = ProtoUuidUtils.deserialize(auth.getNodeUuid());
+        AuthenticationResult authResult;
+        try
+        {
+            // TODO: implement authentication
+            MsgIntAuth auth = MsgIntAuth.parseDelimitedFrom(msgDataIn);
+            String nodeName = auth.getNodeName();
+            UUID nodeUuid = ProtoUuidUtils.deserialize(auth.getNodeUuid());
 
-        Peer controllerPeer = controllerPeerProvider.get();
-        UUID ctrlUuid = ProtoUuidUtils.deserialize(auth.getCtrlUuid());
+            Peer controllerPeer = controllerPeerProvider.get();
+            UUID ctrlUuid = ProtoUuidUtils.deserialize(auth.getCtrlUuid());
 
-        AuthenticationResult authResult = apiCallHandler.authenticate(nodeUuid, nodeName, controllerPeer, ctrlUuid);
+            authResult = apiCallHandler.authenticate(nodeUuid, nodeName, controllerPeer, ctrlUuid);
+        }
+        catch (Exception exc)
+        {
+            // includes parsing exception from very different controller
+            String details = "Failed to parse message. If this was an attempt from a LINSTOR controller " +
+                "please check if the controller has the same version as the satellite. Satellite version: " +
+                LinStor.VERSION_INFO_PROVIDER.getVersion();
+            @Nullable String reportErrorId = errorReporter.reportError(exc, null, null, details);
+            ApiCallRcImpl apiCallRcImpl = new ApiCallRcImpl();
+            apiCallRcImpl.add(
+                ApiCallRcImpl.entryBuilder(
+                    ApiConsts.UNKNOWN_API_CALL,
+                    "Failed to authenticate. Error ID: " + reportErrorId)
+                    .setDetails(details)
+                    .build()
+            );
+            authResult = new AuthenticationResult(apiCallRcImpl);
+        }
 
         byte[] replyBytes;
         if (authResult.isAuthenticated())

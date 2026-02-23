@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Satellite now properly merges remote nodes + their data (props, netIfs)
 - Fixed incorrect default LUKS2 header size calculation
 - Fixed potential ConcurrentModificationException when serializing properties
+- Parse errors during ctrl -> stlt authentication now result in "AUTHENTICATION_ERROR" instead of "OFFLINE" (regression introduced in 1.32.0-rc.1)
 
 ## [1.33.1] - 2025-12-22
 
@@ -198,6 +199,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - lsblk output is now parsed with streaming
 - parentIsVDO check: only ask for PV member devices
 - Improved data types in communication protocol between Controller and Satellite, reducing size by 35%
+- **BREAKING**: Unintentionally broke ctrl<->stlt authentication resulting in "OFFLINE" instead of "OFFLINE (VERSION_MISMATCH)"
 
 ### Fixed
 
