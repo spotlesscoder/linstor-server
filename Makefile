@@ -171,4 +171,4 @@ generate-db-constants:
 
 .PHONY: check-openapi
 check-openapi: docs/rest_v1_openapi.yaml
-	cd docs && docker run -it --rm -v `pwd`:/data jamescooke/openapi-validator:0.51.3 -e rest_v1_openapi.yaml
+	cd docs && docker run -it --rm -v `pwd`:/data ibmdevxsdk/openapi-validator:1.37.11 rest_v1_openapi.yaml

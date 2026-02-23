@@ -7790,7 +7790,6 @@ components:
           items:
             type: string
         props:
-          deprecated: true
           $ref: '#/components/schemas/Properties'
         snapshot_definition_props:
           $ref: '#/components/schemas/Properties'
@@ -7868,7 +7867,6 @@ components:
           format: int32
           description: Volume number of the snapshot
         props:
-          deprecated: true
           $ref: '#/components/schemas/Properties'
         snapshot_volume_props:
           $ref: '#/components/schemas/Properties'

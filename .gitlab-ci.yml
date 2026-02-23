@@ -200,14 +200,13 @@ check-openapi:
   stage: build
   interruptible: true
   image:
-    name: jamescooke/openapi-validator:0.51.3
+    name: ibmdevxsdk/openapi-validator:1.37.11
     entrypoint: [""] # force empty entrypoint to workaround a gitlab issue
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "web"'
       changes:
         - docs/rest_v1_openapi.yaml
         - docs/.spectral.yaml
-        - docs/.validaterc
   before_script:
     - echo default before disabled
   script:

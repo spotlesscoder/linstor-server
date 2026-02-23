@@ -1253,7 +1253,7 @@ public class JsonGenTypes
         public @Nullable String name;
         public @Nullable String resource_name;
         public List<String> nodes = Collections.emptyList();
-        @Deprecated(forRemoval = true) public Map<String, String> props = Collections.emptyMap();
+        public Map<String, String> props = Collections.emptyMap();
         public Map<String, String> snapshot_definition_props = Collections.emptyMap();
         public Map<String, String> resource_definition_props = Collections.emptyMap();
         public List<String> flags = Collections.emptyList();
@@ -1315,7 +1315,7 @@ public class JsonGenTypes
          * Volume number of the snapshot
          */
         public @Nullable Integer vlm_nr;
-        @Deprecated(forRemoval = true) public Map<String, String> props = Collections.emptyMap();
+        public Map<String, String> props = Collections.emptyMap();
         public Map<String, String> snapshot_volume_props = Collections.emptyMap();
         public Map<String, String> volume_props = Collections.emptyMap();
         /**
