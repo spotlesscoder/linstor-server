@@ -16,9 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - SOS report now uses export-db instead of non-JSON database dump
-
-### Changed
-
 - Minimum java version is now java-21, please upgrade if you want to continue building/running LINSTOR.
 
 ### Removed
@@ -31,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed retry deletion of already deleting resource (no longer fails if it is the second to last diskful resource)
 - Satellite now properly merges remote nodes + their data (props, netIfs)
 - Fixed incorrect default LUKS2 header size calculation
+- Fixed potential ConcurrentModificationException when serializing properties
 
 ## [1.33.1] - 2025-12-22
 
