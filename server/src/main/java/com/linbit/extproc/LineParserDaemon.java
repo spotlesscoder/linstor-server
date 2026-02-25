@@ -11,11 +11,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class LineParserDaemon implements Runnable
 {
     private static final int DFLT_DEQUE_CAPACITY = 100;
+    private static final int EXIT_CODE_TIMEOUT = 124;
 
     private final ErrorReporter errorReporter;
     private final Thread thread;
@@ -29,7 +31,7 @@ public class LineParserDaemon implements Runnable
     private int exitCode = 0;
 
     private final Consumer<String> consumer;
-    private final Object waiter = new Object();
+    private final AtomicBoolean waiter = new AtomicBoolean(false);
 
     public LineParserDaemon(
         ErrorReporter errorReporterRef,
@@ -159,21 +161,39 @@ public class LineParserDaemon implements Runnable
                 (System.currentTimeMillis() - startTime),
                 strCommand
             );
+            waiter.set(true);
             waiter.notify();
         }
     }
 
+
+    /**
+     * Blocks until the external command has finished or the default wait timeout
+     * ({@link ExtCmd#dfltWaitTimeout}) expires.
+     *
+     * @return the process exit code, or 124 if the wait timed out
+     * @throws ImplementationError if the waiting thread is interrupted
+     */
     public int waitDone()
     {
+        long deadline = System.currentTimeMillis() + ExtCmd.dfltWaitTimeout;
         synchronized (waiter)
         {
-            try
+            while(!waiter.get() && System.currentTimeMillis() < deadline)
             {
-                waiter.wait(ExtCmd.dfltWaitTimeout);
+                try
+                {
+                    waiter.wait(Math.max(1, deadline - System.currentTimeMillis()));
+                }
+                catch (InterruptedException exc)
+                {
+                    throw new ImplementationError(exc);
+                }
             }
-            catch (InterruptedException exc)
+            // indicate timeout
+            if (!waiter.get())
             {
-                throw new ImplementationError(exc);
+                exitCode = EXIT_CODE_TIMEOUT;
             }
         }
         return exitCode;
@@ -197,6 +217,7 @@ public class LineParserDaemon implements Runnable
         handler.stop(false);
         synchronized (waiter)
         {
+            waiter.set(true);
             waiter.notifyAll();
         }
         thread.interrupt();

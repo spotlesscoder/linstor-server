@@ -9,12 +9,13 @@ import com.linbit.linstor.storage.StorageException;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DeviceUtils
 {
     public static void waitUntilDeviceVisible(
-        String devicePath,
+        String devicePathStr,
         long waitTimeoutAfterCreateMillis,
         ErrorReporter errorReporterRef,
         FileSystemWatch fsWatchRef
@@ -38,26 +39,31 @@ public class DeviceUtils
             synchronized (syncObj)
             {
                 long start = System.currentTimeMillis();
+                Path devicePath = Paths.get(devicePathStr);
                 FileEntry fileWatchEntry = new FileEntry(
-                    Paths.get(devicePath),
+                    devicePath,
                     Event.CREATE,
                     fileObserver
                 );
                 fsWatchRef.addFileEntry(fileWatchEntry);
+
+                long deadline = System.currentTimeMillis() + waitTimeoutAfterCreateMillis;
                 try
                 {
                     errorReporterRef.logTrace(
                         "Waiting until device [%s] appears (up to %dms)",
-                        devicePath,
+                        devicePathStr,
                         waitTimeoutAfterCreateMillis
                     );
-
-                    syncObj.wait(waitTimeoutAfterCreateMillis);
+                    while(!Files.exists(devicePath) && System.currentTimeMillis() < deadline)
+                    {
+                        syncObj.wait(Math.max(1, deadline - System.currentTimeMillis()));
+                    }
                 }
                 catch (InterruptedException interruptedExc)
                 {
                     throw new StorageException(
-                        "Interrupted exception while waiting for device '" + devicePath + "' to show up",
+                        "Interrupted exception while waiting for device '" + devicePathStr + "' to show up",
                         interruptedExc
                     );
                 }
@@ -65,16 +71,16 @@ public class DeviceUtils
                 {
                     fsWatchRef.removeFileEntry(fileWatchEntry);
                 }
-                if (!Files.exists(Paths.get(devicePath)))
+                if (!Files.exists(devicePath))
                 {
                     throw new StorageException(
-                        "Device '" + devicePath + "' did not show up in " +
+                        "Device '" + devicePathStr + "' did not show up in " +
                             waitTimeoutAfterCreateMillis + "ms"
                     );
                 }
                 errorReporterRef.logTrace(
                     "Device [%s] appeared after %sms",
-                    devicePath,
+                    devicePathStr,
                     System.currentTimeMillis() - start
                 );
             }
@@ -82,7 +88,7 @@ public class DeviceUtils
         catch (IOException exc)
         {
             throw new StorageException(
-                "Unable to register file watch event for device '" + devicePath + "' being created",
+                "Unable to register file watch event for device '" + devicePathStr + "' being created",
                 exc
             );
         }

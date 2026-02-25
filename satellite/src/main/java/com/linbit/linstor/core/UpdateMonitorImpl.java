@@ -106,15 +106,25 @@ public class UpdateMonitorImpl implements UpdateMonitor
     }
 
     @Override
+    @SuppressWarnings("WaitNotInLoop")
     public void waitUntilCurrentFullSyncApplied(Object waitObject) throws InterruptedException
     {
         if (!currentFullSyncApplied)
         {
             synchronized (waitObject)
             {
+                // Regarding suppress WaitNotInLoop
+                // However, your patch fixes this issue, yes. But I am not sure if the while loop makes sense here.
+                // Since this method is effectively calling sched.wait(timeout), sched could be notified by some
+                // other source. If that other source does not set currentFullSyncApplied to true but wanted sched
+                // to wake up for any other reason (like graceful shutdown maybe?)
+                // we would keep getting stuck here in this loop.
                 if (!currentFullSyncApplied)
                 {
-                    waitObjects.add(waitObject);
+                    if (!waitObjects.contains(waitObject))
+                    {
+                        waitObjects.add(waitObject);
+                    }
                     waitObject.wait();
                 }
             }

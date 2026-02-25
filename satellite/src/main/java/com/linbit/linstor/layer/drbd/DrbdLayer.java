@@ -1886,14 +1886,16 @@ public class DrbdLayer implements DeviceLayer
         try
         {
             final Object syncObj = new Object();
+            long deadline = System.currentTimeMillis() + HAS_VALID_STATE_FOR_PRIMARY_TIMEOUT;
             synchronized (syncObj)
             {
                 String rscNameStr = drbdRscData.getSuffixedResourceName();
                 ReadyForPrimaryNotifier resourceObserver = new ReadyForPrimaryNotifier(rscNameStr, syncObj);
                 drbdState.addObserver(resourceObserver, DrbdStateTracker.OBS_DISK);
-                if (!resourceObserver.hasValidStateForPrimary(drbdState.getDrbdResource(rscNameStr)))
+                while (!resourceObserver.hasValidStateForPrimary(drbdState.getDrbdResource(rscNameStr)) &&
+                    System.currentTimeMillis() < deadline)
                 {
-                    syncObj.wait(HAS_VALID_STATE_FOR_PRIMARY_TIMEOUT);
+                    syncObj.wait(Math.max(1, deadline - System.currentTimeMillis()));
                 }
                 if (!resourceObserver.hasValidStateForPrimary(drbdState.getDrbdResource(rscNameStr)))
                 {
