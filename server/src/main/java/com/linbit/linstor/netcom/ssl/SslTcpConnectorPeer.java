@@ -1213,6 +1213,7 @@ public class SslTcpConnectorPeer extends TcpConnectorPeer
     /**
      * Generates a hex dump of the content of a ByteBuffer from the zero position
      */
+    @SuppressWarnings("ByteBufferBackingArray") // buffer is allocated()
     private void debugLogBufferContent(
         final String        logMsg,
         final ByteBuffer    buffer
