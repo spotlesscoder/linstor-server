@@ -2,6 +2,7 @@ package com.linbit.linstor.layer.storage.ebs;
 
 import com.linbit.extproc.ExtCmd;
 import com.linbit.linstor.layer.storage.utils.LsBlkUtils;
+import com.linbit.linstor.logging.ErrorReporter;
 import com.linbit.linstor.storage.LsBlkEntry;
 import com.linbit.linstor.storage.StorageException;
 
@@ -43,6 +44,7 @@ public class EbsProviderUtils
     }
 
     public static void waitUntilVolumeHasState(
+        ErrorReporter errReporter,
         AmazonEC2 client,
         String ebsVlmId,
         String expectedTargetState,
@@ -51,6 +53,7 @@ public class EbsProviderUtils
         throws StorageException
     {
         waitUntilVolumeHasState(
+            errReporter,
             client,
             DFLT_WAIT_TIMEOUT,
             ebsVlmId,
@@ -60,6 +63,7 @@ public class EbsProviderUtils
     }
 
     public static void waitUntilVolumeHasState(
+        ErrorReporter errReporter,
         AmazonEC2 client,
         int waitTimeoutInMs,
         String ebsVlmId,
@@ -102,7 +106,7 @@ public class EbsProviderUtils
                 }
                 catch (InterruptedException exc)
                 {
-                    exc.printStackTrace();
+                    errReporter.reportError(exc);
                 }
             }
         }
@@ -115,12 +119,14 @@ public class EbsProviderUtils
     }
 
     public static void waitUntilSnapshotCreated(
+        ErrorReporter errReporter,
         AmazonEC2 client,
         String ebsSnapId
     )
         throws StorageException
     {
         waitUntilSnapshotCreated(
+            errReporter,
             client,
             DFLT_WAIT_TIMEOUT,
             ebsSnapId
@@ -128,6 +134,7 @@ public class EbsProviderUtils
     }
 
     public static void waitUntilSnapshotCreated(
+        ErrorReporter errReporter,
         AmazonEC2 client,
         int waitTimeoutInMs,
         String ebsSnapId
@@ -166,7 +173,7 @@ public class EbsProviderUtils
             }
             catch (InterruptedException exc)
             {
-                exc.printStackTrace();
+                errReporter.reportError(exc);
             }
         }
         if (!created)

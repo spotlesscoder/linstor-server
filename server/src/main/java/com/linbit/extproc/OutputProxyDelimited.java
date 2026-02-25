@@ -35,6 +35,7 @@ public class OutputProxyDelimited extends OutputProxy
     }
 
     @Override
+    @SuppressWarnings("CatchAndPrintStackTrace")
     public void run()
     {
         int read = 0;

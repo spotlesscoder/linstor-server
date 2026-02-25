@@ -275,6 +275,7 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
         );
 
         EbsProviderUtils.waitUntilVolumeHasState(
+            errorReporter,
             client,
             ebsVlmId,
             EBS_VLM_STATE_IN_USE,
@@ -526,7 +527,7 @@ public class EbsInitiatorProvider extends AbsEbsProvider<LsBlkEntry>
                 .withTags(new Tag(TAG_KEY_LINSTOR_INIT_DEV))
         );
         // volume is most likely in "detaching" state
-        EbsProviderUtils.waitUntilVolumeHasState(client, ebsVlmId, "available", "in-use", "detaching");
+        EbsProviderUtils.waitUntilVolumeHasState(errorReporter, client, ebsVlmId, "available", "in-use", "detaching");
         vlmDataRef.setExists(false);
     }
 

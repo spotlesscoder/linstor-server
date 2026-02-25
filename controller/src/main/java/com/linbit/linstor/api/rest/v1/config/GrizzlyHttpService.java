@@ -523,7 +523,7 @@ class LinstorMapper implements ExceptionMapper<Exception>
         return javax.ws.rs.core.Response
             .status(respStatus)
             .type(MediaType.APPLICATION_JSON)
-            .entity(ApiCallRcRestUtils.toJSON(apiCallRc))
+            .entity(ApiCallRcRestUtils.toJSON(errorReporter, apiCallRc))
             .build();
     }
 }

@@ -249,7 +249,7 @@ public class RequestHelper
             ret = Response
                 .status(Response.Status.BAD_REQUEST)
                 .type(MediaType.APPLICATION_JSON)
-                .entity(ApiCallRcRestUtils.toJSON(apiCallRc))
+                .entity(ApiCallRcRestUtils.toJSON(errorReporter, apiCallRc))
                 .build();
         }
         catch (ApiRcException exc)
@@ -270,7 +270,7 @@ public class RequestHelper
             ret = Response
                 .status(Response.Status.INTERNAL_SERVER_ERROR)
                 .type(MediaType.APPLICATION_JSON)
-                .entity(ApiCallRcRestUtils.toJSON(apiCallRc))
+                .entity(ApiCallRcRestUtils.toJSON(errorReporter, apiCallRc))
                 .build();
         }
         finally
@@ -383,7 +383,7 @@ public class RequestHelper
         );
         return Response
             .status(Response.Status.NOT_FOUND)
-            .entity(ApiCallRcRestUtils.toJSON(apiCallRc))
+            .entity(ApiCallRcRestUtils.toJSONCatch(apiCallRc))
             .type(MediaType.APPLICATION_JSON)
             .build();
     }

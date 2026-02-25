@@ -339,7 +339,8 @@ public class EbsTargetProvider extends AbsEbsProvider<com.amazonaws.services.ec2
 
         String ebsVlmId = createVolumeResult.getVolume().getVolumeId();
         setEbsVlmId(vlmDataRef, ebsVlmId);
-        EbsProviderUtils.waitUntilVolumeHasState(client, ebsVlmId, EBS_VLM_STATE_AVAILABLE, EBS_VLM_STATE_CREATING);
+        EbsProviderUtils.waitUntilVolumeHasState(
+            errorReporter, client, ebsVlmId, EBS_VLM_STATE_AVAILABLE, EBS_VLM_STATE_CREATING);
 
         long allocatedSize = getAllocatedSize(vlmDataRef); // queries online
         vlmDataRef.setAllocatedSize(allocatedSize);
@@ -400,7 +401,7 @@ public class EbsTargetProvider extends AbsEbsProvider<com.amazonaws.services.ec2
         );
         String snapshotId = createSnapshotResult.getSnapshot().getSnapshotId();
 
-        EbsProviderUtils.waitUntilSnapshotCreated(client, snapshotId);
+        EbsProviderUtils.waitUntilSnapshotCreated(errorReporter, client, snapshotId);
 
         errorReporter.logTrace("EBS Snapshot created. EBS Snapshot ID: %s", snapshotId);
         setEbsSnapId(snapVlmRef, snapshotId);

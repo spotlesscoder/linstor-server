@@ -46,6 +46,7 @@ public class OutputProxy implements Runnable
     }
 
     @Override
+    @SuppressWarnings("CatchAndPrintStackTrace")
     public void run()
     {
         int read = 0;

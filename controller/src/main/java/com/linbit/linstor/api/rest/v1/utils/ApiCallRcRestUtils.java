@@ -1,10 +1,10 @@
 package com.linbit.linstor.api.rest.v1.utils;
 
-import com.linbit.linstor.annotation.Nullable;
 import com.linbit.linstor.api.ApiCallRc;
 import com.linbit.linstor.api.ApiCallRcImpl;
 import com.linbit.linstor.api.ApiConsts;
 import com.linbit.linstor.api.rest.v1.serializer.Json;
+import com.linbit.linstor.logging.ErrorReporter;
 
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.MediaType;
@@ -29,19 +29,38 @@ public class ApiCallRcRestUtils
     private static final long MAX_ACC_DENIED = 499;
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    public static @Nullable String toJSON(ApiCallRc apiCallRc)
+    public static String toJSON(ErrorReporter errLogger, ApiCallRc apiCallRc)
     {
-        String ret = null;
+        String ret;
         try
         {
             ret = OBJECT_MAPPER.writeValueAsString(Json.apiCallRcToJson(apiCallRc));
         }
         catch (JsonProcessingException exc)
         {
-            exc.printStackTrace();
+            errLogger.reportError(exc);
+            ret = String.format("JsonProcessingException: %s", exc.getMessage());
         }
-
         return ret;
+    }
+
+    public static String toJSONCatch(ApiCallRc apiCallRc)
+    {
+        String ret;
+        try
+        {
+            ret = OBJECT_MAPPER.writeValueAsString(Json.apiCallRcToJson(apiCallRc));
+        }
+        catch (JsonProcessingException exc)
+        {
+            ret = String.format("JsonProcessingException: %s", exc.getMessage());
+        }
+        return ret;
+    }
+
+    public static String toJSON(ApiCallRc apiCallRc) throws JsonProcessingException
+    {
+        return OBJECT_MAPPER.writeValueAsString(Json.apiCallRcToJson(apiCallRc));
     }
 
     public static Response toResponse(ApiCallRc apiCallRc, Response.Status successStatus)
@@ -87,7 +106,7 @@ public class ApiCallRcRestUtils
             builder.header(entry.getKey(), entry.getValue());
         }
 
-        return builder.entity(toJSON(apiCallRc)).type(MediaType.APPLICATION_JSON).build();
+        return builder.entity(toJSONCatch(apiCallRc)).type(MediaType.APPLICATION_JSON).build();
     }
 
     public static void handleJsonParseException(IOException ioexc, AsyncResponse asyncResponse)
