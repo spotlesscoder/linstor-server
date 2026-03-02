@@ -344,6 +344,13 @@ public class StltApiCallHandler
 
                 // first delete all kind of stuff
                 stltApiCallHandlerUtils.clearCoreMaps();
+                /*
+                 * clearCaches will also clear devMgr's reference of stltReadOnlyInfo (accessible via
+                 * getReadOnlyData()) we have to re-populate that before we give up the write-locks to prevent a stale
+                 * read from our caller (FullSync) method as it wants to respond the free spaces / capacities to the
+                 * controller.
+                 * This re-populating is done in devMgr.fullSyncApplied(localNode)
+                 */
                 stltApiCallHandlerUtils.clearCaches();
                 deleteUnknownResFiles(resources); // new res files should be (re-)generated in the next devMgrCycle
 

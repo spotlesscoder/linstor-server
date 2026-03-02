@@ -639,6 +639,7 @@ class DeviceManagerImpl implements Runnable, SystemService, DeviceManager, Devic
             try
             {
                 devHandler.localNodePropsChanged(localNode.getProps(wrkCtx));
+                copyReadOnlyData(localNode);
             }
             catch (AccessDeniedException exc)
             {
