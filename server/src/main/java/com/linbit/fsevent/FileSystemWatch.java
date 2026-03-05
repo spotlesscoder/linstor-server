@@ -307,7 +307,7 @@ public class FileSystemWatch implements Runnable, SystemService
      * Entries added by this method are always auto-removed when the event they are
      * watching happens. The observer is only called once.
      *
-     * If the file's parent directory can not be watched because it does not exist or is
+     * If the file's parent directory cannot be watched because it does not exist or is
      * inaccessible, or if the file system fails to perform the necessary actions to install
      * the necessary notification services, an IOException is thrown.
      *
@@ -351,7 +351,7 @@ public class FileSystemWatch implements Runnable, SystemService
      * be called once; otherwise, if a CREATE or DELETE event races with the call of the
      * addFileEntry() method, the observer may be called twice for the same event.
      *
-     * If the file's parent directory can not be watched because it does not exist or is
+     * If the file's parent directory cannot be watched because it does not exist or is
      * inaccessible, or if the file system fails to perform the necessary actions to install
      * the necessary notification services, an IOException is thrown.
      *
@@ -513,7 +513,7 @@ public class FileSystemWatch implements Runnable, SystemService
      *
      * DirectoryEntry instances stay active until they are removed.
      *
-     * If the specified directory can not be watched because it does not exist or is
+     * If the specified directory cannot be watched because it does not exist or is
      * inaccessible, or if the file system fails to perform the necessary actions to install
      * the necessary notification services, an IOException is thrown.
      *
@@ -548,7 +548,7 @@ public class FileSystemWatch implements Runnable, SystemService
      *
      * DirectoryEntry instances stay active until they are removed.
      *
-     * If the specified directory can not be watched because it does not exist or is
+     * If the specified directory cannot be watched because it does not exist or is
      * inaccessible, or if the file system fails to perform the necessary actions to install
      * the necessary notification services, an IOException is thrown.
      *
@@ -1056,7 +1056,7 @@ public class FileSystemWatch implements Runnable, SystemService
                     {
                         fsw.removeDirectoryEntry(lastDirWatchEntry);
                     }
-                    // if watchPath is a not a directoy, we are done - no need to check useOrigEntry
+                    // if watchPath is not a directory, we are done - no need to check useOrigEntry
                     if (isFileEntry)
                     {
                         fsw.addFileEntry((FileEntry) origEntry);

@@ -291,7 +291,7 @@ public class ScheduleBackupService implements SystemService
                     {
                         rc.addEntry(
                             "Resource Definition " + rscDfn.getName().displayValue +
-                                " sucessfully set to be shipped per schedule " + scheduleStr +
+                                " successfully set to be shipped per schedule " + scheduleStr +
                                 " to remote " + remoteStr + ".",
                             ApiConsts.MASK_SCHEDULE | ApiConsts.CREATED
                         );

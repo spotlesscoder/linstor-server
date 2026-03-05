@@ -398,7 +398,7 @@ public class CtrlStorPoolApiCallHandler
                     .entryBuilder(
                         ApiConsts.FAIL_IN_USE,
                         String.format(
-                                "The specified storage pool '%s' on node '%s' can not be deleted as " +
+                                "The specified storage pool '%s' on node '%s' cannot be deleted as " +
                                     "volumes / snapshot-volumes are still using it.",
                                 storPoolNameStr,
                                 nodeNameStr

@@ -81,7 +81,7 @@ public class GenericTimer<K extends Comparable<K>, V extends Action<K>>
      * An action holds this timer's lock while it is being called.
      *
      * While being performed, an action can add or cancel other actions.
-     * It can not re-add itself.
+     * It cannot re-add itself.
      * It could theoretically also cancel itself, although this serves no purpose,
      * because actions are automatically cancel upon completion.
      *
@@ -133,7 +133,7 @@ public class GenericTimer<K extends Comparable<K>, V extends Action<K>>
      * An action holds this timer's lock while it is being called.
      *
      * While being performed, an action can add or cancel other actions.
-     * It can not re-add itself.
+     * It cannot re-add itself.
      * It could theoretically also cancel itself, although this serves no purpose,
      * because actions are automatically cancel upon completion.
      *

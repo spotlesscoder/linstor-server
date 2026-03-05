@@ -792,7 +792,7 @@ public class StltExtToolsChecker
         {
             ret = Either.right(
                 Arrays.asList(
-                    "IO exception occured when running '" + ShellUtils.joinShellQuote(cmds) + "': " +
+                    "IO exception occurred when running '" + ShellUtils.joinShellQuote(cmds) + "': " +
                         ioExc.getMessage()
                 )
             );

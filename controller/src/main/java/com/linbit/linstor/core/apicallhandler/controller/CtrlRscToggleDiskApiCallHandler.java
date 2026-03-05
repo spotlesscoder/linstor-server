@@ -1229,7 +1229,7 @@ public class CtrlRscToggleDiskApiCallHandler implements CtrlSatelliteConnectionL
             throw new ApiRcException(
                 ApiCallRcImpl.simpleEntry(
                     ApiConsts.FAIL_UNKNOWN_ERROR,
-                    "An error occured while checking for mixed storage setups"
+                    "An error occurred while checking for mixed storage setups"
                 ),
                 exc
             );

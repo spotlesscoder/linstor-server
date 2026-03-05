@@ -887,7 +887,7 @@ public class DatabaseLoader implements DatabaseDriver
                         }
                         throw new LinStorDBRuntimeException(
                             String.format(
-                                "Error occured while loading %s, layer id: %d",
+                                "Error occurred while loading %s, layer id: %d",
                                 objDescr,
                                 rlo.getRscLayerId()
                             ),

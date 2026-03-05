@@ -45,13 +45,13 @@ public class K8sCrdUtils
             if (absRsc instanceof Resource)
             {
                 expectedVlmCount = absRsc.getResourceDefinition().getVolumeDfnCount(accCtx);
-                expectedType = "volume-defintions";
+                expectedType = "volume-definitions";
             }
             else
             {
                 expectedVlmCount = ((Snapshot) absRsc).getSnapshotDefinition()
                     .getAllSnapshotVolumeDefinitions(accCtx).size();
-                expectedType = "snapshot-volume-defintions";
+                expectedType = "snapshot-volume-definitions";
             }
 
             if (expectedVlmCount > 0)

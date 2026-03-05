@@ -79,7 +79,7 @@ public class CmdSetTraceMode extends BaseDebugCmd
             {
                 printError(
                     debugErr,
-                    "The specified TRACE level logging mode can not be set",
+                    "The specified TRACE level logging mode cannot be set",
                     "The value specified for the " + PRM_MODE_NAME + " parameter is invalid",
                     "Specify a valid value for the " + PRM_MODE_NAME + " parameter.\n" +
                     "Valid values are:\n" +

@@ -205,7 +205,7 @@ public class DbExportImportHelper
         catch (Exception exc)
         {
             throw new ApiRcException(
-                ApiCallRcImpl.simpleEntry(ApiConsts.MASK_ERROR, "Unknown exception occured"),
+                ApiCallRcImpl.simpleEntry(ApiConsts.MASK_ERROR, "Unknown exception occurred"),
                 exc
             );
         }
@@ -326,7 +326,7 @@ public class DbExportImportHelper
         catch (Exception exc)
         {
             throw new ApiRcException(
-                ApiCallRcImpl.simpleEntry(ApiConsts.MASK_ERROR, "Unknown exception occured"),
+                ApiCallRcImpl.simpleEntry(ApiConsts.MASK_ERROR, "Unknown exception occurred"),
                 exc
             );
         }

@@ -56,13 +56,13 @@ public interface BackupApi
     /**
      * is true if some volumes of the backup are still being uploaded from the current linstor cluster, and false
      * otherwise
-     * can be null if the snapshot definition can not be found on this linstor cluster
+     * can be null if the snapshot definition cannot be found on this linstor cluster
      */
     Boolean isShipping();
 
     /**
      * is true if the backup was uploaded successfully from the current linstor cluster, and false otherwise
-     * is null if shipping is true or if the snapshot definition can not be found on this linstor cluster
+     * is null if shipping is true or if the snapshot definition cannot be found on this linstor cluster
      */
     Boolean successful();
 

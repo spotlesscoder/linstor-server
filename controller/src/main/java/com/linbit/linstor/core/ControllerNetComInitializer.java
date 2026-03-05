@@ -136,7 +136,7 @@ public final class ControllerNetComInitializer implements StartupInitializer
         {
             throw new SystemServiceStopException(
                 String.format(
-                    "The name '%s' can not be used for a network communication service instance",
+                    "The name '%s' cannot be used for a network communication service instance",
                     serviceNameStr
                 ),
                 String.format(
@@ -567,7 +567,7 @@ public final class ControllerNetComInitializer implements StartupInitializer
         {
             throw new SystemServiceStartException(
                 String.format(
-                    "The name '%s' can not be used for a network communication service instance",
+                    "The name '%s' cannot be used for a network communication service instance",
                     serviceNameStr
                 ),
                 String.format(

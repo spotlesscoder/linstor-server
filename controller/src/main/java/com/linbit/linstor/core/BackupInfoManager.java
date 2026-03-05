@@ -896,7 +896,7 @@ public class BackupInfoManager
     }
 
     /**
-     * Returns null if cleanup can not be started
+     * Returns null if cleanup cannot be started
      * if srcSuccessRef is false, this method will ignore the finishedCount and return the cleanup data anyways
      */
     public @Nullable CleanupData l2lShippingFinished(StltRemote remote, boolean srcSuccessRef)

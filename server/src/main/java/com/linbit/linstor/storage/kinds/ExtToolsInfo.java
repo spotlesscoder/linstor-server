@@ -21,7 +21,7 @@ public class ExtToolsInfo
         @Nullable Integer versionMajorRef,
         @Nullable Integer versionMinorRef,
         /*
-         * versionPatch might be null even if the ExtTool is supported (versionMajor and versionMinor have to be not
+         * versionPatch might be null even if the ExtTool is supported (versionMajor and versionMinor must not be
          * null if the ExtTool is supported)
          */
         @Nullable Integer versionPatchRef,
@@ -84,7 +84,7 @@ public class ExtToolsInfo
     }
 
     /**
-     * versionPatch might be null even if the ExtTool is supported (versionMajor and versionMinor have to be not null)
+     * versionPatch might be null even if the ExtTool is supported (versionMajor and versionMinor must not be null)
      */
     public final Integer getVersionPatch()
     {

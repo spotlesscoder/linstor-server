@@ -225,7 +225,7 @@ public class BackupNodeFinder
                 {
                     if (targetRscName == null)
                     {
-                        throw new ImplementationError("targetRscName needs to be not null when using a linstor-remote");
+                        throw new ImplementationError("targetRscName must not be null when using a linstor-remote");
                     }
                     prevNodeStr = prevSnapDfnRef.getSnapDfnProps(accCtx)
                         .getProp(

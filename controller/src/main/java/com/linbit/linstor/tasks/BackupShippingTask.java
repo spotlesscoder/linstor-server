@@ -107,7 +107,7 @@ public class BackupShippingTask implements TaskScheduleService.Task
             flux = Flux.empty();
             errorReporter.reportError(
                 new ImplementationError(
-                    "The following remote type can not be used for scheduled shippings: " +
+                    "The following remote type cannot be used for scheduled shippings: " +
                         conf.remote.getClass().getSimpleName()
                 )
             );

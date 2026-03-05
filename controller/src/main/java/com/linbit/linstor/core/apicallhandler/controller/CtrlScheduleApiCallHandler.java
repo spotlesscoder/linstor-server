@@ -221,7 +221,7 @@ public class CtrlScheduleApiCallHandler
         ApiCallRcImpl responses = new ApiCallRcImpl();
         responses.addEntry(
             ApiCallRcImpl
-                .entryBuilder(ApiConsts.CREATED, scheduleDescription + " created sucessfully.")
+                .entryBuilder(ApiConsts.CREATED, scheduleDescription + " created successfully.")
                 .setDetails(scheduleDescription + " UUID is: " + schedule.getUuid().toString())
                 .build()
         );
@@ -360,7 +360,7 @@ public class CtrlScheduleApiCallHandler
         ApiCallRcImpl responses = new ApiCallRcImpl();
         responses.addEntry(
             ApiCallRcImpl
-                .entryBuilder(ApiConsts.MODIFIED, scheduleDescription + " modified sucessfully.")
+                .entryBuilder(ApiConsts.MODIFIED, scheduleDescription + " modified successfully.")
                 .setDetails(scheduleDescription + " UUID is: " + schedule.getUuid().toString())
                 .build()
         );

@@ -264,7 +264,7 @@ public class CtrlAuthentication<CTRL_DB_TYPE extends ControllerDatabase>
             throw new SignInException(
                 "The sign-in request failed due to a database error",
                 "Sign-in failed",
-                "A database error occured while processing the sign-in request",
+                "A database error occurred while processing the sign-in request",
                 "If an external database is used, make sure that the connection to the database server is available",
                 dbExc.getMessage(),
                 dbExc

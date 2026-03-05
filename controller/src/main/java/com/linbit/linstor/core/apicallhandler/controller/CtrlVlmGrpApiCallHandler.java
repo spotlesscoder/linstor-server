@@ -128,7 +128,7 @@ public class CtrlVlmGrpApiCallHandler
             throw new ApiRcException(
                 ApiCallRcImpl.entryBuilder(
                     ApiConsts.FAIL_EXISTS_RSC_DFN,
-                    "Volume group cannot be created while the resource group has already resource definitions."
+                    "Volume group cannot be created while the resource group already has resource definitions."
                 )
                 .build()
             );

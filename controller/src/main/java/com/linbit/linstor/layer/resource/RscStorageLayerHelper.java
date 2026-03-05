@@ -345,7 +345,7 @@ public class RscStorageLayerHelper extends
                         {
                             throw new StorageException(
                                 "Cannot connect to target resource '" + targetRsc +
-                                    "' since it has already a connected EBS initiator"
+                                    "' since it already has a connected EBS initiator"
                             );
                         }
                     }

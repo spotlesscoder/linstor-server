@@ -277,7 +277,7 @@ public final class SatelliteNetComInitializer
                                 NET_COM_CONF_TYPE_SSL
                             ),
                             // Description
-                            "The initial network communication service can not be started.",
+                            "The initial network communication service cannot be started.",
                             // Cause
                             String.format(
                                 "The network type '%s' is invalid.",

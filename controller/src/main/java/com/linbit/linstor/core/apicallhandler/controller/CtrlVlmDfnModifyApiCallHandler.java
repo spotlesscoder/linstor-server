@@ -754,7 +754,7 @@ public class CtrlVlmDfnModifyApiCallHandler implements CtrlSatelliteConnectionLi
         {
             throw new ApiAccessDeniedException(
                 exc,
-                "Checking resource-defintion if property '" + PROP_KEY_RSC_DNF_EXACT_SIZE + "' is set",
+                "Checking resource-definition if property '" + PROP_KEY_RSC_DNF_EXACT_SIZE + "' is set",
                 ApiConsts.FAIL_ACC_DENIED_RSC_DFN
             );
         }

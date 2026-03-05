@@ -1938,7 +1938,7 @@ public class JsonGenTypes
     {
         /**
          * CLONING -> indicates the resource is currently copying data
-         * FAILED -> error occured while cloning, resource not usable
+         * FAILED -> error occurred while cloning, resource not usable
          * COMPLETE -> resource is ready to use
          */
         public String status;

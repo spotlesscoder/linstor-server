@@ -1125,7 +1125,7 @@ public class CtrlSosReportApiCallHandler
             if (command != null && command.length > 0)
             {
                 errorReporter.logError(
-                    "IOException occured while writing to %s from the command '%s'",
+                    "IOException occurred while writing to %s from the command '%s'",
                     file.toString(),
                     ShellUtils.joinShellQuote(command)
                 );
@@ -1133,7 +1133,7 @@ public class CtrlSosReportApiCallHandler
             else
             {
                 errorReporter.logError(
-                    "IOException occured while writing to %s",
+                    "IOException occurred while writing to %s",
                     file.toString()
                 );
             }

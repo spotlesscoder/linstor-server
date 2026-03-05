@@ -1162,7 +1162,7 @@ public class TcpConnectorService implements Runnable, TcpConnector
                 }
                 catch (UnsupportedAddressTypeException addrExc)
                 {
-                    // Thrown if the socket can not be bound, because the type of
+                    // Thrown if the socket cannot be bound, because the type of
                     // address to bind the socket to is unsupported
                     savedExc = new IOException(
                         "Server socket creation failed, the specified server address " +
@@ -1322,7 +1322,7 @@ public class TcpConnectorService implements Runnable, TcpConnector
                     // Generated if a bit in the I/O operations specified
                     // in register() does not correspond with a supported I/O operation
                     // Should not happen; log the error.
-                    // Server socket can not accept connections, treat this as an I/O error
+                    // Server socket cannot accept connections, treat this as an I/O error
                     throw new IOException(
                         "Configuring the server socket to accept new connections failed",
                         illArg

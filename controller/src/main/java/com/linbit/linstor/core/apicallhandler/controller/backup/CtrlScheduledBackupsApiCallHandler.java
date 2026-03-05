@@ -223,7 +223,7 @@ public class CtrlScheduledBackupsApiCallHandler
                 {
                     numToDelete--;
                     errorReporter.logTrace(
-                        "SnapDfn %s and all snapDfns dependant on it will be deleted due to schedule %s",
+                        "SnapDfn %s and all snapDfns dependent on it will be deleted due to schedule %s",
                         snapDfnToCheck.getName(),
                         schedule.getName()
                     );
@@ -287,7 +287,7 @@ public class CtrlScheduledBackupsApiCallHandler
                 {
                     numToDelete--;
                     errorReporter.logTrace(
-                        "Backup %s and all backups dependant on it will be deleted on remote %s due to schedule %s",
+                        "Backup %s and all backups dependent on it will be deleted on remote %s due to schedule %s",
                         s3key,
                         remote.getName(),
                         schedule.getName()
@@ -805,7 +805,7 @@ public class CtrlScheduledBackupsApiCallHandler
     {
         StringBuilder sb = new StringBuilder("Backup shipping schedule '")
             .append(scheduleNameRef)
-            .append("' sucessfully ")
+            .append("' successfully ")
             .append(actionRef);
         if (rscNameRef != null)
         {
